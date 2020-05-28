@@ -1,89 +1,13 @@
 import os
 import time
 import random
-#from casilla import *
 import itertools
 import sys, pygame
 from tkinter import *
 from pygame.locals import *
 from PIL import Image, ImageTk
-#from interface import implements, Interface
-
-class Casilla():
-    pass
-
-class CasillaEstandar(Casilla):
-
-    def __init__(self, mis_coordenadas, color, mi_forma, mi_indice, ventana):
-        self.mis_coordenadas = mis_coordenadas
-        self.color = color
-        self.mi_forma = mi_forma
-        self.mi_indice = mi_indice
-        self.ventana = ventana
-
-    def getCoordenadas(self):
-        return self.mis_coordenadas
-
-    def getColor(self):
-        return self.color
-
-    def getForma(self):
-        return self.mi_forma
-
-    def getIndice(self):
-        return self.mi_indice
-
-    def dibujar(self):
-        pygame.draw.rect(self.ventana, (0,0,0), self.mi_forma)
-        pygame.draw.rect(self.ventana, (200,200,200), self.mi_forma, 1)
-        return
-  
-class CasillaEscalera(Casilla):
-
-    def __init__(self, casilla):
-        self.casilla = casilla
-
-class CasillaSerpiente(Casilla):
-
-    def __init__(self, casilla):
-        self.casilla = casilla
-
-
-class Conector():
-    pass
-
-class ConectorEstandar(Conector):
-
-    def __init__(self, casilla, ventana):
-        self.casilla_inicio = casilla[0]
-        self.casilla_final = casilla[1]
-        self.ventana = ventana
-
-    def getCasillaInicio(self):
-        return self.casilla_inicio
-
-    def getCasillaFinal(self):
-        return self.casilla_final
-
-    def getVentana(self):
-        return self.ventana
-    
-class Escalera(Conector):
-
-    def __init__(self, conector):
-        self.conector = conector
-
-    def dibujar(self):
-        pygame.draw.line(self.conector.getVentana(), (0,128,0), self.conector.getCasillaInicio().casilla.getCoordenadas(), self.conector.getCasillaFinal().casilla.getCoordenadas(), 4)
-
-class Serpiente(Conector):
-
-    def __init__(self, conector):
-        self.conector = conector
-
-    def dibujar(self):
-        pygame.draw.line(self.conector.getVentana(), (255,0,0), self.conector.getCasillaInicio().casilla.getCoordenadas(), self.conector.getCasillaFinal().casilla.getCoordenadas(), 4)
-
+from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
+from conector import Conector, ConectorEstandar, Escalera, Serpiente
 
 class Tablero():
     def __init__(self, tamanio, ventana):
@@ -173,7 +97,7 @@ class Tablero():
     def generar_serpientes(self, escaleras, casillas, cantidad):
         serpientes_temp = []
         generados = 0
-        while generados < cantidad * 2: #Son 6 serpientes generadas en tuplas de 2
+        while generados < cantidad * 2: #Son cantidad serpientes generadas en tuplas de 2
             while True:
                 valor = random.randint(1, len(casillas) - 2)
                 if (valor not in escaleras) and (valor not in serpientes_temp):
@@ -187,7 +111,7 @@ class Tablero():
         escaleras_temp = []
         generados = 0
 
-        while generados < cantidad * 2: #Son 6 escaleras generadas en tuplas de 2
+        while generados < cantidad * 2: #Son cantidad escaleras generadas en tuplas de 2
             while True:
                 valor = random.randint(1, len(casillas) - 2)
                 if valor not in escaleras_temp:
@@ -249,7 +173,7 @@ class Tablero():
         centro_casillas_x = []
         centro_casillas_y = []
 
-        cantidad_casillas_x, cantidad_casillas_y = 10, 10
+        cantidad_casillas_x, cantidad_casillas_y = self.tamanio[0], self.tamanio[1]
         ancho_casilla = int(ancho_total/cantidad_casillas_x)
         altura_casilla = int(alto_total/cantidad_casillas_y)
     
@@ -262,31 +186,80 @@ class Tablero():
     
         return centro_casillas
 
+    def colorearCasillas(self):
+        colores_x = ["amarillo", "blanco", "rojo", "azul", "verde"]
+
+        i = 0
+        indice_color_x = 0
+        indice_color_y = 0
+        par_actual, par_final = 0, self.tamanio[0]
+        impar_actual, impar_final = self.tamanio[0] * 2 - 1, self.tamanio[0] - 1
+
+        while i < self.tamanio[1] // 2: 
+            #Coloreado filas pares
+            for j in range (par_actual, par_final):
+                if isinstance(self.casillas[j], CasillaEstandar):
+                    self.casillas[j].setColor(colores_x[indice_color_x])
+                else:
+                    self.casillas[j].casilla.setColor(colores_x[indice_color_x])
+                
+                indice_color_x += 1
+                if indice_color_x > 4:
+                    indice_color_x = 0
+
+            #Coloreado filas impares
+            for j in range (impar_actual, impar_final, -1):
+                if isinstance(self.casillas[j], CasillaEstandar):
+                    self.casillas[j].setColor(colores_x[(indice_color_x + 3) % 5])
+                else:
+                    self.casillas[j].casilla.setColor(colores_x[(indice_color_x + 3) % 5])
+                
+                indice_color_x += 1
+                if indice_color_x > 4:
+                    indice_color_x = 0
+            
+            indice_color_y += 1 
+            if indice_color_y > 4:
+                indice_color_y = 0
+
+            indice_color_x = indice_color_y
+
+            par_actual += self.tamanio[0] * 2
+            par_final += self.tamanio[0] * 2
+
+            impar_actual += self.tamanio[0] * 2
+            impar_final += self.tamanio[0] * 2
+
+            i += 1
+ 
+        return
+
     def dibujarCasillas(self):
-        
+
         for c in self.casillas:
             if isinstance(c, CasillaSerpiente) or isinstance(c, CasillaEscalera):
                 c.casilla.dibujar()
             else:
                 c.dibujar()
 
+        """
         casilla_previa = None
         for casilla_actual in self.casillas:
             if casilla_previa:
                 if (isinstance(casilla_previa, CasillaEscalera) or isinstance(casilla_previa, CasillaSerpiente)) and (isinstance(casilla_actual, CasillaEstandar)):
-                    pygame.draw.line(self.ventana, (255,255,255), casilla_previa.casilla.getCoordenadas(), casilla_actual.getCoordenadas(), 4)
+                    pygame.draw.line(self.ventana, (0,0,0), casilla_previa.casilla.getCoordenadas(), casilla_actual.getCoordenadas(), 4)
 
                 elif (isinstance(casilla_previa, CasillaEstandar)) and (isinstance(casilla_actual, CasillaSerpiente) or isinstance(casilla_actual, CasillaEscalera)):
-                    pygame.draw.line(self.ventana, (255,255,255), casilla_previa.getCoordenadas(), casilla_actual.casilla.getCoordenadas(), 4)
+                    pygame.draw.line(self.ventana, (0,0,0), casilla_previa.getCoordenadas(), casilla_actual.casilla.getCoordenadas(), 4)
 
                 elif isinstance(casilla_previa, CasillaEstandar) and isinstance(casilla_actual, CasillaEstandar):
-                    pygame.draw.line(self.ventana, (255,255,255), casilla_previa.getCoordenadas(), casilla_actual.getCoordenadas(), 4)
+                    pygame.draw.line(self.ventana, (0,0,0), casilla_previa.getCoordenadas(), casilla_actual.getCoordenadas(), 4)
 
                 elif (isinstance(casilla_previa, CasillaEscalera) or isinstance(casilla_previa, CasillaSerpiente)) and (isinstance(casilla_actual, CasillaSerpiente) or isinstance(casilla_actual, CasillaEscalera)):
-                    pygame.draw.line(self.ventana, (255,255,255), casilla_previa.casilla.getCoordenadas(), casilla_actual.casilla.getCoordenadas(), 4)
-
+                    pygame.draw.line(self.ventana, (0,0,0), casilla_previa.casilla.getCoordenadas(), casilla_actual.casilla.getCoordenadas(), 4)
 
             casilla_previa = casilla_actual
+        """
 
         for i in self.serpientes:
             i.dibujar()
@@ -298,15 +271,19 @@ def main():
 
     ancho, alto = 700, 700
 
+    pygame.init()
+
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     ventana = pygame.display.set_mode((ancho, alto))
-    ventana.fill((0,0,0))
+    #ventana.fill((0,0,0))
 
     t = Tablero((10, 10), ventana)
+    t.colorearCasillas()
     t.dibujarCasillas()
 
     while True:
         for events in pygame.event.get():
             if events.type == QUIT:
                 sys.exit(0)
+
 main()
