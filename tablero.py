@@ -3,20 +3,22 @@ import time
 import random
 import itertools
 import sys, pygame
-from tkinter import *
 from pygame.locals import *
-from PIL import Image, ImageTk
-from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
+from button import Button
+from sidebar import Sidebar
 from conector import Conector, ConectorEstandar, Escalera, Serpiente
+from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
+from dado import Dado
 
 class Tablero():
-    def __init__(self, tamanio, ventana):
+    def __init__(self, tamanio, ventana, ancho_barra):
         self.tamanio = tamanio # x * y = z
         self.ventana = ventana
         self.casillas = []
         self.serpientes = []
         self.escaleras = []
         self.generarCasillas()
+        self.ancho_barra = ancho_barra
 
     def generarCasillas(self):
         
@@ -33,7 +35,7 @@ class Tablero():
             encontrado = False
             for j in range(len(posiciones_serpientes)):
                 if not encontrado and i in posiciones_serpientes[j]:
-                    figura = pygame.Rect(centros_casillas[i][0] - int((alto/self.tamanio[0])/2), centros_casillas[i][1] - int((ancho/self.tamanio[1])/2), alto/self.tamanio[0], ancho/self.tamanio[1])
+                    figura = pygame.Rect(centros_casillas[i][0] - int((alto//self.tamanio[0])//2), centros_casillas[i][1] - int((ancho//self.tamanio[1])/2), alto//self.tamanio[0], ancho//self.tamanio[1])
                     temp = CasillaEstandar(centros_casillas[i], (255,255,255), figura, i, self.ventana)
                     serpiente = CasillaSerpiente(temp)
                     self.casillas.append(serpiente)
@@ -43,7 +45,7 @@ class Tablero():
 
             for k in range(len(posiciones_escaleras)):
                 if not encontrado and i in posiciones_escaleras[k]:
-                    figura = pygame.Rect(centros_casillas[i][0] - int((alto/self.tamanio[0])/2), centros_casillas[i][1] - int((ancho/self.tamanio[1])/2), alto/self.tamanio[0], ancho/self.tamanio[1])
+                    figura = pygame.Rect(centros_casillas[i][0] - int((alto//self.tamanio[0])//2), centros_casillas[i][1] - int((ancho//self.tamanio[1])/2), alto//self.tamanio[0], ancho//self.tamanio[1])
                     temp = CasillaEstandar(centros_casillas[i], (255,255,255), figura, i, self.ventana)
                     escalera = CasillaEscalera(temp)
                     self.casillas.append(escalera)
@@ -52,21 +54,27 @@ class Tablero():
                     break
 
             if not encontrado:
-                figura = pygame.Rect(centros_casillas[i][0] - int((alto/self.tamanio[0])/2), centros_casillas[i][1] - int((ancho/self.tamanio[1])/2), alto/self.tamanio[0], ancho/self.tamanio[1])
+                figura = pygame.Rect(centros_casillas[i][0] - int((alto//self.tamanio[0])//2), centros_casillas[i][1] - int((ancho//self.tamanio[1])//2), alto//self.tamanio[0], ancho//self.tamanio[1])
                 casillaEstandar = CasillaEstandar(centros_casillas[i], (255,255,255), figura, i, self.ventana)
                 self.casillas.append(casillaEstandar)
 
-        for i in self.casillas:
-            if isinstance(i, CasillaSerpiente):
-                if not self.existeConexion(i.casilla.getIndice()):
-                    conector = ConectorEstandar(self.getPar(i.casilla.getIndice(), posiciones_serpientes), self.ventana)
+        for i in range(len(self.casillas)):
+            if isinstance(self.casillas[i], CasillaSerpiente):
+                if not self.existeConexion(self.casillas[i].casilla.getIndice()):
+                    conector = ConectorEstandar(self.getPar(self.casillas[i].casilla.getIndice(), posiciones_serpientes), self.ventana)
                     self.serpientes.append(Serpiente(conector))
+                    self.serpientes[len(self.serpientes) - 1].conector.sendConector()
 
-            elif isinstance(i, CasillaEscalera):
-                if not self.existeConexion(i.casilla.getIndice()):
-                    conector = ConectorEstandar(self.getPar(i.casilla.getIndice(), posiciones_escaleras), self.ventana)
+            elif isinstance(self.casillas[i], CasillaEscalera):
+                if not self.existeConexion(self.casillas[i].casilla.getIndice()):
+                    conector = ConectorEstandar(self.getPar(self.casillas[i].casilla.getIndice(), posiciones_escaleras), self.ventana)
                     self.escaleras.append(Escalera(conector))
+                    self.escaleras[len(self.escaleras) - 1].conector.sendConector()
 
+        #for i in range(len(self.casillas)):
+            #if not isinstance(self.casillas[i], CasillaEstandar):
+                #print(self.casillas[i].casilla.getIndice() + 1, self.casillas[i].casilla.getFinal() + 1, self.casillas[i].casilla.esInicio())
+                
     def getPosicionesEnTupla(self, indice, posiciones):
         #print("Indice: ", indice, "\n", "Posiciones: ", posiciones)
         for i in posiciones:
@@ -130,12 +138,33 @@ class Tablero():
         serpientes = []
 
         for i in range(0, len(escaleras_temp), 2):
-            tupla = (escaleras_temp[i], escaleras_temp[i+1])
+
+            valorInicial = 0
+            valorFinal = 0
+
+            if escaleras_temp[i] < escaleras_temp[i+1]:
+                valorInicial = escaleras_temp[i]
+                valorFinal = escaleras_temp[i+1]
+            else:
+                valorInicial = escaleras_temp[i+1]
+                valorFinal = escaleras_temp[i]
+
+            tupla = (valorInicial, valorFinal)
             escaleras.append(tupla)
 
         for i in range(0, len(serpientes_temp), 2):
-            tupla = (serpientes_temp[i], serpientes_temp[i+1])
-            #print(tupla)
+
+            valorInicial = 0
+            valorFinal = 0
+
+            if serpientes_temp[i] > serpientes_temp[i+1]:
+                valorInicial = serpientes_temp[i]
+                valorFinal = serpientes_temp[i+1]
+            else:
+                valorInicial = serpientes_temp[i+1]
+                valorFinal = serpientes_temp[i]
+
+            tupla = (valorInicial, valorFinal)
             serpientes.append(tupla)
 
         #print("Escaleras: ", escaleras)
@@ -269,21 +298,53 @@ class Tablero():
 
 def main():
 
-    ancho, alto = 700, 700
+    ancho_barra = 250
+
+    ancho, alto = 700 + ancho_barra, 700
 
     pygame.init()
+    pygame.display.set_caption("Serpientes y escaleras")
+    #ruta_local = os.path.dirname(__file__)
+    #ruta_icono = os.path.join(ruta_local, "000.jpg")
+    #icono = pygame.image.load(ruta_icono)
+    #pygame.display.set_icon(icono)
+
+    #Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     ventana = pygame.display.set_mode((ancho, alto))
     #ventana.fill((0,0,0))
 
-    t = Tablero((10, 10), ventana)
+    cantidad_x, cantidad_y = 10, 10
+
+    assert (ancho - ancho_barra) % cantidad_x == 0 and alto % cantidad_y == 0
+
+    t = Tablero((cantidad_x, cantidad_y), ventana, ancho_barra)
     t.colorearCasillas()
     t.dibujarCasillas()
 
-    while True:
-        for events in pygame.event.get():
-            if events.type == QUIT:
-                sys.exit(0)
+    boton_dados = Button(ventana, (255,255,255), 750, 35, 150, 40, "Lanzar dados")
+    dado = Dado(ventana)
+    elementos_sidebar = [boton_dados, dado]
+    sidebar = Sidebar(ventana, 700, 700, 250, (255,255,255), elementos_sidebar)
 
-main()
+    while True:
+        boton_dados.dibujar()
+        pygame.display.update()
+        resultado_dados = 0
+        for events in pygame.event.get():
+            posicion_cursor = pygame.mouse.get_pos()
+            if events.type == QUIT:
+                pygame.quit()
+                sys.exit(0)
+            elif events.type == pygame.MOUSEBUTTONDOWN:
+                if boton_dados.isOver(posicion_cursor):
+                    resultado_dados = dado.lanzar()     # esta variable contiene ahora el numero que lanzaron los dados. usar donde se necesite.
+            elif events.type == pygame.MOUSEMOTION:
+                if boton_dados.isOver(posicion_cursor):
+                    boton_dados.mi_color = (161,222,147)
+                else:
+                    boton_dados.mi_color = (54,57,63)
+                
+
+main() 

@@ -3,9 +3,7 @@ import time
 import random
 import itertools
 import sys, pygame
-from tkinter import *
 from pygame.locals import *
-from PIL import Image, ImageTk
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 
 class Conector():
@@ -27,7 +25,11 @@ class ConectorEstandar(Conector):
 
     def getVentana(self):
         return self.ventana
-    
+
+    def sendConector(self):
+        self.casilla_inicio.casilla.setConector(self)
+        self.casilla_final.casilla.setConector(self)
+
 class Escalera(Conector):
 
     def __init__(self, conector):
