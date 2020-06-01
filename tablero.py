@@ -8,7 +8,6 @@ from button import Button
 from sidebar import Sidebar
 from conector import Conector, ConectorEstandar, Escalera, Serpiente
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
-from dado import Dado
 
 class Tablero():
     def __init__(self, tamanio, ventana, ancho_barra):
@@ -19,6 +18,7 @@ class Tablero():
         self.escaleras = []
         self.generarCasillas()
         self.ancho_barra = ancho_barra
+        
 
     def generarCasillas(self):
         
@@ -296,55 +296,22 @@ class Tablero():
         for i in self.escaleras:
             i.dibujar()
 
-def main():
+    def reordenar_objetos(self, index, resultado_dados):
+        #Primero limpia la posicion actual
+        if isinstance(self.casillas[index], CasillaEstandar):
+            self.ventana.fill(self.casillas[index].getColor(), (self.casillas[index].getCoordenadas()[0]+10, self.casillas[index].getCoordenadas()[1]-5, 16, 16))
+        else:
+            self.ventana.fill(self.casillas[index].casilla.getColor(), (self.casillas[index].casilla.getCoordenadas()[0]+10, self.casillas[index].casilla.getCoordenadas()[1]-5, 16, 16))
+        #verifica que no pase de 100
+        if index + resultado_dados > 99:
+            index = (index+resultado_dados)-100
+        else:
+            index = index+resultado_dados
+        #Despues calcula las coordenadas de la siguiente posicion a estar
+        if isinstance(self.casillas[index], CasillaEstandar):
+            coordenadas = self.casillas[index].getCoordenadas()
+        else:
+            coordenadas = self.casillas[index].casilla.getCoordenadas()
+        return coordenadas
 
-    ancho_barra = 250
 
-    ancho, alto = 700 + ancho_barra, 700
-
-    pygame.init()
-    pygame.display.set_caption("Serpientes y escaleras")
-    #ruta_local = os.path.dirname(__file__)
-    #ruta_icono = os.path.join(ruta_local, "000.jpg")
-    #icono = pygame.image.load(ruta_icono)
-    #pygame.display.set_icon(icono)
-
-    #Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-
-    os.environ['SDL_VIDEO_CENTERED'] = '1'
-    ventana = pygame.display.set_mode((ancho, alto))
-    #ventana.fill((0,0,0))
-
-    cantidad_x, cantidad_y = 10, 10
-
-    assert (ancho - ancho_barra) % cantidad_x == 0 and alto % cantidad_y == 0
-
-    t = Tablero((cantidad_x, cantidad_y), ventana, ancho_barra)
-    t.colorearCasillas()
-    t.dibujarCasillas()
-
-    boton_dados = Button(ventana, (255,255,255), 750, 35, 150, 40, "Lanzar dados")
-    dado = Dado(ventana)
-    elementos_sidebar = [boton_dados, dado]
-    sidebar = Sidebar(ventana, 700, 700, 250, (255,255,255), elementos_sidebar)
-
-    while True:
-        boton_dados.dibujar()
-        pygame.display.update()
-        resultado_dados = 0
-        for events in pygame.event.get():
-            posicion_cursor = pygame.mouse.get_pos()
-            if events.type == QUIT:
-                pygame.quit()
-                sys.exit(0)
-            elif events.type == pygame.MOUSEBUTTONDOWN:
-                if boton_dados.isOver(posicion_cursor):
-                    resultado_dados = dado.lanzar()     # esta variable contiene ahora el numero que lanzaron los dados. usar donde se necesite.
-            elif events.type == pygame.MOUSEMOTION:
-                if boton_dados.isOver(posicion_cursor):
-                    boton_dados.mi_color = (161,222,147)
-                else:
-                    boton_dados.mi_color = (54,57,63)
-                
-
-main() 

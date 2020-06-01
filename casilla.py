@@ -22,7 +22,7 @@ class CasillaEstandar(Casilla):
 
     def getCoordenadas(self):
         return self.mis_coordenadas
-
+    
     def getColor(self):
         return self.mi_color
 
