@@ -39,8 +39,8 @@ def main():
     assert (ANCHO - ANCHO_BARRA) % CANTIDAD_X == 0 and ALTO % CANTIDAD_Y == 0
 
     #Inicializa Singleton
-    singleton = Singleton(ANCHO, ALTO)
-    
+    Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y)
+
     #Inicializa tablero
     t = Tablero((CANTIDAD_X, CANTIDAD_Y), ventana, ANCHO_BARRA)
     t.colorearCasillas()
@@ -53,11 +53,13 @@ def main():
     sidebar = Sidebar(ventana, 700, 700, 250, (255,255,255), elementos_sidebar)
 
     #Inicializa jugador
-    jugador = Jugador(ventana, 0, t.casillas[0].getCoordenadas()[0]+10, t.casillas[0].getCoordenadas()[1]-5, 16, 16)
-    singleton.agregar_jugador(jugador)
+    jugador = Jugador(ventana, 0, t.casillas[0].getCoordenadas()[0] + ((Singleton.getAlto()//Singleton.getCantX())//6),
+                    t.casillas[0].getCoordenadas()[1] - ((Singleton.getAlto()//Singleton.getCantY())//6),
+                    (ALTO//CANTIDAD_X)//4, (ALTO/CANTIDAD_Y)//4)
+    Singleton.agregar_jugador(jugador)
     
     while True:
-       #clock.tick(40) #TODO buscar mas info sobre el uso
+       #clock.tick(40)                          #TODO buscar mas info sobre el uso
         boton_dados.dibujar()
         pygame.display.update()
         resultado_dados = 0
@@ -79,9 +81,13 @@ def main():
                 else:
                     boton_dados.mi_color = (54,57,63)
             if resultado_dados > 0:
-                coordenadas = t.reordenar_objetos(jugador.pos_tablero, resultado_dados)
+                #t.reordenar_casillas(jugador.pos_tablero)           #limpia ficha de jugador
+                t.limpar_casilla(jugador.pos_tablero)
+                coordenadas = t.obtener_destino(jugador.pos_tablero, resultado_dados)
                 jugador.mover(resultado_dados, coordenadas)
-        
+
+            #dibuja todos los jugadores en el tablero    
+            Singleton.dibujar_jugadores()
 
                 
 

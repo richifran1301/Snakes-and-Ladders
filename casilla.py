@@ -31,6 +31,9 @@ class CasillaEstandar(Casilla):
 
     def getIndice(self):
         return self.mi_indice
+    
+    def getConector(self):
+        return self.conector
 
     def setColor(self, color):
         self.mi_color = self.colores[color]

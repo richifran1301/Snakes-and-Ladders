@@ -8,6 +8,7 @@ from button import Button
 from sidebar import Sidebar
 from conector import Conector, ConectorEstandar, Escalera, Serpiente
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
+from singleton import Singleton
 
 class Tablero():
     def __init__(self, tamanio, ventana, ancho_barra):
@@ -296,12 +297,26 @@ class Tablero():
         for i in self.escaleras:
             i.dibujar()
 
-    def reordenar_objetos(self, index, resultado_dados):
+
+    #TODO implementar bien para que no borre escaleras y serpientes
+    def limpar_casilla(self, index):
         #Primero limpia la posicion actual
         if isinstance(self.casillas[index], CasillaEstandar):
-            self.ventana.fill(self.casillas[index].getColor(), (self.casillas[index].getCoordenadas()[0]+10, self.casillas[index].getCoordenadas()[1]-5, 16, 16))
+            self.casillas[index].dibujar()
         else:
-            self.ventana.fill(self.casillas[index].casilla.getColor(), (self.casillas[index].casilla.getCoordenadas()[0]+10, self.casillas[index].casilla.getCoordenadas()[1]-5, 16, 16))
+            self.casillas[index].casilla.dibujar()
+            conector = self.casillas[index].casilla.getConector()
+            if isinstance(conector, Serpiente):      #dibuja si hay serpiente 
+                #lo intente simplemente conector.dibujar() pero tampoco
+                #conector.dibujar()
+                self.serpientes.index(conector).dibujar()
+            elif isinstance(conector, Escalera):      #dibuja si hay escalera
+                self.escaleras.index(conector).dibujar()
+
+    
+
+
+    def obtener_destino(self, index, resultado_dados):
         #verifica que no pase de 100
         if index + resultado_dados > 99:
             index = (index+resultado_dados)-100
