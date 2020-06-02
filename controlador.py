@@ -17,9 +17,7 @@ ALTO = 700
 CANTIDAD_X = 10
 CANTIDAD_Y = 10
 
-
-def main():
-
+def genere_ventana_pygame():
     #Pygame condiciones iniciales
     pygame.init()
     clock = pygame.time.Clock()
@@ -38,28 +36,31 @@ def main():
 
     assert (ANCHO - ANCHO_BARRA) % CANTIDAD_X == 0 and ALTO % CANTIDAD_Y == 0
 
-    #Inicializa Singleton
-    Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y)
+    return ventana
 
-    #Inicializa tablero
-    t = Tablero((CANTIDAD_X, CANTIDAD_Y), ventana, ANCHO_BARRA)
+def genere_tablero(_ventana):
+    t = Tablero((CANTIDAD_X, CANTIDAD_Y), _ventana, ANCHO_BARRA)
     t.colorearCasillas()
     t.dibujarCasillas()
+    return t
 
-    #Inicializa dados
-    boton_dados = Button(ventana, (255,255,255), 750, 35, 150, 40, "Lanzar dados")
-    dado = Dado(ventana)
+def genere_dados(_ventana):
+    boton_dados = Button(_ventana, (255,255,255), 750, 35, 150, 40, "Lanzar dados")
+    dado = Dado(_ventana)
     elementos_sidebar = [boton_dados, dado]
-    sidebar = Sidebar(ventana, 700, 700, 250, (255,255,255), elementos_sidebar)
+    sidebar = Sidebar(_ventana, 700, 700, 250, (255,255,255), elementos_sidebar)
+    return boton_dados,dado,elementos_sidebar,sidebar
 
-    #Inicializa jugador
-    jugador = Jugador(ventana, 0, t.casillas[0].getCoordenadas()[0] + ((Singleton.getAlto()//Singleton.getCantX())//6),
-                    t.casillas[0].getCoordenadas()[1] - ((Singleton.getAlto()//Singleton.getCantY())//6),
+def agregue_jugadores(cant_jugadores, tablero,  _ventana):
+    #TODO agregar diferencias de jugador. Como color
+    for _ in range(cant_jugadores):
+        jugador = Jugador(_ventana, 0, tablero.casillas[0].getCoordenadas()[0] + ((Singleton.getAlto()//Singleton.getCantX())//6),
+                    tablero.casillas[0].getCoordenadas()[1] - ((Singleton.getAlto()//Singleton.getCantY())//6),
                     (ALTO//CANTIDAD_X)//4, (ALTO/CANTIDAD_Y)//4)
-    Singleton.agregar_jugador(jugador)
-    
-    while True:
-       #clock.tick(40)                          #TODO buscar mas info sobre el uso
+        Singleton.agregar_jugador(jugador)
+
+def juegue(jugador, boton_dados, dado, tablero, Singleton):
+    #clock.tick(40)                          #TODO buscar mas info sobre el uso
         boton_dados.dibujar()
         pygame.display.update()
         resultado_dados = 0
@@ -82,13 +83,32 @@ def main():
                     boton_dados.mi_color = (54,57,63)
             if resultado_dados > 0:
                 #t.reordenar_casillas(jugador.pos_tablero)           #limpia ficha de jugador
-                t.limpar_casilla(jugador.pos_tablero)
-                coordenadas = t.obtener_destino(jugador.pos_tablero, resultado_dados)
+                tablero.limpar_casilla(jugador.pos_tablero)
+                coordenadas = tablero.obtener_destino(jugador.pos_tablero, resultado_dados)
                 jugador.mover(resultado_dados, coordenadas)
 
             #dibuja todos los jugadores en el tablero    
             Singleton.dibujar_jugadores()
 
+def run():
+    #Inicializa Ventana de Pygame
+    ventana = genere_ventana_pygame()
+
+    #Inicializa Singleton
+    Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y)
+
+    #Inicializa tablero
+    tablero = genere_tablero(ventana)
+
+    #Inicializa dados
+    boton_dados,dado,elementos_sidebar,sidebar = genere_dados(ventana)
+
+    #Inicializa jugador
+    agregue_jugadores(1, tablero, ventana)
+    
+    while True:
+       juegue(Singleton.jugadores[0], boton_dados, dado, tablero, Singleton)    #El primer valor se refiere al unico jugador que hay por el momento
+
                 
 
-main() 
+run() 
