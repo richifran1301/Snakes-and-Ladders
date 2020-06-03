@@ -9,6 +9,7 @@ from dado import Dado
 from jugador import Jugador
 from tablero import Tablero
 from singleton import Singleton
+from arbitro import Arbitro
 
 
 ANCHO_BARRA = 250
@@ -26,7 +27,7 @@ def genere_ventana_pygame():
     #ruta_local = os.path.dirname(__file__)
     #ruta_icono = os.path.join(ruta_local, "000.jpg")
     #icono = pygame.image.load(ruta_icono)
-    #pygame.display.set_icon(icono)
+    #pygame.display.set_icon(icono)     #TODO borrar esta gaver
 
     #Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
@@ -44,77 +45,44 @@ def genere_tablero(_ventana):
     t.dibujarCasillas()
     return t
 
+#TODO cambiar colores a colores del Singleton
 def genere_dados(_ventana):
     boton_dados = Button(_ventana, (255,255,255), 750, 35, 150, 40, "Lanzar dados")
     dado = Dado(_ventana)
     elementos_sidebar = [boton_dados, dado]
-    sidebar = Sidebar(_ventana, 700, 700, 250, (255,255,255), elementos_sidebar)
-    return boton_dados,dado,elementos_sidebar,sidebar
-
-def agregue_jugadores(cant_jugadores, tablero,  _ventana):
-    for _ in range(cant_jugadores):
-        jugador = Jugador(_ventana, 0, tablero.casillas[0].getCoordenadas()[0] + ((Singleton.getAlto()//Singleton.getCantX())//6),
-                    tablero.casillas[0].getCoordenadas()[1] - ((Singleton.getAlto()//Singleton.getCantY())//6),
-                    (ALTO//CANTIDAD_X)//4, (ALTO/CANTIDAD_Y)//4)
-        Singleton.agregar_jugador(jugador)
-
-def espere_repuesta_dados(boton_dados, dado):
-    boton_dados.dibujar()
-    pygame.display.update()
-    resultado_dados = 0
-    while resultado_dados == 0:
-        for events in pygame.event.get():
-            posicion_cursor = pygame.mouse.get_pos()
-
-            if events.type == QUIT:
-                pygame.quit()
-                sys.exit(0)
-
-            elif events.type == pygame.MOUSEBUTTONDOWN:
-                if boton_dados.isOver(posicion_cursor):
-                    resultado_dados = dado.lanzar()     # esta variable contiene ahora el numero que lanzaron los dados. usar donde se necesite.
-
-            elif events.type == pygame.MOUSEMOTION:
-
-                if boton_dados.isOver(posicion_cursor):
-                    boton_dados.mi_color = (161,222,147)
-                else:
-                    boton_dados.mi_color = (54,57,63)
-            boton_dados.dibujar()
-            pygame.display.update()
-    return resultado_dados
+    Sidebar(_ventana, 700, 700, 250, (255,255,255), elementos_sidebar)
+    return boton_dados, dado
 
 
-def juegue(jugador, boton_dados, dado, tablero): #ESTE ES EL TURNO DE UN SOLO JUGADOR, QUE RECIBE POR PARAMETRO
-    print("Turno de ", jugador.nombre)
+def juegue(jugador, boton_dados, dado, tablero, _ventana): #ESTE ES EL TURNO DE UN SOLO JUGADOR, QUE RECIBE POR PARAMETRO
     gano = False
-    #clock.tick(40)                          #TODO buscar mas info sobre el uso
-    resultado_dados = espere_repuesta_dados(boton_dados, dado)
+    muestre_turno_jugador(jugador, _ventana)
+    resultado_dados = dado.espere_repuesta_dados(boton_dados, dado)
+    muestre_presionar_espacio(_ventana)
     coordenadas = tablero.obtener_destino(jugador.pos_tablero, resultado_dados)
     gano = jugador.mover(resultado_dados, coordenadas)
     return gano
 
-def decidir_turnos(cantidad_jugadores, boton_dados, dado):
-    jugadores = []
-    resultados = []
-    for i in range(cantidad_jugadores):
-        print("Tire los dados el Jugador ", i+1)
-        resultado_dados = espere_repuesta_dados(boton_dados, dado)
-        resultados.append(resultado_dados)
-        jugadores.append( (Singleton.jugadores[i], resultado_dados) )
-    resultados.sort(reverse=True)
-    for i in range (len(resultados)):
-        jugador = buscar_jugador(jugadores, resultados[i])
-        Singleton.jugadores_ordenados.append(jugador[0])
-        jugadores.remove(jugador)
 
+def muestre_turno_jugador(jugador, _ventana):
+    X = 1650
+    Y = 600
+    font = pygame.font.Font('freesansbold.ttf', 20) 
+    text = font.render('Turno: ' + jugador.nombre, True, jugador.mi_color, Singleton.colores_casillas["blanco"]) 
+    textRect = text.get_rect()  
+    textRect.center = (X // 2, Y // 2) 
+    _ventana.blit(text, textRect)
 
-def buscar_jugador(jugadores, valor):
-    for jugador in jugadores:
-        if jugador[1] == valor:
-            return jugador
+def muestre_presionar_espacio(_ventana):
+    X = 1650
+    Y = 1000
+    font = pygame.font.Font('freesansbold.ttf', 15) 
+    text = font.render('Presione "SPACE" para moverse', True, Singleton.colores_casillas["rojo"], Singleton.colores_casillas["blanco"]) 
+    textRect = text.get_rect()  
+    textRect.center = (X // 2, Y // 2) 
+    _ventana.blit(text, textRect)
+    pygame.display.update()
 
-#TODO solicitar al usuario presionar espacio
 def espere_boton_espacio():
     condicion = True
     while condicion:
@@ -125,10 +93,12 @@ def espere_boton_espacio():
 
 #TODO pasar funciones a arbitro
 def run():
-    #Inicializa Ventana de Pygame
-    ventana = genere_ventana_pygame()
     gano = False
     jugadorGanador = 0
+    cantidad_jugadores = 0
+
+    #Inicializa Ventana de Pygame
+    ventana = genere_ventana_pygame()
 
     #Inicializa tablero
     tablero = genere_tablero(ventana)
@@ -136,29 +106,41 @@ def run():
 
     #Inicializa Singleton
     Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, POS_GANADORA, tablero.casillas) #el singleton guarda las coordenadas de la casilla 100
+    Singleton.establecer_pos_jugadores()
 
     #Inicializa dados
-    boton_dados,dado,elementos_sidebar,sidebar = genere_dados(ventana)
+    boton_dados,dado = genere_dados(ventana)
 
     #TODO try and except
-    cantidad_jugadores = 0
     while True:
-        cantidad_jugadores = int(input("Ingrese la cantidad de jugadores: "))
+        try:
+            cantidad_jugadores = int(input("Ingrese la cantidad de jugadores: "))
+        except:
+            print("Tiene que ser un numero")
         if cantidad_jugadores > 1 and cantidad_jugadores < 5:
             break
     
     #Inicializa jugadores
-    agregue_jugadores(cantidad_jugadores, tablero, ventana)
+    for i in range(cantidad_jugadores):
+        jugador = Jugador(ventana, 0, Singleton.getPosJugadores(i)[0], Singleton.getPosJugadores(i)[1],
+                        (Singleton.getAlto()//Singleton.getCantX())//4, (Singleton.getAlto()/Singleton.getCantY())//4,
+                        Singleton.getPosJugadores(i)[0] - Singleton.casillasTablero[0].getCoordenadas()[0],
+                        Singleton.getPosJugadores(i)[1] - Singleton.casillasTablero[0].getCoordenadas()[1])
+        Arbitro.reporte_jugadores(jugador)
 
-    #Decidir turno
-    decidir_turnos(cantidad_jugadores, boton_dados, dado)
+    #Inicializa arbitro
+    Arbitro.init()
+
+    #Decidir turnos
+    Arbitro.decidir_turnos(cantidad_jugadores, boton_dados, dado)
     
+    print("Orden de jugadores: ", end="\n")
     for i in Singleton.jugadores_ordenados:
         print(i.nombre)
 
     while gano == False: # mientras no haya un ganador, siguen los turnos
         for jugador in Singleton.jugadores_ordenados: #recorre el vector de jugadores, y le da el turno a cada uno
-            gano = juegue(jugador, boton_dados, dado, tablero)  #manda al jugador por el cual va iterando a que realice su jugada
+            gano = juegue(jugador, boton_dados, dado, tablero, ventana)  #manda al jugador por el cual va iterando a que realice su jugada
             tablero.dibujarCasillas()
 
             espere_boton_espacio()

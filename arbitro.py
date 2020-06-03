@@ -5,6 +5,9 @@ from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 
 class Arbitro():
 
+    @classmethod
+    def init(cls):
+        pass
 
     @classmethod
     def comprobarGane(cls,pos):#comprueba si el jugador esta en la posicion ganadora y devuelve un bool
@@ -16,7 +19,7 @@ class Arbitro():
 
 
     @classmethod
-    def aplicarReglas(cls, posTablero):             #comprueba si el jugador esta en una escalera o serpiente y lo mueve a donde le corresponde
+    def aplicarReglasMovimiento(cls, posTablero):             #comprueba si el jugador esta en una escalera o serpiente y lo mueve a donde le corresponde
         casillaActual = Singleton.casillasTablero[posTablero]
         distancia = 0
         coordenadasNuevas = []
@@ -43,3 +46,28 @@ class Arbitro():
                         coordenadasNuevas = casillaFinal.casilla.getCoordenadas()
                         
         return distancia,coordenadasNuevas
+
+    @classmethod
+    def reporte_jugadores(cls, jugador):
+        Singleton.agregar_jugador(jugador)
+    
+    @classmethod
+    def decidir_turnos(cls, cantidad_jugadores, boton_dados, dado):
+        jugadores = []
+        resultados = []
+        for i in range(cantidad_jugadores):
+            print("Tire los dados el Jugador ", i+1)
+            resultado_dados = dado.espere_repuesta_dados(boton_dados, dado)
+            resultados.append(resultado_dados)
+            jugadores.append( (Singleton.jugadores[i], resultado_dados) )
+        resultados.sort(reverse=True)
+        for i in range (len(resultados)):
+            jugador = cls.buscar_jugador(jugadores, resultados[i])
+            Singleton.jugadores_ordenados.append(jugador[0])
+            jugadores.remove(jugador)
+
+    @classmethod
+    def buscar_jugador(cls, jugadores, valor):
+        for jugador in jugadores:
+            if jugador[1] == valor:
+                return jugador

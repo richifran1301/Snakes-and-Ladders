@@ -36,4 +36,30 @@ class Dado():
         rect_der = cara_der.get_rect()
         rect_der.center = (870, 145)
         self.ventana.blit(cara_der, rect_der)
+    
+    def espere_repuesta_dados(self, boton_dados, dado):
+        boton_dados.dibujar()
+        pygame.display.update()
+        resultado_dados = 0
+        while resultado_dados == 0:
+            for events in pygame.event.get():
+                posicion_cursor = pygame.mouse.get_pos()
+
+                if events.type == QUIT:
+                    pygame.quit()
+                    sys.exit(0)
+
+                elif events.type == pygame.MOUSEBUTTONDOWN:
+                    if boton_dados.isOver(posicion_cursor):
+                        resultado_dados = dado.lanzar()     # esta variable contiene ahora el numero que lanzaron los dados. usar donde se necesite.
+
+                elif events.type == pygame.MOUSEMOTION:
+
+                    if boton_dados.isOver(posicion_cursor):
+                        boton_dados.mi_color = (161,222,147) 
+                    else:
+                        boton_dados.mi_color = (54,57,63)
+                boton_dados.dibujar()
+                pygame.display.update()
+        return resultado_dados
         
