@@ -19,7 +19,7 @@ class Dado():
         return resultado_al_lanzar
 
     def dibujar(self, resultados_por_dado):
-        ruta_local = os.path.dirname(__file__)
+        ruta_local = 'imagenes/'
 
         ruta_imagen = os.path.join(ruta_local, str(resultados_por_dado[0]) + ".png")
         cara_temp = pygame.image.load(ruta_imagen)
