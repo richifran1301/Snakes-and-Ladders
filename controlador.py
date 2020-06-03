@@ -87,8 +87,11 @@ def juegue(jugador, boton_dados, dado, tablero, Singleton): #ESTE ES EL TURNO DE
                 coordenadas = tablero.obtener_destino(jugador.pos_tablero, resultado_dados)
                 gano = jugador.mover(resultado_dados, coordenadas)
 
-            #dibuja todos los jugadores en el tablero    
+            #dibuja todos los jugadores en el tablero
+            tablero.colorearCasillas()
+            tablero.dibujarCasillas()
             Singleton.dibujar_jugadores()
+
         return gano
 
 def run():

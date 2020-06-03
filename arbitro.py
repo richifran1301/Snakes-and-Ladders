@@ -23,6 +23,7 @@ class Arbitro():
         if not isinstance(casillaActual,CasillaEstandar):         #entra a la condicion si es serpiente o escalera
             if casillaActual.casilla.esInicio():
                 casillaFinal = casillaActual.casilla.getFinal()
+                print("MI CASILLA FINAL ES: ",casillaFinal.getIndice())
                 if isinstance(casillaActual, CasillaSerpiente):             #entra si la casilla actual es serpiente
                     if isinstance(casillaFinal, CasillaEstandar):
                         distancia = (posTablero - (casillaFinal.getIndice())) * (-1)
@@ -38,4 +39,5 @@ class Arbitro():
                         distancia = ((casillaFinal.casilla.getIndice())- posTablero)
                         coordenadasNuevas = casillaFinal.casilla.getCoordenadas()
                         
+        print("DISTANCIA: ",distancia)
         return distancia,coordenadasNuevas

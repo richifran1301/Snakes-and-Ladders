@@ -32,11 +32,12 @@ class Jugador():
         self.rect.y = coordenadas[1]- ((Singleton.getAlto()//Singleton.getCantY())//6)              # -  para evitar posibles choques con escaleras o serpientes
        
         if not excedido:
-            self.pos_tablero += distancia
+            print("DISTANCIA EN JUGADOR: ",distancia)
+            self.pos_tablero = self.pos_tablero + distancia
         gano = Arbitro.comprobarGane(self.pos_tablero)                          #primero comprueba si el jugador en la nueva posicion gano
         if gano == False:
             distanciaN, coordenadasNuevoMov = Arbitro.aplicarReglas(self.pos_tablero)        #si no gano, comprueba si esta en una serp o escalera
-            if distanciaN > 0: #si esta en una serpiete o escalera, va a tener que moverse a la posicion indicada
+            if distanciaN != 0: #si esta en una serpiete o escalera, va a tener que moverse a la posicion indicada
                 gano = self.mover(distanciaN,coordenadasNuevoMov)
         return gano #retorna el bool si gano, para cerrar el juego
 
