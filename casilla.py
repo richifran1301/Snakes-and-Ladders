@@ -51,7 +51,7 @@ class CasillaEstandar(Casilla):
     # Retorna la casilla a la que tiene que moverse en caso de que 
     # esInicio retorne un True
     def getFinal(self):
-        return self.conector.getCasillaFinal().casilla.getIndice()
+        return self.conector.getCasillaFinal().casilla #.getIndice()
 
     def dibujar(self):
         pygame.draw.rect(self.ventana, self.mi_color, self.mi_forma)

@@ -59,11 +59,12 @@ def agregue_jugadores(cant_jugadores, tablero,  _ventana):
                     (ALTO//CANTIDAD_X)//4, (ALTO/CANTIDAD_Y)//4)
         Singleton.agregar_jugador(jugador)
 
-def juegue(jugador, boton_dados, dado, tablero, Singleton):
+def juegue(jugador, boton_dados, dado, tablero, Singleton): #ESTE ES EL TURNO DE UN SOLO JUGADOR, QUE RECIBE POR PARAMETRO
     #clock.tick(40)                          #TODO buscar mas info sobre el uso
         boton_dados.dibujar()
         pygame.display.update()
         resultado_dados = 0
+        gano = False
         for events in pygame.event.get():
             posicion_cursor = pygame.mouse.get_pos()
 
@@ -82,33 +83,39 @@ def juegue(jugador, boton_dados, dado, tablero, Singleton):
                 else:
                     boton_dados.mi_color = (54,57,63)
             if resultado_dados > 0:
-                #t.reordenar_casillas(jugador.pos_tablero)           #limpia ficha de jugador
-                tablero.limpar_casilla(jugador.pos_tablero)
+                tablero.limpar_casilla(jugador.pos_tablero)           #limpia ficha de jugador
                 coordenadas = tablero.obtener_destino(jugador.pos_tablero, resultado_dados)
-                jugador.mover(resultado_dados, coordenadas)
+                gano = jugador.mover(resultado_dados, coordenadas)
 
             #dibuja todos los jugadores en el tablero    
             Singleton.dibujar_jugadores()
+        return gano
 
 def run():
     #Inicializa Ventana de Pygame
     ventana = genere_ventana_pygame()
-
-    #Inicializa Singleton
-    Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y)
-
+    gano = False
+    jugadorGanador = 0
+   
     #Inicializa tablero
     tablero = genere_tablero(ventana)
-
+    POS_GANADORA = (CANTIDAD_X * CANTIDAD_Y)-1
+    #Inicializa Singleton
+    Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, POS_GANADORA, tablero.casillas) #el singleton guarda las coordenadas de la casilla 100
     #Inicializa dados
     boton_dados,dado,elementos_sidebar,sidebar = genere_dados(ventana)
 
     #Inicializa jugador
     agregue_jugadores(1, tablero, ventana)
+    while gano == False: # mientras no haya un ganador, siguen los turnos
+        for jugador in Singleton.jugadores: #recorre el vector de jugadores, y le da el turno a cada uno
+           gano = juegue(jugador, boton_dados, dado, tablero, Singleton)#manda al jugador por el cual va iterando a que realice su jugada
+           if gano == True:#comprueba si ese jugador gano y cierra el programa, dando el nombre del ganador
+                jugadorGanador = jugador.getNombre()
+                break
     
-    while True:
-       juegue(Singleton.jugadores[0], boton_dados, dado, tablero, Singleton)    #El primer valor se refiere al unico jugador que hay por el momento
-
-                
-
+    print("EL JUGADOR GANADOR ES: ", jugadorGanador) 
+    pygame.quit()
+    sys.exit(0)
+    
 run() 

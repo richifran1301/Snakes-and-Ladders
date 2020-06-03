@@ -9,11 +9,15 @@ class Singleton():
     cantidad_jugadores = 0
     cantidad_x = 0
     cantidad_y = 0
+    pos_ganadora = 0
+    casillasTablero = []
     #TODO variable de colores aqui para que los demas lo utilicen
     
     #Metodos
     @classmethod
-    def init(cls, an, al, cantX, cantY):
+    def init(cls, an, al, cantX, cantY, casillaGanadora, casillasT):
+        cls.casillasTablero = casillasT #copia las casillas del tablero 
+        cls.pos_ganadora = casillaGanadora #guarda las coordenadas de la casilla 100 (ganadora)
         cls.jugadores = []
         cls.ancho_tablero = an
         cls.alto_tablero = al
