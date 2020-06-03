@@ -11,8 +11,10 @@ class Singleton():
     cantidad_y = 0
     pos_ganadora = 0
     casillasTablero = []
-    #TODO variable de colores aqui para que los demas lo utilicen
-    
+    colores_casillas = {"rojo": (244,124,124), "amarillo": (247,244,139), "verde": (161,222,147), "azul": (112,161,215), "blanco": (255,255,255)}
+    colores_jugadores = {"magenta": (255,0,230), "azul": (0, 0, 128), "gris": (127,127,127), "naranja": (255,100,10), "negro": (0,0,0)}
+    colores_jugadores_usados = []
+
     #Metodos
     @classmethod
     def init(cls, an, al, cantX, cantY, casillaGanadora, casillasT):

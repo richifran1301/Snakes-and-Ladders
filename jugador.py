@@ -1,4 +1,5 @@
 import pygame
+import random
 from singleton import Singleton
 from arbitro import Arbitro
 
@@ -12,10 +13,21 @@ class Jugador():
         self.pos_tablero = pos
         self.ganador = False
         self.rect = pygame.rect.Rect((self.x, self.y, self.ancho, self.largo))
+        self.setColor()
         self.dibujar()
 
     def setNombre(self, nombre):
         self.nombre = nombre
+    
+    def setColor(self):
+        repetido = True
+        while repetido:
+            #TODO ponerlo en try and except
+            color = input("Colores disponibles:\nmagenta, azul, naranja, negro, gris\nEscoja el color de su jugador: ")
+            if color not in Singleton.colores_jugadores_usados:
+                Singleton.colores_jugadores_usados.append(Singleton.colores_jugadores[color])
+                repetido = False
+        self.mi_color = Singleton.colores_jugadores[color]
 
     def getNombre(self):
         return self.nombre    
@@ -32,7 +44,6 @@ class Jugador():
         self.rect.y = coordenadas[1]- ((Singleton.getAlto()//Singleton.getCantY())//6)              # -  para evitar posibles choques con escaleras o serpientes
        
         if not excedido:
-            print("DISTANCIA EN JUGADOR: ",distancia)
             self.pos_tablero = self.pos_tablero + distancia
         gano = Arbitro.comprobarGane(self.pos_tablero)                          #primero comprueba si el jugador en la nueva posicion gano
         if gano == False:
@@ -42,6 +53,6 @@ class Jugador():
         return gano #retorna el bool si gano, para cerrar el juego
 
     def dibujar(self):
-        pygame.draw.rect(self.ventana, (0, 0, 128), self.rect)
+        pygame.draw.rect(self.ventana, self.mi_color, self.rect)
     
     

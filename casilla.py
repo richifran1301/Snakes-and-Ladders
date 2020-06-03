@@ -4,11 +4,12 @@ import random
 import itertools
 import sys, pygame 
 from pygame.locals import *
+from singleton import Singleton
 
 class Casilla():
     def __init__(self):
-        self.colores = {"rojo": (244,124,124), "amarillo": (247,244,139), "verde": (161,222,147), "azul": (112,161,215), "blanco": (255,255,255)}
-
+        pass
+    
 class CasillaEstandar(Casilla):
 
     def __init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana):
@@ -36,7 +37,7 @@ class CasillaEstandar(Casilla):
         return self.conector
 
     def setColor(self, color):
-        self.mi_color = self.colores[color]
+        self.mi_color = Singleton.colores_casillas[color]
 
     def setConector(self, conector):
         self.conector = conector
