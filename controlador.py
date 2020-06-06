@@ -19,27 +19,29 @@ CANTIDAD_X = 10
 CANTIDAD_Y = 10
 
 def genere_ventana_pygame():
-    #Pygame condiciones iniciales
+    """
+    Esta funcion genera la ventana grafica de pygame. Para poder hacerle 
+    modificaciones luego.
+    :returns: pygame window object -- Devuelve la ventana grafica recien creada
+    """
     pygame.init()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Serpientes y escaleras")
-
-    #ruta_local = os.path.dirname(__file__)
-    #ruta_icono = os.path.join(ruta_local, "000.jpg")
-    #icono = pygame.image.load(ruta_icono)
-    #pygame.display.set_icon(icono)     #TODO borrar esta gaver
-
-    #Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     ventana = pygame.display.set_mode((ANCHO, ALTO))
-    #ventana.fill((0,0,0))
-
     assert (ANCHO - ANCHO_BARRA) % CANTIDAD_X == 0 and ALTO % CANTIDAD_Y == 0
 
     return ventana
 
 def genere_tablero(_ventana):
+    """
+    Llama el constructor de Tablero y sus metodos para generar tanto las casillas, como 
+    las serpientes y escaleras respectivas en estas casillas.
+    :param _ventana: Ventana grafica del juego
+    :type _ventana: pygame window object
+    :returns: Tablero object -- Devuelve el objeto de tablero recien creado para luego
+    utilizar sus metodos en otras funciones.
+    """
     t = Tablero((CANTIDAD_X, CANTIDAD_Y), _ventana, ANCHO_BARRA)
     t.colorearCasillas()
     t.dibujarCasillas()
@@ -47,6 +49,14 @@ def genere_tablero(_ventana):
 
 #TODO cambiar colores a colores del Singleton
 def genere_dados(_ventana):
+    """
+    Llama el constructor de Dado y sus metodos para agregar el icono de los 
+    dados en pantalla y poder obtener el resultado aleatorio que ellos generen.
+    :param _ventana: Ventana grafica del juego
+    :type _ventana: pygame window object
+    :returns: tuple -- Devuelve como tupla el objeto de Button, que va a ser el boton 
+    grafico de los dados, de primero y de segundo, el objeto de Dado para poder utilizar sus funciones.
+    """
     boton_dados = Button(_ventana, (255,255,255), 750, 35, 150, 40, "Lanzar dados")
     dado = Dado(_ventana)
     elementos_sidebar = [boton_dados, dado]
@@ -54,7 +64,23 @@ def genere_dados(_ventana):
     return boton_dados, dado
 
 
-def juegue(jugador, boton_dados, dado, tablero, _ventana): #ESTE ES EL TURNO DE UN SOLO JUGADOR, QUE RECIBE POR PARAMETRO
+def juegue(jugador, boton_dados, dado, tablero, _ventana):
+    """
+    Este es el metodo principal del controlador que se va a encargar de hacer un turno
+    del jugador que se reciba por parametro. Por lo que, este metodo va a estar dentro de un ciclo que
+    va a representar la duracion del juego.
+    :param jugador: Objeto de jugador a realizar turno.
+    :type jugador: Jugador object
+    :param boton_dados: El boton grafico en la ventana de pygame.
+    :type boton_dados: Button object.
+    :param dado: Objeto de Dado que va a tener sus respectivas funciones.
+    :type dado: Dado object
+    :param tablero: Objeto de Tablero que va a tener sus respectivas funciones.
+    :type tablero: Tablero object
+    :param _ventana: Ventana grafica del juego
+    :type _ventana: pygame window object
+    :returns: bool -- Devuelve si el jugador, haciendo el turno actual, gano o no.
+    """
     gano = False
     muestre_turno_jugador(jugador, _ventana)
     resultado_dados = dado.espere_repuesta_dados(boton_dados, dado)
@@ -65,6 +91,14 @@ def juegue(jugador, boton_dados, dado, tablero, _ventana): #ESTE ES EL TURNO DE 
 
 
 def muestre_turno_jugador(jugador, _ventana):
+    """
+    Este metodo se va a encargar de desplegar en la ventana de pygame que jugador
+    le toca jugar. El texto lo muestra en el color respectivo de cada jugador. 
+    :param jugador: Objeto de jugador a realizar turno.
+    :type jugador: Jugador object
+    :param _ventana: Ventana grafica del juego
+    :type _ventana: pygame window object
+    """
     X = 1650
     Y = 600
     font = pygame.font.Font('freesansbold.ttf', 20) 
@@ -74,6 +108,13 @@ def muestre_turno_jugador(jugador, _ventana):
     _ventana.blit(text, textRect)
 
 def muestre_presionar_espacio(_ventana):
+    """
+    Este metodo se va a encargar de desplegar en la ventana de pygame que
+    el usuario necesita presionar la tecla espacio para mover la ficha. Esto
+    lo hace al final de cada turno.
+    :param _ventana: Ventana grafica del juego
+    :type _ventana: pygame window object
+    """
     X = 1650
     Y = 1000
     font = pygame.font.Font('freesansbold.ttf', 15) 
@@ -84,6 +125,10 @@ def muestre_presionar_espacio(_ventana):
     pygame.display.update()
 
 def espere_boton_espacio():
+    """
+    Este metodo se encarga tener el programa "en espera" hasta que el usuario
+    presione la tecla de espacio. Esto para proseguir con el turno.
+    """
     condicion = True
     while condicion:
         for event in pygame.event.get():
@@ -91,8 +136,11 @@ def espere_boton_espacio():
                 Singleton.dibujar_jugadores()
                 condicion = False
 
-#TODO pasar funciones a arbitro
+
 def run():
+    """
+    Metodo main que va a correr todo el programa.
+    """
     gano = False
     jugadorGanador = 0
     cantidad_jugadores = 0
