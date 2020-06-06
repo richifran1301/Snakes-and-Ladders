@@ -422,8 +422,13 @@ class Tablero():
             i.dibujar()             # dibújese
 
 
-    #TODO implementar bien para que no borre escaleras y serpientes
+    #TODO mejorar condicion de limpieza
     def limpar_casilla(self, index):
+        """
+        Metodo que limpia la casilla actual donde se ubica el jugador. 
+        :param index: posicion en el tablero donde esta el usuario
+        :type index: int
+        """
         #Primero limpia la posicion actual
         if isinstance(self.casillas[index], CasillaEstandar):
             self.casillas[index].dibujar()
@@ -438,17 +443,5 @@ class Tablero():
                 self.escaleras.index(conector).dibujar()
 
 
-    def obtener_destino(self, index, resultado_dados):
-        #verifica que no pase de 100
-        if index + resultado_dados > 99:
-            index = (index+resultado_dados)-100
-        else:
-            index = index+resultado_dados
-        #Despues calcula las coordenadas de la siguiente posicion a estar
-        if isinstance(self.casillas[index], CasillaEstandar):
-            coordenadas = self.casillas[index].getCoordenadas()
-        else:
-            coordenadas = self.casillas[index].casilla.getCoordenadas()
-        return coordenadas
 
 

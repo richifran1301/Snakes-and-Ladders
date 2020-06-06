@@ -3,6 +3,7 @@ import time
 import random
 import itertools
 import sys, pygame
+from singleton import Singleton
 from pygame.locals import *
 
 class Dado():
@@ -11,14 +12,13 @@ class Dado():
     para su comportamiento en un tablero de juego.
     """
 
-    def __init__(self, ventana):
+    def __init__(self):
         """
         :param ventana: Referencia a la ventana de pygame.
         :type ventana: pygame.display
         """
         self.valores_caras = [1,2,3,4,5,6]      # valores de las caras
         self.caras = None
-        self.ventana = ventana
 
     def lanzar(self):
         """
@@ -52,7 +52,7 @@ class Dado():
         cara_izq = imagen_transformada.convert()  # or .convert_alpha()
         rect_izq = cara_izq.get_rect()
         rect_izq.center = (780, 145)
-        self.ventana.blit(cara_izq, rect_izq)
+        Singleton.ventana.blit(cara_izq, rect_izq)
 
         # lo mismo para la segunda cara
         ruta_imagen = os.path.join(ruta_local, str(resultados_por_dado[1]) + ".png")
@@ -61,9 +61,19 @@ class Dado():
         cara_der = imagen_transformada.convert()  # or .convert_alpha()
         rect_der = cara_der.get_rect()
         rect_der.center = (870, 145)
-        self.ventana.blit(cara_der, rect_der)
+        Singleton.ventana.blit(cara_der, rect_der)
     
-    def espere_repuesta_dados(self, boton_dados, dado):
+    def espere_repuesta_dados(self, boton_dados):
+        """
+        Este metodo va a esperar que el usuario presione en la interfaz, el boton de tirar dados. Va a representar
+        los dados graficamente tambien, y almacenar el valor guardado en una variable llamada resultado_dados.
+        Ademas, cambia el color de la opcion del boton si se tiene el cursor sobre el. Por ultimo, tambien contempla 
+        la opcion de que el usuario presione la equis para salir del juego y es una opcion normal para salirse.
+        :param boton_dados: representacion del boton de los dados, cuando el usuario hace clic sobre el es que se 
+        tiran los dados.
+        :type boton_dados: Button
+        :returns: variable que almaceno el valor sumado que salio en los dados
+        """
         boton_dados.dibujar()
         pygame.display.update()
         resultado_dados = 0
@@ -77,7 +87,7 @@ class Dado():
 
                 elif events.type == pygame.MOUSEBUTTONDOWN:
                     if boton_dados.isOver(posicion_cursor):
-                        resultado_dados = dado.lanzar()     # esta variable contiene ahora el numero que lanzaron los dados. usar donde se necesite.
+                        resultado_dados = self.lanzar()     # esta variable contiene ahora el numero que lanzaron los dados. usar donde se necesite.
 
                 elif events.type == pygame.MOUSEMOTION:
 
