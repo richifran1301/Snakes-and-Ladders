@@ -28,7 +28,7 @@ class Sidebar():
         :param mi_color: codigo del color a escoger
         :type color: codigo de color perteneciente a la lista de colores de Singleton.
         :param elementos: lista que contiene al boton de los dados, y los dados.
-        type elementos: lista
+        :type elementos: lista
         """
         self.alto_total = alto_total
         self.ancho_total = ancho_total
