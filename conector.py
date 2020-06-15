@@ -10,15 +10,6 @@ class Conector():
     """
     Clase genérica de conector para implementar decoradores.
     """
-    pass
-
-class ConectorEstandar(Conector):
-    """
-    Esta clase representa una conector entre dos casillas de tablero, y contiene los
-    atributos y acciones necesarios para su comportamiento en un tablero de juego.
-    En el juego Serpientes y escaleras estos pueden decorarse como serpientes o escaleras.
-    """
-
     def __init__(self, casilla, ventana):
         """
         :param casilla: Casillas relacionadas con un conector, en pos 0 la de inicio, pos 1 la de fin.
@@ -26,7 +17,6 @@ class ConectorEstandar(Conector):
         :param ventana: Referencia a la ventana de pygame.
         :type ventana: pygame.display
         """
-        Conector.__init__(self)
         self.casilla_inicio = casilla[0]    
         self.casilla_final = casilla[1]
         self.ventana = ventana
@@ -54,45 +44,37 @@ class ConectorEstandar(Conector):
         Esta función envía el mismo conector (self) a sus casillas relacionadas de inicio y fin.
         :returns:  None -- Procedimiento sin valor de retorno.
         """
-        self.casilla_inicio.casilla.setConector(self)
-        self.casilla_final.casilla.setConector(self)
+        self.casilla_inicio.setConector(self)
+        self.casilla_final.setConector(self)
 
 class Escalera(Conector):
     """
-    Decorador de un ConectorEstandar como una escalera.
+    Esta clase representa un conector entre dos casillas de tablero, y contiene los
+    atributos y acciones necesarios para su comportamiento en un tablero de juego.
     """
 
-    def __init__(self, conector):
-        """
-        :param conector: Objeto ConectorEstandar que se decora.
-        :type conector: ConectorEstandar
-        """
-        Conector.__init__(self)
-        self.conector = conector
+    def __init__(self, casilla, ventana):
+        Conector.__init__(self, casilla, ventana)
 
     def dibujar(self):
         """
         Este método dibuja el conector como una escalera en la ventana de pygame.
         :returns:  None -- Procedimiento sin valor de retorno.
         """
-        pygame.draw.line(self.conector.getVentana(), (0,128,0), self.conector.getCasillaInicio().casilla.getCoordenadas(), self.conector.getCasillaFinal().casilla.getCoordenadas(), 4)
+        pygame.draw.line(self.getVentana(), (0,128,0), self.getCasillaInicio().getCoordenadas(), self.getCasillaFinal().getCoordenadas(), 4)
 
 class Serpiente(Conector):
     """
-    Decorador de un ConectorEstandar como una serpiente.
+    Esta clase representa un conector entre dos casillas de tablero, y contiene los
+    atributos y acciones necesarios para su comportamiento en un tablero de juego.
     """
 
-    def __init__(self, conector):
-        """
-        :param conector: Objeto ConectorEstandar que se decora.
-        :type conector: ConectorEstandar
-        """
-        Conector.__init__(self)
-        self.conector = conector
+    def __init__(self, casilla, ventana):
+        Conector.__init__(self, casilla, ventana)
 
     def dibujar(self):
         """
         Este método dibuja el conector como una escalera en la ventana de pygame.
         :returns:  None -- Procedimiento sin valor de retorno.
         """
-        pygame.draw.line(self.conector.getVentana(), (255,0,0), self.conector.getCasillaInicio().casilla.getCoordenadas(), self.conector.getCasillaFinal().casilla.getCoordenadas(), 4)
+        pygame.draw.line(self.getVentana(), (255,0,0), self.getCasillaInicio().getCoordenadas(), self.getCasillaFinal().getCoordenadas(), 4)

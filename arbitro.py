@@ -2,7 +2,6 @@ from singleton import Singleton
 from tablero import Tablero
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 
-
 class Arbitro():
     """
     Clase de Arbitro que se encarga de revisar el comportamiento de los jugadores. Se encarga de
@@ -11,7 +10,6 @@ class Arbitro():
     hacia donde moverse), ayuda a decidir los turnos al inicio del juego, reporta los jugadores como
     existentes dentro del juego, se asegura que cada jugador tenga un color unico...
     """
-
     @classmethod
     def init(cls):
         pass
@@ -42,26 +40,26 @@ class Arbitro():
         distancia = 0
         coordenadasNuevas = []
         if not isinstance(casillaActual,CasillaEstandar):         #entra a la condicion si es serpiente o escalera
-            if casillaActual.casilla.esInicio():
-                casillaFinal = casillaActual.casilla.getFinal()
+            if casillaActual.esInicio():
+                casillaFinal = casillaActual.getFinal()
                 if isinstance(casillaActual, CasillaSerpiente):             #entra si la casilla actual es serpiente
                     if isinstance(casillaFinal, CasillaEstandar):
-                        print("BAJE POR SERPIENTE DESDE: ",casillaActual.casilla.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
+                        print("BAJE POR SERPIENTE DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
                         distancia = (posTablero - (casillaFinal.getIndice())) * (-1)
                         coordenadasNuevas = casillaFinal.getCoordenadas()
                     else:
-                        print("BAJE POR SERPIENTE DESDE: ",casillaActual.casilla.getIndice()+1, " HASTA: ",casillaFinal.casilla.getIndice()+1)
-                        distancia = (posTablero - (casillaFinal.casilla.getIndice())) * (-1)
-                        coordenadasNuevas = casillaFinal.casilla.getCoordenadas()
+                        print("BAJE POR SERPIENTE DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
+                        distancia = (posTablero - (casillaFinal.getIndice())) * (-1)
+                        coordenadasNuevas = casillaFinal.getCoordenadas()
                 else:                                                         #entra si es escalera
                     if isinstance(casillaFinal, CasillaEstandar):
-                        print("SUBI POR ESCALERA DESDE: ",casillaActual.casilla.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
+                        print("SUBI POR ESCALERA DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
                         distancia = ((casillaFinal.getIndice())- posTablero)
                         coordenadasNuevas = casillaFinal.getCoordenadas()
                     else:
-                        print("SUBI POR ESCALERA DESDE: ",casillaActual.casilla.getIndice()+1, " HASTA: ",casillaFinal.casilla.getIndice()+1)
-                        distancia = ((casillaFinal.casilla.getIndice())- posTablero)
-                        coordenadasNuevas = casillaFinal.casilla.getCoordenadas()
+                        print("SUBI POR ESCALERA DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
+                        distancia = ((casillaFinal.getIndice())- posTablero)
+                        coordenadasNuevas = casillaFinal.getCoordenadas()
                         
         return distancia,coordenadasNuevas
     """
@@ -157,5 +155,5 @@ class Arbitro():
         if isinstance(Singleton.casillasTablero[index], CasillaEstandar):
             coordenadas = Singleton.casillasTablero[index].getCoordenadas()
         else:
-            coordenadas = Singleton.casillasTablero[index].casilla.getCoordenadas()
+            coordenadas = Singleton.casillasTablero[index].getCoordenadas()
         return coordenadas

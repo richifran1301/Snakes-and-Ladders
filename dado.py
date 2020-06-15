@@ -62,40 +62,4 @@ class Dado():
         rect_der = cara_der.get_rect()
         rect_der.center = (870, 145)
         Singleton.ventana.blit(cara_der, rect_der)
-    
-    def espere_repuesta_dados(self, boton_dados):
-        """
-        Este metodo va a esperar que el usuario presione en la interfaz, el boton de tirar dados. Va a representar
-        los dados graficamente tambien, y almacenar el valor guardado en una variable llamada resultado_dados.
-        Ademas, cambia el color de la opcion del boton si se tiene el cursor sobre el. Por ultimo, tambien contempla 
-        la opcion de que el usuario presione la equis para salir del juego y es una opcion normal para salirse.
-        :param boton_dados: representacion del boton de los dados, cuando el usuario hace clic sobre el es que se 
-        tiran los dados.
-        :type boton_dados: Button
-        :returns: variable que almaceno el valor sumado que salio en los dados
-        """
-        boton_dados.dibujar()
-        pygame.display.update()
-        resultado_dados = 0
-        while resultado_dados == 0:
-            for events in pygame.event.get():
-                posicion_cursor = pygame.mouse.get_pos()
-
-                if events.type == QUIT:
-                    pygame.quit()
-                    sys.exit(0)
-
-                elif events.type == pygame.MOUSEBUTTONDOWN:
-                    if boton_dados.isOver(posicion_cursor):
-                        resultado_dados = self.lanzar()     # esta variable contiene ahora el numero que lanzaron los dados. usar donde se necesite.
-
-                elif events.type == pygame.MOUSEMOTION:
-
-                    if boton_dados.isOver(posicion_cursor):
-                        boton_dados.mi_color = (161,222,147) 
-                    else:
-                        boton_dados.mi_color = (54,57,63)
-                boton_dados.dibujar()
-                pygame.display.update()
-        return resultado_dados
         

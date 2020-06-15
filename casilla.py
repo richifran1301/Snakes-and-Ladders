@@ -10,15 +10,6 @@ class Casilla():
     """
     Clase genérica de casilla para implementar decoradores.
     """
-    def __init__(self):
-        pass
-    
-class CasillaEstandar(Casilla):
-    """
-    Esta clase representa una casilla de tablero, y contiene los
-    atributos y acciones necesarios para su graficación y comportamiento
-    en un tablero de juego.
-    """
 
     def __init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana):
         """
@@ -33,7 +24,6 @@ class CasillaEstandar(Casilla):
         :param ventana: Referencia a la ventana de pygame.
         :type ventana: pygame.display
         """
-        Casilla.__init__(self)
         self.mis_coordenadas = mis_coordenadas
         self.mi_color = mi_color
         self.mi_forma = mi_forma
@@ -65,12 +55,6 @@ class CasillaEstandar(Casilla):
         """
         return self.mi_indice
     
-    def getConector(self):
-        """
-        :returns:  ConectorEstandar -- El conector que tiene una casilla con otra.
-        """
-        return self.conector
-
     def setColor(self, color):
         """
         :param color: El color para la casilla en RGB (a,b,c).
@@ -78,6 +62,12 @@ class CasillaEstandar(Casilla):
         :returns:  None -- Procedimiento set sin valor de retorno.
         """
         self.mi_color = Singleton.colores_casillas[color]
+
+    def getConector(self):
+        """
+        :returns:  ConectorEstandar -- El conector que tiene una casilla con otra.
+        """
+        return self.conector
 
     def setConector(self, conector):
         """
@@ -87,14 +77,12 @@ class CasillaEstandar(Casilla):
         """
         self.conector = conector
 
-
     def esInicio(self):
         """
         Este método indica si una casilla es el inicio de un conector o no.
         :returns:  bool -- Será True si la casilla es inicio en su respectivo conector.
         """
-        return self.conector.getCasillaInicio().casilla.getIndice() == self.mi_indice
-
+        return self.conector.getCasillaInicio().getIndice() == self.mi_indice
 
     def getFinal(self):
         """
@@ -102,7 +90,7 @@ class CasillaEstandar(Casilla):
         Es útil usarla en conjunto con la función esInicio() cuando devuelve verdadero.
         :returns:  CasillaEstandar -- Casilla final en el conector de la casilla actual.
         """
-        return self.conector.getCasillaFinal().casilla #.getIndice()
+        return self.conector.getCasillaFinal()
 
     def dibujar(self):
         """
@@ -110,34 +98,41 @@ class CasillaEstandar(Casilla):
         :returns:  None -- Procedimiento sin valor de retorno.
         """
         pygame.draw.rect(self.ventana, self.mi_color, self.mi_forma) # se pasan las referencias estéticas
-        pygame.draw.rect(self.ventana, (0,0,0), self.mi_forma, 1)   
+        pygame.draw.rect(self.ventana, (0,0,0), self.mi_forma, 1)
 
         #pygame.font.init()
         font = pygame.font.SysFont('arialblack', 20)                                # parametros de fuente del texto (num. casilla)
         text = font.render(str(self.mi_indice + 1), True, (0,0,0), self.mi_color)   # procesamiento del texto para pygame
         textRect = text.get_rect() 
         textRect.center = (self.mis_coordenadas[0], self.mis_coordenadas[1])        # coordenadas del texto
-        self.ventana.blit(text, textRect)                                           # dibuja el texto en la ventana 
-  
+        self.ventana.blit(text, textRect)
+
+class CasillaEstandar(Casilla):
+    """
+    Esta clase representa una casilla de tablero, y contiene los
+    atributos y acciones necesarios para su graficación y comportamiento
+    en un tablero de juego.
+    """
+
+    def __init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana):
+        Casilla.__init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana)
+
 class CasillaEscalera(Casilla):
     """
-    Decorador de una CasillaEstandar como casilla de escalera.
+    Esta clase representa una casilla de tablero, y contiene los
+    atributos y acciones necesarios para su graficación y comportamiento
+    en un tablero de juego.
     """
 
-    def __init__(self, casilla):
-        """
-        :param casilla: Objeto CasillaEstandar que se decora.
-        :type casilla: CasillaEstandar
-        """
-        Casilla.__init__(self)
-        self.casilla = casilla
+    def __init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana):
+        Casilla.__init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana)
 
 class CasillaSerpiente(Casilla):
+    """
+    Esta clase representa una casilla de tablero, y contiene los
+    atributos y acciones necesarios para su graficación y comportamiento
+    en un tablero de juego.
+    """
 
-    def __init__(self, casilla):
-        """
-        :param casilla: Objeto CasillaEstandar que se decora.
-        :type casilla: CasillaEstandar
-        """
-        Casilla.__init__(self)
-        self.casilla = casilla
+    def __init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana):
+        Casilla.__init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana)

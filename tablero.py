@@ -6,7 +6,7 @@ import sys, pygame
 from pygame.locals import *
 from button import Button
 from sidebar import Sidebar
-from conector import Conector, ConectorEstandar, Escalera, Serpiente
+from conector import Conector, Escalera, Serpiente
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 from singleton import Singleton
 
@@ -25,16 +25,16 @@ class Tablero():
         :param ancho_barra: Ancho de la sidebar junto al tablero.
         :type ancho_barra: int
         """
-
         self.tamanio = tamanio
         self.ventana = ventana
         self.casillas = []              # lista de casillas del tablero
         self.serpientes = []            # lista de conectores tipo serpiente del tablero
         self.escaleras = []             # lista de conectores tipo escalera del tablero
         self.generarCasillas()          # se llama a la función que genera casillas
+        self.colorearCasillas()
+        self.dibujarCasillas()
         self.ancho_barra = ancho_barra
         
-
     def generarCasillas(self):
         """
         Este método genera casillas y sus conectores para un tablero de Serpientes y escaleras de manera aleatoria.
@@ -63,10 +63,8 @@ class Tablero():
                 if not encontrado and i in posiciones_serpientes[j]:    # si no ha encontrado aún la posición y por fin la encuentra
                     # cree un rectángulo como forma para la casilla
                     figura = pygame.Rect(centros_casillas[i][0] - int((alto//self.tamanio[0])//2), centros_casillas[i][1] - int((ancho//self.tamanio[1])/2), alto//self.tamanio[0], ancho//self.tamanio[1])
-                    # cree una casilla estándar con la forma anteriormente creada
-                    temp = CasillaEstandar(centros_casillas[i], (255,255,255), figura, i, self.ventana)
-                    # decórela como una casilla de tipo serpiente
-                    serpiente = CasillaSerpiente(temp)
+                    # cree una casilla como una casilla de tipo serpiente
+                    serpiente = CasillaSerpiente(centros_casillas[i], (255,255,255), figura, i, self.ventana)
                     # agréguela al vector de casillas general una vez decorada
                     self.casillas.append(serpiente)
                     # encontré la posición de una serpiente
@@ -80,10 +78,8 @@ class Tablero():
                 if not encontrado and i in posiciones_escaleras[k]:     # si no ha encontrado aún la posición y por fin la encuentra
                     # cree un rectángulo como forma para la casilla
                     figura = pygame.Rect(centros_casillas[i][0] - int((alto//self.tamanio[0])//2), centros_casillas[i][1] - int((ancho//self.tamanio[1])/2), alto//self.tamanio[0], ancho//self.tamanio[1])
-                    # cree una casilla estándar con la forma anteriormente creada
-                    temp = CasillaEstandar(centros_casillas[i], (255,255,255), figura, i, self.ventana)
-                    # decórela como una casilla de tipo escalera
-                    escalera = CasillaEscalera(temp)
+                    # cree una casilla como una casilla de tipo escalera
+                    escalera = CasillaEscalera(centros_casillas[i], (255,255,255), figura, i, self.ventana)
                     # agréguela al vector de casillas general una vez decorada
                     self.casillas.append(escalera)
                     # encontré la posición de una escalera
@@ -103,22 +99,18 @@ class Tablero():
         for i in range(len(self.casillas)):     # para cada una de las casillas totales ya generadas
 
             if isinstance(self.casillas[i], CasillaSerpiente):      # si la casilla es de tipo serpiente
-                if not self.existeConexion(self.casillas[i].casilla.getIndice()):   # si esta casilla no tiene conectores
-                    # cree un conector estándar entre esta casilla y su pareja en posiciones_serpientes
-                    conector = ConectorEstandar(self.getPar(self.casillas[i].casilla.getIndice(), posiciones_serpientes), self.ventana)
-                    # decore dicho conector como una serpiente y añádalo a la lista de serpientes del tablero
-                    self.serpientes.append(Serpiente(conector))
+                if not self.existeConexion(self.casillas[i].getIndice()):   # si esta casilla no tiene conectores
+                    # cree un conector como una serpiente y añádalo a la lista de serpientes del tablero
+                    self.serpientes.append(Serpiente(self.getPar(self.casillas[i].getIndice(), posiciones_serpientes), self.ventana))
                     # el conector avisará a sus casillas relacionadas que él es su conector
-                    self.serpientes[len(self.serpientes) - 1].conector.sendConector()
+                    self.serpientes[len(self.serpientes) - 1].sendConector()
 
             elif isinstance(self.casillas[i], CasillaEscalera):     # si la casilla es de tipo escalera
-                if not self.existeConexion(self.casillas[i].casilla.getIndice()):   # si esta casilla no tiene conectores
-                    # cree un conector estándar entre esta casilla y su pareja en posiciones_escaleras
-                    conector = ConectorEstandar(self.getPar(self.casillas[i].casilla.getIndice(), posiciones_escaleras), self.ventana)
-                    # decore dicho conector como una escalera y añádalo a la lista de escaleras del tablero
-                    self.escaleras.append(Escalera(conector))
+                if not self.existeConexion(self.casillas[i].getIndice()):   # si esta casilla no tiene conectores
+                    # cree un conector como una escalera y añádalo a la lista de escaleras del tablero
+                    self.escaleras.append(Escalera(self.getPar(self.casillas[i].getIndice(), posiciones_escaleras), self.ventana))
                     # el conector avisará a sus casillas relacionadas que él es su conector
-                    self.escaleras[len(self.escaleras) - 1].conector.sendConector()
+                    self.escaleras[len(self.escaleras) - 1].sendConector()
 
         #for i in range(len(self.casillas)):
             #if not isinstance(self.casillas[i], CasillaEstandar):
@@ -163,12 +155,12 @@ class Tablero():
 
         for i in range(len(self.serpientes)):       # para cada serpiente
             # si esa serpiente está relacionada con la casilla posicionada en el índice dado
-            if indice == self.serpientes[i].conector.getCasillaInicio().casilla.getIndice() or indice == self.serpientes[i].conector.getCasillaFinal().casilla.getIndice():
+            if indice == self.serpientes[i].getCasillaInicio().getIndice() or indice == self.serpientes[i].getCasillaFinal().getIndice():
                 return True     # indique verdadero
 
         for i in range(len(self.escaleras)):       # para cada escalera
             # si esa escalera está relacionada con la casilla posicionada en el índice dado
-            if indice == self.escaleras[i].conector.getCasillaInicio().casilla.getIndice() or indice == self.escaleras[i].conector.getCasillaFinal().casilla.getIndice():
+            if indice == self.escaleras[i].getCasillaInicio().getIndice() or indice == self.escaleras[i].getCasillaFinal().getIndice():
                 return True     # indique verdadero
 
         return False            # de lo contrario, indique falso
@@ -370,7 +362,7 @@ class Tablero():
                 if isinstance(self.casillas[j], CasillaEstandar):
                     self.casillas[j].setColor(colores_x[indice_color_x])
                 else:
-                    self.casillas[j].casilla.setColor(colores_x[indice_color_x])
+                    self.casillas[j].setColor(colores_x[indice_color_x])
                 
                 indice_color_x += 1
                 if indice_color_x > 4:
@@ -381,7 +373,7 @@ class Tablero():
                 if isinstance(self.casillas[j], CasillaEstandar):
                     self.casillas[j].setColor(colores_x[(indice_color_x + 3) % 5])
                 else:
-                    self.casillas[j].casilla.setColor(colores_x[(indice_color_x + 3) % 5])
+                    self.casillas[j].setColor(colores_x[(indice_color_x + 3) % 5])
                 
                 indice_color_x += 1
                 if indice_color_x > 4:
@@ -409,11 +401,8 @@ class Tablero():
         :returns:  None -- Procedimiento sin valor de retorno.
         """
 
-        for c in self.casillas:     # para cada casilla
-            if isinstance(c, CasillaSerpiente) or isinstance(c, CasillaEscalera):   
-                c.casilla.dibujar() # dibuje las decoradas
-            else:
-                c.dibujar()         # y las estándar
+        for c in self.casillas:
+            c.dibujar()             # y las estándar
 
         for i in self.serpientes:   # para cada serpiente
             i.dibujar()             # dibújese
