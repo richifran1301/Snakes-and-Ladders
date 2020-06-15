@@ -1,4 +1,3 @@
-import tkinter as tk
 from tkinter import *
 import os, pygame
 from tablero import Tablero
@@ -81,35 +80,32 @@ class Vista():
 
     def notify(self, evento):
         self.eventoActual = evento
-        print("La vista recibió el evento: ", self.eventoActual)
+        #print("La vista recibió el evento: ", self.eventoActual)
         posicion_cursor = pygame.mouse.get_pos()
         if self.eventoActual == 5:
             if self.boton_dados.isOver(posicion_cursor):
                 temp = self.dado.lanzar()
             if self.boton_reglas.isOver(posicion_cursor):
-                raiz = tk.Tk()
-                text = tk.Text(raiz)
-                text.pack(expand=True, fill=BOTH)
-                texto = """Número de jugadores: dos o más, pero nunca deben jugar más de seis jugadores a la vez.
-Se necesita: un tablero del juego, una ficha de diferente color para cada jugador y un dado. 
-                                    REGLAS
-1- Para comenzar, todos los jugadores tenéis que tirar una vez el dado. El que saque más puntos será el primero en empezar la partida;
-continuará el que esté a su izquierda y así sucesivamente.
-
-2- El juego consiste en mover la ficha desde la casilla 1 hasta la 64; debes avanzarla tantos puestos como puntos te salgan al tirar el dado.
-
-3- Pero ¡cuidado!, si caes en la cabeza de una serpiente debes bajar hasta su cola. LAS SERPIENTES SOLO BAJAN, NUNCA SUBEN.
-
-4- También puedes tener suerte. Si caes en una casilla que señale el principio de una escalera sube hasta el final de la escalera. LAS
-ESCALERAS SOLO SUBEN, NUNCA BAJAN.
-
-5- Gana el primero que llegue a la última casilla.
-
-6- Si queréis jugar otra partida, el ganador de la primera debe ser ahora el último en empezar a jugar. Así tendrá menos posibilidades de volver a ganar. 
-
-"""
-                text.insert(tk.END, texto)
-                tk.mainloop()
+                root = Tk()
+                
+                root.title("Reglas del juego")
+                width = 560
+                height = 350
+                
+                screen_width = root.winfo_screenwidth()
+                screen_height = root.winfo_screenheight()
+                x = (screen_width/2) - (width/2)
+                y = (screen_height/2) - (height/2)
+                root.geometry('%dx%d+%d+%d' % (width, height, x, y))
+                
+                texto = "\n\nNúmero de jugadores: dos o más, pero nunca deben jugar más de seis jugadores a la vez. \n Se necesita: un tablero del juego, una ficha de diferente color para cada jugador y un dado. \n\n REGLAS \n\n 1- Para comenzar, todos los jugadores tenéis que tirar una vez el dado. El que saque más puntos será \n el primero en empezar la partida; continuará el que esté a su izquierda y así sucesivamente. \n\n 2- El juego consiste en mover la ficha desde la casilla 1 hasta la 64; debes avanzarla tantos puestos \n como puntos te salgan al tirar el dado. \n\n 3- Pero ¡cuidado!, si caes en la cabeza de una serpiente debes bajar hasta su cola. LAS SERPIENTES \n SOLO BAJAN, NUNCA SUBEN. \n\n 4- También puedes tener suerte. Si caes en una casilla que señale el principio de una escalera sube \n hasta el final de la escalera. LAS ESCALERAS SOLO SUBEN, NUNCA BAJAN. \n\n 5- Gana el primero que llegue a la última casilla. \n\n 6- Si queréis jugar otra partida, el ganador de la primera debe ser ahora el último en empezar a jugar. \n Así tendrá menos posibilidades de volver a ganar. \n\n"
+                
+                l = Label(root, text= texto)
+                l.pack()
+                
+                root.after(5000, lambda: root.focus_force())
+                root.mainloop()
+                
         elif self.eventoActual == 4:
             if self.boton_dados.isOver(posicion_cursor) or self.boton_reglas.isOver(posicion_cursor):
                 if self.boton_dados.isOver(posicion_cursor):
