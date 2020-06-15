@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMI verified="false" xmi.version="1.2" timestamp="2020-06-07T22:40:46" xmlns:UML="http://schema.omg.org/spec/UML/1.4">
+ <XMI.header>
+  <XMI.documentation>
+   <XMI.exporter>umbrello uml modeller http://umbrello.kde.org</XMI.exporter>
+   <XMI.exporterVersion>1.6.17</XMI.exporterVersion>
+   <XMI.exporterEncoding>UnicodeUTF8</XMI.exporterEncoding>
+  </XMI.documentation>
+  <XMI.metamodel xmi.version="1.4" href="UML.xml" xmi.name="UML"/>
+ </XMI.header>
+ <XMI.content>
+  <UML:Model isSpecification="false" isAbstract="false" isLeaf="false" xmi.id="m1" isRoot="false" name="UML Model">
+   <UML:Namespace.ownedElement>
+    <UML:Stereotype visibility="public" isSpecification="false" namespace="m1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="folder" name="folder"/>
+    <UML:Stereotype visibility="public" isSpecification="false" namespace="m1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="constructor" name="constructor"/>
+    <UML:Stereotype visibility="public" isSpecification="false" namespace="m1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="class-or-package" name="class-or-package"/>
+    <UML:Model visibility="public" isSpecification="false" namespace="m1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Logical_View" name="Logical View">
+     <UML:Namespace.ownedElement>
+      <UML:Package stereotype="folder" visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Datatypes" name="Datatypes">
+       <UML:Namespace.ownedElement>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uh809nUS9jv6F" name="char"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uAGyeFte92SFb" name="int"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uFJU6OXG6xuUC" name="float"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uSDSkoi1oEnYN" name="double"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uGLGtK8f8Bdi5" name="bool"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uWDbmXRdDrk6H" name="string"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uIj95ophFt6Q6" name="unsigned char"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="usf7kE1HY5zrp" name="signed char"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u7uzW7EYLbzdD" name="unsigned int"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uJ6GFt7S05UTX" name="signed int"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uL8Hv1XT06pYF" name="short int"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uMJW3Z1UiFomv" name="unsigned short int"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uE00eswDZnrAO" name="signed short int"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uIa3faUjPGaoa" name="long int"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uL3bz6ARtB8gU" name="signed long int"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uAOW5ZnIURDLi" name="unsigned long int"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uSKkIX6s8IXIE" name="long double"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uh2rk4RCQb6rS" name="wchar_t"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ucfq9N7mSiJM3" name="array"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uxPPrH5eLsmFt" name="tuple"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uRNQ8mzUMKBA0" name="list"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uJ90eXeTafaX5" name="long"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ucjX1UxNUXv66" name="dict"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u8ncWzU6uaHhv" name="object"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="urng0QNZQ9Ccl" name="set"/>
+       </UML:Namespace.ownedElement>
+      </UML:Package>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uGrge2FDN0mnx" comment="comprueba si el jugador esta en la posicion ganadora y devuelve un bool" name="Arbitro">
+       <UML:Classifier.feature>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="ufspAODP991Uf" comment="    Este metodo se encarga de verificar si un jugador ha ganado la partida, se utiliza en cada jugada del jugador&#xa;    @param pos: Recibe la posicion de la casilla en la que se encuentra el jugador &#xa;    @type pos: numero entero&#xa;    @returns: bool, devuelve true si el jugador en cuestion gano la partida&#xa;" isOverride="false" name="init" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ulmnrvkMZVBwD" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uLro1sKnQSlx9" type="uWDbmXRdDrk6H" value="" name="cls"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uq7eHFVyAmbiO" comment="si las coordenadas de jugador son iguales a las de la casilla ganadora, gana = True    Este metodo comprueba la posicion del jugador en el tablero y si en esa casilla hay una serpiente o escalera, y aplica el movimiento&#xa;    indicado&#xa;    @param posTablero: recibe la posicion del jugador en el tablero&#xa;    @type posTablero: numero entero&#xa;    @return distancia: retorna la distancia que se tiene que recorrer, ya sea al final de la serpiente o el tope de la escalera&#xa;    @return coordenadasNuevas: retorna las coordenadas de la nueva casilla hacia donde se va a mover el jugador&#xa;    &#xa;" isOverride="false" name="comprobarGane" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="utLgOmcoXTIUF" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uQWDEeO8C5YJ6" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uhh0mMw22drUF" type="uWDbmXRdDrk6H" value="" name="pos"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uEJOBVkdpeALK" comment="comprueba si el jugador esta en una escalera o serpiente y lo mueve a donde le corresponde" isOverride="false" name="aplicarReglasMovimiento" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ux5gTbnHFPkFv" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uLbMQ4JzXuwSw" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uMZqTZCeNa4gr" type="uWDbmXRdDrk6H" value="" name="posTablero"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uaiVcPKjahSoi" comment="    Este metodo se utiliza para decidir el orden de los turnos de los jugadores, cada uno lanza dados y el mas alto, va de primero y asi sucesivamente&#xa;    @param cantidad_jugadores: recibe la cantidad de jugadores que estan en la partida&#xa;    @type cantidad_jugadores: numero entero&#xa;    @param boton_dados: recibe una instancia de un boton de dados del cual se sacara la informacion de los dados&#xa;    @type boton_dados: instancia de la clase button&#xa;    @param dado: el dado que se lanzara para sacar un numero al azar&#xa;    @type dado: una instancia de dado&#xa;" isOverride="false" name="reporte_jugadores" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u4E3vhi3OJdIT" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uCsqmH6JvNRQj" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ud1x5Y7eqLCGy" type="uWDbmXRdDrk6H" value="" name="jugador"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uYmPgdLvYzEvv" comment="    Este metodo busca un jugador dentro del vector de turnos de acuerdo al valor que saco en los dados&#xa;    @param jugadores: el vector que guarda los turnos de los jugadores&#xa;    @type jugadores: un array de Jugador&#xa;    @param valor: la cantidad que tiro en los dados el jugador&#xa;    @type valor: numero entero&#xa;" isOverride="false" name="decidir_turnos" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uVFIGxEAjr4HZ" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uC45oEJndS1yG" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uSAn1ntK8tGwM" type="uWDbmXRdDrk6H" value="" name="cantidad_jugadores"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uXSIfbg1LC888" type="uWDbmXRdDrk6H" value="" name="boton_dados"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uIRT69dhjoVWD" type="uWDbmXRdDrk6H" value="" name="dado"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="ud1uwtRyxnQyS" isOverride="false" name="buscar_jugador" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uxbckDITfzvSN" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ueExEjoZ5Dwfa" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ud9g8rfdWyIcL" type="uWDbmXRdDrk6H" value="" name="jugadores"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="u3IqfkTqis3cr" type="uWDbmXRdDrk6H" value="" name="valor"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="u9oGVfvT9P85t" isOverride="false" name="esColorRepetido" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uzj73e15XLwPJ" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uIevTlV20tF9r" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uhKqEopEHvCar" type="uWDbmXRdDrk6H" value="" name="color"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u9AEsg0zYJDQs" name="Button">
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uP0Xf58Dov0d8" type="u8ncWzU6uaHhv" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param mi_color: Color del botÃ³n.&#xa;:type mi_color: tuple&#xa;:param x = Posicion en el eje x en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param x = Posicion en el eje y en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param ancho: Ancho del botÃ³n&#xa;:type ancho: int&#xa;:param alto: Alto del botÃ³n&#xa;:type alto: int&#xa;:param text: Texto opcional que tendrÃ¡ el botÃ³n, el cual tiene como valor predeterminado ''&#xa;:type text: string&#xa;:atribute mi_forma: forma del botÃ³n&#xa;:type mi_forma: pygame.Rect&#xa;" name="x"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u5gROHqOFjRSq" type="u8ncWzU6uaHhv" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param mi_color: Color del botÃ³n.&#xa;:type mi_color: tuple&#xa;:param x = Posicion en el eje x en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param x = Posicion en el eje y en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param ancho: Ancho del botÃ³n&#xa;:type ancho: int&#xa;:param alto: Alto del botÃ³n&#xa;:type alto: int&#xa;:param text: Texto opcional que tendrÃ¡ el botÃ³n, el cual tiene como valor predeterminado ''&#xa;:type text: string&#xa;:atribute mi_forma: forma del botÃ³n&#xa;:type mi_forma: pygame.Rect&#xa;" name="y"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u63LGydpNfC83" type="u8ncWzU6uaHhv" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param mi_color: Color del botÃ³n.&#xa;:type mi_color: tuple&#xa;:param x = Posicion en el eje x en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param x = Posicion en el eje y en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param ancho: Ancho del botÃ³n&#xa;:type ancho: int&#xa;:param alto: Alto del botÃ³n&#xa;:type alto: int&#xa;:param text: Texto opcional que tendrÃ¡ el botÃ³n, el cual tiene como valor predeterminado ''&#xa;:type text: string&#xa;:atribute mi_forma: forma del botÃ³n&#xa;:type mi_forma: pygame.Rect&#xa;" name="text"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="utwmw8hgMvCBu" type="u8ncWzU6uaHhv" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param mi_color: Color del botÃ³n.&#xa;:type mi_color: tuple&#xa;:param x = Posicion en el eje x en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param x = Posicion en el eje y en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param ancho: Ancho del botÃ³n&#xa;:type ancho: int&#xa;:param alto: Alto del botÃ³n&#xa;:type alto: int&#xa;:param text: Texto opcional que tendrÃ¡ el botÃ³n, el cual tiene como valor predeterminado ''&#xa;:type text: string&#xa;:atribute mi_forma: forma del botÃ³n&#xa;:type mi_forma: pygame.Rect&#xa;" name="alto"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uMxqCX6D1KC8X" type="u8ncWzU6uaHhv" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param mi_color: Color del botÃ³n.&#xa;:type mi_color: tuple&#xa;:param x = Posicion en el eje x en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param x = Posicion en el eje y en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param ancho: Ancho del botÃ³n&#xa;:type ancho: int&#xa;:param alto: Alto del botÃ³n&#xa;:type alto: int&#xa;:param text: Texto opcional que tendrÃ¡ el botÃ³n, el cual tiene como valor predeterminado ''&#xa;:type text: string&#xa;:atribute mi_forma: forma del botÃ³n&#xa;:type mi_forma: pygame.Rect&#xa;" name="ancho"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u2fThuKYRESDV" type="u8ncWzU6uaHhv" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param mi_color: Color del botÃ³n.&#xa;:type mi_color: tuple&#xa;:param x = Posicion en el eje x en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param x = Posicion en el eje y en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param ancho: Ancho del botÃ³n&#xa;:type ancho: int&#xa;:param alto: Alto del botÃ³n&#xa;:type alto: int&#xa;:param text: Texto opcional que tendrÃ¡ el botÃ³n, el cual tiene como valor predeterminado ''&#xa;:type text: string&#xa;:atribute mi_forma: forma del botÃ³n&#xa;:type mi_forma: pygame.Rect&#xa;" name="ventana"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uWK3Qa74mZiK3" type="u8ncWzU6uaHhv" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param mi_color: Color del botÃ³n.&#xa;:type mi_color: tuple&#xa;:param x = Posicion en el eje x en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param x = Posicion en el eje y en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param ancho: Ancho del botÃ³n&#xa;:type ancho: int&#xa;:param alto: Alto del botÃ³n&#xa;:type alto: int&#xa;:param text: Texto opcional que tendrÃ¡ el botÃ³n, el cual tiene como valor predeterminado ''&#xa;:type text: string&#xa;:atribute mi_forma: forma del botÃ³n&#xa;:type mi_forma: pygame.Rect&#xa;" name="mi_color"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="ubThGFEbFN8m5" type="u0xl5OuSC8PmI" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param mi_color: Color del botÃ³n.&#xa;:type mi_color: tuple&#xa;:param x = Posicion en el eje x en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param x = Posicion en el eje y en la cual se excuentra el mouse &#xa;:type x: int&#xa;:param ancho: Ancho del botÃ³n&#xa;:type ancho: int&#xa;:param alto: Alto del botÃ³n&#xa;:type alto: int&#xa;:param text: Texto opcional que tendrÃ¡ el botÃ³n, el cual tiene como valor predeterminado ''&#xa;:type text: string&#xa;:atribute mi_forma: forma del botÃ³n&#xa;:type mi_forma: pygame.Rect&#xa;" initialValue="(x,y,ancho,alto)" name="mi_forma"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u2Z7BkF85sRXg" comment="        :param ventana: Referencia a la ventana de pygame.&#xa;        :type ventana: pygame.display&#xa;        :param mi_color: Color del botÃ³n.&#xa;        :type mi_color: tuple&#xa;        :param x = Posicion en el eje x en la cual se excuentra el mouse &#xa;        :type x: int&#xa;        :param x = Posicion en el eje y en la cual se excuentra el mouse &#xa;        :type x: int&#xa;        :param ancho: Ancho del botÃ³n&#xa;        :type ancho: int&#xa;        :param alto: Alto del botÃ³n&#xa;        :type alto: int&#xa;        :param text: Texto opcional que tendrÃ¡ el botÃ³n, el cual tiene como valor predeterminado ''&#xa;        :type text: string&#xa;        :atribute mi_forma: forma del botÃ³n&#xa;        :type mi_forma: pygame.Rect&#xa;" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uppg7AyZdvPpM" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uOBKowElqNhGt" type="uWDbmXRdDrk6H" value="" name="ventana"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ub1I0Bi3swg0S" type="uWDbmXRdDrk6H" value="" name="mi_color"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ufQWWYd4jkSsA" type="uWDbmXRdDrk6H" value="" name="x"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uPmqfgQGGiMXQ" type="uWDbmXRdDrk6H" value="" name="y"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="utEYppABT9PuF" type="uWDbmXRdDrk6H" value="" name="ancho"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uNLqOlMrIjDKw" type="uWDbmXRdDrk6H" value="" name="alto"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uJpSPjyYTvNo5" type="u8ncWzU6uaHhv" value="" name="text"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="umFppZKqClom4" comment="        Esta funciÃ³n se encarga de dibujar el botÃ³n en la posiciÃ³n dada al inicializarse&#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa; Se dibuja un pygame.Rect el cual corresponde a la forma del botÃ³n Se dibuja un pygame.Rect que corresponde al borde del botÃ³n Se seleciona el font deseado para el texto del botÃ³n Se le aplica el formato al texto y un color para este Se obtiene un cuadrado pygame.Rect a partir del texto Se establece la posiciÃ³n central del pygame.Rect que se acaba de obtener Se dibuja en la ventana el botÃ³n." isOverride="false" name="dibujar" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uQPqHx7TmC949" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u8qTvPCfNxySP" comment="        Esta funciÃ³n se encarga de averiguar si el mouse se encuentra por encima del botÃ³n.&#xa;        :param pos: Posicion (x,y) en la que se encuentra el mouse en un momento dado&#xa;        :type pos: tuple&#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa;Pos is the mouse position or a tuple of (x,y) coordinates                   Si el mouse se encuentra en el interior del botÃ³n Se retorna true En cualquier otro caso, false" isOverride="false" name="isOver" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uukJRLPPi0NqY" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="u3iTSSiCgVvzP" type="uWDbmXRdDrk6H" value="" name="pos"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class stereotype="class-or-package" visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uSN1c79R4F5i1" name="pygame">
+       <UML:Namespace.ownedElement>
+        <UML:Class visibility="public" isSpecification="false" namespace="uSN1c79R4F5i1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u0xl5OuSC8PmI" name="Rect"/>
+        <UML:Class stereotype="class-or-package" visibility="public" isSpecification="false" namespace="uSN1c79R4F5i1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="utI0erRcfc4S1" name="rect"/>
+       </UML:Namespace.ownedElement>
+      </UML:Class>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uMGH1NT2L0zX7" comment="    Clase genÃ©rica de casilla para implementar decoradores.&#xa;" name="Casilla">
+       <UML:Classifier.feature>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="umciyZOMsNFa7" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uhwLm2QfpkOSy" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ubVPlRHn0QgaJ" comment="    Esta clase representa una casilla de tablero, y contiene los&#xa;    atributos y acciones necesarios para su graficaciÃ³n y comportamiento&#xa;    en un tablero de juego.&#xa;" name="CasillaEstandar">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uh2FwEl6tbJoA"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uXznEiFA0Vz9m" type="u8ncWzU6uaHhv" comment=":param mis_coordenadas: Coordenadas en tupla (x, y) del centro de la casilla.&#xa;:type mis_coordenadas: tuple&#xa;:param mi_color: Color de la casilla.&#xa;:type mi_color: tuple&#xa;:param mi_forma: Forma de pygame de la casilla (rectangular).&#xa;:type mi_forma: pygame.Rect&#xa;:param mi_indice: Ãndice de la casilla en el vector de casillas de Tablero.&#xa;:type mi_indice: int&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;" name="mis_coordenadas"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="ubLyXuca59LNZ" type="u8ncWzU6uaHhv" comment=":param mis_coordenadas: Coordenadas en tupla (x, y) del centro de la casilla.&#xa;:type mis_coordenadas: tuple&#xa;:param mi_color: Color de la casilla.&#xa;:type mi_color: tuple&#xa;:param mi_forma: Forma de pygame de la casilla (rectangular).&#xa;:type mi_forma: pygame.Rect&#xa;:param mi_indice: Ãndice de la casilla en el vector de casillas de Tablero.&#xa;:type mi_indice: int&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;" name="mi_color"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u1Xav4hvWTF6Z" type="u8ncWzU6uaHhv" comment=":param mis_coordenadas: Coordenadas en tupla (x, y) del centro de la casilla.&#xa;:type mis_coordenadas: tuple&#xa;:param mi_color: Color de la casilla.&#xa;:type mi_color: tuple&#xa;:param mi_forma: Forma de pygame de la casilla (rectangular).&#xa;:type mi_forma: pygame.Rect&#xa;:param mi_indice: Ãndice de la casilla en el vector de casillas de Tablero.&#xa;:type mi_indice: int&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;" name="mi_forma"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uGmVpPWtDLZkw" type="u8ncWzU6uaHhv" comment=":param mis_coordenadas: Coordenadas en tupla (x, y) del centro de la casilla.&#xa;:type mis_coordenadas: tuple&#xa;:param mi_color: Color de la casilla.&#xa;:type mi_color: tuple&#xa;:param mi_forma: Forma de pygame de la casilla (rectangular).&#xa;:type mi_forma: pygame.Rect&#xa;:param mi_indice: Ãndice de la casilla en el vector de casillas de Tablero.&#xa;:type mi_indice: int&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;" name="mi_indice"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uTo924MpMDHSH" type="u8ncWzU6uaHhv" comment=":param mis_coordenadas: Coordenadas en tupla (x, y) del centro de la casilla.&#xa;:type mis_coordenadas: tuple&#xa;:param mi_color: Color de la casilla.&#xa;:type mi_color: tuple&#xa;:param mi_forma: Forma de pygame de la casilla (rectangular).&#xa;:type mi_forma: pygame.Rect&#xa;:param mi_indice: Ãndice de la casilla en el vector de casillas de Tablero.&#xa;:type mi_indice: int&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;" name="ventana"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u95CIAv7recPn" type="u8ncWzU6uaHhv" comment=":param mis_coordenadas: Coordenadas en tupla (x, y) del centro de la casilla.&#xa;:type mis_coordenadas: tuple&#xa;:param mi_color: Color de la casilla.&#xa;:type mi_color: tuple&#xa;:param mi_forma: Forma de pygame de la casilla (rectangular).&#xa;:type mi_forma: pygame.Rect&#xa;:param mi_indice: Ãndice de la casilla en el vector de casillas de Tablero.&#xa;:type mi_indice: int&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;referencia al conector de una casilla, por defecto no tienen." initialValue="None" name="conector"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ulyKc7z4DeQ0S" comment="        :param mis_coordenadas: Coordenadas en tupla (x, y) del centro de la casilla.&#xa;        :type mis_coordenadas: tuple&#xa;        :param mi_color: Color de la casilla.&#xa;        :type mi_color: tuple&#xa;        :param mi_forma: Forma de pygame de la casilla (rectangular).&#xa;        :type mi_forma: pygame.Rect&#xa;        :param mi_indice: Ãndice de la casilla en el vector de casillas de Tablero.&#xa;        :type mi_indice: int&#xa;        :param ventana: Referencia a la ventana de pygame.&#xa;        :type ventana: pygame.display&#xa; referencia al conector de una casilla, por defecto no tienen." isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u25rjc5vE3Ru6" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uvgBUo02KjmBJ" type="uWDbmXRdDrk6H" value="" name="mis_coordenadas"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uWwrkDXqvCmEP" type="uWDbmXRdDrk6H" value="" name="mi_color"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uUHCoriNXGyc6" type="uWDbmXRdDrk6H" value="" name="mi_forma"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uGBKidBSQ85er" type="uWDbmXRdDrk6H" value="" name="mi_indice"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uKOHwlgtfgRcn" type="uWDbmXRdDrk6H" value="" name="ventana"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uL8n72HTYzOj7" comment="        :returns:  tuple -- Una tupla con las coordenadas x, y del centro de la casilla.&#xa;" isOverride="false" name="getCoordenadas" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uhgled7DwYNZy" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uXtP3CPEarMtu" comment="        :returns:  tuple -- Una tupla con el color r, g, b de la casilla.&#xa;" isOverride="false" name="getColor" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ugZ3qhE3GMxkm" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uumq0XRxsCLsa" comment="        :returns:  pygame.Rect -- Una tupla con el color r, g, b de la casilla.&#xa;" isOverride="false" name="getForma" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uisIfiYctm9UV" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u8UBvl1zKsqgd" comment="        :returns:  int -- La posicion de la casilla en la lista 'casillas' de Tablero.&#xa;" isOverride="false" name="getIndice" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="unoud0TEwwP7l" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uJ4hWiNm2vizW" comment="        :returns:  ConectorEstandar -- El conector que tiene una casilla con otra.&#xa;" isOverride="false" name="getConector" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ugLFB8ouyVjSa" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uUl124zDsKYkh" comment="        :param color: El color para la casilla en RGB (a,b,c).&#xa;        :type color: tuple&#xa;        :returns:  None -- Procedimiento set sin valor de retorno.&#xa;" isOverride="false" name="setColor" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uLYyhDxosMf8O" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uvF7AytCamVox" type="uWDbmXRdDrk6H" value="" name="color"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uGMiF6a7set9Q" comment="        :param conector: El conector que tiene una casilla con otra.&#xa;        :type conector: ConectorEstandar&#xa;        :returns:  None -- Procedimiento set sin valor de retorno.&#xa;" isOverride="false" name="setConector" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u2xCtZSH2dnKO" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uNPMbCF811LgV" type="uWDbmXRdDrk6H" value="" name="conector"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ug94xF7B5PUo5" comment="        Este mÃ©todo indica si una casilla es el inicio de un conector o no.&#xa;        :returns:  bool -- SerÃ¡ True si la casilla es inicio en su respectivo conector.&#xa;" isOverride="false" name="esInicio" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uVxhYJribvrwI" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="umqSxEEKcqbdx" comment="        Este mÃ©todo devuelve la casilla a la que un jugador debe desplazarse si estÃ¡ en una de inicio.&#xa;        Es Ãºtil usarla en conjunto con la funciÃ³n esInicio() cuando devuelve verdadero.&#xa;        :returns:  CasillaEstandar -- Casilla final en el conector de la casilla actual.&#xa;.getIndice()" isOverride="false" name="getFinal" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uPL4A5nI3j73x" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uXdUCsNw0Ju4E" comment="        Este mÃ©todo dibuja la casilla en la ventana de pygame.&#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa; se pasan las referencias estÃ©ticaspygame.font.init() parametros de fuente del texto (num. casilla) procesamiento del texto para pygame coordenadas del texto dibuja el texto en la ventana " isOverride="false" name="dibujar" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uXH3V0AgoK8GW" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Generalization discriminator="" visibility="public" isSpecification="false" namespace="Logical_View" child="ubVPlRHn0QgaJ" xmi.id="uh2FwEl6tbJoA" parent="uMGH1NT2L0zX7" name=""/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u5qI5MRrxI7MX" comment="    Decorador de una CasillaEstandar como casilla de escalera.&#xa;" name="CasillaEscalera">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uIQ9Ej8mN5eyK"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uN1wwMR7eOzdg" type="u8ncWzU6uaHhv" comment=":param casilla: Objeto CasillaEstandar que se decora.&#xa;:type casilla: CasillaEstandar&#xa;" name="casilla"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uGteTjEZgoby9" comment="        :param casilla: Objeto CasillaEstandar que se decora.&#xa;        :type casilla: CasillaEstandar&#xa;" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u8vYTwH5JPRya" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uVHeYNGB1bJnl" type="uWDbmXRdDrk6H" value="" name="casilla"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Generalization discriminator="" visibility="public" isSpecification="false" namespace="Logical_View" child="u5qI5MRrxI7MX" xmi.id="uIQ9Ej8mN5eyK" parent="uMGH1NT2L0zX7" name=""/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uafk6xt7lMbAc" name="CasillaSerpiente">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uGXerHRRsqgGD"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="umPpbUFG7aZxj" type="u8ncWzU6uaHhv" comment=":param casilla: Objeto CasillaEstandar que se decora.&#xa;:type casilla: CasillaEstandar&#xa;" name="casilla"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uGP5OO0mt8MK5" comment="        :param casilla: Objeto CasillaEstandar que se decora.&#xa;        :type casilla: CasillaEstandar&#xa;" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ukzOm4XvGvmCn" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uFIuzgJK15UiE" type="uWDbmXRdDrk6H" value="" name="casilla"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Generalization discriminator="" visibility="public" isSpecification="false" namespace="Logical_View" child="uafk6xt7lMbAc" xmi.id="uGXerHRRsqgGD" parent="uMGH1NT2L0zX7" name=""/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ugPzcrrdzHuiQ" name="Conector"/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uMXwwWOxEfVnl" comment="    Esta clase representa una conector entre dos casillas de tablero, y contiene los&#xa;    atributos y acciones necesarios para su comportamiento en un tablero de juego.&#xa;    En el juego Serpientes y escaleras estos pueden decorarse como serpientes o escaleras.&#xa;" name="ConectorEstandar">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uHSaJhmXo5wZ1"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u9WXDAidvWZRA" type="u8ncWzU6uaHhv" comment=":param casilla: Casillas relacionadas con un conector, en pos 0 la de inicio, pos 1 la de fin.&#xa;:type casilla: tuple&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;" name="casilla_inicio"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u5TP0yVesQ1to" type="u8ncWzU6uaHhv" comment=":param casilla: Casillas relacionadas con un conector, en pos 0 la de inicio, pos 1 la de fin.&#xa;:type casilla: tuple&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;" name="casilla_final"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uTJ1I687dg9XV" type="u8ncWzU6uaHhv" comment=":param casilla: Casillas relacionadas con un conector, en pos 0 la de inicio, pos 1 la de fin.&#xa;:type casilla: tuple&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;" name="ventana"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uN5FBh2BtXSEJ" comment="        :param casilla: Casillas relacionadas con un conector, en pos 0 la de inicio, pos 1 la de fin.&#xa;        :type casilla: tuple&#xa;        :param ventana: Referencia a la ventana de pygame.&#xa;        :type ventana: pygame.display&#xa;" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u5FNv9PXGcH9s" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uvXlb7TMxc4hN" type="uWDbmXRdDrk6H" value="" name="casilla"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uTe0yB698OqjY" type="uWDbmXRdDrk6H" value="" name="ventana"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ulI8HqrDdxUWZ" comment="        :returns:  CasillaEstandar -- Referencia a la casilla donde inicia el conector.&#xa;" isOverride="false" name="getCasillaInicio" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uogOsggvlVODU" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uCM3FfmgvC4zd" comment="        :returns:  CasillaEstandar -- Referencia a la casilla donde termina el conector.&#xa;" isOverride="false" name="getCasillaFinal" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uuJa7D3oSz7l3" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uySN18VhjN5CA" comment="        :returns:  pygame.display -- Referencia a la ventana de pygame.&#xa;" isOverride="false" name="getVentana" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uvTrOvjMi4JQd" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uSWQsciEgexZL" comment="        Esta funciÃ³n envÃ­a el mismo conector (self) a sus casillas relacionadas de inicio y fin.&#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa;" isOverride="false" name="sendConector" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="un8dALJbLmS62" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Generalization discriminator="" visibility="public" isSpecification="false" namespace="Logical_View" child="uMXwwWOxEfVnl" xmi.id="uHSaJhmXo5wZ1" parent="ugPzcrrdzHuiQ" name=""/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u9I9njvDRz6p1" comment="    Decorador de un ConectorEstandar como una escalera.&#xa;" name="Escalera">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uiVrmlBdzlPkC"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="umZRVagWy9Ikw" type="u8ncWzU6uaHhv" comment=":param conector: Objeto ConectorEstandar que se decora.&#xa;:type conector: ConectorEstandar&#xa;" name="conector"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uWXWEq4OUUNdG" comment="        :param conector: Objeto ConectorEstandar que se decora.&#xa;        :type conector: ConectorEstandar&#xa;" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ubO6phyWqulTN" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uCJclttYZBTos" type="uWDbmXRdDrk6H" value="" name="conector"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="unyErxDOspzYT" comment="        Este mÃ©todo dibuja el conector como una escalera en la ventana de pygame.&#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa;" isOverride="false" name="dibujar" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uvvWf357DGQqQ" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Generalization discriminator="" visibility="public" isSpecification="false" namespace="Logical_View" child="u9I9njvDRz6p1" xmi.id="uiVrmlBdzlPkC" parent="ugPzcrrdzHuiQ" name=""/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uoVhMRKgYUcwo" comment="    Decorador de un ConectorEstandar como una serpiente.&#xa;" name="Serpiente">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="ueh0RZzyImbaF"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uUecJcXgphqGC" type="u8ncWzU6uaHhv" comment=":param conector: Objeto ConectorEstandar que se decora.&#xa;:type conector: ConectorEstandar&#xa;" name="conector"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uAXV32CcQGZYK" comment="        :param conector: Objeto ConectorEstandar que se decora.&#xa;        :type conector: ConectorEstandar&#xa;" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uHVjcJAhs7B53" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uuf5fCv5fGFad" type="uWDbmXRdDrk6H" value="" name="conector"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uvfhBIO4NtQ0g" comment="        Este mÃ©todo dibuja el conector como una escalera en la ventana de pygame.&#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa;" isOverride="false" name="dibujar" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uN4ClAsy5pvgJ" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Generalization discriminator="" visibility="public" isSpecification="false" namespace="Logical_View" child="uoVhMRKgYUcwo" xmi.id="ueh0RZzyImbaF" parent="ugPzcrrdzHuiQ" name=""/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="utBhPqzU8N9N3" comment="    Esta clase representa un dado de seis caras, y sus atributos y acciones necesarios &#xa;    para su comportamiento en un tablero de juego.&#xa;" name="Dado">
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="unNcy4PeoHGca" type="uRNQ8mzUMKBA0" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;valores de las caras" initialValue="[1,2,3,4,5,6]" name="valores_caras"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="ubgB4JfxrxjSb" type="u8ncWzU6uaHhv" comment=":param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;valores de las caras" initialValue="None" name="caras"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ug4p1pJgr39ai" comment="        :param ventana: Referencia a la ventana de pygame.&#xa;        :type ventana: pygame.display&#xa; valores de las caras" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ujUIUBDx4i8Mz" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uAnAVUOjzws81" comment="        Esta funciÃ³n dibuja los dados resultantes de un lanzamiento y arroja la suma de sus valores.&#xa;        :returns:  int -- Suma de las caras resultantes de ambos dados.&#xa; genere dos nÃºmeros aleatorios entre 1 y 6, ambos inclusive sume los resultados dibuje los resultados" isOverride="false" name="lanzar" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uEOM5P4BtSWEB" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u3e3f9kEIN7dI" comment="        Esta funciÃ³n dibuja dos dados segÃºn el resultado de sus caras.&#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa; direcciÃ³n de las imÃ¡genes de los dados haga el proceso de dibujo de la primera cara del dado, de pygame para imÃ¡genes or .convert_alpha() lo mismo para la segunda cara or .convert_alpha()" isOverride="false" name="dibujar" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uPjsVJCu9ZeiK" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uGtCofYWroOBT" type="uWDbmXRdDrk6H" value="" name="resultados_por_dado"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="urVgOojGOot1N" comment="        Este metodo va a esperar que el usuario presione en la interfaz, el boton de tirar dados. Va a representar&#xa;        los dados graficamente tambien, y almacenar el valor guardado en una variable llamada resultado_dados.&#xa;        Ademas, cambia el color de la opcion del boton si se tiene el cursor sobre el. Por ultimo, tambien contempla &#xa;        la opcion de que el usuario presione la equis para salir del juego y es una opcion normal para salirse.&#xa;        :param boton_dados: representacion del boton de los dados, cuando el usuario hace clic sobre el es que se &#xa;        tiran los dados.&#xa;        :type boton_dados: Button&#xa;        :returns: variable que almaceno el valor sumado que salio en los dados&#xa; esta variable contiene ahora el numero que lanzaron los dados. usar donde se necesite." isOverride="false" name="espere_repuesta_dados" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="umQ5uBRmHqSFn" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uI4NnxdabTBdF" type="uWDbmXRdDrk6H" value="" name="boton_dados"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uvtV1cci93Dtv" comment="    Esta clase corresponde a la del Jugador que participa en el juego. Realiza las &#xa;    interacciones dadas por el usuario y depende totalmente de el. Van a haber entre 2 &#xa;    a 4 jugadores por juego.&#xa;" name="Jugador">
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uoMSioFFM2XJt" type="u8ncWzU6uaHhv" comment=":param x: coordenada en X donde se posicionara el jugador&#xa;:type x: int&#xa;:param y: coordenada en Y donde se posicionara el jugador&#xa;:type y: int&#xa;:param a: medida del ancho del jugador&#xa;:type a: int&#xa;:param l: medida de la altura del jugador&#xa;:type l: int&#xa;:param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mX: int&#xa;:param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mY: int&#xa;" name="x"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u7YCy17I90WCU" type="u8ncWzU6uaHhv" comment=":param x: coordenada en X donde se posicionara el jugador&#xa;:type x: int&#xa;:param y: coordenada en Y donde se posicionara el jugador&#xa;:type y: int&#xa;:param a: medida del ancho del jugador&#xa;:type a: int&#xa;:param l: medida de la altura del jugador&#xa;:type l: int&#xa;:param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mX: int&#xa;:param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mY: int&#xa;" name="y"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uruwE310lfiGQ" type="u8ncWzU6uaHhv" comment=":param x: coordenada en X donde se posicionara el jugador&#xa;:type x: int&#xa;:param y: coordenada en Y donde se posicionara el jugador&#xa;:type y: int&#xa;:param a: medida del ancho del jugador&#xa;:type a: int&#xa;:param l: medida de la altura del jugador&#xa;:type l: int&#xa;:param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mX: int&#xa;:param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mY: int&#xa;" name="largo"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uII0BU1RB2Lj8" type="u8ncWzU6uaHhv" comment=":param x: coordenada en X donde se posicionara el jugador&#xa;:type x: int&#xa;:param y: coordenada en Y donde se posicionara el jugador&#xa;:type y: int&#xa;:param a: medida del ancho del jugador&#xa;:type a: int&#xa;:param l: medida de la altura del jugador&#xa;:type l: int&#xa;:param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mX: int&#xa;:param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mY: int&#xa;" name="ancho"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uzBUUkv7dQkz8" type="u8ncWzU6uaHhv" comment=":param x: coordenada en X donde se posicionara el jugador&#xa;:type x: int&#xa;:param y: coordenada en Y donde se posicionara el jugador&#xa;:type y: int&#xa;:param a: medida del ancho del jugador&#xa;:type a: int&#xa;:param l: medida de la altura del jugador&#xa;:type l: int&#xa;:param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mX: int&#xa;:param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mY: int&#xa;" name="pos_tablero"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="unAwUMHTJG9Ew" type="u8ncWzU6uaHhv" comment=":param x: coordenada en X donde se posicionara el jugador&#xa;:type x: int&#xa;:param y: coordenada en Y donde se posicionara el jugador&#xa;:type y: int&#xa;:param a: medida del ancho del jugador&#xa;:type a: int&#xa;:param l: medida de la altura del jugador&#xa;:type l: int&#xa;:param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mX: int&#xa;:param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mY: int&#xa;" name="movX"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uUo8Nogw2GlWg" type="u8ncWzU6uaHhv" comment=":param x: coordenada en X donde se posicionara el jugador&#xa;:type x: int&#xa;:param y: coordenada en Y donde se posicionara el jugador&#xa;:type y: int&#xa;:param a: medida del ancho del jugador&#xa;:type a: int&#xa;:param l: medida de la altura del jugador&#xa;:type l: int&#xa;:param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mX: int&#xa;:param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mY: int&#xa;" name="movY"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uhyIsSbpSiVpZ" type="uGLGtK8f8Bdi5" comment=":param x: coordenada en X donde se posicionara el jugador&#xa;:type x: int&#xa;:param y: coordenada en Y donde se posicionara el jugador&#xa;:type y: int&#xa;:param a: medida del ancho del jugador&#xa;:type a: int&#xa;:param l: medida de la altura del jugador&#xa;:type l: int&#xa;:param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mX: int&#xa;:param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mY: int&#xa;" initialValue="False" name="ganador"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uPzbFldef8TuQ" type="u0xl5OuSC8PmI" comment=":param x: coordenada en X donde se posicionara el jugador&#xa;:type x: int&#xa;:param y: coordenada en Y donde se posicionara el jugador&#xa;:type y: int&#xa;:param a: medida del ancho del jugador&#xa;:type a: int&#xa;:param l: medida de la altura del jugador&#xa;:type l: int&#xa;:param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mX: int&#xa;:param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;esquina de abajo, o la de arriba...&#xa;:type mY: int&#xa;" initialValue="((self.x,self.y,self.ancho,self.largo))" name="rect"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uUhxcqxyiCs1v" comment="        :param x: coordenada en X donde se posicionara el jugador&#xa;        :type x: int&#xa;        :param y: coordenada en Y donde se posicionara el jugador&#xa;        :type y: int&#xa;        :param a: medida del ancho del jugador&#xa;        :type a: int&#xa;        :param l: medida de la altura del jugador&#xa;        :type l: int&#xa;        :param mX: es que tanto tiene que moverse en X este jugador en especifico, para&#xa;        estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;        esquina de abajo, o la de arriba...&#xa;        :type mX: int&#xa;        :param mY: es que tanto tiene que moverse en Y este jugador en especifico, para&#xa;        estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una &#xa;        esquina de abajo, o la de arriba...&#xa;        :type mY: int&#xa;" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uuInAMAA1z7rK" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ueQHHXN9RAvPe" type="uWDbmXRdDrk6H" value="" name="pos"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="urcj7izKcx6OB" type="uWDbmXRdDrk6H" value="" name="x"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="udjSI62kA9bDo" type="uWDbmXRdDrk6H" value="" name="y"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="u4wxBsL72wtiF" type="uWDbmXRdDrk6H" value="" name="a"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uwxV0cCOySKm6" type="uWDbmXRdDrk6H" value="" name="l"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uiq78peg7ok5W" type="uWDbmXRdDrk6H" value="" name="mX"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uPHJCwHFWqNpS" type="uWDbmXRdDrk6H" value="" name="mY"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uJTy7awgXC7tY" comment="        Metodo que se encarga de darle nombre al Jugador y almacenarlo en la variable nombre.&#xa;        :param nombre: nombre para ponerle al Jugador&#xa;        :type nombre: string&#xa;" isOverride="false" name="setNombre" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="utGAAVCNaq2Zs" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uSCGL0BRzu4xM" type="uWDbmXRdDrk6H" value="" name="nombre"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uMjN06GEM8qy1" comment="        Va a almacenar un color para el Jugador y esto es decision del usuario. El color tiene que existir dentro de las opciones&#xa;        y no puede repetirse. El color es unico por jugador en la partida.&#xa;" isOverride="false" name="setColor" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uiboMbfTw0iSg" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uVhyco4MCDUYZ" comment="        Metodo que va a devolver el nombre del Jugador.&#xa;        :returns: nombre del jugador, es tipo string.&#xa;" isOverride="false" name="getNombre" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uxteD8BTiCUm3" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u0KX6tCxwTWpp" comment="        Metodo que se encarga de realizar el movimiento del jugador y requiere de la participacion del&#xa;        Arbitro para saber si: gano; si cayo en una escalera o serpiente y necesita moverse (tampoco sabe&#xa;        adonde habria que moverse, el Arbitro le indica);y por ultimo, si ya no tiene que moverse mas.&#xa;        :param distancia: cantidad de casillas a moverse, puede ser el numero que salio en los dados, o&#xa;        puede ser lo que debe moverse por haber caido en escalera o serpiente.&#xa;        :type distancia: int&#xa;        :param coordenadas: coordenadas en X y Y de la casilla (especificamente en el centro de ella) adonde &#xa;        el Jugador tiene que moverse.&#xa;        :type coordenadas: tupla de int&#xa; + movX para evitar complicaciones visuales con numeros en centro de casilla     + movY para evitar posibles choques con escaleras o serpientes visualmente en casillaprimero comprueba si el jugador en la nueva posicion ganosi no gano, comprueba si esta en una serp o escalerasi esta en una serpiete o escalera, va a tener que moverse a la posicion indicadaretorna el bool si gano, para cerrar el juego" isOverride="false" name="mover" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="upbDSVYsXs39q" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uvZ4rTmEqXJwz" type="uWDbmXRdDrk6H" value="" name="distancia"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uwwHzSYDeq5HU" type="uWDbmXRdDrk6H" value="" name="coordenadas"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uiXlSZuvJkfEv" comment="        Metodo que ilustra al jugador en la vetana de pygame. Lo dibuja para que el usuario&#xa;        pueda observarlo.&#xa;" isOverride="false" name="dibujar" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uslT53HCDzPq2" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uO4s4oKTyEZGY" name="Singleton">
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="ukoTbPNVbI85V" type="uRNQ8mzUMKBA0" comment="Atributos" initialValue="[]" name="jugadores"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="uhC8RXm3ibmvl" type="uRNQ8mzUMKBA0" comment="ordenados por turno" initialValue="[]" name="jugadores_ordenados"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="unhbmy7kKgBa4" type="uAGyeFte92SFb" initialValue="0" name="ancho_tablero"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="u2Rd94rbreyjs" type="uAGyeFte92SFb" initialValue="0" name="alto_tablero"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="u7UZIoDR1sgdb" type="uAGyeFte92SFb" initialValue="0" name="cantidad_jugadores"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="u6F2O0vq8P5xe" type="uAGyeFte92SFb" initialValue="0" name="cantidad_x"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="uvGfNPBTdGxIr" type="uAGyeFte92SFb" initialValue="0" name="cantidad_y"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="uPrf92xFU0zGV" type="uAGyeFte92SFb" initialValue="0" name="pos_ganadora"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="uDVLWV1bkcmzS" type="u8ncWzU6uaHhv" initialValue="None" name="ventana"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="uDldz1mcH1Yh6" type="uRNQ8mzUMKBA0" initialValue="[]" name="posicion_jugadores"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="uFGgoHhOLLYLh" type="u8ncWzU6uaHhv" initialValue="None" name="jugadorGanador"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="u1FZdm6stzWO5" type="uRNQ8mzUMKBA0" initialValue="[]" name="casillasTablero"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="uLcYdtWvmN5KB" type="ucjX1UxNUXv66" initialValue="{&quot;rojo&quot;:(244,124,124),&quot;amarillo&quot;:(247,244,139),&quot;verde&quot;:(161,222,147),&quot;azul&quot;:(112,161,215),&quot;blanco&quot;:(255,255,255),&quot;negro&quot;:(0,0,0)}" name="colores_casillas"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="uCfk9oscvNjhv" type="ucjX1UxNUXv66" initialValue="{&quot;magenta&quot;:(255,0,230),&quot;azul&quot;:(0,0,128),&quot;gris&quot;:(127,127,127),&quot;naranja&quot;:(255,100,10),&quot;negro&quot;:(0,0,0),;&quot;verde&quot;:(118,238,0),&quot;aqua&quot;:(0,255,255),&quot;dorado&quot;:(255,185,15),&quot;rojo&quot;:(205,51,51)}" name="colores_jugadores"/>
+        <UML:Attribute visibility="public" isSpecification="false" ownerScope="classifier" xmi.id="uZPB7NgiEArCn" type="uRNQ8mzUMKBA0" initialValue="[]" name="colores_jugadores_usados"/>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uaQaZnwXyjYQe" comment="        :param an: ancho del tablero&#xa;        :type an: int &#xa;        :param al: largo del tablero.&#xa;        :type al: int&#xa;        :param cantX: cantidad de casillas horizontalmente (en coordenadas X)&#xa;        :type cantX: int&#xa;        :param cantX: cantidad de casillas verticalmente (en coordenadas Y)&#xa;        :type cantY: int&#xa;        :param casillaGanadora: posicion de casilla ganadora&#xa;        :type casillaGanadora: int&#xa;        :param casillasT: casillas del tablero &#xa;        :type: vector de objetos Casilla &#xa;        :param vent: Referencia a la ventana de pygame.&#xa;        :type vent: pygame.display&#xa;copia las casillas del tablero guarda las coordenadas de la casilla 100 en tablero 10x10 por ejemplo (ganadora)" isOverride="false" name="init" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uaCWIWu3fg6ac" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uXs0BeG7oX6OT" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uhNrcryiRFGEx" type="uWDbmXRdDrk6H" value="" name="an"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uI5qJatubN61F" type="uWDbmXRdDrk6H" value="" name="al"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ud5IVjjXv2bTX" type="uWDbmXRdDrk6H" value="" name="cantX"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uH5JRmRGrfKI9" type="uWDbmXRdDrk6H" value="" name="cantY"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ueAyH9GAgMI4D" type="uWDbmXRdDrk6H" value="" name="casillaGanadora"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ueSiH5FTHAyLT" type="uWDbmXRdDrk6H" value="" name="casillasT"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="upHuI4iZeWijT" type="uWDbmXRdDrk6H" value="" name="vent"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uoZBbIXgUBTgB" comment="        Este metodo establece las posiciones en las que se van a ubicar los jugadores. Esta pensado&#xa;        para un minimo de 2 jugadores y un maximo que corresponde a 4. Los ubica en la casilla inicial pero&#xa;        de manera que se visualicen, anque hayan varios en la misma casilla. &#xa;" isOverride="false" name="establecer_pos_jugadores" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u1nDdm5zksnfL" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uhJNGVj6UQsIc" type="uWDbmXRdDrk6H" value="" name="cls"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uMKJhr5zbgwW9" comment="        Este metodo devuelve la posicion en el tablero, en coordenadas, de un jugador en especificion.&#xa;        :param indice: numero identificador del jugador&#xa;        :type indice: int&#xa;        :returns: coordenadas de X y Y del jugador respectivo segun el indice&#xa;" isOverride="false" name="getPosJugadores" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u371WZ0OKTcAG" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uartdpxkXWjJK" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ul2hk8RMpz4mX" type="uWDbmXRdDrk6H" value="" name="indice"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uQ9E6mOVZPCBV" comment="        Este metodo devuelve la medida del alto del tablero.&#xa;        :returns: la medida del alto del tablero&#xa;" isOverride="false" name="getAlto" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="usYv1assiGNdE" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ucTXPl3CIEuoy" type="uWDbmXRdDrk6H" value="" name="cls"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="urqhbzuPcbFoQ" comment="        Este metodo devuelve la medida del ancho del tablero.&#xa;        :returns: la medida del ancho del tablero&#xa;" isOverride="false" name="getAncho" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u2RlqQgyWSXgH" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uHkJPzDhW7HDF" type="uWDbmXRdDrk6H" value="" name="cls"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uChyy4V3k0oNh" comment="        Este metodo devuelve la cantidad de casillas horizontales&#xa;        :returns: la cantidad de casillas en X (horizontalmente)&#xa;" isOverride="false" name="getCantX" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uokqO1o3OgjXE" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ueitkg1Ll80t3" type="uWDbmXRdDrk6H" value="" name="cls"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="udq1GvRHfjuOh" comment="        Este metodo devuelve la cantidad de casillas verticales&#xa;        :returns: la cantidad de casillas en X (verticalmente)&#xa;" isOverride="false" name="getCantY" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uBNGJanLpjoou" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uTl05t7hEQuNz" type="uWDbmXRdDrk6H" value="" name="cls"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uQ5xcVF4UpaTZ" comment="        Este metodo reporta la existencia de un jugador en el juego, agregandolo a la lista de jugadores. &#xa;        Ademas, le otorga un nombre automaticamente segun sea el orden en el que fue creado.&#xa;        :param jugador: jugador a agregar.&#xa;        :type jugador: Jugador&#xa;" isOverride="false" name="agregar_jugador" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uN1ZEXIcEUl58" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uXFPG77HllN1M" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uRpgvsJoZNEvc" type="uWDbmXRdDrk6H" value="" name="jugador"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="ukUuunLxQlOwT" comment="        Este metodo imprime en consola la cantidad de jugadores actuales&#xa;        :returns: la cantidad de casillas en X (horizontalmente)&#xa;" isOverride="false" name="ver_jugadores" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uKmNRst8k6kcN" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ut7Fi5aGU0ytY" type="uWDbmXRdDrk6H" value="" name="cls"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="uY9yOWEdfhSAk" comment="        Metodo que va a informarle al Singleton quien es el jugador ganador. Va a almacenarlo en la variable&#xa;        jugadorGanador.&#xa;        :param jugador: Jugador ganador a almacenar en Singleton&#xa;        :type jugador: Jugador&#xa;" isOverride="false" name="setJugadorGanador" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ufCl32MSgsIRT" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uLSCoDgN6OYDG" type="uWDbmXRdDrk6H" value="" name="cls"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="u1HGZPnPtRbo9" type="uWDbmXRdDrk6H" value="" name="jugador"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" ownerScope="classifier" isRoot="false" xmi.id="u2de1toFZTR0a" comment="        Metodo que devuelve al jugador ganador de la partida.&#xa;" isOverride="false" name="getJugadorGanador" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ulLrTKhqbFjkz" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uOAnycO0cXJUJ" type="uWDbmXRdDrk6H" value="" name="cls"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uSM9VynIGC1OK" comment="    Clase que representa al espacio extra en la ventana de pygame, que no pertenece al tablero.&#xa;    Contiene informacion valiosa que le comuncia al jugador el turno, quien gana, como moverse...&#xa;    Ademas, en este espacio se juega con los dados para decidir turnos y permitir al jugador moverse&#xa;    en el juego. &#xa;" name="Sidebar">
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="ucfrp43t2LkxL" type="u8ncWzU6uaHhv" comment=":param alto_total = medida del alto de la ventana de pygame &#xa;:type alto_total: int&#xa;:param ancho_total = medida del ancho de la ventana de pygame&#xa;:type ancho_total: int&#xa;:param alto_sidebar = medida del alto de este espacio al lado del tablero &#xa;:type alto_sidebar: int&#xa;:param ancho_sidebar = medida del ancho de este espacio al lado del tablero &#xa;:type ancho_sidebar: int&#xa;:param mi_color: codigo del color a escoger&#xa;:type color: codigo de color perteneciente a la lista de colores de Singleton.&#xa;:param elementos: lista que contiene al boton de los dados, y los dados.&#xa;:type elementos: lista&#xa;" name="alto_total"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uLB70pLP5PSC5" type="u8ncWzU6uaHhv" comment=":param alto_total = medida del alto de la ventana de pygame &#xa;:type alto_total: int&#xa;:param ancho_total = medida del ancho de la ventana de pygame&#xa;:type ancho_total: int&#xa;:param alto_sidebar = medida del alto de este espacio al lado del tablero &#xa;:type alto_sidebar: int&#xa;:param ancho_sidebar = medida del ancho de este espacio al lado del tablero &#xa;:type ancho_sidebar: int&#xa;:param mi_color: codigo del color a escoger&#xa;:type color: codigo de color perteneciente a la lista de colores de Singleton.&#xa;:param elementos: lista que contiene al boton de los dados, y los dados.&#xa;:type elementos: lista&#xa;" name="ancho_total"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uONrRUgAxOxQL" type="u8ncWzU6uaHhv" comment=":param alto_total = medida del alto de la ventana de pygame &#xa;:type alto_total: int&#xa;:param ancho_total = medida del ancho de la ventana de pygame&#xa;:type ancho_total: int&#xa;:param alto_sidebar = medida del alto de este espacio al lado del tablero &#xa;:type alto_sidebar: int&#xa;:param ancho_sidebar = medida del ancho de este espacio al lado del tablero &#xa;:type ancho_sidebar: int&#xa;:param mi_color: codigo del color a escoger&#xa;:type color: codigo de color perteneciente a la lista de colores de Singleton.&#xa;:param elementos: lista que contiene al boton de los dados, y los dados.&#xa;:type elementos: lista&#xa;" name="ancho_sidebar"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u8948W1GonZIL" type="u8ncWzU6uaHhv" comment=":param alto_total = medida del alto de la ventana de pygame &#xa;:type alto_total: int&#xa;:param ancho_total = medida del ancho de la ventana de pygame&#xa;:type ancho_total: int&#xa;:param alto_sidebar = medida del alto de este espacio al lado del tablero &#xa;:type alto_sidebar: int&#xa;:param ancho_sidebar = medida del ancho de este espacio al lado del tablero &#xa;:type ancho_sidebar: int&#xa;:param mi_color: codigo del color a escoger&#xa;:type color: codigo de color perteneciente a la lista de colores de Singleton.&#xa;:param elementos: lista que contiene al boton de los dados, y los dados.&#xa;:type elementos: lista&#xa;" name="mi_color"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uuU8qTzH0XWFW" type="u0xl5OuSC8PmI" comment=":param alto_total = medida del alto de la ventana de pygame &#xa;:type alto_total: int&#xa;:param ancho_total = medida del ancho de la ventana de pygame&#xa;:type ancho_total: int&#xa;:param alto_sidebar = medida del alto de este espacio al lado del tablero &#xa;:type alto_sidebar: int&#xa;:param ancho_sidebar = medida del ancho de este espacio al lado del tablero &#xa;:type ancho_sidebar: int&#xa;:param mi_color: codigo del color a escoger&#xa;:type color: codigo de color perteneciente a la lista de colores de Singleton.&#xa;:param elementos: lista que contiene al boton de los dados, y los dados.&#xa;:type elementos: lista&#xa;" initialValue="(700,0,ancho_sidebar,alto_total)" name="mi_forma"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uRoSLWkp8SO3c" type="u8ncWzU6uaHhv" comment=":param alto_total = medida del alto de la ventana de pygame &#xa;:type alto_total: int&#xa;:param ancho_total = medida del ancho de la ventana de pygame&#xa;:type ancho_total: int&#xa;:param alto_sidebar = medida del alto de este espacio al lado del tablero &#xa;:type alto_sidebar: int&#xa;:param ancho_sidebar = medida del ancho de este espacio al lado del tablero &#xa;:type ancho_sidebar: int&#xa;:param mi_color: codigo del color a escoger&#xa;:type color: codigo de color perteneciente a la lista de colores de Singleton.&#xa;:param elementos: lista que contiene al boton de los dados, y los dados.&#xa;:type elementos: lista&#xa;" name="elementos"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uSZWEVfUzyFPe" comment="        :param alto_total = medida del alto de la ventana de pygame &#xa;        :type alto_total: int&#xa;        :param ancho_total = medida del ancho de la ventana de pygame&#xa;        :type ancho_total: int&#xa;        :param alto_sidebar = medida del alto de este espacio al lado del tablero &#xa;        :type alto_sidebar: int&#xa;        :param ancho_sidebar = medida del ancho de este espacio al lado del tablero &#xa;        :type ancho_sidebar: int&#xa;        :param mi_color: codigo del color a escoger&#xa;        :type color: codigo de color perteneciente a la lista de colores de Singleton.&#xa;        :param elementos: lista que contiene al boton de los dados, y los dados.&#xa;        :type elementos: lista&#xa;" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ugjDfNPRviS1C" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uMPIZJiRhahfS" type="uWDbmXRdDrk6H" value="" name="alto_total"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uwem8vAQWU8Ww" type="uWDbmXRdDrk6H" value="" name="ancho_total"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uIZYMwoSh0JJ2" type="uWDbmXRdDrk6H" value="" name="ancho_sidebar"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="upGMNKtb51i1D" type="uWDbmXRdDrk6H" value="" name="mi_color"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="udXAqSQbhgRXR" type="uWDbmXRdDrk6H" value="" name="elementos"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u5i3Oh69jUgr3" comment="        Metodo que ilustra visualmente el espacio al lado del tablero.&#xa;for elementosboton &quot;lanzar dados&quot;" isOverride="false" name="dibujar" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u0a7XBkxN1YpB" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uniEu0WE4tLys" comment="    Esta clase representa un tablero de juego, y contiene los&#xa;    atributos y acciones necesarios para su graficaciÃ³n y comportamiento.&#xa;" name="Tablero">
+       <UML:Classifier.feature>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uUCouiBCx0Kzo" type="u8ncWzU6uaHhv" comment=":param tamanio: TamaÃ±o del tablero en pÃ­xeles como tupla (ancho, alto).&#xa;:type tamanio: tuple&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param ancho_barra: Ancho de la sidebar junto al tablero.&#xa;:type ancho_barra: int&#xa;" name="tamanio"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uVRVAv70Lm6uf" type="u8ncWzU6uaHhv" comment=":param tamanio: TamaÃ±o del tablero en pÃ­xeles como tupla (ancho, alto).&#xa;:type tamanio: tuple&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param ancho_barra: Ancho de la sidebar junto al tablero.&#xa;:type ancho_barra: int&#xa;" name="ventana"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="uaQuFYg7eIerz" type="uRNQ8mzUMKBA0" comment=":param tamanio: TamaÃ±o del tablero en pÃ­xeles como tupla (ancho, alto).&#xa;:type tamanio: tuple&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param ancho_barra: Ancho de la sidebar junto al tablero.&#xa;:type ancho_barra: int&#xa;lista de casillas del tablero" initialValue="[]" name="casillas"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u4tHv7583VLo9" type="uRNQ8mzUMKBA0" comment=":param tamanio: TamaÃ±o del tablero en pÃ­xeles como tupla (ancho, alto).&#xa;:type tamanio: tuple&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param ancho_barra: Ancho de la sidebar junto al tablero.&#xa;:type ancho_barra: int&#xa;lista de casillas del tablero lista de conectores tipo serpiente del tablero" initialValue="[]" name="serpientes"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u6zxNdNDhmXhx" type="uRNQ8mzUMKBA0" comment=":param tamanio: TamaÃ±o del tablero en pÃ­xeles como tupla (ancho, alto).&#xa;:type tamanio: tuple&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param ancho_barra: Ancho de la sidebar junto al tablero.&#xa;:type ancho_barra: int&#xa;lista de casillas del tablero lista de conectores tipo serpiente del tablero lista de conectores tipo escalera del tablero" initialValue="[]" name="escaleras"/>
+        <UML:Attribute visibility="public" isSpecification="false" xmi.id="u6GVYNT7XFFAD" type="u8ncWzU6uaHhv" comment=":param tamanio: TamaÃ±o del tablero en pÃ­xeles como tupla (ancho, alto).&#xa;:type tamanio: tuple&#xa;:param ventana: Referencia a la ventana de pygame.&#xa;:type ventana: pygame.display&#xa;:param ancho_barra: Ancho de la sidebar junto al tablero.&#xa;:type ancho_barra: int&#xa;lista de casillas del tablero lista de conectores tipo serpiente del tablero lista de conectores tipo escalera del tablero se llama a la funciÃ³n que genera casillas" name="ancho_barra"/>
+        <UML:Operation stereotype="constructor" visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uagZB7TEpJzjF" comment="        :param tamanio: TamaÃ±o del tablero en pÃ­xeles como tupla (ancho, alto).&#xa;        :type tamanio: tuple&#xa;        :param ventana: Referencia a la ventana de pygame.&#xa;        :type ventana: pygame.display&#xa;        :param ancho_barra: Ancho de la sidebar junto al tablero.&#xa;        :type ancho_barra: int&#xa; lista de casillas del tablero lista de conectores tipo serpiente del tablero lista de conectores tipo escalera del tablero se llama a la funciÃ³n que genera casillas" isOverride="false" name="__init__" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uSlHmsYSY5vbC" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ugAp0O2ZjVfLc" type="uWDbmXRdDrk6H" value="" name="tamanio"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uQBj3G58vm9kE" type="uWDbmXRdDrk6H" value="" name="ventana"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uoPV1PGzFL1Kf" type="uWDbmXRdDrk6H" value="" name="ancho_barra"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u0kOxYmEqZIOF" comment="        Este mÃ©todo genera casillas y sus conectores para un tablero de Serpientes y escaleras de manera aleatoria.&#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa; tamanio del tablero las serpientes y escaleras serÃ¡n cada una un total de entre 5% y 7% de la cantidad total de casillas estos nÃºmeros se determinan aleatoriamente se invoca al mÃ©todo que da las coordenadas de los centros de todas las casillas se invoca al mÃ©todo que indica en quÃ© posiciones irÃ¡n las serpientes y escaleras, cuya cantidad ya calculamos estas posiciones vienen en tuplas con la posiciÃ³n inicial y final de cada serpiente o escalera para cada posiciÃ³n en el vector de centros_casilla, o sea, cada posiciÃ³n de todas las casillas asuma que no ha encontrado una posiciÃ³n de serpiente en las posiciones generales haga esto tantas veces como la cant. de serpientes si no ha encontrado aÃºn la posiciÃ³n y por fin la encuentra cree un rectÃ¡ngulo como forma para la casilla cree una casilla estÃ¡ndar con la forma anteriormente creada decÃ³rela como una casilla de tipo serpiente agrÃ©guela al vector de casillas general una vez decorada encontrÃ© la posiciÃ³n de una serpiente si encontrÃ³ la posiciÃ³n de la serpiente, detenga el ciclo haga esto tantas veces como la cant. de escaleras si no ha encontrado aÃºn la posiciÃ³n y por fin la encuentra cree un rectÃ¡ngulo como forma para la casilla cree una casilla estÃ¡ndar con la forma anteriormente creada decÃ³rela como una casilla de tipo escalera agrÃ©guela al vector de casillas general una vez decorada encontrÃ© la posiciÃ³n de una escalera si encontrÃ³ la posiciÃ³n de la escalera, detenga el ciclo si la posiciÃ³n no se encontrÃ³ en las pensadas para serpiente o escalera cree un rectÃ¡ngulo como forma para la casilla cree una casilla estÃ¡ndar con la forma anteriormente creada agrÃ©guela al vector de casillas general (no requiere decorador, porque es estÃ¡ndar) para cada una de las casillas totales ya generadas si la casilla es de tipo serpiente si esta casilla no tiene conectores cree un conector estÃ¡ndar entre esta casilla y su pareja en posiciones_serpientes decore dicho conector como una serpiente y aÃ±Ã¡dalo a la lista de serpientes del tablero el conector avisarÃ¡ a sus casillas relacionadas que Ã©l es su conector si la casilla es de tipo escalera si esta casilla no tiene conectores cree un conector estÃ¡ndar entre esta casilla y su pareja en posiciones_escaleras decore dicho conector como una escalera y aÃ±Ã¡dalo a la lista de escaleras del tablero el conector avisarÃ¡ a sus casillas relacionadas que Ã©l es su conectorfor i in range(len(self.casillas)):if not isinstance(self.casillas[i], CasillaEstandar):print(self.casillas[i].casilla.getIndice() + 1, self.casillas[i].casilla.getFinal() + 1, self.casillas[i].casilla.esInicio())" isOverride="false" name="generarCasillas" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uUFHE2GJjBQDX" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uLPcmo6NRTUqw" comment="        Esta funciÃ³n devuelve la tupla de Ã­ndices inicio y fin donde se encuentra un Ã­ndice de casilla.&#xa;        :param indice: El Ã­ndice de la casilla en la lista general de casillas.&#xa;        :type indice: int&#xa;        :param posiciones: Lista de tuplas con las posiciones inicial y final de cada serpiente o escalera.&#xa;        :type posiciones: list&#xa;        :returns:  tuple/None -- Devuelve la tupla si se encontrÃ³, si no, devuelve None.&#xa; para cada tupla (de posiciones_serpiente o posiciones_escalera) si el Ã­ndice estÃ¡ en la tupla devuelva la tupla" isOverride="false" name="getPosicionesEnTupla" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u3HEinfcBiDp4" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uRsPQRJYJ3mXe" type="uWDbmXRdDrk6H" value="" name="indice"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="usbLQTi4KpIue" type="uWDbmXRdDrk6H" value="" name="posiciones"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ukvp8jwkJKgUa" comment="        Esta funciÃ³n devuelve la tupla de casillas correspondiente a una tupla de Ã­ndices inicio y fin.&#xa;        :param indice: El Ã­ndice de la casilla en la lista general de casillas.&#xa;        :type indice: int&#xa;        :param posiciones: Lista de tuplas con las posiciones inicial y final de cada serpiente o escalera.&#xa;        :type posiciones: list&#xa;        :returns:  tuple -- Devuelve la tupla de dos casillas, la de inicio en pos 0 y la de fin en pos 1.&#xa; obtenga la tupla de posiciones donde estÃ¡ ese Ã­ndice obtenga la versiÃ³n de esa tupla con objetos Casilla" isOverride="false" name="getPar" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uY5x5Jp24w6bZ" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uOeC7pAbqzMOB" type="uWDbmXRdDrk6H" value="" name="indice"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uBivB5hHT3G7Y" type="uWDbmXRdDrk6H" value="" name="posiciones"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uscxrHRrzpl79" comment="        Esta funciÃ³n indica si una casilla ya estÃ¡ conectada con otra.&#xa;        :param indice: El Ã­ndice de la casilla en la lista general de casillas.&#xa;        :type indice: int&#xa;        :returns:  bool -- Devuelve True si la casilla en ese Ã­ndice ya estÃ¡ relacionada con un conector.&#xa; para cada serpiente si esa serpiente estÃ¡ relacionada con la casilla posicionada en el Ã­ndice dado indique verdadero para cada escalera si esa escalera estÃ¡ relacionada con la casilla posicionada en el Ã­ndice dado indique verdadero de lo contrario, indique falso" isOverride="false" name="existeConexion" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uEwHUTOZwtwkQ" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="u1guOnVRCMv5P" type="uWDbmXRdDrk6H" value="" name="indice"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uLQwnKY0a7Mg1" comment="        Esta funciÃ³n genera tuplas con las posiciones de inicio y fin de n serpientes dadas.&#xa;        :param escaleras: Lista de escaleras (necesaria para no crear serpientes donde hay escaleras).&#xa;        :type escaleras: list&#xa;        :param casillas: Lista de todas las casillas.&#xa;        :type casillas: list&#xa;        :param cantidad: Cantidad deseada de serpientes (n).&#xa;        :type cantidad: int&#xa;        :returns:  list -- Devuelve un vector con posiciones de serpientes, pares inicios, impares fines, consecutivos.&#xa; mientras la cantidad de serpientes generadas sea menor al doble de las deseadas (porque son pares) cree una posiciÃ³n de casilla aleatoria si esa posiciÃ³n no es escalera ni serpiente aÃºn hÃ¡gala serpiente aumente por uno los generados" isOverride="false" name="generar_serpientes" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u8AOQF0dRYsUu" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uQUNufcsDvbej" type="uWDbmXRdDrk6H" value="" name="escaleras"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uwdhyoYo4GfmI" type="uWDbmXRdDrk6H" value="" name="casillas"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="unUZlENP7JDZs" type="uWDbmXRdDrk6H" value="" name="cantidad"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uSVf3LNOfi5qB" comment="        Esta funciÃ³n genera tuplas con las posiciones de inicio y fin de n escaleras dadas.&#xa;        :param casillas: Lista de todas las casillas.&#xa;        :type casillas: list&#xa;        :param cantidad: Cantidad deseada de escaleras (n).&#xa;        :type cantidad: int&#xa;        :returns:  list -- Devuelve un vector con posiciones de escaleras, pares inicios, impares fines, consecutivos.&#xa; mientras la cantidad de serpientes generadas sea menor al doble de las deseadas (porque son pares) cree una posiciÃ³n de casilla aleatoria si esa posiciÃ³n no es escalera aÃºn hÃ¡gala escalera aumente por uno los generados" isOverride="false" name="generar_escaleras" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u6eYdb0xgrnRH" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uODBwGnmxBW1V" type="uWDbmXRdDrk6H" value="" name="casillas"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uNXKVg7D3AVIO" type="uWDbmXRdDrk6H" value="" name="cantidad"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="ucXKsuQwPber8" comment="        Esta funciÃ³n genera dos listas de tuplas a partir de ciertas posiciones, una para serpientes y otra para escaleras. &#xa;        Las tuplas tienen los Ã­ndices de casillas de inicio y fin de cada serpiente o escalera.&#xa;        :param casillas: Lista de todas las casillas.&#xa;        :type casillas: list&#xa;        :param cantidad_serpientes: Cantidad deseada de serpientes (n).&#xa;        :type cantidad_serpientes: int&#xa;        :param cantidad_escaleras: Cantidad deseada de escaleras (m).&#xa;        :type cantidad_escaleras: int&#xa;        :returns:  tuple -- Devuelve como tupla las dos listas con tuplas de posiciones de serpientes y escaleras.&#xa; genere los vectores con Ã­ndices aleatorios de dos en dos que representan tuplas para cada par en el vector de Ã­ndices de escaleras ordene el par depende de quiÃ©n es mayor el valor menor debe ir en la primera posiciÃ³n el valor mayor debe ir en la segunda posiciÃ³n agrupe el par como tupla aÃ±Ã¡dalo a las posiciones de escaleras como una tupla (inicio, fin) para cada par en el vector de Ã­ndices de escaleras ordene el par depende de quiÃ©n es mayor el valor mayor debe ir en la primera posiciÃ³n el valor menor debe ir en la segunda posiciÃ³n agrupe el par como tupla aÃ±Ã¡dalo a las posiciones de escaleras como una tupla (inicio, fin)" isOverride="false" name="generar_conexiones" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uhAuEglqLTlvo" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uwfx9fuowkytx" type="uWDbmXRdDrk6H" value="" name="casillas"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uuZ3HZL0wYI51" type="uWDbmXRdDrk6H" value="" name="cantidad_serpientes"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uebk92WRl7GBW" type="uWDbmXRdDrk6H" value="" name="cantidad_escaleras"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uB5wCof2cuAJC" comment="        Esta funciÃ³n genera una lista con las coordenadas de cada casilla en el orden lÃ³gico de recorrido del tablero. &#xa;        :param centro_casillas_x: Lista de centros de casillas en eje x.&#xa;        :type centro_casillas_x: list&#xa;        :param centro_casillas_y: Lista de centros de casillas en eje y.&#xa;        :type centro_casillas_y: list&#xa;        :returns:  list -- Devuelve la lista con coordenadas de todas las casillas (x, y) como tuplas.&#xa; favor documentar el funcionamiento de este algoritmo" isOverride="false" name="obtener_orden_coordenadas" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uVoFes2J7WfdZ" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uoNP5h0gzQuKb" type="uWDbmXRdDrk6H" value="" name="centro_casillas_x"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uWHlYCcvs33hQ" type="uWDbmXRdDrk6H" value="" name="centro_casillas_y"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uRPVuTOSgaCiN" comment="        Esta funciÃ³n genera una lista con las coordenadas de cada casilla en el orden lÃ³gico de recorrido del tablero. &#xa;        :param x: Ancho de la casilla.&#xa;        :type x: int&#xa;        :param max_iteracion: MÃ¡xima cantidad de coordenadas por generar.&#xa;        :type max_iteracion: int&#xa;        :returns:  list -- Devuelve una lista con coordenadas que representan centros.&#xa; favor documentar el funcionamiento de este algoritmo" isOverride="false" name="obtener_casillas" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uP29oP4e5g13m" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="urwxphD3RF5pp" type="uWDbmXRdDrk6H" value="" name="x"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="u16It9QbyCN5a" type="uWDbmXRdDrk6H" value="" name="max_iteracion"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uvP46bxWAQ8bb" comment="        Esta funciÃ³n calcula una cantidad de casillas basado en el tamaÃ±o del tablero, y arroja la lista de sus centros. &#xa;        :param ancho_total: Ancho total del tablero.&#xa;        :type ancho_total: int&#xa;        :param alto_total: Alto total del tablero.&#xa;        :type alto_total: int&#xa;        :returns:  list -- Devuelve una lista con coordenadas que representan centros.&#xa; favor documentar el funcionamiento de este algoritmo" isOverride="false" name="obtener_centro_casillas" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u2WYQvlSnbmOo" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uhqJociiukNT8" type="uWDbmXRdDrk6H" value="" name="ancho_total"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="ugrr1txl8CtfH" type="uWDbmXRdDrk6H" value="" name="alto_total"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uU5wFV5w3NPvz" comment="        Esta funciÃ³n colorea las casillas con un algoritmo que impide colores consecutivos. &#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa; favor documentar este algoritmoColoreado filas paresColoreado filas impares" isOverride="false" name="colorearCasillas" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uArk3Am5N2Yq8" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u3Up4iB33q4A2" comment="        Esta funciÃ³n dibuja las casillas y sus conectores en la ventana.&#xa;        :returns:  None -- Procedimiento sin valor de retorno.&#xa; para cada casilla dibuje las decoradas y las estÃ¡ndar para cada serpiente dibÃºjese para cada escalera dibÃºjeseTODO mejorar condicion de limpieza" isOverride="false" name="dibujarCasillas" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uZUFjbxHJZXlu" type="uWDbmXRdDrk6H"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uB4uGWvob2JZ1" comment="        Metodo que limpia la casilla actual donde se ubica el jugador. &#xa;        :param index: posicion en el tablero donde esta el usuario&#xa;        :type index: int&#xa;Primero limpia la posicion actualdibuja si hay serpiente lo intente simplemente conector.dibujar() pero tampococonector.dibujar()dibuja si hay escalera" isOverride="false" name="limpar_casilla" isInline="false" isVirtual="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uh5gsgOavLBYQ" type="uWDbmXRdDrk6H"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="uOB4otcg8MY5b" type="uWDbmXRdDrk6H" value="" name="index"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+     </UML:Namespace.ownedElement>
+     <XMI.extension xmi.extender="umbrello">
+      <diagrams resolution="96">
+       <diagram showopsig="1" linecolor="#ff0000" snapx="25" showattribassocs="1" snapy="25" linewidth="0" showattsig="1" textcolor="#000000" isopen="1" showpackage="1" showpubliconly="0" showstereotype="1" name="class diagram" font="Sans Serif,9,-1,0,50,0,0,0,0,0" canvasheight="1502.27" canvaswidth="2247.51" localid="-1" snapcsgrid="0" showgrid="0" showops="1" griddotcolor="#d3d3d3" backgroundcolor="#ffffff" usefillcolor="1" fillcolor="#ffff00" zoom="37,59370399230927" xmi.id="utzCS8feCg3P5" documentation="" showscope="1" snapgrid="0" showatts="1" type="1">
+        <widgets>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="1256.61" showattsigs="601" showstereotype="1" y="-422.369" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="u3nAa6yWjPKMC" width="552" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="uGrge2FDN0mnx" autoresize="1" showscope="1" height="127" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="1196.8" showattsigs="601" showstereotype="1" y="627.206" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uqiW2Y9XvRiEl" width="681" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="u9AEsg0zYJDQs" autoresize="1" showscope="1" height="180" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="503.372" showattsigs="601" showstereotype="1" y="-244.204" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="u0xp3mjNYfewV" width="190" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="uMGH1NT2L0zX7" autoresize="1" showscope="1" height="37" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="504.979" showattsigs="601" showstereotype="1" y="-2.02318" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="ukVcvGIRK9Je6" width="266" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="u5qI5MRrxI7MX" autoresize="1" showscope="1" height="45" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="-289.932" showattsigs="601" showstereotype="1" y="-324.029" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="ukxZyZ9jXCxrE" width="713" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="ubVPlRHn0QgaJ" autoresize="1" showscope="1" height="270" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="806.454" showattsigs="601" showstereotype="1" y="-236.625" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uwED8kakttiyK" width="266" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="uafk6xt7lMbAc" autoresize="1" showscope="1" height="45" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="204.59" showattsigs="601" showstereotype="1" y="375.525" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uNwSveExwFfoS" width="62" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="ugPzcrrdzHuiQ" autoresize="1" showscope="1" height="29" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="367.383" showattsigs="601" showstereotype="1" y="323.899" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uipEmb0kj7z79" width="355" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="uMXwwWOxEfVnl" autoresize="1" showscope="1" height="135" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="1244.76" showattsigs="601" showstereotype="1" y="-273.769" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uYeHTHLzEMXqC" width="318" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="utBhPqzU8N9N3" autoresize="1" showscope="1" height="105" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="60.3709" showattsigs="601" showstereotype="1" y="190.481" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="ud76j1FDQbXxy" width="277" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="u9I9njvDRz6p1" autoresize="1" showscope="1" height="60" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="1225.13" showattsigs="601" showstereotype="1" y="360.982" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uIcF0YEDI9hko" width="583" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="uvtV1cci93Dtv" autoresize="1" showscope="1" height="240" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="-247.654" showattsigs="601" showstereotype="1" y="338.892" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uoTPdvUJgC2MI" width="277" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="uoVhMRKgYUcwo" autoresize="1" showscope="1" height="60" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="1239.58" showattsigs="601" showstereotype="1" y="-135.669" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uIwmRiDtTA2a8" width="718" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="uSM9VynIGC1OK" autoresize="1" showscope="1" height="135" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="-236.89" showattsigs="601" showstereotype="1" y="674.902" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uaQpWB3bjGM1O" width="1000" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="uO4s4oKTyEZGY" autoresize="1" showscope="1" height="405" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="0" textcolor="#000000" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="1234.47" showattsigs="601" showstereotype="1" y="17.1586" showattributes="1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uXCpibBmmKE9l" width="578" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="uniEu0WE4tLys" autoresize="1" showscope="1" height="315" showopsigs="601"/>
+        </widgets>
+        <messages/>
+        <associations>
+         <assocwidget indexa="1" linecolor="#ff0000" usesdiagramfillcolor="1" widgetbid="uMGH1NT2L0zX7" indexb="1" linewidth="0" seqnum="" textcolor="none" usesdiagramusefillcolor="1" totalcounta="2" totalcountb="2" widgetaid="u5qI5MRrxI7MX" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uEuyOUUBdiPzY" usefillcolor="1" fillcolor="none" xmi.id="uIQ9Ej8mN5eyK" autoresize="1" type="500">
+          <linepath layout="Direct">
+           <startpoint startx="590.563" starty="-2.02318"/>
+           <endpoint endx="590.563" endy="-207.204"/>
+          </linepath>
+         </assocwidget>
+         <assocwidget indexa="1" linecolor="#ff0000" usesdiagramfillcolor="1" widgetbid="uMGH1NT2L0zX7" indexb="1" linewidth="0" seqnum="" textcolor="none" usesdiagramusefillcolor="1" totalcounta="2" totalcountb="2" widgetaid="ubVPlRHn0QgaJ" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="u0V73lh9lGsBQ" usefillcolor="1" fillcolor="none" xmi.id="uh2FwEl6tbJoA" autoresize="1" type="500">
+          <linepath layout="Direct">
+           <startpoint startx="423.068" starty="-207.204"/>
+           <endpoint endx="503.372" endy="-207.204"/>
+          </linepath>
+         </assocwidget>
+         <assocwidget indexa="1" linecolor="#ff0000" usesdiagramfillcolor="1" widgetbid="uMGH1NT2L0zX7" indexb="1" linewidth="0" seqnum="" textcolor="none" usesdiagramusefillcolor="1" totalcounta="2" totalcountb="2" widgetaid="uafk6xt7lMbAc" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uRNvfzNFphxL0" usefillcolor="1" fillcolor="none" xmi.id="uGXerHRRsqgGD" autoresize="1" type="500">
+          <linepath layout="Direct">
+           <startpoint startx="806.454" starty="-207.204"/>
+           <endpoint endx="693.372" endy="-207.204"/>
+          </linepath>
+         </assocwidget>
+         <assocwidget indexa="1" linecolor="#ff0000" usesdiagramfillcolor="1" widgetbid="ugPzcrrdzHuiQ" indexb="1" linewidth="0" seqnum="" textcolor="none" usesdiagramusefillcolor="1" totalcounta="2" totalcountb="2" widgetaid="uMXwwWOxEfVnl" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="u0BHNUJOYZRUu" usefillcolor="1" fillcolor="none" xmi.id="uHSaJhmXo5wZ1" autoresize="1" type="500">
+          <linepath layout="Direct">
+           <startpoint startx="367.383" starty="375.525"/>
+           <endpoint endx="266.59" endy="375.525"/>
+          </linepath>
+         </assocwidget>
+         <assocwidget indexa="1" linecolor="#ff0000" usesdiagramfillcolor="1" widgetbid="ugPzcrrdzHuiQ" indexb="1" linewidth="0" seqnum="" textcolor="none" usesdiagramusefillcolor="1" totalcounta="2" totalcountb="2" widgetaid="u9I9njvDRz6p1" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="ufEoEKPCVFQwN" usefillcolor="1" fillcolor="none" xmi.id="uiVrmlBdzlPkC" autoresize="1" type="500">
+          <linepath layout="Direct">
+           <startpoint startx="226.113" starty="250.481"/>
+           <endpoint endx="226.113" endy="375.525"/>
+          </linepath>
+         </assocwidget>
+         <assocwidget indexa="1" linecolor="#ff0000" usesdiagramfillcolor="1" widgetbid="ugPzcrrdzHuiQ" indexb="1" linewidth="0" seqnum="" textcolor="none" usesdiagramusefillcolor="1" totalcounta="2" totalcountb="2" widgetaid="uoVhMRKgYUcwo" font="Sans Serif,9,-1,0,50,0,0,0,0,0" localid="uyQYR7uy5RheN" usefillcolor="1" fillcolor="none" xmi.id="ueh0RZzyImbaF" autoresize="1" type="500">
+          <linepath layout="Direct">
+           <startpoint startx="29.3464" starty="375.525"/>
+           <endpoint endx="204.59" endy="375.525"/>
+          </linepath>
+         </assocwidget>
+        </associations>
+       </diagram>
+      </diagrams>
+     </XMI.extension>
+    </UML:Model>
+    <UML:Model visibility="public" isSpecification="false" namespace="m1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Use_Case_View" name="Use Case View">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+    <UML:Model visibility="public" isSpecification="false" namespace="m1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Component_View" name="Component View">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+    <UML:Model visibility="public" isSpecification="false" namespace="m1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Deployment_View" name="Deployment View">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+    <UML:Model visibility="public" isSpecification="false" namespace="m1" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Entity_Relationship_Model" name="Entity Relationship Model">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+   </UML:Namespace.ownedElement>
+  </UML:Model>
+ </XMI.content>
+ <XMI.extensions xmi.extender="umbrello">
+  <docsettings viewid="utzCS8feCg3P5" uniqueid="uXCpibBmmKE9l" documentation=""/>
+  <listview>
+   <listitem open="1" type="800" id="Views">
+    <listitem open="1" type="821" id="Component_View"/>
+    <listitem open="1" type="827" id="Deployment_View"/>
+    <listitem open="1" type="836" id="Entity_Relationship_Model"/>
+    <listitem open="1" type="801" id="Logical_View">
+     <listitem open="0" type="813" id="uGrge2FDN0mnx">
+      <listitem open="0" type="815" id="uEJOBVkdpeALK"/>
+      <listitem open="0" type="815" id="ud1uwtRyxnQyS"/>
+      <listitem open="0" type="815" id="uq7eHFVyAmbiO"/>
+      <listitem open="0" type="815" id="uYmPgdLvYzEvv"/>
+      <listitem open="0" type="815" id="u9oGVfvT9P85t"/>
+      <listitem open="0" type="815" id="ufspAODP991Uf"/>
+      <listitem open="0" type="815" id="uaiVcPKjahSoi"/>
+     </listitem>
+     <listitem open="0" type="813" id="u9AEsg0zYJDQs">
+      <listitem open="0" type="815" id="u2Z7BkF85sRXg"/>
+      <listitem open="0" type="814" id="utwmw8hgMvCBu"/>
+      <listitem open="0" type="814" id="uMxqCX6D1KC8X"/>
+      <listitem open="0" type="815" id="umFppZKqClom4"/>
+      <listitem open="0" type="815" id="u8qTvPCfNxySP"/>
+      <listitem open="0" type="814" id="uWK3Qa74mZiK3"/>
+      <listitem open="0" type="814" id="ubThGFEbFN8m5"/>
+      <listitem open="0" type="814" id="u63LGydpNfC83"/>
+      <listitem open="0" type="814" id="u2fThuKYRESDV"/>
+      <listitem open="0" type="814" id="uP0Xf58Dov0d8"/>
+      <listitem open="0" type="814" id="u5gROHqOFjRSq"/>
+     </listitem>
+     <listitem open="0" type="813" id="uMGH1NT2L0zX7">
+      <listitem open="0" type="815" id="umciyZOMsNFa7"/>
+     </listitem>
+     <listitem open="0" type="813" id="u5qI5MRrxI7MX">
+      <listitem open="0" type="815" id="uGteTjEZgoby9"/>
+      <listitem open="0" type="814" id="uN1wwMR7eOzdg"/>
+     </listitem>
+     <listitem open="0" type="813" id="ubVPlRHn0QgaJ">
+      <listitem open="0" type="815" id="ulyKc7z4DeQ0S"/>
+      <listitem open="0" type="814" id="u95CIAv7recPn"/>
+      <listitem open="0" type="815" id="uXdUCsNw0Ju4E"/>
+      <listitem open="0" type="815" id="ug94xF7B5PUo5"/>
+      <listitem open="0" type="815" id="uXtP3CPEarMtu"/>
+      <listitem open="0" type="815" id="uJ4hWiNm2vizW"/>
+      <listitem open="0" type="815" id="uL8n72HTYzOj7"/>
+      <listitem open="0" type="815" id="umqSxEEKcqbdx"/>
+      <listitem open="0" type="815" id="uumq0XRxsCLsa"/>
+      <listitem open="0" type="815" id="u8UBvl1zKsqgd"/>
+      <listitem open="0" type="814" id="ubLyXuca59LNZ"/>
+      <listitem open="0" type="814" id="u1Xav4hvWTF6Z"/>
+      <listitem open="0" type="814" id="uGmVpPWtDLZkw"/>
+      <listitem open="0" type="814" id="uXznEiFA0Vz9m"/>
+      <listitem open="0" type="815" id="uUl124zDsKYkh"/>
+      <listitem open="0" type="815" id="uGMiF6a7set9Q"/>
+      <listitem open="0" type="814" id="uTo924MpMDHSH"/>
+     </listitem>
+     <listitem open="0" type="813" id="uafk6xt7lMbAc">
+      <listitem open="0" type="815" id="uGP5OO0mt8MK5"/>
+      <listitem open="0" type="814" id="umPpbUFG7aZxj"/>
+     </listitem>
+     <listitem open="0" type="807" id="utzCS8feCg3P5" label="class diagram"/>
+     <listitem open="0" type="813" id="ugPzcrrdzHuiQ"/>
+     <listitem open="0" type="813" id="uMXwwWOxEfVnl">
+      <listitem open="0" type="815" id="uN5FBh2BtXSEJ"/>
+      <listitem open="0" type="814" id="u5TP0yVesQ1to"/>
+      <listitem open="0" type="814" id="u9WXDAidvWZRA"/>
+      <listitem open="0" type="815" id="uCM3FfmgvC4zd"/>
+      <listitem open="0" type="815" id="ulI8HqrDdxUWZ"/>
+      <listitem open="0" type="815" id="uySN18VhjN5CA"/>
+      <listitem open="0" type="815" id="uSWQsciEgexZL"/>
+      <listitem open="0" type="814" id="uTJ1I687dg9XV"/>
+     </listitem>
+     <listitem open="0" type="813" id="utBhPqzU8N9N3">
+      <listitem open="0" type="815" id="ug4p1pJgr39ai"/>
+      <listitem open="0" type="814" id="ubgB4JfxrxjSb"/>
+      <listitem open="0" type="815" id="u3e3f9kEIN7dI"/>
+      <listitem open="0" type="815" id="urVgOojGOot1N"/>
+      <listitem open="0" type="815" id="uAnAVUOjzws81"/>
+      <listitem open="0" type="814" id="unNcy4PeoHGca"/>
+     </listitem>
+     <listitem open="0" type="830" id="Datatypes">
+      <listitem open="1" type="829" id="ucfq9N7mSiJM3"/>
+      <listitem open="0" type="829" id="uGLGtK8f8Bdi5"/>
+      <listitem open="0" type="829" id="uh809nUS9jv6F"/>
+      <listitem open="1" type="829" id="ucjX1UxNUXv66"/>
+      <listitem open="0" type="829" id="uSDSkoi1oEnYN"/>
+      <listitem open="0" type="829" id="uFJU6OXG6xuUC"/>
+      <listitem open="0" type="829" id="uAGyeFte92SFb"/>
+      <listitem open="1" type="829" id="uRNQ8mzUMKBA0"/>
+      <listitem open="1" type="829" id="uJ90eXeTafaX5"/>
+      <listitem open="0" type="829" id="uSKkIX6s8IXIE"/>
+      <listitem open="0" type="829" id="uIa3faUjPGaoa"/>
+      <listitem open="1" type="829" id="u8ncWzU6uaHhv"/>
+      <listitem open="1" type="829" id="urng0QNZQ9Ccl"/>
+      <listitem open="0" type="829" id="uL8Hv1XT06pYF"/>
+      <listitem open="0" type="829" id="usf7kE1HY5zrp"/>
+      <listitem open="0" type="829" id="uJ6GFt7S05UTX"/>
+      <listitem open="0" type="829" id="uL3bz6ARtB8gU"/>
+      <listitem open="0" type="829" id="uE00eswDZnrAO"/>
+      <listitem open="0" type="829" id="uWDbmXRdDrk6H"/>
+      <listitem open="1" type="829" id="uxPPrH5eLsmFt"/>
+      <listitem open="0" type="829" id="uIj95ophFt6Q6"/>
+      <listitem open="0" type="829" id="u7uzW7EYLbzdD"/>
+      <listitem open="0" type="829" id="uAOW5ZnIURDLi"/>
+      <listitem open="0" type="829" id="uMJW3Z1UiFomv"/>
+      <listitem open="0" type="829" id="uh2rk4RCQb6rS"/>
+     </listitem>
+     <listitem open="0" type="813" id="u9I9njvDRz6p1">
+      <listitem open="0" type="815" id="uWXWEq4OUUNdG"/>
+      <listitem open="0" type="814" id="umZRVagWy9Ikw"/>
+      <listitem open="0" type="815" id="unyErxDOspzYT"/>
+     </listitem>
+     <listitem open="0" type="813" id="uvtV1cci93Dtv">
+      <listitem open="0" type="815" id="uUhxcqxyiCs1v"/>
+      <listitem open="0" type="814" id="uII0BU1RB2Lj8"/>
+      <listitem open="0" type="815" id="uiXlSZuvJkfEv"/>
+      <listitem open="0" type="814" id="uhyIsSbpSiVpZ"/>
+      <listitem open="0" type="815" id="uVhyco4MCDUYZ"/>
+      <listitem open="0" type="814" id="uruwE310lfiGQ"/>
+      <listitem open="0" type="815" id="u0KX6tCxwTWpp"/>
+      <listitem open="0" type="814" id="unAwUMHTJG9Ew"/>
+      <listitem open="0" type="814" id="uUo8Nogw2GlWg"/>
+      <listitem open="0" type="814" id="uzBUUkv7dQkz8"/>
+      <listitem open="0" type="814" id="uPzbFldef8TuQ"/>
+      <listitem open="0" type="815" id="uMjN06GEM8qy1"/>
+      <listitem open="0" type="815" id="uJTy7awgXC7tY"/>
+      <listitem open="0" type="814" id="uoMSioFFM2XJt"/>
+      <listitem open="0" type="814" id="u7YCy17I90WCU"/>
+     </listitem>
+     <listitem open="0" type="813" id="uSN1c79R4F5i1">
+      <listitem open="0" type="813" id="utI0erRcfc4S1"/>
+      <listitem open="0" type="813" id="u0xl5OuSC8PmI"/>
+     </listitem>
+     <listitem open="0" type="813" id="uoVhMRKgYUcwo">
+      <listitem open="0" type="815" id="uAXV32CcQGZYK"/>
+      <listitem open="0" type="814" id="uUecJcXgphqGC"/>
+      <listitem open="0" type="815" id="uvfhBIO4NtQ0g"/>
+     </listitem>
+     <listitem open="0" type="813" id="uSM9VynIGC1OK">
+      <listitem open="0" type="815" id="uSZWEVfUzyFPe"/>
+      <listitem open="0" type="814" id="ucfrp43t2LkxL"/>
+      <listitem open="0" type="814" id="uONrRUgAxOxQL"/>
+      <listitem open="0" type="814" id="uLB70pLP5PSC5"/>
+      <listitem open="0" type="815" id="u5i3Oh69jUgr3"/>
+      <listitem open="0" type="814" id="uRoSLWkp8SO3c"/>
+      <listitem open="0" type="814" id="u8948W1GonZIL"/>
+      <listitem open="0" type="814" id="uuU8qTzH0XWFW"/>
+     </listitem>
+     <listitem open="0" type="813" id="uO4s4oKTyEZGY">
+      <listitem open="0" type="815" id="uQ5xcVF4UpaTZ"/>
+      <listitem open="0" type="814" id="u2Rd94rbreyjs"/>
+      <listitem open="0" type="814" id="unhbmy7kKgBa4"/>
+      <listitem open="0" type="814" id="u7UZIoDR1sgdb"/>
+      <listitem open="0" type="814" id="u6F2O0vq8P5xe"/>
+      <listitem open="0" type="814" id="uvGfNPBTdGxIr"/>
+      <listitem open="0" type="814" id="u1FZdm6stzWO5"/>
+      <listitem open="0" type="814" id="uLcYdtWvmN5KB"/>
+      <listitem open="0" type="814" id="uCfk9oscvNjhv"/>
+      <listitem open="0" type="814" id="uZPB7NgiEArCn"/>
+      <listitem open="0" type="815" id="uoZBbIXgUBTgB"/>
+      <listitem open="0" type="815" id="uQ9E6mOVZPCBV"/>
+      <listitem open="0" type="815" id="urqhbzuPcbFoQ"/>
+      <listitem open="0" type="815" id="uChyy4V3k0oNh"/>
+      <listitem open="0" type="815" id="udq1GvRHfjuOh"/>
+      <listitem open="0" type="815" id="u2de1toFZTR0a"/>
+      <listitem open="0" type="815" id="uMKJhr5zbgwW9"/>
+      <listitem open="0" type="815" id="uaQaZnwXyjYQe"/>
+      <listitem open="0" type="814" id="ukoTbPNVbI85V"/>
+      <listitem open="0" type="814" id="uhC8RXm3ibmvl"/>
+      <listitem open="0" type="814" id="uFGgoHhOLLYLh"/>
+      <listitem open="0" type="814" id="uPrf92xFU0zGV"/>
+      <listitem open="0" type="814" id="uDldz1mcH1Yh6"/>
+      <listitem open="0" type="815" id="uY9yOWEdfhSAk"/>
+      <listitem open="0" type="814" id="uDVLWV1bkcmzS"/>
+      <listitem open="0" type="815" id="ukUuunLxQlOwT"/>
+     </listitem>
+     <listitem open="0" type="813" id="uniEu0WE4tLys">
+      <listitem open="0" type="815" id="uagZB7TEpJzjF"/>
+      <listitem open="0" type="814" id="u6GVYNT7XFFAD"/>
+      <listitem open="0" type="814" id="uaQuFYg7eIerz"/>
+      <listitem open="0" type="815" id="uU5wFV5w3NPvz"/>
+      <listitem open="0" type="815" id="u3Up4iB33q4A2"/>
+      <listitem open="0" type="814" id="u6zxNdNDhmXhx"/>
+      <listitem open="0" type="815" id="uscxrHRrzpl79"/>
+      <listitem open="0" type="815" id="ucXKsuQwPber8"/>
+      <listitem open="0" type="815" id="uSVf3LNOfi5qB"/>
+      <listitem open="0" type="815" id="uLQwnKY0a7Mg1"/>
+      <listitem open="0" type="815" id="u0kOxYmEqZIOF"/>
+      <listitem open="0" type="815" id="ukvp8jwkJKgUa"/>
+      <listitem open="0" type="815" id="uLPcmo6NRTUqw"/>
+      <listitem open="0" type="815" id="uB4uGWvob2JZ1"/>
+      <listitem open="0" type="815" id="uRPVuTOSgaCiN"/>
+      <listitem open="0" type="815" id="uvP46bxWAQ8bb"/>
+      <listitem open="0" type="815" id="uB5wCof2cuAJC"/>
+      <listitem open="0" type="814" id="u4tHv7583VLo9"/>
+      <listitem open="0" type="814" id="uUCouiBCx0Kzo"/>
+      <listitem open="0" type="814" id="uVRVAv70Lm6uf"/>
+     </listitem>
+    </listitem>
+    <listitem open="1" type="802" id="Use_Case_View"/>
+   </listitem>
+  </listview>
+  <codegeneration>
+   <codegenerator language="Python">
+    <sourcecode value="pass&#xa;" id="ufspAODP991Uf"/>
+    <sourcecode value="gano=False&#xa;if pos==Singleton.pos_ganadora:&#xa;  gano=True&#xa;&#xa;return gano&#xa;" id="uq7eHFVyAmbiO"/>
+    <sourcecode value="casillaActual=Singleton.casillasTablero[posTablero]&#xa;distancia=0&#xa;coordenadasNuevas=[]&#xa;if not isinstance(casillaActual,CasillaEstandar):&#xa;  if casillaActual.casilla.esInicio():&#xa;    casillaFinal=casillaActual.casilla.getFinal()&#xa;    if isinstance(casillaActual,CasillaSerpiente):&#xa;      if isinstance(casillaFinal,CasillaEstandar):&#xa;        print(&quot;BAJE POR SERPIENTE DESDE: &quot;,casillaActual.casilla.getIndice()+1,&quot; HASTA: &quot;,casillaFinal.getIndice()+1)&#xa;        distancia=(posTablero-(casillaFinal.getIndice()))*(-1)&#xa;        coordenadasNuevas=casillaFinal.getCoordenadas()&#xa;&#xa;      else:&#xa;        print(&quot;BAJE POR SERPIENTE DESDE: &quot;,casillaActual.casilla.getIndice()+1,&quot; HASTA: &quot;,casillaFinal.casilla.getIndice()+1)&#xa;        distancia=(posTablero-(casillaFinal.casilla.getIndice()))*(-1)&#xa;        coordenadasNuevas=casillaFinal.casilla.getCoordenadas()&#xa;&#xa;&#xa;    else:&#xa;      if isinstance(casillaFinal,CasillaEstandar):&#xa;        print(&quot;SUBI POR ESCALERA DESDE: &quot;,casillaActual.casilla.getIndice()+1,&quot; HASTA: &quot;,casillaFinal.getIndice()+1)&#xa;        distancia=((casillaFinal.getIndice())-posTablero)&#xa;        coordenadasNuevas=casillaFinal.getCoordenadas()&#xa;&#xa;      else:&#xa;        print(&quot;SUBI POR ESCALERA DESDE: &quot;,casillaActual.casilla.getIndice()+1,&quot; HASTA: &quot;,casillaFinal.casilla.getIndice()+1)&#xa;        distancia=((casillaFinal.casilla.getIndice())-posTablero)&#xa;        coordenadasNuevas=casillaFinal.casilla.getCoordenadas()&#xa;&#xa;&#xa;&#xa;&#xa;return distancia,coordenadasNuevas&#xa;" id="uEJOBVkdpeALK"/>
+    <sourcecode value="Singleton.agregar_jugador(jugador)&#xa;" id="uaiVcPKjahSoi"/>
+    <sourcecode value="jugadores=[]&#xa;resultados=[]&#xa;for i in range(cantidad_jugadores):&#xa;  print(&quot;Tire los dados el Jugador &quot;,i+1)&#xa;  resultado_dados=dado.espere_repuesta_dados(boton_dados)&#xa;  resultados.append(resultado_dados)&#xa;  jugadores.append((Singleton.jugadores[i],resultado_dados))&#xa;&#xa;resultados.sort(reverse=True)&#xa;for i in range(len(resultados)):&#xa;  jugador=cls.buscar_jugador(jugadores,resultados[i])&#xa;  Singleton.jugadores_ordenados.append(jugador[0])&#xa;  jugadores.remove(jugador)&#xa;&#xa;" id="uYmPgdLvYzEvv"/>
+    <sourcecode value="for jugador in jugadores:&#xa;  if jugador[1]==valor:&#xa;    return jugador&#xa;&#xa;&#xa;" id="ud1uwtRyxnQyS"/>
+    <sourcecode value="return True&#xa;" id="u9oGVfvT9P85t"/>
+    <sourcecode value="self.x=x&#xa;self.y=y&#xa;self.text=text&#xa;self.alto=alto&#xa;self.ancho=ancho&#xa;self.ventana=ventana&#xa;self.mi_color=mi_color&#xa;self.mi_forma=pygame.Rect(x,y,ancho,alto)&#xa;" id="u2Z7BkF85sRXg"/>
+    <sourcecode value="pygame.draw.rect(self.ventana,self.mi_color,self.mi_forma)&#xa;pygame.draw.rect(self.ventana,(54,57,63),self.mi_forma,1)&#xa;if self.text!='':&#xa;  font=pygame.font.SysFont('verdana',15,bold=True)&#xa;  text=font.render(self.text,True,(255,255,255),self.mi_color)&#xa;  textRect=text.get_rect()&#xa;  textRect.center=(self.x+self.ancho//2,self.y+self.alto//2)&#xa;  self.ventana.blit(text,textRect)&#xa;&#xa;" id="umFppZKqClom4"/>
+    <sourcecode value="if pos[0]>self.x and pos[0]&lt;self.x+self.ancho:&#xa;  if pos[1]>self.y and pos[1]&lt;self.y+self.alto:&#xa;  return True&#xa;return False" id="u8qTvPCfNxySP"/>
+    <sourcecode value="pass&#xa;" id="umciyZOMsNFa7"/>
+    <sourcecode value="Casilla.__init__(self)&#xa;self.mis_coordenadas=mis_coordenadas&#xa;self.mi_color=mi_color&#xa;self.mi_forma=mi_forma&#xa;self.mi_indice=mi_indice&#xa;self.ventana=ventana&#xa;self.conector=None&#xa;" id="ulyKc7z4DeQ0S"/>
+    <sourcecode value="return self.mis_coordenadas&#xa;" id="uL8n72HTYzOj7"/>
+    <sourcecode value="return self.mi_color&#xa;" id="uXtP3CPEarMtu"/>
+    <sourcecode value="return self.mi_forma&#xa;" id="uumq0XRxsCLsa"/>
+    <sourcecode value="return self.mi_indice&#xa;" id="u8UBvl1zKsqgd"/>
+    <sourcecode value="return self.conector&#xa;" id="uJ4hWiNm2vizW"/>
+    <sourcecode value="self.mi_color=Singleton.colores_casillas[color]&#xa;" id="uUl124zDsKYkh"/>
+    <sourcecode value="self.conector=conector&#xa;" id="uGMiF6a7set9Q"/>
+    <sourcecode value="return self.conector.getCasillaInicio().casilla.getIndice()==self.mi_indice&#xa;" id="ug94xF7B5PUo5"/>
+    <sourcecode value="return self.conector.getCasillaFinal().casilla&#xa;" id="umqSxEEKcqbdx"/>
+    <sourcecode value="pygame.draw.rect(self.ventana,self.mi_color,self.mi_forma)&#xa;pygame.draw.rect(self.ventana,(0,0,0),self.mi_forma,1)&#xa;font=pygame.font.SysFont('arialblack',20)&#xa;text=font.render(str(self.mi_indice+1),True,(0,0,0),self.mi_color)&#xa;textRect=text.get_rect()&#xa;textRect.center=(self.mis_coordenadas[0],self.mis_coordenadas[1])&#xa;self.ventana.blit(text,textRect)&#xa;" id="uXdUCsNw0Ju4E"/>
+    <sourcecode value="Casilla.__init__(self)&#xa;self.casilla=casilla&#xa;" id="uGteTjEZgoby9"/>
+    <sourcecode value="Casilla.__init__(self)&#xa;self.casilla=casilla" id="uGP5OO0mt8MK5"/>
+    <sourcecode value="Conector.__init__(self)&#xa;self.casilla_inicio=casilla[0]&#xa;self.casilla_final=casilla[1]&#xa;self.ventana=ventana&#xa;" id="uN5FBh2BtXSEJ"/>
+    <sourcecode value="return self.casilla_inicio&#xa;" id="ulI8HqrDdxUWZ"/>
+    <sourcecode value="return self.casilla_final&#xa;" id="uCM3FfmgvC4zd"/>
+    <sourcecode value="return self.ventana&#xa;" id="uySN18VhjN5CA"/>
+    <sourcecode value="self.casilla_inicio.casilla.setConector(self)&#xa;self.casilla_final.casilla.setConector(self)&#xa;" id="uSWQsciEgexZL"/>
+    <sourcecode value="Conector.__init__(self)&#xa;self.conector=conector&#xa;" id="uWXWEq4OUUNdG"/>
+    <sourcecode value="pygame.draw.line(self.conector.getVentana(),(0,128,0),self.conector.getCasillaInicio().casilla.getCoordenadas(),self.conector.getCasillaFinal().casilla.getCoordenadas(),4)&#xa;" id="unyErxDOspzYT"/>
+    <sourcecode value="Conector.__init__(self)&#xa;self.conector=conector&#xa;" id="uAXV32CcQGZYK"/>
+    <sourcecode value="pygame.draw.line(self.conector.getVentana(),(255,0,0),self.conector.getCasillaInicio().casilla.getCoordenadas(),self.conector.getCasillaFinal().casilla.getCoordenadas(),4)" id="uvfhBIO4NtQ0g"/>
+    <sourcecode value="self.valores_caras=[1,2,3,4,5,6]&#xa;self.caras=None&#xa;" id="ug4p1pJgr39ai"/>
+    <sourcecode value="resultados_por_dado=[self.valores_caras[random.randint(0,len(self.valores_caras)-1)]for i in range(2)]&#xa;resultado_al_lanzar=sum(resultados_por_dado)&#xa;self.dibujar(resultados_por_dado)&#xa;return resultado_al_lanzar&#xa;" id="uAnAVUOjzws81"/>
+    <sourcecode value="ruta_local='imagenes/'&#xa;ruta_imagen=os.path.join(ruta_local,str(resultados_por_dado[0])+&quot;.png&quot;)&#xa;cara_temp=pygame.image.load(ruta_imagen)&#xa;imagen_transformada=pygame.transform.scale(cara_temp,(60,60))&#xa;cara_izq=imagen_transformada.convert()&#xa;rect_izq=cara_izq.get_rect()&#xa;rect_izq.center=(780,145)&#xa;Singleton.ventana.blit(cara_izq,rect_izq)&#xa;ruta_imagen=os.path.join(ruta_local,str(resultados_por_dado[1])+&quot;.png&quot;)&#xa;cara_temp=pygame.image.load(ruta_imagen)&#xa;imagen_transformada=pygame.transform.scale(cara_temp,(60,60))&#xa;cara_der=imagen_transformada.convert()&#xa;rect_der=cara_der.get_rect()&#xa;rect_der.center=(870,145)&#xa;Singleton.ventana.blit(cara_der,rect_der)&#xa;" id="u3e3f9kEIN7dI"/>
+    <sourcecode value="boton_dados.dibujar()&#xa;pygame.display.update()&#xa;resultado_dados=0&#xa;while resultado_dados==0:&#xa;  for events in pygame.event.get():&#xa;    posicion_cursor=pygame.mouse.get_pos()&#xa;    if events.type==QUIT:&#xa;      pygame.quit()&#xa;      sys.exit(0)&#xa;&#xa;    elif events.type==pygame.MOUSEBUTTONDOWN:&#xa;      if boton_dados.isOver(posicion_cursor):&#xa;        resultado_dados=self.lanzar()&#xa;&#xa;&#xa;    elif events.type==pygame.MOUSEMOTION:&#xa;      if boton_dados.isOver(posicion_cursor):&#xa;        boton_dados.mi_color=(161,222,147)&#xa;&#xa;      else:&#xa;        boton_dados.mi_color=(54,57,63)&#xa;&#xa;&#xa;    boton_dados.dibujar()&#xa;    pygame.display.update()&#xa;&#xa;&#xa;return resultado_dados" id="urVgOojGOot1N"/>
+    <sourcecode value="self.x=x&#xa;self.y=y&#xa;self.largo=l&#xa;self.ancho=a&#xa;self.pos_tablero=pos&#xa;self.movX=mX&#xa;self.movY=mY&#xa;self.ganador=False&#xa;self.rect=pygame.rect.Rect((self.x,self.y,self.ancho,self.largo))&#xa;self.setColor()&#xa;self.dibujar()&#xa;" id="uUhxcqxyiCs1v"/>
+    <sourcecode value="self.nombre=nombre&#xa;" id="uJTy7awgXC7tY"/>
+    <sourcecode value="salga=False&#xa;while not salga:&#xa;  color=input(&quot;Colores disponibles:\nmagenta, azul, naranja, negro, gris, verde, aqua, dorado, rojo\nEscoja el color de su jugador: &quot;)&#xa;  repetido=Arbitro.esColorRepetido(color)&#xa;  existe=Arbitro.existeColor(color)&#xa;  if existe and not repetido:&#xa;    Singleton.colores_jugadores_usados.append(color)&#xa;    self.mi_color=Singleton.colores_jugadores[color]&#xa;    salga=True&#xa;&#xa;  else:&#xa;    print(&quot;---Escoja un color valido--- -> escogido: &quot;,color)&#xa;&#xa;&#xa;" id="uMjN06GEM8qy1"/>
+    <sourcecode value="return self.nombre&#xa;" id="uVhyco4MCDUYZ"/>
+    <sourcecode value="excedido=False&#xa;coordenadasNuevoMov=[]&#xa;distanciaN=0&#xa;if self.pos_tablero+distancia>99:&#xa;  excedido=True&#xa;  self.pos_tablero=self.pos_tablero+distancia-100&#xa;&#xa;self.rect.x=coordenadas[0]+self.movX&#xa;self.rect.y=coordenadas[1]+self.movY&#xa;if not excedido:&#xa;  self.pos_tablero=self.pos_tablero+distancia&#xa;&#xa;gano=Arbitro.comprobarGane(self.pos_tablero)&#xa;if gano==False:&#xa;  distanciaN,coordenadasNuevoMov=Arbitro.aplicarReglasMovimiento(self.pos_tablero)&#xa;  if distanciaN!=0:&#xa;    gano=self.mover(distanciaN,coordenadasNuevoMov)&#xa;&#xa;&#xa;return gano&#xa;" id="u0KX6tCxwTWpp"/>
+    <sourcecode value="pygame.draw.rect(Singleton.ventana,self.mi_color,self.rect)" id="uiXlSZuvJkfEv"/>
+    <sourcecode value="cls.casillasTablero=casillasT&#xa;cls.pos_ganadora=casillaGanadora&#xa;cls.jugadores=[]&#xa;cls.ancho_tablero=an&#xa;cls.alto_tablero=al&#xa;cls.cantidad_jugadores=0&#xa;cls.cantidad_x=cantX&#xa;cls.cantidad_y=cantY&#xa;cls.ventana=vent&#xa;" id="uaQaZnwXyjYQe"/>
+    <sourcecode value="cls.posicion_jugadores=[&#xa;((cls.casillasTablero[0].getCoordenadas()[0]+((Singleton.getAlto()//Singleton.getCantX())//4)),(cls.casillasTablero[0].getCoordenadas()[1]-((Singleton.getAlto()//Singleton.getCantY())//2))),((cls.casillasTablero[0].getCoordenadas()[0]-((Singleton.getAlto()//Singleton.getCantX()//2))),(cls.casillasTablero[0].getCoordenadas()[1]-((Singleton.getAlto()//Singleton.getCantY())//2))),((cls.casillasTablero[0].getCoordenadas()[0]+((Singleton.getAlto()//Singleton.getCantX())//4)),(cls.casillasTablero[0].getCoordenadas()[1]+((Singleton.getAlto()//Singleton.getCantY())//4))),((cls.casillasTablero[0].getCoordenadas()[0]-((Singleton.getAlto()//Singleton.getCantX())//2)),(cls.casillasTablero[0].getCoordenadas()[1]+((Singleton.getAlto()//Singleton.getCantY())//4)))]&#xa;" id="uoZBbIXgUBTgB"/>
+    <sourcecode value="return cls.posicion_jugadores[indice]&#xa;" id="uMKJhr5zbgwW9"/>
+    <sourcecode value="return cls.alto_tablero&#xa;" id="uQ9E6mOVZPCBV"/>
+    <sourcecode value="return cls.ancho_tablero&#xa;" id="urqhbzuPcbFoQ"/>
+    <sourcecode value="return cls.cantidad_x&#xa;" id="uChyy4V3k0oNh"/>
+    <sourcecode value="return cls.cantidad_y&#xa;" id="udq1GvRHfjuOh"/>
+    <sourcecode value="cls.cantidad_jugadores+=1&#xa;jugador.setNombre(&quot;Jugador &quot;+str(cls.cantidad_jugadores))&#xa;cls.jugadores.append(jugador)&#xa;" id="uQ5xcVF4UpaTZ"/>
+    <sourcecode value="hilera=&quot;Jugadores: &quot;&#xa;for jugador in cls.jugadores:&#xa;  hilera+=jugador.getNombre()+&quot;, &quot;&#xa;&#xa;print(hilera)&#xa;" id="ukUuunLxQlOwT"/>
+    <sourcecode value="cls.jugadorGanador=jugador&#xa;" id="uY9yOWEdfhSAk"/>
+    <sourcecode value="return cls.jugadorGanador" id="u2de1toFZTR0a"/>
+    <sourcecode value="self.alto_total=alto_total&#xa;self.ancho_total=ancho_total&#xa;self.ancho_sidebar=ancho_sidebar&#xa;self.mi_color=mi_color&#xa;self.mi_forma=pygame.Rect(700,0,ancho_sidebar,alto_total)&#xa;self.elementos=elementos&#xa;self.dibujar()&#xa;" id="uSZWEVfUzyFPe"/>
+    <sourcecode value="pygame.draw.rect(Singleton.ventana,self.mi_color,self.mi_forma)&#xa;pygame.draw.rect(Singleton.ventana,Singleton.colores_casillas[&quot;negro&quot;],self.mi_forma,1)&#xa;self.elementos[0].dibujar()" id="u5i3Oh69jUgr3"/>
+    <sourcecode value="self.tamanio=tamanio&#xa;self.ventana=ventana&#xa;self.casillas=[]&#xa;self.serpientes=[]&#xa;self.escaleras=[]&#xa;self.generarCasillas()&#xa;self.ancho_barra=ancho_barra&#xa;" id="uagZB7TEpJzjF"/>
+    <sourcecode value="alto,ancho=700,700&#xa;cantidad_serpientes=int((self.tamanio[0]*self.tamanio[1])*((random.randint(5,7))*0.01))&#xa;cantidad_escaleras=int((self.tamanio[0]*self.tamanio[1])*((random.randint(5,7))*0.01))&#xa;centros_casillas=self.obtener_centro_casillas(alto,ancho)&#xa;posiciones_serpientes,posiciones_escaleras=self.generar_conexiones(centros_casillas,cantidad_serpientes,cantidad_escaleras)&#xa;for i in range(len(centros_casillas)):&#xa;  encontrado=False&#xa;  for j in range(len(posiciones_serpientes)):&#xa;    if not encontrado and i in posiciones_serpientes[j]:&#xa;      figura=pygame.Rect(centros_casillas[i][0]-int((alto//self.tamanio[0])//2),centros_casillas[i][1]-int((ancho//self.tamanio[1])/2),alto//self.tamanio[0],ancho//self.tamanio[1])&#xa;      temp=CasillaEstandar(centros_casillas[i],(255,255,255),figura,i,self.ventana)&#xa;      serpiente=CasillaSerpiente(temp)&#xa;      self.casillas.append(serpiente)&#xa;      encontrado=True&#xa;&#xa;    if encontrado:&#xa;      break&#xa;&#xa;&#xa;  for k in range(len(posiciones_escaleras)):&#xa;    if not encontrado and i in posiciones_escaleras[k]:&#xa;      figura=pygame.Rect(centros_casillas[i][0]-int((alto//self.tamanio[0])//2),centros_casillas[i][1]-int((ancho//self.tamanio[1])/2),alto//self.tamanio[0],ancho//self.tamanio[1])&#xa;      temp=CasillaEstandar(centros_casillas[i],(255,255,255),figura,i,self.ventana)&#xa;      escalera=CasillaEscalera(temp)&#xa;      self.casillas.append(escalera)&#xa;      encontrado=True&#xa;&#xa;    if encontrado:&#xa;      break&#xa;&#xa;&#xa;  if not encontrado:&#xa;    figura=pygame.Rect(centros_casillas[i][0]-int((alto//self.tamanio[0])//2),centros_casillas[i][1]-int((ancho//self.tamanio[1])//2),alto//self.tamanio[0],ancho//self.tamanio[1])&#xa;    casillaEstandar=CasillaEstandar(centros_casillas[i],(255,255,255),figura,i,self.ventana)&#xa;    self.casillas.append(casillaEstandar)&#xa;&#xa;&#xa;for i in range(len(self.casillas)):&#xa;  if isinstance(self.casillas[i],CasillaSerpiente):&#xa;    if not self.existeConexion(self.casillas[i].casilla.getIndice()):&#xa;      conector=ConectorEstandar(self.getPar(self.casillas[i].casilla.getIndice(),posiciones_serpientes),self.ventana)&#xa;      self.serpientes.append(Serpiente(conector))&#xa;      self.serpientes[len(self.serpientes)-1].conector.sendConector()&#xa;&#xa;&#xa;  elif isinstance(self.casillas[i],CasillaEscalera):&#xa;    if not self.existeConexion(self.casillas[i].casilla.getIndice()):&#xa;      conector=ConectorEstandar(self.getPar(self.casillas[i].casilla.getIndice(),posiciones_escaleras),self.ventana)&#xa;      self.escaleras.append(Escalera(conector))&#xa;      self.escaleras[len(self.escaleras)-1].conector.sendConector()&#xa;&#xa;&#xa;&#xa;" id="u0kOxYmEqZIOF"/>
+    <sourcecode value="for i in posiciones:&#xa;  if indice in i:&#xa;    return i&#xa;&#xa;&#xa;return&#xa;" id="uLPcmo6NRTUqw"/>
+    <sourcecode value="temp_par=self.getPosicionesEnTupla(indice,posiciones)&#xa;tupla=(self.casillas[temp_par[0]],self.casillas[temp_par[1]])&#xa;return tupla&#xa;" id="ukvp8jwkJKgUa"/>
+    <sourcecode value="for i in range(len(self.serpientes)):&#xa;  if indice==self.serpientes[i].conector.getCasillaInicio().casilla.getIndice()or indice==self.serpientes[i].conector.getCasillaFinal().casilla.getIndice():&#xa;    return True&#xa;&#xa;&#xa;for i in range(len(self.escaleras)):&#xa;  if indice==self.escaleras[i].conector.getCasillaInicio().casilla.getIndice()or indice==self.escaleras[i].conector.getCasillaFinal().casilla.getIndice():&#xa;    return True&#xa;&#xa;&#xa;return False&#xa;" id="uscxrHRrzpl79"/>
+    <sourcecode value="serpientes_temp=[]&#xa;generados=0&#xa;while generados&lt;cantidad*2:&#xa;  while True:&#xa;    valor=random.randint(1,len(casillas)-2)&#xa;    if(valor not in escaleras)and(valor not in serpientes_temp):&#xa;      serpientes_temp.append(valor)&#xa;      break&#xa;&#xa;&#xa;  generados+=1&#xa;&#xa;return serpientes_temp&#xa;" id="uLQwnKY0a7Mg1"/>
+    <sourcecode value="escaleras_temp=[]&#xa;generados=0&#xa;while generados&lt;cantidad*2:&#xa;  while True:&#xa;    valor=random.randint(1,len(casillas)-2)&#xa;    if valor not in escaleras_temp:&#xa;      escaleras_temp.append(valor)&#xa;      break&#xa;&#xa;&#xa;  generados+=1&#xa;&#xa;return escaleras_temp&#xa;" id="uSVf3LNOfi5qB"/>
+    <sourcecode value="escaleras_temp=self.generar_escaleras(casillas,cantidad_escaleras)&#xa;serpientes_temp=self.generar_serpientes(escaleras_temp,casillas,cantidad_serpientes)&#xa;escaleras=[]&#xa;serpientes=[]&#xa;for i in range(0,len(escaleras_temp),2):&#xa;  valorInicial=0&#xa;  valorFinal=0&#xa;  if escaleras_temp[i]&lt;escaleras_temp[i+1]:&#xa;  valorInicial=escaleras_temp[i]valorFinal=escaleras_temp[i+1]else:&#xa;    valorInicial=escaleras_temp[i+1]&#xa;    valorFinal=escaleras_temp[i]&#xa;&#xa;  tupla=(valorInicial,valorFinal)&#xa;  escaleras.append(tupla)&#xa;&#xa;for i in range(0,len(serpientes_temp),2):&#xa;  valorInicial=0&#xa;  valorFinal=0&#xa;  if serpientes_temp[i]>serpientes_temp[i+1]:&#xa;    valorInicial=serpientes_temp[i]&#xa;    valorFinal=serpientes_temp[i+1]&#xa;&#xa;  else:&#xa;    valorInicial=serpientes_temp[i+1]&#xa;    valorFinal=serpientes_temp[i]&#xa;&#xa;  tupla=(valorInicial,valorFinal)&#xa;  serpientes.append(tupla)&#xa;&#xa;return serpientes,escaleras&#xa;" id="ucXKsuQwPber8"/>
+    <sourcecode value="casillas_temp=[]&#xa;temp=centro_casillas_x&#xa;for i in range(0,len(centro_casillas_y)):&#xa;  if(i%2==0):&#xa;    for j in range(len(centro_casillas_x)):&#xa;      tupla_temp=(centro_casillas_x[j],centro_casillas_y[i])&#xa;      casillas_temp.append(tupla_temp)&#xa;&#xa;&#xa;  else:&#xa;    for k in range(len(temp)):&#xa;      tupla_temp=(temp[k],centro_casillas_y[i])&#xa;      casillas_temp.append(tupla_temp)&#xa;&#xa;&#xa;  temp.reverse()&#xa;&#xa;return casillas_temp&#xa;" id="uB5wCof2cuAJC"/>
+    <sourcecode value="centro_casillas=[]&#xa;for i in range(max_iteracion):&#xa;  centro_casillas.append(int(x/2)+(i*x))&#xa;&#xa;return centro_casillas&#xa;" id="uRPVuTOSgaCiN"/>
+    <sourcecode value="centro_casillas=[]&#xa;centro_casillas_x=[]&#xa;centro_casillas_y=[]&#xa;cantidad_casillas_x,cantidad_casillas_y=self.tamanio[0],self.tamanio[1]&#xa;ancho_casilla=int(ancho_total/cantidad_casillas_x)&#xa;altura_casilla=int(alto_total/cantidad_casillas_y)&#xa;centro_casillas_x=self.obtener_casillas(ancho_casilla,cantidad_casillas_x)&#xa;centro_casillas_y=self.obtener_casillas(altura_casilla,cantidad_casillas_y)&#xa;centro_casillas_y.reverse()&#xa;centro_casillas=self.obtener_orden_coordenadas(centro_casillas_x,centro_casillas_y)&#xa;return centro_casillas&#xa;" id="uvP46bxWAQ8bb"/>
+    <sourcecode value="colores_x=[&quot;amarillo&quot;,&quot;blanco&quot;,&quot;rojo&quot;,&quot;azul&quot;,&quot;verde&quot;]&#xa;i=0&#xa;indice_color_x=0&#xa;indice_color_y=0&#xa;par_actual,par_final=0,self.tamanio[0]&#xa;impar_actual,impar_final=self.tamanio[0]*2-1,self.tamanio[0]-1&#xa;while i&lt;self.tamanio[1]//2:&#xa;for j in range(par_actual,par_final):&#xa;  if isinstance(self.casillas[j],CasillaEstandar):&#xa;    self.casillas[j].setColor(colores_x[indice_color_x])&#xa;&#xa;  else:&#xa;    self.casillas[j].casilla.setColor(colores_x[indice_color_x])&#xa;&#xa;  indice_color_x+=1&#xa;  if indice_color_x>4:&#xa;    indice_color_x=0&#xa;&#xa;&#xa;for j in range(impar_actual,impar_final,-1):&#xa;  if isinstance(self.casillas[j],CasillaEstandar):&#xa;    self.casillas[j].setColor(colores_x[(indice_color_x+3)%5])&#xa;&#xa;  else:&#xa;    self.casillas[j].casilla.setColor(colores_x[(indice_color_x+3)%5])&#xa;&#xa;  indice_color_x+=1&#xa;  if indice_color_x>4:&#xa;    indice_color_x=0&#xa;&#xa;&#xa;indice_color_y+=1&#xa;if indice_color_y>4:&#xa;  indice_color_y=0&#xa;&#xa;indice_color_x=indice_color_y&#xa;par_actual+=self.tamanio[0]*2 par_final+=self.tamanio[0]*2 impar_actual+=self.tamanio[0]*2 impar_final+=self.tamanio[0]*2 i+=1 return&#xa;" id="uU5wFV5w3NPvz"/>
+    <sourcecode value="for c in self.casillas:&#xa;  if isinstance(c,CasillaSerpiente)or isinstance(c,CasillaEscalera):&#xa;  c.casilla.dibujar()else:&#xa;    c.dibujar()&#xa;&#xa;&#xa;for i in self.serpientes:&#xa;  i.dibujar()&#xa;&#xa;for i in self.escaleras:&#xa;  i.dibujar()&#xa;&#xa;" id="u3Up4iB33q4A2"/>
+    <sourcecode value="if isinstance(self.casillas[index],CasillaEstandar):&#xa;  self.casillas[index].dibujar()&#xa;&#xa;else:&#xa;  self.casillas[index].casilla.dibujar()&#xa;  conector=self.casillas[index].casilla.getConector()&#xa;  if isinstance(conector,Serpiente):&#xa;    self.serpientes.index(conector).dibujar()&#xa;&#xa;  elif isinstance(conector,Escalera):&#xa;    self.escaleras.index(conector).dibujar()" id="uB4uGWvob2JZ1"/>
+   </codegenerator>
+  </codegeneration>
+ </XMI.extensions>
+</XMI>

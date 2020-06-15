@@ -1,0 +1,22 @@
+Escaleras y Serpientes
+
+	Josue Amador	B80435
+	Daniel Salazar	B87214
+	Ricardo Franco	B83050
+	Ignacio Arroyo	B80766
+	Gustavo Jimenez	B84060
+
+
+
+
+
+Comando para correr el programa:
+	python controlador.py
+
+Cuando se inicia el programa, requiere que se digite el numero de
+jugadores que van a estar en la partida y los colores para
+sus fichas. Si estos datos no se ingresan, el juego no va a iniciar.
+Solo se pueden tener 2 o mas jugadores por partida
+
+La carpeta Documentacion contiene los diagramas de clases UML
+asi como una pequeña explicacion de los patrones utilizados.

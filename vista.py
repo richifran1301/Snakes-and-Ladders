@@ -1,9 +1,12 @@
+import tkinter as tk
+from tkinter import *
 import os, pygame
 from tablero import Tablero
 from singleton import Singleton
 from sidebar import Sidebar
 from dado import Dado
 from button import Button
+
 
 ANCHO_BARRA = 250
 ANCHO = 700 + ANCHO_BARRA
@@ -17,7 +20,8 @@ class Vista():
         self.ventana = ventana
         self.tablero = self.crear_tablero()
         Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.tablero.casillas, ventana)
-        self.boton_dados, self.dado = self.crear_sidebar()
+        self.boton_dados, self.dado, self.boton_reglas = self.crear_sidebar()
+        
 
     def crear_tablero(self):
         """
@@ -42,11 +46,11 @@ class Vista():
         grafico de los dados, de primero y de segundo, el objeto de Dado para poder utilizar sus funciones.
         """
         boton_dados = Button(self.ventana, Singleton.colores_casillas["blanco"], 750, 35, 150, 40, "Lanzar dados")
+        boton_reglas = Button(self.ventana, Singleton.colores_casillas["negro"], 750, 600, 150 ,40, "Mostrar reglas")
         dado = Dado()
         elementos_sidebar = [boton_dados, dado]
         Sidebar(700, 700, 250, Singleton.colores_casillas["blanco"], elementos_sidebar)
-        
-        return boton_dados, dado
+        return boton_dados, dado, boton_reglas
 
     def dibujar_dados(self, resultados_por_dado):
         """
@@ -79,20 +83,44 @@ class Vista():
         self.eventoActual = evento
         print("La vista recibió el evento: ", self.eventoActual)
         posicion_cursor = pygame.mouse.get_pos()
-
         if self.eventoActual == 5:
             if self.boton_dados.isOver(posicion_cursor):
                 temp = self.dado.lanzar()
-        elif self.eventoActual == 4:
-            if self.boton_dados.isOver(posicion_cursor):
-                self.boton_dados.mi_color = (161,222,147) 
-            else:
-                self.boton_dados.mi_color = (54,57,63)
+            if self.boton_reglas.isOver(posicion_cursor):
+                raiz = tk.Tk()
+                text = tk.Text(raiz)
+                text.pack(expand=True, fill=BOTH)
+                texto = """Número de jugadores: dos o más, pero nunca deben jugar más de seis jugadores a la vez.
+Se necesita: un tablero del juego, una ficha de diferente color para cada jugador y un dado. 
+                                    REGLAS
+1- Para comenzar, todos los jugadores tenéis que tirar una vez el dado. El que saque más puntos será el primero en empezar la partida;
+continuará el que esté a su izquierda y así sucesivamente.
 
-            self.boton_dados.dibujar()
-        
-        pygame.display.update()
-        
-        
+2- El juego consiste en mover la ficha desde la casilla 1 hasta la 64; debes avanzarla tantos puestos como puntos te salgan al tirar el dado.
+
+3- Pero ¡cuidado!, si caes en la cabeza de una serpiente debes bajar hasta su cola. LAS SERPIENTES SOLO BAJAN, NUNCA SUBEN.
+
+4- También puedes tener suerte. Si caes en una casilla que señale el principio de una escalera sube hasta el final de la escalera. LAS
+ESCALERAS SOLO SUBEN, NUNCA BAJAN.
+
+5- Gana el primero que llegue a la última casilla.
+
+6- Si queréis jugar otra partida, el ganador de la primera debe ser ahora el último en empezar a jugar. Así tendrá menos posibilidades de volver a ganar. 
+
+"""
+                text.insert(tk.END, texto)
+                tk.mainloop()
+        elif self.eventoActual == 4:
+            if self.boton_dados.isOver(posicion_cursor) or self.boton_reglas.isOver(posicion_cursor):
+                if self.boton_dados.isOver(posicion_cursor):
+                    self.boton_dados.mi_color = (161,222,147)
+                if self.boton_reglas.isOver(posicion_cursor):
+                    self.boton_reglas.mi_color = (161,222,147)
+            else:
+                self.boton_reglas.mi_color = (54,57,63)
+                self.boton_dados.mi_color = (54,57,63)
+        self.boton_dados.dibujar()
+        self.boton_reglas.dibujar()
+        pygame.display.update() 
 
     
