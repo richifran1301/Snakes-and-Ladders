@@ -5,7 +5,7 @@ from singleton import Singleton
 from sidebar import Sidebar
 from dado import Dado
 from button import Button
-
+from arbitro import Arbitro
 
 ANCHO_BARRA = 250
 ANCHO = 700 + ANCHO_BARRA
@@ -13,12 +13,15 @@ ALTO = 700
 CANTIDAD_X = 10
 CANTIDAD_Y = 10
 
+CLICK = 5
+MOVER_CURSOR = 4
+
 class Vista():
 
     def __init__(self, ventana):
         self.ventana = ventana
         self.tablero = self.crear_tablero()
-        Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.tablero.casillas, ventana)
+        Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.tablero.casillas, self.ventana)
         self.boton_dados, self.dado, self.boton_reglas = self.crear_sidebar()
         
 
@@ -82,15 +85,22 @@ class Vista():
         self.eventoActual = evento
         #print("La vista recibió el evento: ", self.eventoActual)
         posicion_cursor = pygame.mouse.get_pos()
-        if self.eventoActual == 5:
+        if self.eventoActual == CLICK:      
             if self.boton_dados.isOver(posicion_cursor):
-                temp = self.dado.lanzar()
+                resultado_dados = self.dado.lanzar()
+                if Arbitro.decidiendoTurno:                                     #si el arbitro esta decidiendo turnos
+                    Arbitro.reciboRespuestaDados(resultado_dados)
+                elif  Arbitro.en_jugada:                                        # si el jugador se va a mover
+                    Arbitro.procesaRespuestaDados(resultado_dados)
+
+
+
             if self.boton_reglas.isOver(posicion_cursor):
                 root = Tk()
                 
                 root.title("Reglas del juego")
-                width = 560
-                height = 350
+                width = 800
+                height = 450
                 
                 screen_width = root.winfo_screenwidth()
                 screen_height = root.winfo_screenheight()
@@ -107,7 +117,7 @@ class Vista():
                 root.after(5000, lambda: root.focus_force())
                 root.mainloop()
                 
-        elif self.eventoActual == 4:
+        elif self.eventoActual == MOVER_CURSOR:              
             if self.boton_dados.isOver(posicion_cursor) or self.boton_reglas.isOver(posicion_cursor):
                 if self.boton_dados.isOver(posicion_cursor):
                     self.boton_dados.mi_color = (161,222,147)

@@ -11,8 +11,15 @@ class Arbitro():
     existentes dentro del juego, se asegura que cada jugador tenga un color unico...
     """
     @classmethod
-    def init(cls):
-        pass
+    def init(cls, controlador):
+        cls.decidiendoTurno = True
+        cls.en_jugada = False
+        cls.jugadores = []
+        cls.resultados = []
+        cls.jugador_gano = False
+        cls.valor_actual_dados = 0
+        cls.controlador = controlador
+
     """
     Este metodo se encarga de verificar si un jugador ha ganado la partida, se utiliza en cada jugada del jugador
     @param pos: Recibe la posicion de la casilla en la que se encuentra el jugador 
@@ -21,10 +28,9 @@ class Arbitro():
     """
     @classmethod
     def comprobarGane(cls,pos):#comprueba si el jugador esta en la posicion ganadora y devuelve un bool
-        gano = False             #si las coordenadas de jugador son iguales a las de la casilla ganadora, gana = True
         if pos == Singleton.pos_ganadora:
-            gano = True
-        return gano
+            Arbitro.jugador_gano = True
+
     """
     Este metodo comprueba la posicion del jugador en el tablero y si en esa casilla hay una serpiente o escalera, y aplica el movimiento
     indicado
@@ -81,19 +87,37 @@ class Arbitro():
     @type dado: una instancia de dado
     """
     @classmethod
-    def decidir_turnos(cls, cantidad_jugadores, boton_dados, dado):
-        jugadores = []
-        resultados = []
+    def decidir_turnos(cls, cantidad_jugadores):
         for i in range(cantidad_jugadores):
+            cls.recibioDados = False
+            cls.jugador_en_turno = i
             print("Tire los dados el Jugador ", i+1)
-            resultado_dados = dado.espere_repuesta_dados(boton_dados)
-            resultados.append(resultado_dados)
-            jugadores.append( (Singleton.jugadores[i], resultado_dados) )
-        resultados.sort(reverse=True)
-        for i in range (len(resultados)):
-            jugador = cls.buscar_jugador(jugadores, resultados[i])
+            cls.controlador.maneje_eventos()
+        cls.decidiendoTurno = False
+        cls.resultados.sort(reverse=True)
+        for i in range (len(cls.resultados)):
+            jugador = cls.buscar_jugador(cls.jugadores, cls.resultados[i])
             Singleton.jugadores_ordenados.append(jugador[0])
-            jugadores.remove(jugador)
+            cls.jugadores.remove(jugador)
+
+
+    @classmethod
+    def reciboRespuestaDados(cls, resultado_dados):
+        cls.recibioDados = True
+        cls.resultados.append(resultado_dados)
+        cls.jugadores.append( (Singleton.jugadores[cls.jugador_en_turno], resultado_dados) )
+
+    @classmethod
+    def jugador_juegue(cls, jugador):
+        cls.en_jugada = True
+        cls.recibioDados = False
+        cls.controlador.maneje_eventos()
+    
+    @classmethod
+    def procesaRespuestaDados(cls, resultado_dados):
+        cls.recibioDados = True
+        cls.valor_actual_dados = resultado_dados
+        cls.en_jugada = False
 
     """
     Este metodo busca un jugador dentro del vector de turnos de acuerdo al valor que saco en los dados

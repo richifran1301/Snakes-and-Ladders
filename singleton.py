@@ -52,6 +52,8 @@ class Singleton():
         cls.cantidad_x = cantX
         cls.cantidad_y = cantY
         cls.ventana = vent
+        cls.establecer_pos_jugadores()
+
 
     @classmethod
     def establecer_pos_jugadores(cls):

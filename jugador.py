@@ -38,7 +38,6 @@ class Jugador():
         self.ganador = False
         self.rect = pygame.rect.Rect((self.x, self.y, self.ancho, self.largo))
         self.setColor()
-        self.dibujar()
 
     def setNombre(self, nombre):
         """
@@ -97,18 +96,37 @@ class Jugador():
        
         if not excedido:
             self.pos_tablero = self.pos_tablero + distancia
-        gano = Arbitro.comprobarGane(self.pos_tablero)                          #primero comprueba si el jugador en la nueva posicion gano
-        if gano == False:
+        Arbitro.comprobarGane(self.pos_tablero)                          #primero comprueba si el jugador en la nueva posicion gano
+        if Arbitro.jugador_gano == False:
             distanciaN, coordenadasNuevoMov = Arbitro.aplicarReglasMovimiento(self.pos_tablero)        #si no gano, comprueba si esta en una serp o escalera
             if distanciaN != 0: #si esta en una serpiete o escalera, va a tener que moverse a la posicion indicada
-                gano = self.mover(distanciaN,coordenadasNuevoMov)
-        return gano #retorna el bool si gano, para cerrar el juego
+                self.mover(distanciaN, coordenadasNuevoMov)
+
+    
+
+class VistaJugador():
+    
+    def __init__(self, jugador):
+        self.jugador = jugador
+
+    def muestre_turno_jugador(self):
+        """
+        Este metodo se va a encargar de desplegar en la ventana de pygame que jugador
+        le toca jugar. El texto lo muestra en el color respectivo de cada jugador. 
+        :param jugador: Objeto de jugador a realizar turno.
+        :type jugador: Jugador object
+        """
+        X = 1650
+        Y = 600
+        font = pygame.font.Font('freesansbold.ttf', 20) 
+        text = font.render('Turno: ' + self.jugador.nombre, True, self.jugador.mi_color, Singleton.colores_casillas["blanco"]) 
+        textRect = text.get_rect()  
+        textRect.center = (X // 2, Y // 2) 
+        Singleton.ventana.blit(text, textRect)
 
     def dibujar(self):
         """
         Metodo que ilustra al jugador en la vetana de pygame. Lo dibuja para que el usuario
         pueda observarlo.
         """
-        pygame.draw.rect(Singleton.ventana, self.mi_color, self.rect)
-    
-    
+        pygame.draw.rect(Singleton.ventana, self.jugador.mi_color, self.jugador.rect)
