@@ -12,6 +12,8 @@ class Singleton():
     ancho_tablero = 0
     alto_tablero = 0
     cantidad_jugadores = 0
+    cantidad_serpientes = 0
+    cantidad_escaleras = 0
     cantidad_x = 0
     cantidad_y = 0
     pos_ganadora = 0
@@ -23,6 +25,8 @@ class Singleton():
     colores_jugadores = {"magenta": (255,0,230), "azul": (0, 0, 128), "gris": (127,127,127), "naranja": (255,100,10), "negro": (0,0,0),
                         "verde": (118,238,0), "aqua": (0,255,255), "dorado": (255,185,15), "rojo": (205,51,51) }
     colores_jugadores_usados = []
+    serpientes = []
+    escaleras = []
 
     #Metodos
     @classmethod

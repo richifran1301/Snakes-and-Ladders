@@ -1,0 +1,4 @@
+2
+Jugador 1/0/gris/17/-35
+Jugador 2/0/verde/-35/-35
+

@@ -60,6 +60,7 @@ class Jugador():
             if  existe and not repetido:
                 Singleton.colores_jugadores_usados.append(color)
                 self.mi_color = Singleton.colores_jugadores[color]
+                self.colorString = color
                 salga = True
             else:
                 print("---Escoja un color valido--- -> escogido: ", color)

@@ -5,7 +5,7 @@ import itertools
 import sys, pygame
 from pygame.locals import *
 
-class Button():
+class Boton():
     def __init__(self, ventana, mi_color,x ,y , ancho, alto, text=''):
         """
         :param ventana: Referencia a la ventana de pygame.

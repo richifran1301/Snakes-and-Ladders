@@ -4,7 +4,7 @@ import random
 import itertools
 import sys, pygame
 from pygame.locals import *
-from button import Button
+#from button import Button
 from sidebar import Sidebar
 from conector import Conector, Escalera, Serpiente
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
@@ -54,7 +54,8 @@ class Tablero():
         # se invoca al método que indica en qué posiciones irán las serpientes y escaleras, cuya cantidad ya calculamos
         # estas posiciones vienen en tuplas con la posición inicial y final de cada serpiente o escalera
         posiciones_serpientes, posiciones_escaleras = self.generar_conexiones(centros_casillas, cantidad_serpientes, cantidad_escaleras)
-
+        
+        
         for i in range(len(centros_casillas)):  # para cada posición en el vector de centros_casilla, o sea, cada posición de todas las casillas
             encontrado = False                  # asuma que no ha encontrado una posición de serpiente en las posiciones generales
             
@@ -111,7 +112,8 @@ class Tablero():
                     self.escaleras.append(Escalera(self.getPar(self.casillas[i].getIndice(), posiciones_escaleras), self.ventana))
                     # el conector avisará a sus casillas relacionadas que él es su conector
                     self.escaleras[len(self.escaleras) - 1].sendConector()
-
+        Singleton.serpientes = self.serpientes
+        Singleton.escaleras = self.escaleras
         #for i in range(len(self.casillas)):
             #if not isinstance(self.casillas[i], CasillaEstandar):
                 #print(self.casillas[i].casilla.getIndice() + 1, self.casillas[i].casilla.getFinal() + 1, self.casillas[i].casilla.esInicio())
