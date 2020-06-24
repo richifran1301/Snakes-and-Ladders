@@ -158,12 +158,15 @@ class Controlador:
         coordenadas = Arbitro.obtener_destino(jugador.pos_tablero, Arbitro.valor_actual_dados)
         jugador.mover(Arbitro.valor_actual_dados, coordenadas)
     
-    def obtener_colores_jugadores(self, nombre):
+    def obtener_colores_jugadores(self, nombre, error, contador):
         root = Tk() 
         root.title("Crear jugadores")
         root.geometry("450x360")     
         mensaje = Label(root, text = "Color de "+nombre+": ")
-        mensaje.grid(row = 1, column = 1)         
+        mensaje.grid(row = 1, column = 1)
+        if contador > 0:
+            mensaje_error = Label(root, text = error)
+            mensaje_error.grid(row = 8, column = 1)
         color = StringVar()
         entrada_color = Entry(root, textvariable = color)
         entrada_color.grid(row = 1, column = 2)         
@@ -180,12 +183,15 @@ class Controlador:
         ok.config(command=mostrar)
         root.mainloop()
 
-    def obtener_cantidad_jugadores(self):
+    def obtener_cantidad_jugadores(self, contador):
         root = Tk() 
         root.title("Crear partida")
         root.geometry("450x360")     
         mensaje = Label(root, text = "Cantidad de jugadores:")
-        mensaje.grid(row = 1, column = 1)         
+        mensaje.grid(row = 1, column = 1)
+        if contador > 0:
+            mensaje_error = Label(root, text = "Cantidad invalida")
+            mensaje_error.grid(row = 8, column = 1)             
         cant_jugadores = StringVar()
         entrada_cant = Entry(root, textvariable = cant_jugadores)
         entrada_cant.grid(row = 1, column = 2)         
@@ -204,8 +210,10 @@ class Controlador:
 
 
 def empezarCondicionesJuego(controlador):
+    contador = 0
     while True:
-        controlador.obtener_cantidad_jugadores()
+        controlador.obtener_cantidad_jugadores(contador)
+        contador +=1
         if Arbitro.cantidad_jugadores_tmp > 1 and Arbitro.cantidad_jugadores_tmp < 5:
             break
         
@@ -267,6 +275,7 @@ def run():
         controlador = Controlador(True)             # True = SI es partida cargada
         Arbitro.init(controlador)
         cargador.cargar()
+        controlador.vista.actualizar_tablero()
         controlador.crear_relacion_jugadores()
         controlador.dibujar_jugadores()
         juego(controlador)

@@ -141,8 +141,10 @@ class Arbitro():
         y no puede repetirse. El color es unico por jugador en la partida.
         """
         salga = False
+        contador = 0
+        error = ""
         while not salga:
-            cls.controlador.obtener_colores_jugadores(jugador.nombre)
+            cls.controlador.obtener_colores_jugadores(jugador.nombre, error, contador)
             if cls.color_tmp != "":    
                 repetido = cls.esColorRepetido(cls.color_tmp)
                 existe = cls.existeColor(cls.color_tmp)
@@ -152,7 +154,10 @@ class Arbitro():
                     jugador.colorString = cls.color_tmp
                     salga = True
                 else:
-                    print("---Escoja un color valido--- -> escogido: ", cls.color_tmp)
+                    error = "Color invalido o repetido"
+            else:
+                error = "Escoja un color valido"
+            contador += 1
 
     @classmethod
     def esColorRepetido(cls, color):     

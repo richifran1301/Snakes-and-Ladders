@@ -28,10 +28,12 @@ class Singleton():
     serpientes = []
     escaleras = []
     es_partida_cargada = False
+    indices_serpientes = []
+    indices_escaleras = []
 
     #Metodos
     @classmethod
-    def init(cls, an, al, cantX, cantY, casillaGanadora, casillasT, es_partida_carg, vent):
+    def init(cls, an, al, cantX, cantY, casillaGanadora, es_partida_carg, vent):
         """
         :param an: ancho del tablero
         :type an: int 
@@ -48,7 +50,6 @@ class Singleton():
         :param vent: Referencia a la ventana de pygame.
         :type vent: pygame.display
         """
-        cls.casillasTablero = casillasT                     #copia las casillas del tablero 
         cls.pos_ganadora = casillaGanadora                  #guarda las coordenadas de la casilla 100 en tablero 10x10 por ejemplo (ganadora)
         cls.jugadores = []
         cls.ancho_tablero = an

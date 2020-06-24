@@ -4,4 +4,3 @@ Jugador
 1
 Serpiente
 1
-Escalera

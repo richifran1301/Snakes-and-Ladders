@@ -24,8 +24,9 @@ class Vista():
 
     def __init__(self, ventana, es_partida_cargada):
         self.ventana = ventana
+        self.es_partida_cargada = es_partida_cargada
         self.tablero = self.crear_tablero()
-        Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.tablero.casillas, es_partida_cargada, self.ventana)
+        Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.es_partida_cargada, self.ventana)
         self.boton_dados, self.dado, self.boton_reglas, self.boton_guardar = self.crear_sidebar()
         
 
@@ -38,9 +39,16 @@ class Vista():
         :returns: Tablero object -- Devuelve el objeto de tablero recien creado para luego
         utilizar sus metodos en otras funciones.
         """
-        tablero = Tablero((CANTIDAD_X, CANTIDAD_Y), self.ventana, ANCHO_BARRA)
-
+        tablero = Tablero((CANTIDAD_X, CANTIDAD_Y), self.ventana, ANCHO_BARRA, self.es_partida_cargada)
         return tablero
+
+    def actualizar_tablero(self):
+        self.tablero.casillas = []
+        #self.tablero.serpientes = []
+        #self.tablero.escaleras = []
+        self.tablero.generarCasillas()          # se llama a la función que genera casillas
+        self.tablero.colorearCasillas()
+        self.tablero.dibujarCasillas()
 
     def crear_sidebar(self):
         """

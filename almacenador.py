@@ -34,6 +34,7 @@ class AlmacenadorTXT(Almacenador):
                 f.write("/")
                 f.write(str(jugador.pos_tablero))
                 f.write("/")
+                print("ACA TENGO UN "+str(jugador.colorString))
                 f.write(str(jugador.colorString))
                 f.write("/")
                 f.write(str(jugador.movX))
