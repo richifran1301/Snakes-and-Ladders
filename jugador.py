@@ -37,7 +37,8 @@ class Jugador():
         self.movY = mY
         self.ganador = False
         self.rect = pygame.rect.Rect((self.x, self.y, self.ancho, self.largo))
-        self.setColor()
+        if not Singleton.es_partida_cargada:
+            self.setColor()
 
     def setNombre(self, nombre):
         """

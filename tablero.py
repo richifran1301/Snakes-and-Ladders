@@ -45,14 +45,16 @@ class Tablero():
         
         # las serpientes y escaleras serán cada una un total de entre 5% y 7% de la cantidad total de casillas
         # estos números se determinan aleatoriamente
-        cantidad_serpientes = int((self.tamanio[0] * self.tamanio[1]) * ((random.randint(5, 7)) * 0.01))
-        cantidad_escaleras = int((self.tamanio[0] * self.tamanio[1]) * ((random.randint(5, 7)) * 0.01))
+        if not Singleton.es_partida_cargada:        
+            cantidad_serpientes = int((self.tamanio[0] * self.tamanio[1]) * ((random.randint(5, 7)) * 0.01))
+            cantidad_escaleras = int((self.tamanio[0] * self.tamanio[1]) * ((random.randint(5, 7)) * 0.01))
 
         # se invoca al método que da las coordenadas de los centros de todas las casillas
         centros_casillas = self.obtener_centro_casillas(alto, ancho)
         
         # se invoca al método que indica en qué posiciones irán las serpientes y escaleras, cuya cantidad ya calculamos
         # estas posiciones vienen en tuplas con la posición inicial y final de cada serpiente o escalera
+        
         posiciones_serpientes, posiciones_escaleras = self.generar_conexiones(centros_casillas, cantidad_serpientes, cantidad_escaleras)
         
         
@@ -112,8 +114,8 @@ class Tablero():
                     self.escaleras.append(Escalera(self.getPar(self.casillas[i].getIndice(), posiciones_escaleras), self.ventana))
                     # el conector avisará a sus casillas relacionadas que él es su conector
                     self.escaleras[len(self.escaleras) - 1].sendConector()
-        Singleton.serpientes = self.serpientes
-        Singleton.escaleras = self.escaleras
+        
+
         #for i in range(len(self.casillas)):
             #if not isinstance(self.casillas[i], CasillaEstandar):
                 #print(self.casillas[i].casilla.getIndice() + 1, self.casillas[i].casilla.getFinal() + 1, self.casillas[i].casilla.esInicio())

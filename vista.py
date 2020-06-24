@@ -22,10 +22,10 @@ MOVER_CURSOR = 4
 
 class Vista():
 
-    def __init__(self, ventana):
+    def __init__(self, ventana, es_partida_cargada):
         self.ventana = ventana
         self.tablero = self.crear_tablero()
-        Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.tablero.casillas, self.ventana)
+        Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.tablero.casillas, es_partida_cargada, self.ventana)
         self.boton_dados, self.dado, self.boton_reglas, self.boton_guardar = self.crear_sidebar()
         
 
@@ -85,6 +85,8 @@ class Vista():
         rect_der = cara_der.get_rect()
         rect_der.center = (870, 145)
         Singleton.ventana.blit(cara_der, rect_der)
+
+        
     def guardarPartida(self):
         root = Tk() 
         root.title("GUARDAR PARTIDA")
@@ -94,13 +96,12 @@ class Vista():
         NC_Int = StringVar()
         NC_entry = Entry(root, textvariable = NC_Int)
         NC_entry.grid(row = 1, column = 2)         
-        numcur=NC_Int.get()         
+        NC_Int.get()         
         ok = Button(root,text = "GUARDAR",command = root.destroy)
         ok.grid(row = 2, column = 2)
         def mostrar():
             numcur = NC_Int.get()
-            print(numcur)
-            almacen = AlmacenadorTXT(numcur)
+            almacen = AlmacenadorTXT("Guardado/"+numcur)
             almacen.guardar()
             root.destroy()
         ok.config(command=mostrar)

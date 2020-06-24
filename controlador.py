@@ -24,10 +24,11 @@ POS_GANADORA = (CANTIDAD_X * CANTIDAD_Y)-1
 
 class Controlador:
 
-    def __init__(self):
+    def __init__(self, es_partida_cargada):
         self.eventos = [1, 2, 3, 4]
+        self.es_partida_cargada = es_partida_cargada
         self.ventana = self.genere_ventana_pygame()
-        self.vista = Vista(self.ventana)
+        self.vista = Vista(self.ventana, self.es_partida_cargada)
         self.listeners = []
         self.jugadores = []
         self.registerListener(self.vista)
@@ -48,8 +49,9 @@ class Controlador:
         
         return ventana
 
-    def crear_relacion_jugador(self, jugador):
-        self.jugadores.append( (jugador, VistaJugador(jugador)) )
+    def crear_relacion_jugadores(self):
+        for jugador in Singleton.jugadores:
+            self.jugadores.append( (jugador, VistaJugador(jugador)) )
 
     def encontrar_relacion(self, jugador):
         jugadorVista = None
@@ -152,76 +154,78 @@ class Controlador:
         jugadorVista.muestre_turno_jugador()
         Arbitro.jugador_juegue(jugador)
         self.muestre_presionar_espacio()
-        print("EL jugador saco en los dados un ", Arbitro.valor_actual_dados)
+        #print("EL jugador saco en los dados un ", Arbitro.valor_actual_dados)
         coordenadas = Arbitro.obtener_destino(jugador.pos_tablero, Arbitro.valor_actual_dados)
         jugador.mover(Arbitro.valor_actual_dados, coordenadas)
     
 
+def empezarCondicionesJuego(controlador):
+    while True:
+        try:
+            cantidad_jugadores = int(input("Ingrese la cantidad de jugadores: "))
+        except:
+            print("Tiene que ser un numero")
+        if cantidad_jugadores > 1 and cantidad_jugadores < 5:
+            break
+    #Inicializar jugadores
+    for i in range(cantidad_jugadores):
+        jugador = Jugador(0, Singleton.getPosJugadores(i)[0], Singleton.getPosJugadores(i)[1],
+                        (Singleton.getAlto()//Singleton.getCantX())//4, (Singleton.getAlto()/Singleton.getCantY())//4,
+                        Singleton.getPosJugadores(i)[0] - Singleton.casillasTablero[0].getCoordenadas()[0],
+                        Singleton.getPosJugadores(i)[1] - Singleton.casillasTablero[0].getCoordenadas()[1])
+        Arbitro.reporte_jugadores(jugador)
+    controlador.crear_relacion_jugadores()
+    controlador.dibujar_jugadores()
+        
+    #Arbitro decide turnos
+    Arbitro.decidir_turnos(cantidad_jugadores)
+    print("Orden de jugadores: ", end="\n")
+    for i in Singleton.jugadores_ordenados:
+        print(i.nombre)
+
+
+def juego(controlador):
+    while not Arbitro.jugador_gano:                                             # mientras no haya un ganador, siguen los turnos
+        for jugador in Singleton.jugadores_ordenados:                           #recorre el vector de jugadores, y le da el turno a cada uno
+            jugadorVista = controlador.encontrar_relacion(jugador)
+            controlador.juegue(jugador, jugadorVista)                                #manda al jugador por el cual va iterando a que realice su jugada
+            controlador.vista.tablero.dibujarCasillas()
+            controlador.espere_boton_espacio()
+
+            if Arbitro.jugador_gano:                    #comprueba si ese jugador gano y cierra el programa, dando el nombre del ganador
+                jugadorGanador = jugador.getNombre()
+                break
+        
+    Singleton.setJugadorGanador(jugadorGanador)
+    controlador.muestre_mensaje_ganador()
+    pygame.quit()
+    sys.exit(0) 
 
 
 def run():
     root = Tk() 
     root.title("Serpientes y escaleras")
-    root.geometry("450x360")         
-    #nuevaPartida.grid()
-    #cargarPartida.grid()
-    global controlador
+    root.geometry("450x360")        
+
     def nuevoJuego():
-        controlador = Controlador()
+        controlador = Controlador(False)        #False = NO es partida cargada
         Arbitro.init(controlador)
-        print("VOY A CARGAR JUEGO")
         root.destroy()
-        while True:
-            try:
-                cantidad_jugadores = int(input("Ingrese la cantidad de jugadores: "))
-            except:
-                print("Tiene que ser un numero")
-            if cantidad_jugadores > 1 and cantidad_jugadores < 5:
-                break
-        #Inicializar jugadores
-        for i in range(cantidad_jugadores):
-            jugador = Jugador(0, Singleton.getPosJugadores(i)[0], Singleton.getPosJugadores(i)[1],
-                            (Singleton.getAlto()//Singleton.getCantX())//4, (Singleton.getAlto()/Singleton.getCantY())//4,
-                            Singleton.getPosJugadores(i)[0] - Singleton.casillasTablero[0].getCoordenadas()[0],
-                            Singleton.getPosJugadores(i)[1] - Singleton.casillasTablero[0].getCoordenadas()[1])
-            Arbitro.reporte_jugadores(jugador)
-            controlador.crear_relacion_jugador(jugador)
-        controlador.dibujar_jugadores()
-            
-        #Arbitro decide turnos
-        Arbitro.decidir_turnos(cantidad_jugadores)
-        print("Orden de jugadores: ", end="\n")
-        for i in Singleton.jugadores_ordenados:
-            print(i.nombre)
+        empezarCondicionesJuego(controlador)
+        juego(controlador)
 
-        while not Arbitro.jugador_gano:                                             # mientras no haya un ganador, siguen los turnos
-            for jugador in Singleton.jugadores_ordenados:                           #recorre el vector de jugadores, y le da el turno a cada uno
-                jugadorVista = controlador.encontrar_relacion(jugador)
-                controlador.juegue(jugador, jugadorVista)                                #manda al jugador por el cual va iterando a que realice su jugada
-                controlador.vista.tablero.dibujarCasillas()
-
-                controlador.espere_boton_espacio()
-
-                if Arbitro.jugador_gano:                    #comprueba si ese jugador gano y cierra el programa, dando el nombre del ganador
-                    jugadorGanador = jugador.getNombre()
-                    break
-        
-        Singleton.setJugadorGanador(jugadorGanador)
-        controlador.muestre_mensaje_ganador()
-        pygame.quit()
-        sys.exit(0) 
     def cargarJuego():
-        print("VOY A CARGAR JUEGO")
         cargador = CargadorTXT()
         root.destroy()
-        controlador = Controlador()
+        controlador = Controlador(True)             # True = SI es partida cargada
         Arbitro.init(controlador)
-        #CREAR EL TABLERO CON LAS SERPIENTES Y ESCALERAS LEIDAS
-        #ASEGURARSE DE QUE VUELVA A FUNCIONAR TODO
-        
-        cargador.cargar()   
-    nuevaPartida = Button(root,text = "Empezar partida",command = nuevoJuego).place(x=170, y=100) 
-    cargarPartida = Button(root,text = "Cargar Partida",command = cargarJuego).place(x=170, y=200)
+        cargador.cargar()
+        controlador.crear_relacion_jugadores()
+        controlador.dibujar_jugadores()
+        juego(controlador)
+
+    Button(root,text = "Empezar partida",command = nuevoJuego).place(x=170, y=100)  #Nueva Partida
+    Button(root,text = "Cargar Partida",command = cargarJuego).place(x=170, y=200)   #Cargar Partida
     root.mainloop()
     
    

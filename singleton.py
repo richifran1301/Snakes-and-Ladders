@@ -27,10 +27,11 @@ class Singleton():
     colores_jugadores_usados = []
     serpientes = []
     escaleras = []
+    es_partida_cargada = False
 
     #Metodos
     @classmethod
-    def init(cls, an, al, cantX, cantY, casillaGanadora, casillasT, vent):
+    def init(cls, an, al, cantX, cantY, casillaGanadora, casillasT, es_partida_carg, vent):
         """
         :param an: ancho del tablero
         :type an: int 
@@ -57,6 +58,7 @@ class Singleton():
         cls.cantidad_y = cantY
         cls.ventana = vent
         cls.establecer_pos_jugadores()
+        cls.es_partida_cargada = es_partida_carg
 
 
     @classmethod
@@ -131,8 +133,9 @@ class Singleton():
         :param jugador: jugador a agregar.
         :type jugador: Jugador
         """
-        cls.cantidad_jugadores += 1
-        jugador.setNombre("Jugador " + str(cls.cantidad_jugadores))
+        if not cls.es_partida_cargada:
+            cls.cantidad_jugadores += 1
+            jugador.setNombre("Jugador " + str(cls.cantidad_jugadores))
         cls.jugadores.append(jugador)
     
     @classmethod
