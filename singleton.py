@@ -133,9 +133,6 @@ class Singleton():
         :param jugador: jugador a agregar.
         :type jugador: Jugador
         """
-        if not cls.es_partida_cargada:
-            cls.cantidad_jugadores += 1
-            jugador.setNombre("Jugador " + str(cls.cantidad_jugadores))
         cls.jugadores.append(jugador)
     
     @classmethod

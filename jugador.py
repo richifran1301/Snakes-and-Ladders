@@ -38,7 +38,9 @@ class Jugador():
         self.ganador = False
         self.rect = pygame.rect.Rect((self.x, self.y, self.ancho, self.largo))
         if not Singleton.es_partida_cargada:
-            self.setColor()
+            Singleton.cantidad_jugadores += 1
+            self.setNombre("Jugador " + str(Singleton.cantidad_jugadores))
+            Arbitro.setColorJugador(self)
 
     def setNombre(self, nombre):
         """
@@ -47,24 +49,6 @@ class Jugador():
         :type nombre: string
         """
         self.nombre = nombre
-    
-    def setColor(self):
-        """
-        Va a almacenar un color para el Jugador y esto es decision del usuario. El color tiene que existir dentro de las opciones
-        y no puede repetirse. El color es unico por jugador en la partida.
-        """
-        salga = False
-        while not salga:
-            color = input("Colores disponibles:\nmagenta, azul, naranja, negro, gris, verde, aqua, dorado, rojo\nEscoja el color de su jugador: ")
-            repetido = Arbitro.esColorRepetido(color)
-            existe = Arbitro.existeColor(color)
-            if  existe and not repetido:
-                Singleton.colores_jugadores_usados.append(color)
-                self.mi_color = Singleton.colores_jugadores[color]
-                self.colorString = color
-                salga = True
-            else:
-                print("---Escoja un color valido--- -> escogido: ", color)
         
 
     def getNombre(self):

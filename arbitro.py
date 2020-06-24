@@ -19,6 +19,8 @@ class Arbitro():
         cls.jugador_gano = False
         cls.valor_actual_dados = 0
         cls.controlador = controlador
+        cls.cantidad_jugadores_tmp = 0
+        cls.color_tmp = ""
 
     """
     Este metodo se encarga de verificar si un jugador ha ganado la partida, se utiliza en cada jugada del jugador
@@ -91,7 +93,7 @@ class Arbitro():
         for i in range(cantidad_jugadores):
             cls.recibioDados = False
             cls.jugador_en_turno = i
-            print("Tire los dados el Jugador ", i+1)
+            print("Tire los dados el Jugador ", i+1)        #TODO implementarlo en ventana
             cls.controlador.maneje_eventos()
         cls.decidiendoTurno = False
         cls.resultados.sort(reverse=True)
@@ -131,6 +133,26 @@ class Arbitro():
         for jugador in jugadores:
             if jugador[1] == valor:
                 return jugador
+
+    @classmethod
+    def setColorJugador(cls, jugador):
+        """
+        Va a almacenar un color para el Jugador y esto es decision del usuario. El color tiene que existir dentro de las opciones
+        y no puede repetirse. El color es unico por jugador en la partida.
+        """
+        salga = False
+        while not salga:
+            cls.controlador.obtener_colores_jugadores(jugador.nombre)
+            if cls.color_tmp != "":    
+                repetido = cls.esColorRepetido(cls.color_tmp)
+                existe = cls.existeColor(cls.color_tmp)
+                if  existe and not repetido:
+                    Singleton.colores_jugadores_usados.append(cls.color_tmp)
+                    jugador.mi_color = Singleton.colores_jugadores[cls.color_tmp]
+                    jugador.colorString = cls.color_tmp
+                    salga = True
+                else:
+                    print("---Escoja un color valido--- -> escogido: ", cls.color_tmp)
 
     @classmethod
     def esColorRepetido(cls, color):     

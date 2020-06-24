@@ -158,17 +158,59 @@ class Controlador:
         coordenadas = Arbitro.obtener_destino(jugador.pos_tablero, Arbitro.valor_actual_dados)
         jugador.mover(Arbitro.valor_actual_dados, coordenadas)
     
+    def obtener_colores_jugadores(self, nombre):
+        root = Tk() 
+        root.title("Crear jugadores")
+        root.geometry("450x360")     
+        mensaje = Label(root, text = "Color de "+nombre+": ")
+        mensaje.grid(row = 1, column = 1)         
+        color = StringVar()
+        entrada_color = Entry(root, textvariable = color)
+        entrada_color.grid(row = 1, column = 2)         
+        color.get()        
+        ok = Button(root,text = "Continuar",command = root.destroy)
+        ok.grid(row = 2, column = 2)
+        def mostrar():
+            numcur = color.get()
+            try:
+                Arbitro.color_tmp = str(numcur)
+            except:
+                pass
+            root.destroy()
+        ok.config(command=mostrar)
+        root.mainloop()
+
+    def obtener_cantidad_jugadores(self):
+        root = Tk() 
+        root.title("Crear partida")
+        root.geometry("450x360")     
+        mensaje = Label(root, text = "Cantidad de jugadores:")
+        mensaje.grid(row = 1, column = 1)         
+        cant_jugadores = StringVar()
+        entrada_cant = Entry(root, textvariable = cant_jugadores)
+        entrada_cant.grid(row = 1, column = 2)         
+        cant_jugadores.get()        
+        ok = Button(root,text = "Continuar",command = root.destroy)
+        ok.grid(row = 2, column = 2)
+        def mostrar():
+            numcur = cant_jugadores.get()
+            try:
+                Arbitro.cantidad_jugadores_tmp = int(numcur)
+            except:
+                pass
+            root.destroy()
+        ok.config(command=mostrar)
+        root.mainloop()
+
 
 def empezarCondicionesJuego(controlador):
     while True:
-        try:
-            cantidad_jugadores = int(input("Ingrese la cantidad de jugadores: "))
-        except:
-            print("Tiene que ser un numero")
-        if cantidad_jugadores > 1 and cantidad_jugadores < 5:
+        controlador.obtener_cantidad_jugadores()
+        if Arbitro.cantidad_jugadores_tmp > 1 and Arbitro.cantidad_jugadores_tmp < 5:
             break
+        
     #Inicializar jugadores
-    for i in range(cantidad_jugadores):
+    for i in range(Arbitro.cantidad_jugadores_tmp):
         jugador = Jugador(0, Singleton.getPosJugadores(i)[0], Singleton.getPosJugadores(i)[1],
                         (Singleton.getAlto()//Singleton.getCantX())//4, (Singleton.getAlto()/Singleton.getCantY())//4,
                         Singleton.getPosJugadores(i)[0] - Singleton.casillasTablero[0].getCoordenadas()[0],
@@ -178,7 +220,7 @@ def empezarCondicionesJuego(controlador):
     controlador.dibujar_jugadores()
         
     #Arbitro decide turnos
-    Arbitro.decidir_turnos(cantidad_jugadores)
+    Arbitro.decidir_turnos(Arbitro.cantidad_jugadores_tmp)
     print("Orden de jugadores: ", end="\n")
     for i in Singleton.jugadores_ordenados:
         print(i.nombre)
@@ -203,9 +245,14 @@ def juego(controlador):
 
 
 def run():
+
     root = Tk() 
     root.title("Serpientes y escaleras")
-    root.geometry("450x360")        
+    #root.geometry("450x360")        
+    root.geometry("512x512")        
+    bg_image = PhotoImage(file ="imagenes/menu.png")
+    x = Label (image = bg_image)
+    x.grid(row = 0, column = 0)
 
     def nuevoJuego():
         controlador = Controlador(False)        #False = NO es partida cargada

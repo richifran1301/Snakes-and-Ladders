@@ -120,8 +120,8 @@ class CargadorTXT(Cargador):
 
     def obtener_nombre_guardado(self):
         root = Tk() 
-        root.title("C PARTIDA")
-        root.geometry("450x360")         
+        root.title("Cargar partida")
+        root.geometry("450x360")     
         NC_label = Label(root, text = "Nombre de partida a cargar:")
         NC_label.grid(row = 1, column = 1)         
         NC_Int = StringVar()
