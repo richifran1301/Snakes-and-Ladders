@@ -25,14 +25,15 @@ POS_GANADORA = (CANTIDAD_X * CANTIDAD_Y)-1
 class Controlador:
 
     def __init__(self, es_partida_cargada):
+        self.tablero = None
+        self.dado = Dado()
         self.eventos = [1, 2, 3, 4]
         self.es_partida_cargada = es_partida_cargada
         self.ventana = self.genere_ventana_pygame()
-        self.vista = Vista(self.ventana, self.es_partida_cargada)
+        self.vista = Vista(self, self.ventana, self.es_partida_cargada)
         self.listeners = []
         self.jugadores = []
         self.registerListener(self.vista)
-
 
     def genere_ventana_pygame(self):
         """
@@ -61,11 +62,15 @@ class Controlador:
                 break
         return jugadorVista
 
-
     def registerListener(self, listener):
         self.listeners.append(listener)
         
     def postEvent(self, event, type):
+        for listener in self.listeners:
+            if isinstance(listener, type):
+                listener.notify(event)
+
+    def receiveEvent(self, event, type):
         for listener in self.listeners:
             if isinstance(listener, type):
                 listener.notify(event)
@@ -77,6 +82,25 @@ class Controlador:
         """
         for jugador in self.jugadores: jugador[1].dibujar()
 
+    def lanzar_dado(self):
+        return self.dado.lanzar()
+
+    def crear_tablero_logico(self, tamanio, ventana, ancho_barra, es_partida_cargada):
+        print("Llame a crear_tablero_logico")
+        self.tablero = Tablero(tamanio, ventana, ancho_barra, es_partida_cargada)
+
+    def colorear_casillas_tablero(self):
+        self.tablero.colorearCasillas()
+        return self.tablero.casillas
+
+    def actualizar_tablero(self):
+        self.tablero.casillas = []
+        #self.tablero.serpientes = []
+        #self.tablero.escaleras = []
+        self.tablero.generarCasillas()          # se llama a la función que genera casillas
+        self.tablero.colorearCasillas()
+
+        return self.tablero.casillas
 
     def maneje_eventos(self):
         continuar = True 
@@ -239,7 +263,7 @@ def juego(controlador):
         for jugador in Singleton.jugadores_ordenados:                           #recorre el vector de jugadores, y le da el turno a cada uno
             jugadorVista = controlador.encontrar_relacion(jugador)
             controlador.juegue(jugador, jugadorVista)                                #manda al jugador por el cual va iterando a que realice su jugada
-            controlador.vista.tablero.dibujarCasillas()
+            controlador.vista.tablero_grafico.dibujarCasillas()
             controlador.espere_boton_espacio()
 
             if Arbitro.jugador_gano:                    #comprueba si ese jugador gano y cierra el programa, dando el nombre del ganador
@@ -273,17 +297,18 @@ def run():
         cargador = CargadorTXT()
         root.destroy()
         controlador = Controlador(True)             # True = SI es partida cargada
+        print("Para este momento, deberia estar creada la vista")
         Arbitro.init(controlador)
         cargador.cargar()
-        controlador.vista.actualizar_tablero()
+        controlador.colorear_casillas_tablero()
+        controlador.vista.tablero_grafico.actualizar()
         controlador.crear_relacion_jugadores()
         controlador.dibujar_jugadores()
         juego(controlador)
 
     Button(root,text = "Empezar partida",command = nuevoJuego).place(x=170, y=100)  #Nueva Partida
-    Button(root,text = "Cargar Partida",command = cargarJuego).place(x=170, y=200)   #Cargar Partida
+    Button(root,text = "Cargar partida",command = cargarJuego).place(x=170, y=200)   #Cargar Partida
     root.mainloop()
-    
-   
+
 
 run()

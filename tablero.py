@@ -32,9 +32,6 @@ class Tablero():
         self.serpientes = []            # lista de conectores tipo serpiente del tablero
         self.escaleras = []             # lista de conectores tipo escalera del tablero
         self.generarCasillas()          # se llama a la función que genera casillas
-        if not self.es_partida_cargada:
-            self.colorearCasillas()
-            self.dibujarCasillas()
         self.ancho_barra = ancho_barra
         
     def generarCasillas(self):
@@ -65,10 +62,10 @@ class Tablero():
         # se invoca al método que indica en qué posiciones irán las serpientes y escaleras, cuya cantidad ya calculamos
         # estas posiciones vienen en tuplas con la posición inicial y final de cada serpiente o escalera
         if not Singleton.es_partida_cargada:                #si es partida nueva
-            print("VOY MAL")
+            #print("VOY MAL")
             posiciones_serpientes, posiciones_escaleras = self.generar_conexiones(centros_casillas, cantidad_serpientes, cantidad_escaleras)
         else:                                                #si es cargada
-            print("VOY MASO")
+            #print("VOY MASO")
             posiciones_escaleras = []
             posiciones_serpientes = []
             posiciones_escaleras = Singleton.indices_escaleras
@@ -432,8 +429,48 @@ class Tablero():
             impar_final += self.tamanio[0] * 2
 
             i += 1
- 
-        return
+
+
+    """
+    #TODO mejorar condicion de limpieza
+    def limpar_casilla(self, index):
+
+        #Metodo que limpia la casilla actual donde se ubica el jugador. 
+        #:param index: posicion en el tablero donde esta el usuario
+        #:type index: int
+
+        #Primero limpia la posicion actual
+        if isinstance(self.casillas[index], CasillaEstandar):
+            self.casillas[index].dibujar()
+        else:
+            self.casillas[index].casilla.dibujar()
+            conector = self.casillas[index].casilla.getConector()
+            if isinstance(conector, Serpiente):      #dibuja si hay serpiente 
+                #lo intente simplemente conector.dibujar() pero tampoco
+                #conector.dibujar()
+                self.serpientes.index(conector).dibujar()
+            elif isinstance(conector, Escalera):      #dibuja si hay escalera
+                self.escaleras.index(conector).dibujar()
+    """
+
+class VistaTablero:
+    """
+    Esta clase representa un tablero de juego, y contiene los
+    atributos y acciones necesarios para su graficación y comportamiento.
+    """
+
+    def __init__(self, controlador, tamanio, ventana, ancho_barra, es_partida_cargada):
+        self.casillas = []              # lista de casillas del tablero
+        self.controlador = controlador
+        controlador.crear_tablero_logico(tamanio, ventana, ancho_barra, es_partida_cargada)
+        if not es_partida_cargada:
+            self.casillas = controlador.colorear_casillas_tablero()
+            self.dibujarCasillas()
+
+    def actualizar(self):
+        casillas_nuevas = self.controlador.actualizar_tablero()
+        self.casillas = casillas_nuevas
+        self.dibujarCasillas()
 
     def dibujarCasillas(self):
         """
@@ -450,26 +487,6 @@ class Tablero():
         for i in Singleton.escaleras:    # para cada escalera
             i.dibujar()             # dibújese
 
-
-    #TODO mejorar condicion de limpieza
-    def limpar_casilla(self, index):
-        """
-        Metodo que limpia la casilla actual donde se ubica el jugador. 
-        :param index: posicion en el tablero donde esta el usuario
-        :type index: int
-        """
-        #Primero limpia la posicion actual
-        if isinstance(self.casillas[index], CasillaEstandar):
-            self.casillas[index].dibujar()
-        else:
-            self.casillas[index].casilla.dibujar()
-            conector = self.casillas[index].casilla.getConector()
-            if isinstance(conector, Serpiente):      #dibuja si hay serpiente 
-                #lo intente simplemente conector.dibujar() pero tampoco
-                #conector.dibujar()
-                self.serpientes.index(conector).dibujar()
-            elif isinstance(conector, Escalera):      #dibuja si hay escalera
-                self.escaleras.index(conector).dibujar()
 
 
 

@@ -31,9 +31,27 @@ class Dado():
         # sume los resultados
         resultado_al_lanzar = sum(resultados_por_dado)
         # dibuje los resultados
-        self.dibujar(resultados_por_dado)
 
-        return resultado_al_lanzar
+        return resultado_al_lanzar, resultados_por_dado
+
+
+class VistaDado():
+    """
+    Esta clase representa un dado de seis caras, y sus atributos y acciones necesarios 
+    para su comportamiento en un tablero de juego.
+    """
+
+    def __init__(self, controlador):
+        """
+        :param controlador: Referencia al controlador del juego.
+        :type Controlador: pygame.display
+        """
+        self.controlador = controlador
+
+    def actualizar_caras(self):
+        resultado, caras = self.controlador.lanzar_dado()
+        self.dibujar(caras)
+        return resultado
 
     def dibujar(self, resultados_por_dado):
 

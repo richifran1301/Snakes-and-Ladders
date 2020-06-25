@@ -3,10 +3,10 @@ from tkinter import *
 #from tkinter import messagebox
 #from tkinter.ttk import *
 import os, pygame
-from tablero import Tablero
+from tablero import VistaTablero
 from singleton import Singleton
 from sidebar import Sidebar
-from dado import Dado
+from dado import VistaDado
 from button import Boton
 from arbitro import Arbitro
 from almacenador import AlmacenadorTXT
@@ -22,15 +22,17 @@ MOVER_CURSOR = 4
 
 class Vista():
 
-    def __init__(self, ventana, es_partida_cargada):
+    def __init__(self, controlador, ventana, es_partida_cargada):
+        self.controlador = controlador
         self.ventana = ventana
         self.es_partida_cargada = es_partida_cargada
-        self.tablero = self.crear_tablero()
+        self.tablero_grafico = self.crear_tablero_grafico()
         Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.es_partida_cargada, self.ventana)
-        self.boton_dados, self.dado, self.boton_reglas, self.boton_guardar = self.crear_sidebar()
+        self.boton_dados, self.dado_grafico, self.boton_reglas, self.boton_guardar = self.crear_sidebar()
+        print("Se creo la vista")
         
 
-    def crear_tablero(self):
+    def crear_tablero_grafico(self):
         """
         Llama el constructor de Tablero y sus metodos para generar tanto las casillas, como
         las serpientes y escaleras respectivas en estas casillas.
@@ -39,16 +41,11 @@ class Vista():
         :returns: Tablero object -- Devuelve el objeto de tablero recien creado para luego
         utilizar sus metodos en otras funciones.
         """
-        tablero = Tablero((CANTIDAD_X, CANTIDAD_Y), self.ventana, ANCHO_BARRA, self.es_partida_cargada)
-        return tablero
+        tablero_grafico = VistaTablero(self.controlador, (CANTIDAD_X, CANTIDAD_Y), self.ventana, ANCHO_BARRA, self.es_partida_cargada)
+        return tablero_grafico
 
-    def actualizar_tablero(self):
-        self.tablero.casillas = []
-        #self.tablero.serpientes = []
-        #self.tablero.escaleras = []
-        self.tablero.generarCasillas()          # se llama a la función que genera casillas
-        self.tablero.colorearCasillas()
-        self.tablero.dibujarCasillas()
+    def actualizar_tablero_grafico(self):
+        self.tablero_grafico.actualizar()
 
     def crear_sidebar(self):
         """
@@ -62,38 +59,10 @@ class Vista():
         boton_dados = Boton(self.ventana, Singleton.colores_casillas["blanco"], 750, 35, 150, 40, "Lanzar dados")
         boton_guardar = Boton(self.ventana, Singleton.colores_casillas["negro"], 750, 550, 150, 40, "Guardar partida")
         boton_reglas = Boton(self.ventana, Singleton.colores_casillas["negro"], 750, 600, 150 ,40, "Mostrar reglas")
-        dado = Dado()
-        elementos_sidebar = [boton_dados, dado]
+        dado_grafico = VistaDado(self.controlador)
+        elementos_sidebar = [boton_dados, dado_grafico]
         Sidebar(700, 700, 250, Singleton.colores_casillas["blanco"], elementos_sidebar)
-        return boton_dados, dado, boton_reglas,boton_guardar
-
-    def dibujar_dados(self, resultados_por_dado):
-        """
-        Esta función dibuja dos dados según el resultado de sus caras.
-        :returns:  None -- Procedimiento sin valor de retorno.
-        """
-
-        # dirección de las imágenes de los dados
-        ruta_local = 'imagenes/'
-
-        # haga el proceso de dibujo de la primera cara del dado, de pygame para imágenes
-        ruta_imagen = os.path.join(ruta_local, str(resultados_por_dado[0]) + ".png")
-        cara_temp = pygame.image.load(ruta_imagen)
-        imagen_transformada = pygame.transform.scale(cara_temp, (60,60))
-        cara_izq = imagen_transformada.convert()  # or .convert_alpha()
-        rect_izq = cara_izq.get_rect()
-        rect_izq.center = (780, 145)
-        Singleton.ventana.blit(cara_izq, rect_izq)
-
-        # lo mismo para la segunda cara
-        ruta_imagen = os.path.join(ruta_local, str(resultados_por_dado[1]) + ".png")
-        cara_temp = pygame.image.load(ruta_imagen)
-        imagen_transformada = pygame.transform.scale(cara_temp, (60,60))
-        cara_der = imagen_transformada.convert()  # or .convert_alpha()
-        rect_der = cara_der.get_rect()
-        rect_der.center = (870, 145)
-        Singleton.ventana.blit(cara_der, rect_der)
-
+        return boton_dados, dado_grafico, boton_reglas,boton_guardar
         
     def guardarPartida(self):
         root = Tk() 
@@ -116,16 +85,13 @@ class Vista():
         root.mainloop()
         #print("NOMBRE PARTIDA: ",nombre)
         
-        
-        
-        
     def notify(self, evento):
         self.eventoActual = evento
         #print("La vista recibió el evento: ", self.eventoActual)
         posicion_cursor = pygame.mouse.get_pos()
         if self.eventoActual == CLICK:      
             if self.boton_dados.isOver(posicion_cursor):
-                resultado_dados = self.dado.lanzar()
+                resultado_dados = self.dado_grafico.actualizar_caras()
                 if Arbitro.decidiendoTurno:                                     #si el arbitro esta decidiendo turnos
                     Arbitro.reciboRespuestaDados(resultado_dados)
                 elif  Arbitro.en_jugada:                                        # si el jugador se va a mover
