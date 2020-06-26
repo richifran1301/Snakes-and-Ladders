@@ -135,8 +135,8 @@ class Tablero():
 
         for casilla in self.casillas: Singleton.casillasTablero.append(casilla)
 
-        for serpiente in Singleton.serpientes:
-            print("SERPIENTE INICIO: " + str(serpiente.getCasillaInicio().getIndice()))
+        #for serpiente in Singleton.serpientes:
+            #print("SERPIENTE INICIO: " + str(serpiente.getCasillaInicio().getIndice()))
 
         #for i in range(len(self.casillas)):
             #if not isinstance(self.casillas[i], CasillaEstandar):

@@ -1,3 +1,4 @@
+import pygame
 from singleton import Singleton
 from tablero import Tablero
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
@@ -50,24 +51,9 @@ class Arbitro():
         if not isinstance(casillaActual,CasillaEstandar):         #entra a la condicion si es serpiente o escalera
             if casillaActual.esInicio():
                 casillaFinal = casillaActual.getFinal()
-                if isinstance(casillaActual, CasillaSerpiente):             #entra si la casilla actual es serpiente
-                    if isinstance(casillaFinal, CasillaEstandar):
-                        print("BAJE POR SERPIENTE DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
-                        distancia = (posTablero - (casillaFinal.getIndice())) * (-1)
-                        coordenadasNuevas = casillaFinal.getCoordenadas()
-                    else:
-                        print("BAJE POR SERPIENTE DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
-                        distancia = (posTablero - (casillaFinal.getIndice())) * (-1)
-                        coordenadasNuevas = casillaFinal.getCoordenadas()
-                else:                                                         #entra si es escalera
-                    if isinstance(casillaFinal, CasillaEstandar):
-                        print("SUBI POR ESCALERA DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
-                        distancia = ((casillaFinal.getIndice())- posTablero)
-                        coordenadasNuevas = casillaFinal.getCoordenadas()
-                    else:
-                        print("SUBI POR ESCALERA DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
-                        distancia = ((casillaFinal.getIndice())- posTablero)
-                        coordenadasNuevas = casillaFinal.getCoordenadas()
+                ArbitroVista.muestre_accion_casilla_especial(casillaActual, casillaFinal)
+                distancia = (posTablero - (casillaFinal.getIndice())) * (-1)
+                coordenadasNuevas = casillaFinal.getCoordenadas()
                         
         return distancia,coordenadasNuevas
     """
@@ -75,7 +61,7 @@ class Arbitro():
     @param jugador: recibe una instancia de un Jugador para agregarlo a la lista
     @type jugador: instancia de la clase jugador
     """
-    
+
     @classmethod
     def reporte_jugadores(cls, jugador):
         Singleton.agregar_jugador(jugador)
@@ -208,3 +194,24 @@ class Arbitro():
         else:
             coordenadas = Singleton.casillasTablero[index].getCoordenadas()
         return coordenadas
+
+class ArbitroVista():
+    
+    @classmethod
+    def muestre_accion_casilla_especial(cls, casillaActual, casillaFinal):
+        X = 1650
+        Y = 750
+        Y2 = Y + 50
+        font = pygame.font.Font('freesansbold.ttf', 15) 
+        if isinstance(casillaActual, CasillaSerpiente):
+            text = font.render("BAJO POR SERPIENTE", True, Singleton.colores_casillas["negro"], Singleton.colores_casillas["rojo"]) 
+        else:
+            text = font.render("SUBIO POR ESCALERA", True, Singleton.colores_casillas["negro"], Singleton.colores_casillas["verde"])
+        text2 =  font.render("DESDE: " + str(casillaActual.getIndice()+1) + " HASTA: " + str(casillaFinal.getIndice()+1), True, Singleton.colores_casillas["negro"], Singleton.colores_casillas["blanco"])
+        textRect = text.get_rect()  
+        textRect2 = text.get_rect()
+        textRect.center = (X // 2, Y // 2) 
+        textRect2.center = (X // 2, Y2 // 2) 
+        Singleton.ventana.blit(text, textRect)
+        Singleton.ventana.blit(text2, textRect2)
+    

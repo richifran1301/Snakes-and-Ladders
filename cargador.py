@@ -72,24 +72,6 @@ class CargadorTXT(Cargador):
             linea.strip("\n")
             datos = linea.split("/")
             Singleton.indices_serpientes.append((int(datos[0]), int(datos[1])))
-
-            """
-            #Implementacion de la casilla1
-            figura = pygame.Rect(Singleton.casillasTablero[int(datos[0])].getCoordenadas()[0] - int((Singleton.alto_tablero//Singleton.cantidad_x)/2), 
-                                Singleton.casillasTablero[int(datos[0])].getCoordenadas()[1] - int((Singleton.ancho_tablero//Singleton.cantidad_y)/2), 
-                                Singleton.alto_tablero//Singleton.cantidad_x, Singleton.ancho_tablero//Singleton.cantidad_y)
-            casilla1 = CasillaSerpiente(Singleton.casillasTablero[int(datos[0])].getCoordenadas(),(255,255,255), figura, datos[0], Singleton.ventana)
-
-            #Implementacion de la casilla2
-            figura = pygame.Rect(Singleton.casillasTablero[int(datos[1])].getCoordenadas()[0] - int((Singleton.alto_tablero//Singleton.cantidad_x)//2), 
-                                Singleton.casillasTablero[int(datos[1])].getCoordenadas()[1] - int((Singleton.ancho_tablero//Singleton.cantidad_y)/2), 
-                                Singleton.alto_tablero//Singleton.cantidad_x, Singleton.ancho_tablero//Singleton.cantidad_y)
-            casilla2 = CasillaSerpiente(Singleton.casillasTablero[int(datos[1])].getCoordenadas(),(255,255,255), figura, datos[1], Singleton.ventana)
-            
-            #Se unen mediante el conector
-            conector = Serpiente((casilla1,casilla2),Singleton.ventana)
-            Singleton.serpientes.append(conector)
-            """
             iterador+=1
 
         #Despues va a leer las escaleras
@@ -99,25 +81,8 @@ class CargadorTXT(Cargador):
             linea = bufferLineas[iterador]
             linea.strip("\n")
             datos = linea.split("/")
-            print("METIENDO ESCALERAS DATOS DE "+datos[0]+", "+datos[1])
+            #print("METIENDO ESCALERAS DATOS DE "+datos[0]+", "+datos[1])
             Singleton.indices_escaleras.append((int(datos[0]), int(datos[1])))
-            """
-            #Implementacion de la casilla1
-            figura = pygame.Rect(Singleton.casillasTablero[int(datos[0])].getCoordenadas()[0] - int((Singleton.alto_tablero//Singleton.cantidad_x)//2), 
-                                Singleton.casillasTablero[int(datos[0])].getCoordenadas()[1] - int((Singleton.ancho_tablero//Singleton.cantidad_y)/2), 
-                                Singleton.alto_tablero//Singleton.cantidad_x, Singleton.ancho_tablero//Singleton.cantidad_y)
-            casilla1 = CasillaEscalera(Singleton.casillasTablero[int(datos[0])].getCoordenadas(),(255,255,255), figura, datos[0], Singleton.ventana)
-
-            #Implementacion de la casilla2
-            figura = pygame.Rect(Singleton.casillasTablero[int(datos[1])].getCoordenadas()[0] - int((Singleton.alto_tablero//Singleton.cantidad_x)//2), 
-                                Singleton.casillasTablero[int(datos[1])].getCoordenadas()[1] - int((Singleton.ancho_tablero//Singleton.cantidad_y)/2), 
-                                Singleton.alto_tablero//Singleton.cantidad_x, Singleton.ancho_tablero//Singleton.cantidad_y)
-            casilla2 = CasillaEscalera(Singleton.casillasTablero[int(datos[1])].getCoordenadas(),(255,255,255), figura, datos[1], Singleton.ventana)
-
-            #Se unen mediante el conector
-            conector = Escalera((casilla1,casilla2),Singleton.ventana)
-            Singleton.escaleras.append(conector)
-            """
             iterador+=1
 
         try:

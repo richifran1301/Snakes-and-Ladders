@@ -86,7 +86,6 @@ class Controlador:
         return self.dado.lanzar()
 
     def crear_tablero_logico(self, tamanio, ventana, ancho_barra, es_partida_cargada):
-        print("Llame a crear_tablero_logico")
         self.tablero = Tablero(tamanio, ventana, ancho_barra, es_partida_cargada)
 
     def colorear_casillas_tablero(self):
@@ -178,8 +177,8 @@ class Controlador:
         jugadorVista.muestre_turno_jugador()
         Arbitro.jugador_juegue(jugador)
         self.muestre_presionar_espacio()
-        #print("EL jugador saco en los dados un ", Arbitro.valor_actual_dados)
         coordenadas = Arbitro.obtener_destino(jugador.pos_tablero, Arbitro.valor_actual_dados)
+        self.vista.dibuje_cuadro_blanco()
         jugador.mover(Arbitro.valor_actual_dados, coordenadas)
     
     def obtener_colores_jugadores(self, nombre, error, contador):
@@ -260,7 +259,7 @@ def empezarCondicionesJuego(controlador):
 
 def juego(controlador):
     while not Arbitro.jugador_gano:                                             # mientras no haya un ganador, siguen los turnos
-        for jugador in Singleton.jugadores_ordenados:                           #recorre el vector de jugadores, y le da el turno a cada uno
+        for jugador in Singleton.jugadores_ordenados:                          #recorre el vector de jugadores, y le da el turno a cada uno
             jugadorVista = controlador.encontrar_relacion(jugador)
             controlador.juegue(jugador, jugadorVista)                                #manda al jugador por el cual va iterando a que realice su jugada
             controlador.vista.tablero_grafico.dibujarCasillas()
@@ -297,7 +296,6 @@ def run():
         cargador = CargadorTXT()
         root.destroy()
         controlador = Controlador(True)             # True = SI es partida cargada
-        print("Para este momento, deberia estar creada la vista")
         Arbitro.init(controlador)
         cargador.cargar()
         controlador.colorear_casillas_tablero()

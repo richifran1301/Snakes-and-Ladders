@@ -29,7 +29,7 @@ class Vista():
         self.tablero_grafico = self.crear_tablero_grafico()
         Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.es_partida_cargada, self.ventana)
         self.boton_dados, self.dado_grafico, self.boton_reglas, self.boton_guardar = self.crear_sidebar()
-        print("Se creo la vista")
+        #print("Se creo la vista")
         
 
     def crear_tablero_grafico(self):
@@ -84,6 +84,12 @@ class Vista():
         ok.config(command=mostrar)
         root.mainloop()
         #print("NOMBRE PARTIDA: ",nombre)
+
+    def dibuje_cuadro_blanco(self):
+        rect = pygame.rect.Rect((710, 350, 250, 100))
+        pygame.draw.rect(Singleton.ventana, Singleton.colores_casillas["blanco"], rect)
+        #pygame.display.update()
+        #print("hOLA")
         
     def notify(self, evento):
         self.eventoActual = evento
