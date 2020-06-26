@@ -1,11 +1,15 @@
 from tkinter import *
+#from tkinter import ttk
+#from tkinter import messagebox
+#from tkinter.ttk import *
 import os, pygame
-from tablero import Tablero
+from tablero import VistaTablero
 from singleton import Singleton
 from sidebar import Sidebar
-from dado import Dado
-from button import Button
-
+from dado import VistaDado
+from button import Boton
+from arbitro import Arbitro
+from almacenador import AlmacenadorTXT
 
 ANCHO_BARRA = 250
 ANCHO = 700 + ANCHO_BARRA
@@ -13,16 +17,22 @@ ALTO = 700
 CANTIDAD_X = 10
 CANTIDAD_Y = 10
 
+CLICK = 5
+MOVER_CURSOR = 4
+
 class Vista():
 
-    def __init__(self, ventana):
+    def __init__(self, controlador, ventana, es_partida_cargada):
+        self.controlador = controlador
         self.ventana = ventana
-        self.tablero = self.crear_tablero()
-        Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.tablero.casillas, ventana)
-        self.boton_dados, self.dado, self.boton_reglas = self.crear_sidebar()
+        self.es_partida_cargada = es_partida_cargada
+        self.tablero_grafico = self.crear_tablero_grafico()
+        Singleton.init(ANCHO, ALTO, CANTIDAD_X, CANTIDAD_Y, (CANTIDAD_X * CANTIDAD_Y)-1, self.es_partida_cargada, self.ventana)
+        self.boton_dados, self.dado_grafico, self.boton_reglas, self.boton_guardar = self.crear_sidebar()
+        #print("Se creo la vista")
         
 
-    def crear_tablero(self):
+    def crear_tablero_grafico(self):
         """
         Llama el constructor de Tablero y sus metodos para generar tanto las casillas, como
         las serpientes y escaleras respectivas en estas casillas.
@@ -31,9 +41,11 @@ class Vista():
         :returns: Tablero object -- Devuelve el objeto de tablero recien creado para luego
         utilizar sus metodos en otras funciones.
         """
-        tablero = Tablero((CANTIDAD_X, CANTIDAD_Y), self.ventana, ANCHO_BARRA)
+        tablero_grafico = VistaTablero(self.controlador, (CANTIDAD_X, CANTIDAD_Y), self.ventana, ANCHO_BARRA, self.es_partida_cargada)
+        return tablero_grafico
 
-        return tablero
+    def actualizar_tablero_grafico(self):
+        self.tablero_grafico.actualizar()
 
     def crear_sidebar(self):
         """
@@ -44,53 +56,59 @@ class Vista():
         :returns: tuple -- Devuelve como tupla el objeto de Button, que va a ser el boton 
         grafico de los dados, de primero y de segundo, el objeto de Dado para poder utilizar sus funciones.
         """
-        boton_dados = Button(self.ventana, Singleton.colores_casillas["blanco"], 750, 35, 150, 40, "Lanzar dados")
-        boton_reglas = Button(self.ventana, Singleton.colores_casillas["negro"], 750, 600, 150 ,40, "Mostrar reglas")
-        dado = Dado()
-        elementos_sidebar = [boton_dados, dado]
+        boton_dados = Boton(self.ventana, Singleton.colores_casillas["blanco"], 750, 35, 150, 40, "Lanzar dados")
+        boton_guardar = Boton(self.ventana, Singleton.colores_casillas["negro"], 750, 550, 150, 40, "Guardar partida")
+        boton_reglas = Boton(self.ventana, Singleton.colores_casillas["negro"], 750, 600, 150 ,40, "Mostrar reglas")
+        dado_grafico = VistaDado(self.controlador)
+        elementos_sidebar = [boton_dados, dado_grafico]
         Sidebar(700, 700, 250, Singleton.colores_casillas["blanco"], elementos_sidebar)
-        return boton_dados, dado, boton_reglas
+        return boton_dados, dado_grafico, boton_reglas,boton_guardar
+        
+    def guardarPartida(self):
+        root = Tk() 
+        root.title("GUARDAR PARTIDA")
+        root.geometry("450x360")         
+        NC_label = Label(root, text = "Nombre de partida nueva:")
+        NC_label.grid(row = 1, column = 1)         
+        NC_Int = StringVar()
+        NC_entry = Entry(root, textvariable = NC_Int)
+        NC_entry.grid(row = 1, column = 2)         
+        NC_Int.get()         
+        ok = Button(root,text = "GUARDAR",command = root.destroy)
+        ok.grid(row = 2, column = 2)
+        def mostrar():
+            numcur = NC_Int.get()
+            almacen = AlmacenadorTXT("Guardado/"+numcur)
+            almacen.guardar()
+            root.destroy()
+        ok.config(command=mostrar)
+        root.mainloop()
+        #print("NOMBRE PARTIDA: ",nombre)
 
-    def dibujar_dados(self, resultados_por_dado):
-        """
-        Esta función dibuja dos dados según el resultado de sus caras.
-        :returns:  None -- Procedimiento sin valor de retorno.
-        """
-
-        # dirección de las imágenes de los dados
-        ruta_local = 'imagenes/'
-
-        # haga el proceso de dibujo de la primera cara del dado, de pygame para imágenes
-        ruta_imagen = os.path.join(ruta_local, str(resultados_por_dado[0]) + ".png")
-        cara_temp = pygame.image.load(ruta_imagen)
-        imagen_transformada = pygame.transform.scale(cara_temp, (60,60))
-        cara_izq = imagen_transformada.convert()  # or .convert_alpha()
-        rect_izq = cara_izq.get_rect()
-        rect_izq.center = (780, 145)
-        Singleton.ventana.blit(cara_izq, rect_izq)
-
-        # lo mismo para la segunda cara
-        ruta_imagen = os.path.join(ruta_local, str(resultados_por_dado[1]) + ".png")
-        cara_temp = pygame.image.load(ruta_imagen)
-        imagen_transformada = pygame.transform.scale(cara_temp, (60,60))
-        cara_der = imagen_transformada.convert()  # or .convert_alpha()
-        rect_der = cara_der.get_rect()
-        rect_der.center = (870, 145)
-        Singleton.ventana.blit(cara_der, rect_der)
-
+    def dibuje_cuadro_blanco(self):
+        rect = pygame.rect.Rect((710, 350, 250, 100))
+        pygame.draw.rect(Singleton.ventana, Singleton.colores_casillas["blanco"], rect)
+        #pygame.display.update()
+        #print("hOLA")
+        
     def notify(self, evento):
         self.eventoActual = evento
         #print("La vista recibió el evento: ", self.eventoActual)
         posicion_cursor = pygame.mouse.get_pos()
-        if self.eventoActual == 5:
+        if self.eventoActual == CLICK:      
             if self.boton_dados.isOver(posicion_cursor):
-                temp = self.dado.lanzar()
+                resultado_dados = self.dado_grafico.actualizar_caras()
+                if Arbitro.decidiendoTurno:                                     #si el arbitro esta decidiendo turnos
+                    Arbitro.reciboRespuestaDados(resultado_dados)
+                elif  Arbitro.en_jugada:                                        # si el jugador se va a mover
+                    Arbitro.procesaRespuestaDados(resultado_dados)
+                    
             if self.boton_reglas.isOver(posicion_cursor):
                 root = Tk()
                 
                 root.title("Reglas del juego")
-                width = 560
-                height = 350
+                width = 800
+                height = 450
                 
                 screen_width = root.winfo_screenwidth()
                 screen_height = root.winfo_screenheight()
@@ -103,21 +121,26 @@ class Vista():
                 
                 l = Label(root, text= texto)
                 l.pack()
-                
                 root.after(5000, lambda: root.focus_force())
                 root.mainloop()
-                
-        elif self.eventoActual == 4:
-            if self.boton_dados.isOver(posicion_cursor) or self.boton_reglas.isOver(posicion_cursor):
+            if self.boton_guardar.isOver(posicion_cursor):
+                self.guardarPartida()
+  
+        elif self.eventoActual == MOVER_CURSOR:              
+            if self.boton_dados.isOver(posicion_cursor) or self.boton_reglas.isOver(posicion_cursor) or self.boton_guardar.isOver(posicion_cursor) :
                 if self.boton_dados.isOver(posicion_cursor):
                     self.boton_dados.mi_color = (161,222,147)
                 if self.boton_reglas.isOver(posicion_cursor):
                     self.boton_reglas.mi_color = (161,222,147)
+                if self.boton_guardar.isOver(posicion_cursor):
+                    self.boton_guardar.mi_color = (161,222,147)
             else:
                 self.boton_reglas.mi_color = (54,57,63)
                 self.boton_dados.mi_color = (54,57,63)
+                self.boton_guardar.mi_color = (54,57,63)
         self.boton_dados.dibujar()
         self.boton_reglas.dibujar()
+        self.boton_guardar.dibujar()
         pygame.display.update() 
 
     

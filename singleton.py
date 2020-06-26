@@ -12,6 +12,8 @@ class Singleton():
     ancho_tablero = 0
     alto_tablero = 0
     cantidad_jugadores = 0
+    cantidad_serpientes = 0
+    cantidad_escaleras = 0
     cantidad_x = 0
     cantidad_y = 0
     pos_ganadora = 0
@@ -23,10 +25,15 @@ class Singleton():
     colores_jugadores = {"magenta": (255,0,230), "azul": (0, 0, 128), "gris": (127,127,127), "naranja": (255,100,10), "negro": (0,0,0),
                         "verde": (118,238,0), "aqua": (0,255,255), "dorado": (255,185,15), "rojo": (205,51,51) }
     colores_jugadores_usados = []
+    serpientes = []
+    escaleras = []
+    es_partida_cargada = False
+    indices_serpientes = []
+    indices_escaleras = []
 
     #Metodos
     @classmethod
-    def init(cls, an, al, cantX, cantY, casillaGanadora, casillasT, vent):
+    def init(cls, an, al, cantX, cantY, casillaGanadora, es_partida_carg, vent):
         """
         :param an: ancho del tablero
         :type an: int 
@@ -43,7 +50,6 @@ class Singleton():
         :param vent: Referencia a la ventana de pygame.
         :type vent: pygame.display
         """
-        cls.casillasTablero = casillasT                     #copia las casillas del tablero 
         cls.pos_ganadora = casillaGanadora                  #guarda las coordenadas de la casilla 100 en tablero 10x10 por ejemplo (ganadora)
         cls.jugadores = []
         cls.ancho_tablero = an
@@ -52,6 +58,9 @@ class Singleton():
         cls.cantidad_x = cantX
         cls.cantidad_y = cantY
         cls.ventana = vent
+        cls.establecer_pos_jugadores()
+        cls.es_partida_cargada = es_partida_carg
+
 
     @classmethod
     def establecer_pos_jugadores(cls):
@@ -125,8 +134,6 @@ class Singleton():
         :param jugador: jugador a agregar.
         :type jugador: Jugador
         """
-        cls.cantidad_jugadores += 1
-        jugador.setNombre("Jugador " + str(cls.cantidad_jugadores))
         cls.jugadores.append(jugador)
     
     @classmethod

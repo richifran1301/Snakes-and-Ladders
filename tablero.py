@@ -4,7 +4,7 @@ import random
 import itertools
 import sys, pygame
 from pygame.locals import *
-from button import Button
+#from button import Button
 from sidebar import Sidebar
 from conector import Conector, Escalera, Serpiente
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
@@ -16,7 +16,7 @@ class Tablero():
     atributos y acciones necesarios para su graficación y comportamiento.
     """
 
-    def __init__(self, tamanio, ventana, ancho_barra):
+    def __init__(self, tamanio, ventana, ancho_barra, es_partida_cargada):
         """
         :param tamanio: Tamaño del tablero en píxeles como tupla (ancho, alto).
         :type tamanio: tuple
@@ -27,12 +27,11 @@ class Tablero():
         """
         self.tamanio = tamanio
         self.ventana = ventana
+        self.es_partida_cargada = es_partida_cargada
         self.casillas = []              # lista de casillas del tablero
         self.serpientes = []            # lista de conectores tipo serpiente del tablero
         self.escaleras = []             # lista de conectores tipo escalera del tablero
         self.generarCasillas()          # se llama a la función que genera casillas
-        self.colorearCasillas()
-        self.dibujarCasillas()
         self.ancho_barra = ancho_barra
         
     def generarCasillas(self):
@@ -40,21 +39,39 @@ class Tablero():
         Este método genera casillas y sus conectores para un tablero de Serpientes y escaleras de manera aleatoria.
         :returns:  None -- Procedimiento sin valor de retorno.
         """
-        
+        if Singleton.es_partida_cargada:
+            self.serpientes = []
+            self.escaleras = []
+            self.casillas= []
+            Singleton.escaleras = []
+            Singleton.serpientes = []
+            Singleton.casillasTablero = []
         alto, ancho = 700, 700 # tamanio del tablero
-        
         # las serpientes y escaleras serán cada una un total de entre 5% y 7% de la cantidad total de casillas
         # estos números se determinan aleatoriamente
-        cantidad_serpientes = int((self.tamanio[0] * self.tamanio[1]) * ((random.randint(5, 7)) * 0.01))
-        cantidad_escaleras = int((self.tamanio[0] * self.tamanio[1]) * ((random.randint(5, 7)) * 0.01))
+        if not Singleton.es_partida_cargada:        
+            cantidad_serpientes = int((self.tamanio[0] * self.tamanio[1]) * ((random.randint(5, 7)) * 0.01))
+            cantidad_escaleras = int((self.tamanio[0] * self.tamanio[1]) * ((random.randint(5, 7)) * 0.01))
+        else:
+            cantidad_escaleras = Singleton.cantidad_escaleras
+            cantidad_serpientes = Singleton.cantidad_serpientes
 
         # se invoca al método que da las coordenadas de los centros de todas las casillas
         centros_casillas = self.obtener_centro_casillas(alto, ancho)
         
         # se invoca al método que indica en qué posiciones irán las serpientes y escaleras, cuya cantidad ya calculamos
         # estas posiciones vienen en tuplas con la posición inicial y final de cada serpiente o escalera
-        posiciones_serpientes, posiciones_escaleras = self.generar_conexiones(centros_casillas, cantidad_serpientes, cantidad_escaleras)
+        if not Singleton.es_partida_cargada:                #si es partida nueva
+            #print("VOY MAL")
+            posiciones_serpientes, posiciones_escaleras = self.generar_conexiones(centros_casillas, cantidad_serpientes, cantidad_escaleras)
+        else:                                                #si es cargada
+            #print("VOY MASO")
+            posiciones_escaleras = []
+            posiciones_serpientes = []
+            posiciones_escaleras = Singleton.indices_escaleras
+            posiciones_serpientes = Singleton.indices_serpientes
 
+        
         for i in range(len(centros_casillas)):  # para cada posición en el vector de centros_casilla, o sea, cada posición de todas las casillas
             encontrado = False                  # asuma que no ha encontrado una posición de serpiente en las posiciones generales
             
@@ -112,10 +129,30 @@ class Tablero():
                     # el conector avisará a sus casillas relacionadas que él es su conector
                     self.escaleras[len(self.escaleras) - 1].sendConector()
 
+        for serpiente in self.serpientes: Singleton.serpientes.append(serpiente)
+        
+        for escalera in self.escaleras: Singleton.escaleras.append(escalera)
+
+        for casilla in self.casillas: Singleton.casillasTablero.append(casilla)
+
+        #for serpiente in Singleton.serpientes:
+            #print("SERPIENTE INICIO: " + str(serpiente.getCasillaInicio().getIndice()))
+
         #for i in range(len(self.casillas)):
             #if not isinstance(self.casillas[i], CasillaEstandar):
                 #print(self.casillas[i].casilla.getIndice() + 1, self.casillas[i].casilla.getFinal() + 1, self.casillas[i].casilla.esInicio())
-                
+
+
+    def cargarCasillas(self):
+        centros_casillas = self.obtener_centro_casillas(Singleton.alto_tablero, Singleton.ancho_tablero)
+        for i in range(len(centros_casillas)):
+            figura = pygame.Rect(centros_casillas[i][0] - int((Singleton.alto_tablero//self.tamanio[0])//2),
+                                centros_casillas[i][1] - int((Singleton.ancho_tablero//self.tamanio[1])//2),
+                                Singleton.alto_tablero//self.tamanio[0], Singleton.ancho_tablero//self.tamanio[1])
+            casillaEstandar = CasillaEstandar(centros_casillas[i], (255,255,255), figura, i, self.ventana)
+            self.casillas.append(casillaEstandar)
+
+
     def getPosicionesEnTupla(self, indice, posiciones):
         """
         Esta función devuelve la tupla de índices inicio y fin donde se encuentra un índice de casilla.
@@ -392,32 +429,16 @@ class Tablero():
             impar_final += self.tamanio[0] * 2
 
             i += 1
- 
-        return
-
-    def dibujarCasillas(self):
-        """
-        Esta función dibuja las casillas y sus conectores en la ventana.
-        :returns:  None -- Procedimiento sin valor de retorno.
-        """
-
-        for c in self.casillas:
-            c.dibujar()             # y las estándar
-
-        for i in self.serpientes:   # para cada serpiente
-            i.dibujar()             # dibújese
-        
-        for i in self.escaleras:    # para cada escalera
-            i.dibujar()             # dibújese
 
 
+    """
     #TODO mejorar condicion de limpieza
     def limpar_casilla(self, index):
-        """
-        Metodo que limpia la casilla actual donde se ubica el jugador. 
-        :param index: posicion en el tablero donde esta el usuario
-        :type index: int
-        """
+
+        #Metodo que limpia la casilla actual donde se ubica el jugador. 
+        #:param index: posicion en el tablero donde esta el usuario
+        #:type index: int
+
         #Primero limpia la posicion actual
         if isinstance(self.casillas[index], CasillaEstandar):
             self.casillas[index].dibujar()
@@ -430,6 +451,42 @@ class Tablero():
                 self.serpientes.index(conector).dibujar()
             elif isinstance(conector, Escalera):      #dibuja si hay escalera
                 self.escaleras.index(conector).dibujar()
+    """
+
+class VistaTablero:
+    """
+    Esta clase representa un tablero de juego, y contiene los
+    atributos y acciones necesarios para su graficación y comportamiento.
+    """
+
+    def __init__(self, controlador, tamanio, ventana, ancho_barra, es_partida_cargada):
+        self.casillas = []              # lista de casillas del tablero
+        self.controlador = controlador
+        controlador.crear_tablero_logico(tamanio, ventana, ancho_barra, es_partida_cargada)
+        if not es_partida_cargada:
+            self.casillas = controlador.colorear_casillas_tablero()
+            self.dibujarCasillas()
+
+    def actualizar(self):
+        casillas_nuevas = self.controlador.actualizar_tablero()
+        self.casillas = casillas_nuevas
+        self.dibujarCasillas()
+
+    def dibujarCasillas(self):
+        """
+        Esta función dibuja las casillas y sus conectores en la ventana.
+        :returns:  None -- Procedimiento sin valor de retorno.
+        """
+
+        for c in self.casillas:
+            c.dibujar()             # y las estándar
+
+        for i in Singleton.serpientes:   # para cada serpiente
+            i.dibujar()             # dibújese
+        
+        for i in Singleton.escaleras:    # para cada escalera
+            i.dibujar()             # dibújese
+
 
 
 

@@ -1,3 +1,4 @@
+import pygame
 from singleton import Singleton
 from tablero import Tablero
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
@@ -11,8 +12,17 @@ class Arbitro():
     existentes dentro del juego, se asegura que cada jugador tenga un color unico...
     """
     @classmethod
-    def init(cls):
-        pass
+    def init(cls, controlador):
+        cls.decidiendoTurno = True
+        cls.en_jugada = False
+        cls.jugadores = []
+        cls.resultados = []
+        cls.jugador_gano = False
+        cls.valor_actual_dados = 0
+        cls.controlador = controlador
+        cls.cantidad_jugadores_tmp = 0
+        cls.color_tmp = ""
+
     """
     Este metodo se encarga de verificar si un jugador ha ganado la partida, se utiliza en cada jugada del jugador
     @param pos: Recibe la posicion de la casilla en la que se encuentra el jugador 
@@ -21,10 +31,9 @@ class Arbitro():
     """
     @classmethod
     def comprobarGane(cls,pos):#comprueba si el jugador esta en la posicion ganadora y devuelve un bool
-        gano = False             #si las coordenadas de jugador son iguales a las de la casilla ganadora, gana = True
         if pos == Singleton.pos_ganadora:
-            gano = True
-        return gano
+            Arbitro.jugador_gano = True
+
     """
     Este metodo comprueba la posicion del jugador en el tablero y si en esa casilla hay una serpiente o escalera, y aplica el movimiento
     indicado
@@ -42,24 +51,9 @@ class Arbitro():
         if not isinstance(casillaActual,CasillaEstandar):         #entra a la condicion si es serpiente o escalera
             if casillaActual.esInicio():
                 casillaFinal = casillaActual.getFinal()
-                if isinstance(casillaActual, CasillaSerpiente):             #entra si la casilla actual es serpiente
-                    if isinstance(casillaFinal, CasillaEstandar):
-                        print("BAJE POR SERPIENTE DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
-                        distancia = (posTablero - (casillaFinal.getIndice())) * (-1)
-                        coordenadasNuevas = casillaFinal.getCoordenadas()
-                    else:
-                        print("BAJE POR SERPIENTE DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
-                        distancia = (posTablero - (casillaFinal.getIndice())) * (-1)
-                        coordenadasNuevas = casillaFinal.getCoordenadas()
-                else:                                                         #entra si es escalera
-                    if isinstance(casillaFinal, CasillaEstandar):
-                        print("SUBI POR ESCALERA DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
-                        distancia = ((casillaFinal.getIndice())- posTablero)
-                        coordenadasNuevas = casillaFinal.getCoordenadas()
-                    else:
-                        print("SUBI POR ESCALERA DESDE: ",casillaActual.getIndice()+1, " HASTA: ",casillaFinal.getIndice()+1)
-                        distancia = ((casillaFinal.getIndice())- posTablero)
-                        coordenadasNuevas = casillaFinal.getCoordenadas()
+                ArbitroVista.muestre_accion_casilla_especial(casillaActual, casillaFinal)
+                distancia = (posTablero - (casillaFinal.getIndice())) * (-1)
+                coordenadasNuevas = casillaFinal.getCoordenadas()
                         
         return distancia,coordenadasNuevas
     """
@@ -67,7 +61,7 @@ class Arbitro():
     @param jugador: recibe una instancia de un Jugador para agregarlo a la lista
     @type jugador: instancia de la clase jugador
     """
-    
+
     @classmethod
     def reporte_jugadores(cls, jugador):
         Singleton.agregar_jugador(jugador)
@@ -81,19 +75,37 @@ class Arbitro():
     @type dado: una instancia de dado
     """
     @classmethod
-    def decidir_turnos(cls, cantidad_jugadores, boton_dados, dado):
-        jugadores = []
-        resultados = []
+    def decidir_turnos(cls, cantidad_jugadores):
         for i in range(cantidad_jugadores):
-            print("Tire los dados el Jugador ", i+1)
-            resultado_dados = dado.espere_repuesta_dados(boton_dados)
-            resultados.append(resultado_dados)
-            jugadores.append( (Singleton.jugadores[i], resultado_dados) )
-        resultados.sort(reverse=True)
-        for i in range (len(resultados)):
-            jugador = cls.buscar_jugador(jugadores, resultados[i])
+            cls.recibioDados = False
+            cls.jugador_en_turno = i
+            print("Tire los dados el Jugador ", i+1)        #TODO implementarlo en ventana
+            cls.controlador.maneje_eventos()
+        cls.decidiendoTurno = False
+        cls.resultados.sort(reverse=True)
+        for i in range (len(cls.resultados)):
+            jugador = cls.buscar_jugador(cls.jugadores, cls.resultados[i])
             Singleton.jugadores_ordenados.append(jugador[0])
-            jugadores.remove(jugador)
+            cls.jugadores.remove(jugador)
+
+
+    @classmethod
+    def reciboRespuestaDados(cls, resultado_dados):
+        cls.recibioDados = True
+        cls.resultados.append(resultado_dados)
+        cls.jugadores.append( (Singleton.jugadores[cls.jugador_en_turno], resultado_dados) )
+
+    @classmethod
+    def jugador_juegue(cls, jugador):
+        cls.en_jugada = True
+        cls.recibioDados = False
+        cls.controlador.maneje_eventos()
+    
+    @classmethod
+    def procesaRespuestaDados(cls, resultado_dados):
+        cls.recibioDados = True
+        cls.valor_actual_dados = resultado_dados
+        cls.en_jugada = False
 
     """
     Este metodo busca un jugador dentro del vector de turnos de acuerdo al valor que saco en los dados
@@ -107,6 +119,31 @@ class Arbitro():
         for jugador in jugadores:
             if jugador[1] == valor:
                 return jugador
+
+    @classmethod
+    def setColorJugador(cls, jugador):
+        """
+        Va a almacenar un color para el Jugador y esto es decision del usuario. El color tiene que existir dentro de las opciones
+        y no puede repetirse. El color es unico por jugador en la partida.
+        """
+        salga = False
+        contador = 0
+        error = ""
+        while not salga:
+            cls.controlador.obtener_colores_jugadores(jugador.nombre, error, contador)
+            if cls.color_tmp != "":    
+                repetido = cls.esColorRepetido(cls.color_tmp)
+                existe = cls.existeColor(cls.color_tmp)
+                if  existe and not repetido:
+                    Singleton.colores_jugadores_usados.append(cls.color_tmp)
+                    jugador.mi_color = Singleton.colores_jugadores[cls.color_tmp]
+                    jugador.colorString = cls.color_tmp
+                    salga = True
+                else:
+                    error = "Color invalido o repetido"
+            else:
+                error = "Escoja un color valido"
+            contador += 1
 
     @classmethod
     def esColorRepetido(cls, color):     
@@ -157,3 +194,24 @@ class Arbitro():
         else:
             coordenadas = Singleton.casillasTablero[index].getCoordenadas()
         return coordenadas
+
+class ArbitroVista():
+    
+    @classmethod
+    def muestre_accion_casilla_especial(cls, casillaActual, casillaFinal):
+        X = 1650
+        Y = 750
+        Y2 = Y + 50
+        font = pygame.font.Font('freesansbold.ttf', 15) 
+        if isinstance(casillaActual, CasillaSerpiente):
+            text = font.render("BAJO POR SERPIENTE", True, Singleton.colores_casillas["negro"], Singleton.colores_casillas["rojo"]) 
+        else:
+            text = font.render("SUBIO POR ESCALERA", True, Singleton.colores_casillas["negro"], Singleton.colores_casillas["verde"])
+        text2 =  font.render("DESDE: " + str(casillaActual.getIndice()+1) + " HASTA: " + str(casillaFinal.getIndice()+1), True, Singleton.colores_casillas["negro"], Singleton.colores_casillas["blanco"])
+        textRect = text.get_rect()  
+        textRect2 = text.get_rect()
+        textRect.center = (X // 2, Y // 2) 
+        textRect2.center = (X // 2, Y2 // 2) 
+        Singleton.ventana.blit(text, textRect)
+        Singleton.ventana.blit(text2, textRect2)
+    

@@ -4,7 +4,7 @@ import random
 import itertools
 import sys, pygame
 from dado import Dado
-from button import Button
+#from button import Button
 from pygame.locals import *
 from singleton import Singleton
 
