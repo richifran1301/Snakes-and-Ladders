@@ -51,10 +51,19 @@ class Controlador:
         return ventana
 
     def crear_relacion_jugadores(self):
+        '''
+        Llena la lista de tuplas de jugadores para hacer la relacion
+        jugador logico - jugador grafico.
+        '''
         for jugador in Singleton.jugadores:
             self.jugadores.append( (jugador, VistaJugador(jugador)) )
 
     def encontrar_relacion(self, jugador):
+        '''
+        Busca la relacion entre jugador logico y jugador grafico en la lista de tuplas
+        :param jugador: jugador logico a buscar
+        :type jugador: Jugador object
+        '''
         jugadorVista = None
         for player in self.jugadores:
             if player[0] == jugador:
@@ -63,14 +72,21 @@ class Controlador:
         return jugadorVista
 
     def registerListener(self, listener):
+        '''
+        Agrega un objeto encargado de realizar una accion a la lista de listeners
+        :param listener: objeto a guardar
+        :type listener: Template object
+        '''
         self.listeners.append(listener)
         
     def postEvent(self, event, type):
-        for listener in self.listeners:
-            if isinstance(listener, type):
-                listener.notify(event)
-
-    def receiveEvent(self, event, type):
+        '''
+        Llama a la funcion de vista para saber cual accion es la que debe de suceder en la interfaz grafica
+        :param event: evento que acaba de suceder
+        :type event: Pygame event
+        :param type: tipo de objeto que se va a encargar de realizar alguna funcion respectiva
+        :type type: Template Object
+        '''
         for listener in self.listeners:
             if isinstance(listener, type):
                 listener.notify(event)
@@ -83,16 +99,31 @@ class Controlador:
         for jugador in self.jugadores: jugador[1].dibujar()
 
     def lanzar_dado(self):
+        '''
+        LLama a la funcion de dado de lanzar los dados y devuelve el resultado
+        :return: el resultado de los dados en forma de entero
+        '''
         return self.dado.lanzar()
 
     def crear_tablero_logico(self, tamanio, ventana, ancho_barra, es_partida_cargada):
+        '''
+        Crea un objeto de tablero logico y o guarda en una variable local de "tablero"
+        '''
         self.tablero = Tablero(tamanio, ventana, ancho_barra, es_partida_cargada)
 
     def colorear_casillas_tablero(self):
+        '''
+        Colorea las casillas del tablero con su color predeterminado.
+        :return: Devuelve las casillas del tablero en forma de lista
+        '''
         self.tablero.colorearCasillas()
         return self.tablero.casillas
 
     def actualizar_tablero(self):
+        '''
+        Recolorea y redibuja las casillas del tablero
+        :return: las casillas del tablero en forma de lista
+        '''
         self.tablero.casillas = []
         #self.tablero.serpientes = []
         #self.tablero.escaleras = []
@@ -102,6 +133,10 @@ class Controlador:
         return self.tablero.casillas
 
     def maneje_eventos(self):
+        '''
+        Se encarga de manejar los eventos de cuando los botones se ponen de otro color
+        o si se se la click al boton de dado.
+        '''
         continuar = True 
         while continuar:
             for events in pygame.event.get():     
@@ -182,6 +217,16 @@ class Controlador:
         jugador.mover(Arbitro.valor_actual_dados, coordenadas)
     
     def obtener_colores_jugadores(self, nombre, error, contador):
+        '''
+        Le pide al usuario el color de ficha que quiere usar en el juego
+        y guarda esa informacion para luego ser consumida por el jugador.
+        :param nombre: nombre del jugador a pedirle el color a usar
+        :type nombre: string
+        :param error: mensaje que se va a desplegar si el usuario pide un color invalido
+        :type error: string
+        :param contador: cantidad de jugadores a hacer la solicitud
+        :type contador: int
+        '''
         root = Tk() 
         root.title("Crear jugadores")
         root.geometry("450x360")     
@@ -207,6 +252,12 @@ class Controlador:
         root.mainloop()
 
     def obtener_cantidad_jugadores(self, contador):
+        '''
+        Se pide al usuario la cantidad de jugadores que van a jugar y guarda la 
+        informacion para ser consumida por el arbitro.
+        :param contador: cantidad de jugadores ingresada
+        :type contador: int
+        '''
         root = Tk() 
         root.title("Crear partida")
         root.geometry("450x360")     
@@ -233,6 +284,11 @@ class Controlador:
 
 
 def empezarCondicionesJuego(controlador):
+    '''
+    Llena las condiciones iniciales que ocupa el juego
+    :param controlador: objeto de controlador para utilizar sus funciones
+    :type controlador: Controlador object
+    '''
     contador = 0
     while True:
         controlador.obtener_cantidad_jugadores(contador)
@@ -258,6 +314,12 @@ def empezarCondicionesJuego(controlador):
 
 
 def juego(controlador):
+    '''
+    Este metodo tiene el ciclo principal del juego, que no termina hasta que alguien gane.
+    Va a llamar todas las funciones que ocupa el juego para funcionar.
+    :param controlador: objeto de controlador para utilizar sus funciones
+    :type controlador: Controlador object
+    '''
     while not Arbitro.jugador_gano:                                             # mientras no haya un ganador, siguen los turnos
         for jugador in Singleton.jugadores_ordenados:                          #recorre el vector de jugadores, y le da el turno a cada uno
             jugadorVista = controlador.encontrar_relacion(jugador)
@@ -276,7 +338,10 @@ def juego(controlador):
 
 
 def run():
-
+    '''
+    Metodo que verifica si es una partida cargada o una partida nueva. Tambien despliega el
+    menu principal. Llama al ciclo principal del juego (metodo juego)
+    '''
     root = Tk() 
     root.title("Serpientes y escaleras")
     #root.geometry("450x360")        

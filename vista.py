@@ -23,6 +23,15 @@ MOVER_CURSOR = 4
 class Vista():
 
     def __init__(self, controlador, ventana, es_partida_cargada):
+        '''
+        Crea un nuevo objeto de vista.
+        :param controlador: objeto de la clase de controlador 
+        :type controlador: Controlador class object
+        :param ventana: ventana grafica 
+        :type ventana: Pygame object
+        :param es_partida_cargada: bandera de que si es una partida cargada o una nueva
+        :type es_partida_cargada: boolean
+        '''
         self.controlador = controlador
         self.ventana = ventana
         self.es_partida_cargada = es_partida_cargada
@@ -36,15 +45,17 @@ class Vista():
         """
         Llama el constructor de Tablero y sus metodos para generar tanto las casillas, como
         las serpientes y escaleras respectivas en estas casillas.
-        :param _ventana: Ventana grafica del juego
-        :type _ventana: pygame window object
-        :returns: Tablero object -- Devuelve el objeto de tablero recien creado para luego
+        :returns: Tablero Vista object -- Devuelve el objeto de tablero recien creado para luego
         utilizar sus metodos en otras funciones.
         """
         tablero_grafico = VistaTablero(self.controlador, (CANTIDAD_X, CANTIDAD_Y), self.ventana, ANCHO_BARRA, self.es_partida_cargada)
         return tablero_grafico
 
     def actualizar_tablero_grafico(self):
+        '''
+        Actualiza y vuelve a dibujar las casillas porque cada vez que se mueve
+        un jugador se modifica el formato grafico de la casilla que acaba de moverse.
+        '''
         self.tablero_grafico.actualizar()
 
     def crear_sidebar(self):
@@ -65,6 +76,11 @@ class Vista():
         return boton_dados, dado_grafico, boton_reglas,boton_guardar
         
     def guardarPartida(self):
+        '''
+        Crea el boton de guardado en la ventana del juego y cuando se 
+        presiona, llama al constructor del almacenador para pasarle el
+        nombre de la partida a guardar.
+        '''
         root = Tk() 
         root.title("GUARDAR PARTIDA")
         root.geometry("450x360")         
@@ -83,17 +99,24 @@ class Vista():
             root.destroy()
         ok.config(command=mostrar)
         root.mainloop()
-        #print("NOMBRE PARTIDA: ",nombre)
 
     def dibuje_cuadro_blanco(self):
+        '''
+        Dibuja un cuadro blanco para borrar cada vez que se notifica 
+        en la ventana que se subio por una escalera o se bajo por una 
+        serpiente.
+        '''
         rect = pygame.rect.Rect((710, 350, 250, 100))
         pygame.draw.rect(Singleton.ventana, Singleton.colores_casillas["blanco"], rect)
-        #pygame.display.update()
-        #print("hOLA")
         
     def notify(self, evento):
+        '''
+        Metodo principal de esta clase, se encarga de manejar un evento cada vez que se presiona 
+        un boton u ocurre alguna accion grafica. Llama la funcion depende del evento ocurrido.
+        :param evento: evento de pygame que acaba de ocurrir
+        :type evento: pygame event
+        '''
         self.eventoActual = evento
-        #print("La vista recibió el evento: ", self.eventoActual)
         posicion_cursor = pygame.mouse.get_pos()
         if self.eventoActual == CLICK:      
             if self.boton_dados.isOver(posicion_cursor):
@@ -105,11 +128,9 @@ class Vista():
                     
             if self.boton_reglas.isOver(posicion_cursor):
                 root = Tk()
-                
                 root.title("Reglas del juego")
                 width = 800
                 height = 450
-                
                 screen_width = root.winfo_screenwidth()
                 screen_height = root.winfo_screenheight()
                 x = (screen_width/2) - (width/2)
@@ -117,7 +138,7 @@ class Vista():
                 root.geometry('%dx%d+%d+%d' % (width, height, x, y))
                 root.resizable(False, False)
                 
-                texto = "\n\nNúmero de jugadores: dos o más, pero nunca deben jugar más de seis jugadores a la vez. \n Se necesita: un tablero del juego, una ficha de diferente color para cada jugador y un dado. \n\n REGLAS \n\n 1- Para comenzar, todos los jugadores tenéis que tirar una vez el dado. El que saque más puntos será \n el primero en empezar la partida; continuará el que esté a su izquierda y así sucesivamente. \n\n 2- El juego consiste en mover la ficha desde la casilla 1 hasta la 64; debes avanzarla tantos puestos \n como puntos te salgan al tirar el dado. \n\n 3- Pero ¡cuidado!, si caes en la cabeza de una serpiente debes bajar hasta su cola. LAS SERPIENTES \n SOLO BAJAN, NUNCA SUBEN. \n\n 4- También puedes tener suerte. Si caes en una casilla que señale el principio de una escalera sube \n hasta el final de la escalera. LAS ESCALERAS SOLO SUBEN, NUNCA BAJAN. \n\n 5- Gana el primero que llegue a la última casilla. \n\n 6- Si queréis jugar otra partida, el ganador de la primera debe ser ahora el último en empezar a jugar. \n Así tendrá menos posibilidades de volver a ganar. \n\n"
+                texto = "\n\nNúmero de jugadores: dos o más, pero nunca deben jugar más de seis jugadores a la vez. \n Se necesita: un tablero del juego, una ficha de diferente color para cada jugador y un dado. \n\n REGLAS \n\n 1- Para comenzar, todos los jugadores tenéis que tirar una vez el dado. El que saque más puntos será \n el primero en empezar la partida; continuará el que esté a su izquierda y así sucesivamente. \n\n 2- El juego consiste en mover la ficha desde la casilla 1 hasta la 100; debes avanzarla tantos puestos \n como puntos te salgan al tirar el dado. \n\n 3- Pero ¡cuidado!, si caes en la cabeza de una serpiente debes bajar hasta su cola. LAS SERPIENTES \n SOLO BAJAN, NUNCA SUBEN. \n\n 4- También puedes tener suerte. Si caes en una casilla que señale el principio de una escalera sube \n hasta el final de la escalera. LAS ESCALERAS SOLO SUBEN, NUNCA BAJAN. \n\n 5- Gana el primero que llegue a la última casilla. \n\n"
                 
                 l = Label(root, text= texto)
                 l.pack()
