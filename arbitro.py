@@ -11,8 +11,13 @@ class Arbitro():
     hacia donde moverse), ayuda a decidir los turnos al inicio del juego, reporta los jugadores como
     existentes dentro del juego, se asegura que cada jugador tenga un color unico...
     """
+
     @classmethod
     def init(cls, controlador):
+        """
+        Inicializa el Arbitro.
+        :param controlador: referencia al conrolador. 
+        """
         cls.decidiendoTurno = True
         cls.en_jugada = False
         cls.jugadores = []
@@ -23,28 +28,29 @@ class Arbitro():
         cls.cantidad_jugadores_tmp = 0
         cls.color_tmp = ""
 
-    """
-    Este metodo se encarga de verificar si un jugador ha ganado la partida, se utiliza en cada jugada del jugador
-    @param pos: Recibe la posicion de la casilla en la que se encuentra el jugador 
-    @type pos: numero entero
-    @returns: bool, devuelve true si el jugador en cuestion gano la partida
-    """
+
     @classmethod
     def comprobarGane(cls,pos):#comprueba si el jugador esta en la posicion ganadora y devuelve un bool
+        """
+        Este metodo se encarga de verificar si un jugador ha ganado la partida, se utiliza en cada jugada del jugador
+        :param pos: Recibe la posicion de la casilla en la que se encuentra el jugador 
+        :type pos: numero entero
+        :returns: bool, devuelve true si el jugador en cuestion gano la partida
+        """
         if pos == Singleton.pos_ganadora:
             Arbitro.jugador_gano = True
 
-    """
-    Este metodo comprueba la posicion del jugador en el tablero y si en esa casilla hay una serpiente o escalera, y aplica el movimiento
-    indicado
-    @param posTablero: recibe la posicion del jugador en el tablero
-    @type posTablero: numero entero
-    @return distancia: retorna la distancia que se tiene que recorrer, ya sea al final de la serpiente o el tope de la escalera
-    @return coordenadasNuevas: retorna las coordenadas de la nueva casilla hacia donde se va a mover el jugador
-    
-    """
+
     @classmethod
     def aplicarReglasMovimiento(cls, posTablero):             #comprueba si el jugador esta en una escalera o serpiente y lo mueve a donde le corresponde
+        """
+        Este metodo comprueba la posicion del jugador en el tablero y si en esa casilla hay una serpiente o escalera, y aplica el movimiento
+        indicado
+        :param posTablero: recibe la posicion del jugador en el tablero
+        :type posTablero: numero entero
+        :return distancia: retorna la distancia que se tiene que recorrer, ya sea al final de la serpiente o el tope de la escalera
+        :return coordenadasNuevas: retorna las coordenadas de la nueva casilla hacia donde se va a mover el jugador
+        """
         casillaActual = Singleton.casillasTablero[posTablero]
         distancia = 0
         coordenadasNuevas = []
@@ -56,30 +62,31 @@ class Arbitro():
                 coordenadasNuevas = casillaFinal.getCoordenadas()
                         
         return distancia,coordenadasNuevas
-    """
-    Este metodo agrega un Jugador a la lista de jugadores que tiene el Singleton, la cual es informacion importante para las demas clases
-    @param jugador: recibe una instancia de un Jugador para agregarlo a la lista
-    @type jugador: instancia de la clase jugador
-    """
 
     @classmethod
     def reporte_jugadores(cls, jugador):
+        """
+        Este metodo agrega un Jugador a la lista de jugadores que tiene el Singleton, la cual es informacion importante para las demas clases
+        :param jugador: recibe una instancia de un Jugador para agregarlo a la lista
+        :type jugador: instancia de la clase jugador
+        """
         Singleton.agregar_jugador(jugador)
-    """
-    Este metodo se utiliza para decidir el orden de los turnos de los jugadores, cada uno lanza dados y el mas alto, va de primero y asi sucesivamente
-    @param cantidad_jugadores: recibe la cantidad de jugadores que estan en la partida
-    @type cantidad_jugadores: numero entero
-    @param boton_dados: recibe una instancia de un boton de dados del cual se sacara la informacion de los dados
-    @type boton_dados: instancia de la clase button
-    @param dado: el dado que se lanzara para sacar un numero al azar
-    @type dado: una instancia de dado
-    """
+
     @classmethod
     def decidir_turnos(cls, cantidad_jugadores):
+        """
+        Este metodo se utiliza para decidir el orden de los turnos de los jugadores, cada uno lanza dados y el mas alto, va de primero y asi sucesivamente
+        :param cantidad_jugadores: recibe la cantidad de jugadores que estan en la partida
+        :type cantidad_jugadores: numero entero
+        :param boton_dados: recibe una instancia de un boton de dados del cual se sacara la informacion de los dados
+        :type boton_dados: instancia de la clase button
+        :param dado: el dado que se lanzara para sacar un numero al azar
+        :type dado: una instancia de dado
+        """
         for i in range(cantidad_jugadores):
             cls.recibioDados = False
             cls.jugador_en_turno = i
-            print("Tire los dados el Jugador ", i+1)        #TODO implementarlo en ventana
+            cls.controlador.muestre_turno_tirar_dados(i+1)
             cls.controlador.maneje_eventos()
         cls.decidiendoTurno = False
         cls.resultados.sort(reverse=True)
@@ -91,31 +98,47 @@ class Arbitro():
 
     @classmethod
     def reciboRespuestaDados(cls, resultado_dados):
+        """
+        Este metodo se encarga de leer el resultado de dados, para decidir el orden de turnos 
+        de los jugadores.
+        :param resultado_dados: resultado de dados, se almacenara en un vector el jugador y su
+        resultado especifico.
+        """
         cls.recibioDados = True
         cls.resultados.append(resultado_dados)
         cls.jugadores.append( (Singleton.jugadores[cls.jugador_en_turno], resultado_dados) )
 
     @classmethod
     def jugador_juegue(cls, jugador):
+        """
+        Metodo que inicia el turno de un jugador, y espera al evento que este tire los dados.
+        """
         cls.en_jugada = True
         cls.recibioDados = False
         cls.controlador.maneje_eventos()
     
     @classmethod
     def procesaRespuestaDados(cls, resultado_dados):
+        """
+        Este metodo se encarga de leer el resultado de dados, para decidir el movimiento del jugador.
+        Tambien indica el final de la jugada del jugador, y el Arbitro analizara posteriormente el
+        movimiento del jugador.
+        :param resultado_dados: resultado de dados, se almacenara en self.valor_actual_dados.
+        """
         cls.recibioDados = True
         cls.valor_actual_dados = resultado_dados
         cls.en_jugada = False
 
-    """
-    Este metodo busca un jugador dentro del vector de turnos de acuerdo al valor que saco en los dados
-    @param jugadores: el vector que guarda los turnos de los jugadores
-    @type jugadores: un array de Jugador
-    @param valor: la cantidad que tiro en los dados el jugador
-    @type valor: numero entero
-    """
+
     @classmethod
     def buscar_jugador(cls, jugadores, valor):
+        """
+        Este metodo busca un jugador dentro del vector de turnos de acuerdo al valor que saco en los dados
+        :param jugadores: el vector que guarda los turnos de los jugadores
+        :type jugadores: un array de Jugador
+        :param valor: la cantidad que tiro en los dados el jugador
+        :type valor: numero entero
+        """
         for jugador in jugadores:
             if jugador[1] == valor:
                 return jugador

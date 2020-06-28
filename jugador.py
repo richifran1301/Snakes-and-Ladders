@@ -91,8 +91,14 @@ class Jugador():
     
 
 class VistaJugador():
-    
+    """
+    Esta clase corresponde a la Vista del Jugador que participa en el juego. Lo va a dibujar en la pantalla de pygame
+    para que pueda ser visible para los usuarios.
+    """
     def __init__(self, jugador):
+        """
+        :param jugador: Objeto de jugador, que sera a quien tiene que dibujar. Es un jugador fijo, como una relacion 1 a 1.
+        """
         self.jugador = jugador
 
     def muestre_turno_jugador(self):

@@ -25,6 +25,10 @@ POS_GANADORA = (CANTIDAD_X * CANTIDAD_Y)-1
 class Controlador:
 
     def __init__(self, es_partida_cargada):
+        """
+        Inicizaliza el controlador.
+        :param es_partida_guardada: True o False dependiendo la decision del usuario.
+        """
         self.tablero = None
         self.dado = Dado()
         self.eventos = [1, 2, 3, 4]
@@ -194,6 +198,20 @@ class Controlador:
         pygame.display.update()
         time.sleep(4)                   #4 segundos para que los demas jugadores puedan apreciar al ganador
 
+    def muestre_turno_tirar_dados(self, jugador):
+        """
+        Este metodo se va a encargar de desplegar en la ventana de pygame
+        a quien le toca tirar los dados.
+        """
+        X = 1650
+        Y = 800
+        font = pygame.font.Font('freesansbold.ttf', 15) 
+        text = font.render("Tire los dados el Jugador "+str(jugador), True, Singleton.colores_casillas["azul"], Singleton.colores_casillas["blanco"]) 
+        textRect = text.get_rect()  
+        textRect.center = (X // 2, Y // 2) 
+        Singleton.ventana.blit(text, textRect)
+        pygame.display.update()
+
     def juegue(self, jugador, jugadorVista):
         """
         Este es el metodo principal del controlador que se va a encargar de hacer un turno
@@ -240,7 +258,9 @@ class Controlador:
         entrada_color.grid(row = 1, column = 2)         
         color.get()        
         ok = Button(root,text = "Continuar",command = root.destroy)
+        colores_disponibles = Button(root,text = "Colores",command = root.destroy)
         ok.grid(row = 2, column = 2)
+        colores_disponibles.grid(row = 2, column = 3)
         def mostrar():
             numcur = color.get()
             try:
@@ -248,6 +268,19 @@ class Controlador:
             except:
                 pass
             root.destroy()
+        def mostrar_colores():
+            root_colores = Tk() 
+            root_colores.title("Colores disponibles")
+            root_colores.geometry("400x50")     
+            mensaje = Label(root_colores, text = "Colores disponibles: azul, verde, aqua, gris,")
+            mensaje.grid(row = 2, column = 1)
+            mensaje2 = Label(root_colores, text = "rojo, dorado, negro, magenta, naranja.")
+            mensaje2.grid(row = 4, column = 1)
+            salir = Button(root_colores,text = "Atras",command = root_colores.destroy)
+            salir.config(command=root_colores.destroy)
+            root_colores.mainloop()
+
+        colores_disponibles.config(command=mostrar_colores)
         ok.config(command=mostrar)
         root.mainloop()
 
@@ -308,6 +341,7 @@ def empezarCondicionesJuego(controlador):
         
     #Arbitro decide turnos
     Arbitro.decidir_turnos(Arbitro.cantidad_jugadores_tmp)
+    pygame.display.update()
     print("Orden de jugadores: ", end="\n")
     for i in Singleton.jugadores_ordenados:
         print(i.nombre)

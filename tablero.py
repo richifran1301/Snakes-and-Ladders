@@ -144,6 +144,9 @@ class Tablero():
 
 
     def cargarCasillas(self):
+        """
+        Este metodo va a cear las casillas estandar y las va a guardar dentro del vector de casillas.
+        """
         centros_casillas = self.obtener_centro_casillas(Singleton.alto_tablero, Singleton.ancho_tablero)
         for i in range(len(centros_casillas)):
             figura = pygame.Rect(centros_casillas[i][0] - int((Singleton.alto_tablero//self.tamanio[0])//2),
@@ -430,28 +433,6 @@ class Tablero():
 
             i += 1
 
-
-    """
-    #TODO mejorar condicion de limpieza
-    def limpar_casilla(self, index):
-
-        #Metodo que limpia la casilla actual donde se ubica el jugador. 
-        #:param index: posicion en el tablero donde esta el usuario
-        #:type index: int
-
-        #Primero limpia la posicion actual
-        if isinstance(self.casillas[index], CasillaEstandar):
-            self.casillas[index].dibujar()
-        else:
-            self.casillas[index].casilla.dibujar()
-            conector = self.casillas[index].casilla.getConector()
-            if isinstance(conector, Serpiente):      #dibuja si hay serpiente 
-                #lo intente simplemente conector.dibujar() pero tampoco
-                #conector.dibujar()
-                self.serpientes.index(conector).dibujar()
-            elif isinstance(conector, Escalera):      #dibuja si hay escalera
-                self.escaleras.index(conector).dibujar()
-    """
 
 class VistaTablero:
     """
