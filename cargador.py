@@ -8,7 +8,11 @@ from arbitro import Arbitro
 import pygame
 import os
 import sys
+"""
+Clase cargador, que sirve para tener diferentes maneras de cargar una partida, ademas pueden ser añadidas dinamicamente
+para que existan diferentes formatos en los cuales cargar la partida
 
+"""
 class Cargador(ABC):
     def __init__(self):
         #self.nombre = nombreArchivo
@@ -16,13 +20,24 @@ class Cargador(ABC):
     @abstractmethod
     def cargar(self):
         pass
-
+"""
+Clase cargadorTXT encargada de dictar como se cargara una partida en formato "txt", por lo que esta clase contiene metodos para este fin
+"""
 class CargadorTXT(Cargador):
-
+    """
+    Este metodo se encarga de inicializar la clase, este constructor es heredado de la clase "Cargador"
+    @param: No tiene parametros
+    @return: No retorna nada  
+    """
     def __init__(self):
         super(CargadorTXT,self).__init__()
-
-
+    """
+    Este metodo se encarga de abrir el archivo donde estan los datos de la partida a cargar, si no existe, va a pedir un nombre valido hasta que
+    se le indique uno. Una vez se haya abierto el archivo, se procede a leer los datos de este, que tienen un formato especifico creado en el "Almacenador", esta informacion se le pasa a la clase "Singleton" que es a donde va a acceder la vista para dibujar los elementos del tablero en el lugar donde estaban, con su respectivo color, forma...
+    @param: No tiene parametros
+    @return: No retorna nada
+    
+    """
     def cargar(self):  
         f = None
         es_invalido = True
@@ -90,7 +105,11 @@ class CargadorTXT(Cargador):
         except:
             print("Ocurrio un error cerrando el archivo "+self.nombre_archivo)
        
-        
+    """
+    Este metodo se encarga de recibir el nombre de la partida a cargar, si no existe, se vuelve a pedir hasta que se indique un nombre valido
+    @param: No tiene parametros
+    @return: No retorna nada
+    """  
 
     def obtener_nombre_guardado(self):
         root = Tk() 
