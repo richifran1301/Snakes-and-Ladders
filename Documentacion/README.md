@@ -1,4 +1,4 @@
-# Escaleras_y_Serpientes
+# Escaleras y Serpientes
 
 ## Autores:
 
