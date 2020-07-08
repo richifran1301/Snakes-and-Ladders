@@ -160,6 +160,7 @@ class Arbitro():
                 if  existe and not repetido:
                     Singleton.colores_jugadores_usados.append(cls.color_tmp)
                     jugador.mi_color = Singleton.colores_jugadores[cls.color_tmp]
+                    jugador.rel_ficha.setColor(Singleton.colores_jugadores[cls.color_tmp])
                     jugador.colorString = cls.color_tmp
                     salga = True
                 else:

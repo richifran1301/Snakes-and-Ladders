@@ -2,6 +2,7 @@ import pygame
 import random
 from singleton import Singleton
 from arbitro import Arbitro
+from inventario import Inventario, Ficha, ElementoInventario
 
 class Jugador():
     """
@@ -35,12 +36,19 @@ class Jugador():
         self.pos_tablero = pos
         self.movX = mX
         self.movY = mY
+        self.inventario = Inventario()
         self.ganador = False
-        self.rect = pygame.rect.Rect((self.x, self.y, self.ancho, self.largo))
+        self.crear_ficha()
         if not Singleton.es_partida_cargada:
             Singleton.cantidad_jugadores += 1
             self.setNombre("Jugador " + str(Singleton.cantidad_jugadores))
             Arbitro.setColorJugador(self)
+
+    def crear_ficha(self):
+        rect = pygame.rect.Rect((self.x, self.y, self.ancho, self.largo))
+        ficha = Ficha(rect)
+        self.rel_ficha = ficha
+        self.inventario.agregar(ficha, 1)
 
     def setNombre(self, nombre):
         """
@@ -76,9 +84,8 @@ class Jugador():
         if self.pos_tablero + distancia > 99:
             excedido = True
             self.pos_tablero = self.pos_tablero + distancia-100
-        
-        self.rect.x = coordenadas[0] + self.movX            # + movX para evitar complicaciones visuales con numeros en centro de casilla    
-        self.rect.y = coordenadas[1] + self.movY             # + movY para evitar posibles choques con escaleras o serpientes visualmente en casilla
+
+        self.rel_ficha.mover(coordenadas[0] + self.movX, coordenadas[1] + self.movY)
        
         if not excedido:
             self.pos_tablero = self.pos_tablero + distancia
@@ -121,4 +128,4 @@ class VistaJugador():
         Metodo que ilustra al jugador en la vetana de pygame. Lo dibuja para que el usuario
         pueda observarlo.
         """
-        pygame.draw.rect(Singleton.ventana, self.jugador.mi_color, self.jugador.rect)
+        pygame.draw.rect(Singleton.ventana, self.jugador.mi_color, self.jugador.rel_ficha.figura)
