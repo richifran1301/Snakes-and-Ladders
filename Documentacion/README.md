@@ -31,11 +31,11 @@ Para corroborar que se tiene tkinter: python -m Tkinter t
 
 El programa funciona tanto en Windows como en Linux, y debe de estarse ubicado en el directorio principal de Escaleras_y_Serpientes para poder correr el juego. El comando para correr el programa en Linux es 
 ```bash
-python3 controlador.py
+python3 source/controlador.py
 ```
 Si se desea correr en Windows, se usa con el comando
 ```bash
-python controlador.py
+python source/controlador.py
 ```
 
 ## Instrucciones para empezar a jugar
