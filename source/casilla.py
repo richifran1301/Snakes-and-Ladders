@@ -5,8 +5,43 @@ import itertools
 import sys, pygame 
 from pygame.locals import *
 from singleton import Singleton
+from abc import ABC, abstractmethod
 
-class Casilla():
+class Casilla(ABC):
+    def __init__(self):
+        super().__init__()
+        self.conector = None
+        self.mi_indice = None
+        
+    def setIndice(self, indice):
+        """
+        :param indice: Índice de la casilla en el vector de casillas de Tablero.
+        :type color: int
+        :returns:  None -- Procedimiento set sin valor de retorno.
+        """
+        self.mi_indice = indice
+        
+    def setConector(self, conector):
+        """
+        :param conector: El conector que tiene una casilla con otra.
+        :type conector: Conector
+        :returns:  None -- Procedimiento set sin valor de retorno.
+        """
+        self.conector = conector
+        
+    def getConector(self):
+        """
+        :returns:  Conector -- El conector que tiene una casilla con otra.
+        """
+        return self.conector 
+        
+    def getIndice(self):
+        """
+        :returns:  int -- La posicion de la casilla en la lista 'casillas' de Tablero.
+        """
+        return self.mi_indice
+            
+class CasillaSE(Casilla):
     """
     Clase genérica de casilla para implementar decoradores.
     """
@@ -24,12 +59,13 @@ class Casilla():
         :param ventana: Referencia a la ventana de pygame.
         :type ventana: pygame.display
         """
+        super().__init__()
+        super().setIndice(mi_indice)
+        
         self.mis_coordenadas = mis_coordenadas
         self.mi_color = mi_color
         self.mi_forma = mi_forma
-        self.mi_indice = mi_indice
         self.ventana = ventana
-        self.conector = None    # referencia al conector de una casilla, por defecto no tienen.
 
     def getCoordenadas(self):
         """
@@ -48,12 +84,6 @@ class Casilla():
         :returns:  pygame.Rect -- Una tupla con el color r, g, b de la casilla.
         """
         return self.mi_forma
-
-    def getIndice(self):
-        """
-        :returns:  int -- La posicion de la casilla en la lista 'casillas' de Tablero.
-        """
-        return self.mi_indice
     
     def setColor(self, color):
         """
@@ -62,20 +92,6 @@ class Casilla():
         :returns:  None -- Procedimiento set sin valor de retorno.
         """
         self.mi_color = Singleton.colores_casillas[color]
-
-    def getConector(self):
-        """
-        :returns:  ConectorEstandar -- El conector que tiene una casilla con otra.
-        """
-        return self.conector
-
-    def setConector(self, conector):
-        """
-        :param conector: El conector que tiene una casilla con otra.
-        :type conector: ConectorEstandar
-        :returns:  None -- Procedimiento set sin valor de retorno.
-        """
-        self.conector = conector
 
     def esInicio(self):
         """
@@ -107,7 +123,7 @@ class Casilla():
         textRect.center = (self.mis_coordenadas[0], self.mis_coordenadas[1])        # coordenadas del texto
         self.ventana.blit(text, textRect)
 
-class CasillaEstandar(Casilla):
+class CasillaEstandar(CasillaSE):
     """
     Esta clase representa una casilla de tablero, y contiene los
     atributos y acciones necesarios para su graficación y comportamiento
@@ -115,9 +131,9 @@ class CasillaEstandar(Casilla):
     """
 
     def __init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana):
-        Casilla.__init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana)
+        super().__init__(mis_coordenadas, mi_color, mi_forma, mi_indice, ventana)
 
-class CasillaEscalera(Casilla):
+class CasillaEscalera(CasillaSE):
     """
     Esta clase representa una casilla de tablero, y contiene los
     atributos y acciones necesarios para su graficación y comportamiento
@@ -125,9 +141,9 @@ class CasillaEscalera(Casilla):
     """
 
     def __init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana):
-        Casilla.__init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana)
+        super().__init__(mis_coordenadas, mi_color, mi_forma, mi_indice, ventana)
 
-class CasillaSerpiente(Casilla):
+class CasillaSerpiente(CasillaSE):
     """
     Esta clase representa una casilla de tablero, y contiene los
     atributos y acciones necesarios para su graficación y comportamiento
@@ -135,4 +151,4 @@ class CasillaSerpiente(Casilla):
     """
 
     def __init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana):
-        Casilla.__init__(self, mis_coordenadas, mi_color, mi_forma, mi_indice, ventana)
+        super().__init__(mis_coordenadas, mi_color, mi_forma, mi_indice, ventana)

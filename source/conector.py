@@ -4,9 +4,27 @@ import random
 import itertools
 import sys, pygame
 from pygame.locals import *
-from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
+from abc import ABC, abstractmethod
+from casilla import CasillaSE, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 
-class Conector():
+class Conector(ABC):
+    def __init__(self):
+        super().__init__()
+        self.casilla_inicio = None
+        self.casilla_final = None
+        
+    def setCasillas(self, inicio, final):
+        """
+        :param inicio: El conector inicial de una casilla con otra
+        :type conector: Conector
+        :param final: El conector final de una casilla con otra
+        :type conector: Conector
+        :returns:  None -- Procedimiento set sin valor de retorno.
+        """
+        self.casilla_inicio = inicio
+        self.casilla_final = final
+    
+class ConectorSE(Conector):
     """
     Clase genérica de conector para implementar decoradores.
     """
@@ -17,8 +35,8 @@ class Conector():
         :param ventana: Referencia a la ventana de pygame.
         :type ventana: pygame.display
         """
-        self.casilla_inicio = casilla[0]    
-        self.casilla_final = casilla[1]
+        super().__init__()
+        super().setCasillas(casilla[0], casilla[1])
         self.ventana = ventana
 
     def getCasillaInicio(self):
@@ -47,14 +65,14 @@ class Conector():
         self.casilla_inicio.setConector(self)
         self.casilla_final.setConector(self)
 
-class Escalera(Conector):
+class Escalera(ConectorSE):
     """
     Esta clase representa un conector entre dos casillas de tablero, y contiene los
     atributos y acciones necesarios para su comportamiento en un tablero de juego.
     """
 
     def __init__(self, casilla, ventana):
-        Conector.__init__(self, casilla, ventana)
+        super().__init__(casilla, ventana)
 
     def dibujar(self):
         """
@@ -63,14 +81,14 @@ class Escalera(Conector):
         """
         pygame.draw.line(self.getVentana(), (0,128,0), self.getCasillaInicio().getCoordenadas(), self.getCasillaFinal().getCoordenadas(), 4)
 
-class Serpiente(Conector):
+class Serpiente(ConectorSE):
     """
     Esta clase representa un conector entre dos casillas de tablero, y contiene los
     atributos y acciones necesarios para su comportamiento en un tablero de juego.
     """
 
     def __init__(self, casilla, ventana):
-        Conector.__init__(self, casilla, ventana)
+        super().__init__(casilla, ventana)
 
     def dibujar(self):
         """

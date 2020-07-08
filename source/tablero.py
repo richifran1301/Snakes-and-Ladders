@@ -4,13 +4,36 @@ import random
 import itertools
 import sys, pygame
 from pygame.locals import *
-#from button import Button
 from sidebar import Sidebar
-from conector import Conector, Escalera, Serpiente
-from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
+from conector import ConectorSE, Escalera, Serpiente
+from casilla import CasillaSE, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 from singleton import Singleton
+from abc import ABC, abstractmethod
 
-class Tablero():
+class Tablero(ABC):
+    def __init__(self):
+        super().__init__()
+        self.casillas = []
+
+    def initCasillas(self, casillas):
+        """
+        Este método se encarga de incilizar el vector de casillas de juego.
+        :param casillas: casillas del tablero de juego
+        :type CasillaSE[]: array
+        :returns:  None -- Procedimiento init sin valor de retorno.
+        """
+        self.casillas = casillas
+        
+    def appendCasilla(self, casilla):
+        """
+        Este método se encarga de agregar al array de casillas algunas casilla que se quiera agregar a este
+        :param casilla: casilla del tablero de juego
+        :type CasillaSE: casilla
+        :returns:  None -- Procedimiento append sin valor de retorno.
+        """
+        self.casillas.append(casilla)
+
+class TableroSE(Tablero):
     """
     Esta clase representa un tablero de juego, y contiene los
     atributos y acciones necesarios para su graficación y comportamiento.
@@ -25,6 +48,7 @@ class Tablero():
         :param ancho_barra: Ancho de la sidebar junto al tablero.
         :type ancho_barra: int
         """
+        super().__init__()
         self.tamanio = tamanio
         self.ventana = ventana
         self.es_partida_cargada = es_partida_cargada
@@ -135,14 +159,6 @@ class Tablero():
 
         for casilla in self.casillas: Singleton.casillasTablero.append(casilla)
 
-        #for serpiente in Singleton.serpientes:
-            #print("SERPIENTE INICIO: " + str(serpiente.getCasillaInicio().getIndice()))
-
-        #for i in range(len(self.casillas)):
-            #if not isinstance(self.casillas[i], CasillaEstandar):
-                #print(self.casillas[i].casilla.getIndice() + 1, self.casillas[i].casilla.getFinal() + 1, self.casillas[i].casilla.esInicio())
-
-
     def cargarCasillas(self):
         """
         Este metodo va a cear las casillas estandar y las va a guardar dentro del vector de casillas.
@@ -154,7 +170,6 @@ class Tablero():
                                 Singleton.alto_tablero//self.tamanio[0], Singleton.ancho_tablero//self.tamanio[1])
             casillaEstandar = CasillaEstandar(centros_casillas[i], (255,255,255), figura, i, self.ventana)
             self.casillas.append(casillaEstandar)
-
 
     def getPosicionesEnTupla(self, indice, posiciones):
         """
@@ -432,7 +447,6 @@ class Tablero():
             impar_final += self.tamanio[0] * 2
 
             i += 1
-
 
 class VistaTablero:
     """

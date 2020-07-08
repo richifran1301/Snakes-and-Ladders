@@ -2,13 +2,12 @@ import sys, pygame
 import os
 import time
 from pygame.locals import *
-#from button import Button
 from sidebar import Sidebar
-from conector import Conector, Escalera, Serpiente
-from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
+from conector import ConectorSE, Escalera, Serpiente
+from casilla import CasillaSE, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 from dado import Dado
 from jugador import Jugador, VistaJugador
-from tablero import Tablero
+from tablero import TableroSE
 from singleton import Singleton
 from arbitro import Arbitro
 from vista import Vista
@@ -113,7 +112,7 @@ class Controlador:
         '''
         Crea un objeto de tablero logico y o guarda en una variable local de "tablero"
         '''
-        self.tablero = Tablero(tamanio, ventana, ancho_barra, es_partida_cargada)
+        self.tablero = TableroSE(tamanio, ventana, ancho_barra, es_partida_cargada)
 
     def colorear_casillas_tablero(self):
         '''
