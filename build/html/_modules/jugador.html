@@ -1,0 +1,225 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="spanish">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jugador &#8212; documentación de Escaleras y Serpientes - 1</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para jugador</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">singleton</span> <span class="k">import</span> <span class="n">Singleton</span>
+<span class="kn">from</span> <span class="nn">arbitro</span> <span class="k">import</span> <span class="n">Arbitro</span>
+<span class="kn">from</span> <span class="nn">inventario</span> <span class="k">import</span> <span class="n">Inventario</span><span class="p">,</span> <span class="n">Ficha</span><span class="p">,</span> <span class="n">ElementoInventario</span>
+
+<div class="viewcode-block" id="Jugador"><a class="viewcode-back" href="../codigo.html#jugador.Jugador">[documentos]</a><span class="k">class</span> <span class="nc">Jugador</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Esta clase corresponde a la del Jugador que participa en el juego. Realiza las </span>
+<span class="sd">    interacciones dadas por el usuario y depende totalmente de el. Van a haber entre 2 </span>
+<span class="sd">    a 4 jugadores por juego.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pos</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">mX</span><span class="p">,</span> <span class="n">mY</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param x: coordenada en X donde se posicionara el jugador</span>
+<span class="sd">        :type x: int</span>
+<span class="sd">        :param y: coordenada en Y donde se posicionara el jugador</span>
+<span class="sd">        :type y: int</span>
+<span class="sd">        :param a: medida del ancho del jugador</span>
+<span class="sd">        :type a: int</span>
+<span class="sd">        :param l: medida de la altura del jugador</span>
+<span class="sd">        :type l: int</span>
+<span class="sd">        :param mX: es que tanto tiene que moverse en X este jugador en especifico, para</span>
+<span class="sd">        estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una </span>
+<span class="sd">        esquina de abajo, o la de arriba...</span>
+<span class="sd">        :type mX: int</span>
+<span class="sd">        :param mY: es que tanto tiene que moverse en Y este jugador en especifico, para</span>
+<span class="sd">        estar en una posicion despecifica en la casilla. Por ejemplo para quedar en una </span>
+<span class="sd">        esquina de abajo, o la de arriba...</span>
+<span class="sd">        :type mY: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">largo</span> <span class="o">=</span> <span class="n">l</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ancho</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos_tablero</span> <span class="o">=</span> <span class="n">pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">movX</span> <span class="o">=</span> <span class="n">mX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">movY</span> <span class="o">=</span> <span class="n">mY</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span> <span class="o">=</span> <span class="n">Inventario</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ganador</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crear_ficha</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">es_partida_cargada</span><span class="p">:</span>
+            <span class="n">Singleton</span><span class="o">.</span><span class="n">cantidad_jugadores</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setNombre</span><span class="p">(</span><span class="s2">&quot;Jugador &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Singleton</span><span class="o">.</span><span class="n">cantidad_jugadores</span><span class="p">))</span>
+            <span class="n">Arbitro</span><span class="o">.</span><span class="n">setColorJugador</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">crear_ficha</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">Rect</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancho</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">largo</span><span class="p">))</span>
+        <span class="n">ficha</span> <span class="o">=</span> <span class="n">Ficha</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rel_ficha</span> <span class="o">=</span> <span class="n">ficha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="o">.</span><span class="n">agregar</span><span class="p">(</span><span class="n">ficha</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Jugador.setNombre"><a class="viewcode-back" href="../codigo.html#jugador.Jugador.setNombre">[documentos]</a>    <span class="k">def</span> <span class="nf">setNombre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que se encarga de darle nombre al Jugador y almacenarlo en la variable nombre.</span>
+<span class="sd">        :param nombre: nombre para ponerle al Jugador</span>
+<span class="sd">        :type nombre: string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nombre</span> <span class="o">=</span> <span class="n">nombre</span></div>
+        
+
+<div class="viewcode-block" id="Jugador.getNombre"><a class="viewcode-back" href="../codigo.html#jugador.Jugador.getNombre">[documentos]</a>    <span class="k">def</span> <span class="nf">getNombre</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que va a devolver el nombre del Jugador.</span>
+<span class="sd">        :returns: nombre del jugador, es tipo string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nombre</span>    </div>
+
+<div class="viewcode-block" id="Jugador.mover"><a class="viewcode-back" href="../codigo.html#jugador.Jugador.mover">[documentos]</a>    <span class="k">def</span> <span class="nf">mover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distancia</span><span class="p">,</span> <span class="n">coordenadas</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que se encarga de realizar el movimiento del jugador y requiere de la participacion del</span>
+<span class="sd">        Arbitro para saber si: gano; si cayo en una escalera o serpiente y necesita moverse (tampoco sabe</span>
+<span class="sd">        adonde habria que moverse, el Arbitro le indica);y por ultimo, si ya no tiene que moverse mas.</span>
+<span class="sd">        :param distancia: cantidad de casillas a moverse, puede ser el numero que salio en los dados, o</span>
+<span class="sd">        puede ser lo que debe moverse por haber caido en escalera o serpiente.</span>
+<span class="sd">        :type distancia: int</span>
+<span class="sd">        :param coordenadas: coordenadas en X y Y de la casilla (especificamente en el centro de ella) adonde </span>
+<span class="sd">        el Jugador tiene que moverse.</span>
+<span class="sd">        :type coordenadas: tupla de int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">excedido</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">coordenadasNuevoMov</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">distanciaN</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_tablero</span> <span class="o">+</span> <span class="n">distancia</span> <span class="o">&gt;</span> <span class="mi">99</span><span class="p">:</span>
+            <span class="n">excedido</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pos_tablero</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_tablero</span> <span class="o">+</span> <span class="n">distancia</span><span class="o">-</span><span class="mi">100</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rel_ficha</span><span class="o">.</span><span class="n">mover</span><span class="p">(</span><span class="n">coordenadas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">movX</span><span class="p">,</span> <span class="n">coordenadas</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">movY</span><span class="p">)</span>
+       
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">excedido</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pos_tablero</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_tablero</span> <span class="o">+</span> <span class="n">distancia</span>
+        <span class="n">Arbitro</span><span class="o">.</span><span class="n">comprobarGane</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_tablero</span><span class="p">)</span>                          <span class="c1">#primero comprueba si el jugador en la nueva posicion gano</span>
+        <span class="k">if</span> <span class="n">Arbitro</span><span class="o">.</span><span class="n">jugador_gano</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">distanciaN</span><span class="p">,</span> <span class="n">coordenadasNuevoMov</span> <span class="o">=</span> <span class="n">Arbitro</span><span class="o">.</span><span class="n">aplicarReglasMovimiento</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_tablero</span><span class="p">)</span>        <span class="c1">#si no gano, comprueba si esta en una serp o escalera</span>
+            <span class="k">if</span> <span class="n">distanciaN</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="c1">#si esta en una serpiete o escalera, va a tener que moverse a la posicion indicada</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mover</span><span class="p">(</span><span class="n">distanciaN</span><span class="p">,</span> <span class="n">coordenadasNuevoMov</span><span class="p">)</span></div></div>
+
+    
+
+<div class="viewcode-block" id="VistaJugador"><a class="viewcode-back" href="../codigo.html#jugador.VistaJugador">[documentos]</a><span class="k">class</span> <span class="nc">VistaJugador</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Esta clase corresponde a la Vista del Jugador que participa en el juego. Lo va a dibujar en la pantalla de pygame</span>
+<span class="sd">    para que pueda ser visible para los usuarios.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jugador</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param jugador: Objeto de jugador, que sera a quien tiene que dibujar. Es un jugador fijo, como una relacion 1 a 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jugador</span> <span class="o">=</span> <span class="n">jugador</span>
+
+<div class="viewcode-block" id="VistaJugador.muestre_turno_jugador"><a class="viewcode-back" href="../codigo.html#jugador.VistaJugador.muestre_turno_jugador">[documentos]</a>    <span class="k">def</span> <span class="nf">muestre_turno_jugador</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo se va a encargar de desplegar en la ventana de pygame que jugador</span>
+<span class="sd">        le toca jugar. El texto lo muestra en el color respectivo de cada jugador. </span>
+<span class="sd">        :param jugador: Objeto de jugador a realizar turno.</span>
+<span class="sd">        :type jugador: Jugador object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="mi">1650</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="s1">&#39;freesansbold.ttf&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> 
+        <span class="n">text</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;Turno: &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">jugador</span><span class="o">.</span><span class="n">nombre</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jugador</span><span class="o">.</span><span class="n">mi_color</span><span class="p">,</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_casillas</span><span class="p">[</span><span class="s2">&quot;blanco&quot;</span><span class="p">])</span> 
+        <span class="n">textRect</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>  
+        <span class="n">textRect</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Y</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> 
+        <span class="n">Singleton</span><span class="o">.</span><span class="n">ventana</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">textRect</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VistaJugador.dibujar"><a class="viewcode-back" href="../codigo.html#jugador.VistaJugador.dibujar">[documentos]</a>    <span class="k">def</span> <span class="nf">dibujar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que ilustra al jugador en la vetana de pygame. Lo dibuja para que el usuario</span>
+<span class="sd">        pueda observarlo.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">Singleton</span><span class="o">.</span><span class="n">ventana</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jugador</span><span class="o">.</span><span class="n">mi_color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jugador</span><span class="o">.</span><span class="n">rel_ficha</span><span class="o">.</span><span class="n">figura</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../Escaleras_y_Serpientes.html">Escaleras y Serpientes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../codigo.html"><strong>Codigo Generado automaticamente</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html"><strong>Tutorial acerca como jugar Escaleras y Serpientes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proyecto.html"><strong>Informacion acerca del proyecto: Escaleras y Serpientes</strong></a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../Escaleras_y_Serpientes.html">Documentation overview</a><ul>
+  <li><a href="index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Daniel Salazar, Josue Amador, Gustavo Jimenez, Ricardo Franco, Ignacio Arroyo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

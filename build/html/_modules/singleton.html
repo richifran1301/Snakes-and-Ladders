@@ -1,0 +1,259 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="spanish">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>singleton &#8212; documentación de Escaleras y Serpientes - 1</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para singleton</h1><div class="highlight"><pre>
+<span></span>
+<div class="viewcode-block" id="Singleton"><a class="viewcode-back" href="../codigo.html#singleton.Singleton">[documentos]</a><span class="k">class</span> <span class="nc">Singleton</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Esta clase corresponde al cumplimiento del patron de disenyo </span>
+<span class="sd">    llamado Singletone. Es una clase con metodos de clase, que contiene</span>
+<span class="sd">    informacion de interes para todas las demas clases del programa.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#Atributos</span>
+    <span class="n">jugadores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">jugadores_ordenados</span> <span class="o">=</span> <span class="p">[]</span>            <span class="c1">#ordenados por turno</span>
+    <span class="n">ancho_tablero</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">alto_tablero</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">cantidad_jugadores</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">cantidad_serpientes</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">cantidad_escaleras</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">cantidad_x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">cantidad_y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pos_ganadora</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">ventana</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">posicion_jugadores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">jugadorGanador</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">casillasTablero</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">colores_casillas</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;rojo&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">244</span><span class="p">,</span><span class="mi">124</span><span class="p">,</span><span class="mi">124</span><span class="p">),</span> <span class="s2">&quot;amarillo&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">247</span><span class="p">,</span><span class="mi">244</span><span class="p">,</span><span class="mi">139</span><span class="p">),</span> <span class="s2">&quot;verde&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">161</span><span class="p">,</span><span class="mi">222</span><span class="p">,</span><span class="mi">147</span><span class="p">),</span> <span class="s2">&quot;azul&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">112</span><span class="p">,</span><span class="mi">161</span><span class="p">,</span><span class="mi">215</span><span class="p">),</span> <span class="s2">&quot;blanco&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="s2">&quot;negro&quot;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)}</span>
+    <span class="n">colores_jugadores</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;magenta&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">230</span><span class="p">),</span> <span class="s2">&quot;azul&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;gris&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">127</span><span class="p">,</span><span class="mi">127</span><span class="p">,</span><span class="mi">127</span><span class="p">),</span> <span class="s2">&quot;naranja&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;negro&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+                        <span class="s2">&quot;verde&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">118</span><span class="p">,</span><span class="mi">238</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;aqua&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="s2">&quot;dorado&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">185</span><span class="p">,</span><span class="mi">15</span><span class="p">),</span> <span class="s2">&quot;rojo&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">205</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">51</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">colores_jugadores_usados</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">serpientes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">escaleras</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">es_partida_cargada</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">indices_serpientes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">indices_escaleras</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1">#Metodos</span>
+<div class="viewcode-block" id="Singleton.init"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.init">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">an</span><span class="p">,</span> <span class="n">al</span><span class="p">,</span> <span class="n">cantX</span><span class="p">,</span> <span class="n">cantY</span><span class="p">,</span> <span class="n">casillaGanadora</span><span class="p">,</span> <span class="n">es_partida_carg</span><span class="p">,</span> <span class="n">vent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param an: ancho del tablero</span>
+<span class="sd">        :type an: int </span>
+<span class="sd">        :param al: largo del tablero.</span>
+<span class="sd">        :type al: int</span>
+<span class="sd">        :param cantX: cantidad de casillas horizontalmente (en coordenadas X)</span>
+<span class="sd">        :type cantX: int</span>
+<span class="sd">        :param cantX: cantidad de casillas verticalmente (en coordenadas Y)</span>
+<span class="sd">        :type cantY: int</span>
+<span class="sd">        :param casillaGanadora: posicion de casilla ganadora</span>
+<span class="sd">        :type casillaGanadora: int</span>
+<span class="sd">        :param casillasT: casillas del tablero </span>
+<span class="sd">        :type: vector de objetos Casilla </span>
+<span class="sd">        :param vent: Referencia a la ventana de pygame.</span>
+<span class="sd">        :type vent: pygame.display</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">pos_ganadora</span> <span class="o">=</span> <span class="n">casillaGanadora</span>                  <span class="c1">#guarda las coordenadas de la casilla 100 en tablero 10x10 por ejemplo (ganadora)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">jugadores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">ancho_tablero</span> <span class="o">=</span> <span class="n">an</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">alto_tablero</span> <span class="o">=</span> <span class="n">al</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">cantidad_jugadores</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">cantidad_x</span> <span class="o">=</span> <span class="n">cantX</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">cantidad_y</span> <span class="o">=</span> <span class="n">cantY</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">ventana</span> <span class="o">=</span> <span class="n">vent</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">establecer_pos_jugadores</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">es_partida_cargada</span> <span class="o">=</span> <span class="n">es_partida_carg</span></div>
+
+
+<div class="viewcode-block" id="Singleton.establecer_pos_jugadores"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.establecer_pos_jugadores">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">establecer_pos_jugadores</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo establece las posiciones en las que se van a ubicar los jugadores. Esta pensado</span>
+<span class="sd">        para un minimo de 2 jugadores y un maximo que corresponde a 4. Los ubica en la casilla inicial pero</span>
+<span class="sd">        de manera que se visualicen, anque hayan varios en la misma casilla. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">posicion_jugadores</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="p">((</span><span class="bp">cls</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getAlto</span><span class="p">()</span><span class="o">//</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getCantX</span><span class="p">())</span><span class="o">//</span><span class="mi">4</span><span class="p">)),</span>
+                        <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getAlto</span><span class="p">()</span><span class="o">//</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getCantY</span><span class="p">())</span><span class="o">//</span><span class="mi">2</span><span class="p">))),</span>
+
+                        <span class="p">((</span><span class="bp">cls</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getAlto</span><span class="p">()</span><span class="o">//</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getCantX</span><span class="p">()</span><span class="o">//</span><span class="mi">2</span><span class="p">))),</span> 
+                        <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getAlto</span><span class="p">()</span><span class="o">//</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getCantY</span><span class="p">())</span><span class="o">//</span><span class="mi">2</span><span class="p">))),</span>
+
+                        <span class="p">((</span><span class="bp">cls</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getAlto</span><span class="p">()</span><span class="o">//</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getCantX</span><span class="p">())</span><span class="o">//</span><span class="mi">4</span><span class="p">)),</span> 
+                        <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getAlto</span><span class="p">()</span><span class="o">//</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getCantY</span><span class="p">())</span><span class="o">//</span><span class="mi">4</span><span class="p">))),</span>
+
+                        <span class="p">((</span><span class="bp">cls</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getAlto</span><span class="p">()</span><span class="o">//</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getCantX</span><span class="p">())</span><span class="o">//</span><span class="mi">2</span><span class="p">)),</span> 
+                        <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getAlto</span><span class="p">()</span><span class="o">//</span><span class="n">Singleton</span><span class="o">.</span><span class="n">getCantY</span><span class="p">())</span><span class="o">//</span><span class="mi">4</span><span class="p">)))</span>
+        <span class="p">]</span></div>
+    
+<div class="viewcode-block" id="Singleton.getPosJugadores"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.getPosJugadores">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">getPosJugadores</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">indice</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo devuelve la posicion en el tablero, en coordenadas, de un jugador en especificion.</span>
+<span class="sd">        :param indice: numero identificador del jugador</span>
+<span class="sd">        :type indice: int</span>
+<span class="sd">        :returns: coordenadas de X y Y del jugador respectivo segun el indice</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">posicion_jugadores</span><span class="p">[</span><span class="n">indice</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Singleton.getAlto"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.getAlto">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">getAlto</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo devuelve la medida del alto del tablero.</span>
+<span class="sd">        :returns: la medida del alto del tablero</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">alto_tablero</span></div>
+
+<div class="viewcode-block" id="Singleton.getAncho"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.getAncho">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">getAncho</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo devuelve la medida del ancho del tablero.</span>
+<span class="sd">        :returns: la medida del ancho del tablero</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ancho_tablero</span></div>
+    
+<div class="viewcode-block" id="Singleton.getCantX"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.getCantX">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">getCantX</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo devuelve la cantidad de casillas horizontales</span>
+<span class="sd">        :returns: la cantidad de casillas en X (horizontalmente)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cantidad_x</span></div>
+
+<div class="viewcode-block" id="Singleton.getCantY"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.getCantY">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">getCantY</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo devuelve la cantidad de casillas verticales</span>
+<span class="sd">        :returns: la cantidad de casillas en X (verticalmente)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cantidad_y</span></div>
+
+<div class="viewcode-block" id="Singleton.agregar_jugador"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.agregar_jugador">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">agregar_jugador</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">jugador</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo reporta la existencia de un jugador en el juego, agregandolo a la lista de jugadores. </span>
+<span class="sd">        Ademas, le otorga un nombre automaticamente segun sea el orden en el que fue creado.</span>
+<span class="sd">        :param jugador: jugador a agregar.</span>
+<span class="sd">        :type jugador: Jugador</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">jugadores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">jugador</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Singleton.ver_jugadores"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.ver_jugadores">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">ver_jugadores</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo imprime en consola la cantidad de jugadores actuales</span>
+<span class="sd">        :returns: la cantidad de casillas en X (horizontalmente)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hilera</span> <span class="o">=</span> <span class="s2">&quot;Jugadores: &quot;</span>
+        <span class="k">for</span> <span class="n">jugador</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">jugadores</span><span class="p">:</span>
+            <span class="n">hilera</span> <span class="o">+=</span> <span class="n">jugador</span><span class="o">.</span><span class="n">getNombre</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="n">hilera</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Singleton.setJugadorGanador"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.setJugadorGanador">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setJugadorGanador</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">jugador</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que va a informarle al Singleton quien es el jugador ganador. Va a almacenarlo en la variable</span>
+<span class="sd">        jugadorGanador.</span>
+<span class="sd">        :param jugador: Jugador ganador a almacenar en Singleton</span>
+<span class="sd">        :type jugador: Jugador</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">jugadorGanador</span> <span class="o">=</span> <span class="n">jugador</span></div>
+
+<div class="viewcode-block" id="Singleton.getJugadorGanador"><a class="viewcode-back" href="../codigo.html#singleton.Singleton.getJugadorGanador">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">getJugadorGanador</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que devuelve al jugador ganador de la partida.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">jugadorGanador</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../Escaleras_y_Serpientes.html">Escaleras y Serpientes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../codigo.html"><strong>Codigo Generado automaticamente</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html"><strong>Tutorial acerca como jugar Escaleras y Serpientes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proyecto.html"><strong>Informacion acerca del proyecto: Escaleras y Serpientes</strong></a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../Escaleras_y_Serpientes.html">Documentation overview</a><ul>
+  <li><a href="index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Daniel Salazar, Josue Amador, Gustavo Jimenez, Ricardo Franco, Ignacio Arroyo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

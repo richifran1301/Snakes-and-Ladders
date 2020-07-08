@@ -1,0 +1,15 @@
+**Informacion acerca del proyecto: Escaleras y Serpientes**
+===========================================================
+
+**Autores**
+-----------
+- Daniel Salazar
+- Ricardo Franco
+- Gustavo Jimenez
+- Ignacio Arroyo
+- Josue Amador
+
+**Descripcion del proyecto**
+----------------------------
+
+Trabajo final del juego Escaleras y Serpientes implementado como MARDA.

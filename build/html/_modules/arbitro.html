@@ -1,0 +1,335 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="spanish">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>arbitro &#8212; documentación de Escaleras y Serpientes - 1</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para arbitro</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">singleton</span> <span class="k">import</span> <span class="n">Singleton</span>
+<span class="kn">from</span> <span class="nn">tablero</span> <span class="k">import</span> <span class="n">Tablero</span>
+<span class="kn">from</span> <span class="nn">casilla</span> <span class="k">import</span> <span class="n">Casilla</span><span class="p">,</span> <span class="n">CasillaEstandar</span><span class="p">,</span> <span class="n">CasillaEscalera</span><span class="p">,</span> <span class="n">CasillaSerpiente</span>
+
+<div class="viewcode-block" id="Arbitro"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro">[documentos]</a><span class="k">class</span> <span class="nc">Arbitro</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase de Arbitro que se encarga de revisar el comportamiento de los jugadores. Se encarga de</span>
+<span class="sd">    asegurar el buen funcionamiento del juego y lo realiza de las siguientes maneras: comprueba si </span>
+<span class="sd">    un jugador gano; si se tiene que mover porque cayo en escaelera o serpiente (si lo hace, le dice</span>
+<span class="sd">    hacia donde moverse), ayuda a decidir los turnos al inicio del juego, reporta los jugadores como</span>
+<span class="sd">    existentes dentro del juego, se asegura que cada jugador tenga un color unico...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Arbitro.init"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.init">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">controlador</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicializa el Arbitro.</span>
+<span class="sd">        :param controlador: referencia al conrolador. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">decidiendoTurno</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">en_jugada</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">jugadores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">resultados</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">jugador_gano</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">valor_actual_dados</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">controlador</span> <span class="o">=</span> <span class="n">controlador</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">cantidad_jugadores_tmp</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">color_tmp</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="Arbitro.comprobarGane"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.comprobarGane">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">comprobarGane</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">pos</span><span class="p">):</span><span class="c1">#comprueba si el jugador esta en la posicion ganadora y devuelve un bool</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo se encarga de verificar si un jugador ha ganado la partida, se utiliza en cada jugada del jugador</span>
+<span class="sd">        :param pos: Recibe la posicion de la casilla en la que se encuentra el jugador </span>
+<span class="sd">        :type pos: numero entero</span>
+<span class="sd">        :returns: bool, devuelve true si el jugador en cuestion gano la partida</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">pos</span> <span class="o">==</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">pos_ganadora</span><span class="p">:</span>
+            <span class="n">Arbitro</span><span class="o">.</span><span class="n">jugador_gano</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Arbitro.aplicarReglasMovimiento"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.aplicarReglasMovimiento">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">aplicarReglasMovimiento</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">posTablero</span><span class="p">):</span>             <span class="c1">#comprueba si el jugador esta en una escalera o serpiente y lo mueve a donde le corresponde</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo comprueba la posicion del jugador en el tablero y si en esa casilla hay una serpiente o escalera, y aplica el movimiento</span>
+<span class="sd">        indicado</span>
+<span class="sd">        :param posTablero: recibe la posicion del jugador en el tablero</span>
+<span class="sd">        :type posTablero: numero entero</span>
+<span class="sd">        :return distancia: retorna la distancia que se tiene que recorrer, ya sea al final de la serpiente o el tope de la escalera</span>
+<span class="sd">        :return coordenadasNuevas: retorna las coordenadas de la nueva casilla hacia donde se va a mover el jugador</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">casillaActual</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="n">posTablero</span><span class="p">]</span>
+        <span class="n">distancia</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">coordenadasNuevas</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casillaActual</span><span class="p">,</span><span class="n">CasillaEstandar</span><span class="p">):</span>         <span class="c1">#entra a la condicion si es serpiente o escalera</span>
+            <span class="k">if</span> <span class="n">casillaActual</span><span class="o">.</span><span class="n">esInicio</span><span class="p">():</span>
+                <span class="n">casillaFinal</span> <span class="o">=</span> <span class="n">casillaActual</span><span class="o">.</span><span class="n">getFinal</span><span class="p">()</span>
+                <span class="n">ArbitroVista</span><span class="o">.</span><span class="n">muestre_accion_casilla_especial</span><span class="p">(</span><span class="n">casillaActual</span><span class="p">,</span> <span class="n">casillaFinal</span><span class="p">)</span>
+                <span class="n">distancia</span> <span class="o">=</span> <span class="p">(</span><span class="n">posTablero</span> <span class="o">-</span> <span class="p">(</span><span class="n">casillaFinal</span><span class="o">.</span><span class="n">getIndice</span><span class="p">()))</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">coordenadasNuevas</span> <span class="o">=</span> <span class="n">casillaFinal</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()</span>
+                        
+        <span class="k">return</span> <span class="n">distancia</span><span class="p">,</span><span class="n">coordenadasNuevas</span></div>
+
+<div class="viewcode-block" id="Arbitro.reporte_jugadores"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.reporte_jugadores">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">reporte_jugadores</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">jugador</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo agrega un Jugador a la lista de jugadores que tiene el Singleton, la cual es informacion importante para las demas clases</span>
+<span class="sd">        :param jugador: recibe una instancia de un Jugador para agregarlo a la lista</span>
+<span class="sd">        :type jugador: instancia de la clase jugador</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Singleton</span><span class="o">.</span><span class="n">agregar_jugador</span><span class="p">(</span><span class="n">jugador</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arbitro.decidir_turnos"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.decidir_turnos">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">decidir_turnos</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cantidad_jugadores</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo se utiliza para decidir el orden de los turnos de los jugadores, cada uno lanza dados y el mas alto, va de primero y asi sucesivamente</span>
+<span class="sd">        :param cantidad_jugadores: recibe la cantidad de jugadores que estan en la partida</span>
+<span class="sd">        :type cantidad_jugadores: numero entero</span>
+<span class="sd">        :param boton_dados: recibe una instancia de un boton de dados del cual se sacara la informacion de los dados</span>
+<span class="sd">        :type boton_dados: instancia de la clase button</span>
+<span class="sd">        :param dado: el dado que se lanzara para sacar un numero al azar</span>
+<span class="sd">        :type dado: una instancia de dado</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cantidad_jugadores</span><span class="p">):</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">recibioDados</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">jugador_en_turno</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">controlador</span><span class="o">.</span><span class="n">muestre_turno_tirar_dados</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">controlador</span><span class="o">.</span><span class="n">maneje_eventos</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">decidiendoTurno</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">resultados</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">resultados</span><span class="p">)):</span>
+            <span class="n">jugador</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">buscar_jugador</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">jugadores</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">resultados</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">Singleton</span><span class="o">.</span><span class="n">jugadores_ordenados</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">jugador</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">jugadores</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">jugador</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Arbitro.reciboRespuestaDados"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.reciboRespuestaDados">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">reciboRespuestaDados</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">resultado_dados</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo se encarga de leer el resultado de dados, para decidir el orden de turnos </span>
+<span class="sd">        de los jugadores.</span>
+<span class="sd">        :param resultado_dados: resultado de dados, se almacenara en un vector el jugador y su</span>
+<span class="sd">        resultado especifico.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">recibioDados</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">resultados</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">resultado_dados</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">jugadores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">Singleton</span><span class="o">.</span><span class="n">jugadores</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">jugador_en_turno</span><span class="p">],</span> <span class="n">resultado_dados</span><span class="p">)</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arbitro.jugador_juegue"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.jugador_juegue">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">jugador_juegue</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">jugador</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que inicia el turno de un jugador, y espera al evento que este tire los dados.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">en_jugada</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">recibioDados</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">controlador</span><span class="o">.</span><span class="n">maneje_eventos</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="Arbitro.procesaRespuestaDados"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.procesaRespuestaDados">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">procesaRespuestaDados</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">resultado_dados</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo se encarga de leer el resultado de dados, para decidir el movimiento del jugador.</span>
+<span class="sd">        Tambien indica el final de la jugada del jugador, y el Arbitro analizara posteriormente el</span>
+<span class="sd">        movimiento del jugador.</span>
+<span class="sd">        :param resultado_dados: resultado de dados, se almacenara en self.valor_actual_dados.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">recibioDados</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">valor_actual_dados</span> <span class="o">=</span> <span class="n">resultado_dados</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">en_jugada</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Arbitro.buscar_jugador"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.buscar_jugador">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">buscar_jugador</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">jugadores</span><span class="p">,</span> <span class="n">valor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo busca un jugador dentro del vector de turnos de acuerdo al valor que saco en los dados</span>
+<span class="sd">        :param jugadores: el vector que guarda los turnos de los jugadores</span>
+<span class="sd">        :type jugadores: un array de Jugador</span>
+<span class="sd">        :param valor: la cantidad que tiro en los dados el jugador</span>
+<span class="sd">        :type valor: numero entero</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">jugador</span> <span class="ow">in</span> <span class="n">jugadores</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">jugador</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">valor</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">jugador</span></div>
+
+<div class="viewcode-block" id="Arbitro.setColorJugador"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.setColorJugador">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setColorJugador</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">jugador</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Va a almacenar un color para el Jugador y esto es decision del usuario. El color tiene que existir dentro de las opciones</span>
+<span class="sd">        y no puede repetirse. El color es unico por jugador en la partida.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">salga</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">contador</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">salga</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">controlador</span><span class="o">.</span><span class="n">obtener_colores_jugadores</span><span class="p">(</span><span class="n">jugador</span><span class="o">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">contador</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">color_tmp</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>    
+                <span class="n">repetido</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">esColorRepetido</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">color_tmp</span><span class="p">)</span>
+                <span class="n">existe</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">existeColor</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">color_tmp</span><span class="p">)</span>
+                <span class="k">if</span>  <span class="n">existe</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">repetido</span><span class="p">:</span>
+                    <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_jugadores_usados</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">color_tmp</span><span class="p">)</span>
+                    <span class="n">jugador</span><span class="o">.</span><span class="n">mi_color</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_jugadores</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">color_tmp</span><span class="p">]</span>
+                    <span class="n">jugador</span><span class="o">.</span><span class="n">rel_ficha</span><span class="o">.</span><span class="n">setColor</span><span class="p">(</span><span class="n">Singleton</span><span class="o">.</span><span class="n">colores_jugadores</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">color_tmp</span><span class="p">])</span>
+                    <span class="n">jugador</span><span class="o">.</span><span class="n">colorString</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">color_tmp</span>
+                    <span class="n">salga</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;Color invalido o repetido&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;Escoja un color valido&quot;</span>
+            <span class="n">contador</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Arbitro.esColorRepetido"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.esColorRepetido">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">esColorRepetido</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>     
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Va a buscar si el color, ya acordado por el usuario, le pertenece a otro jugador y retorna true si es asi.</span>
+<span class="sd">        Si por el otro lado, no esta repetido, entonces retorna false.</span>
+<span class="sd">        :param color: color a buscar dentro de los colores de jugadores</span>
+<span class="sd">        :type color: string</span>
+<span class="sd">        :returns: True si un jugador ya tiene ese color, False si nadie lo ha solicitado antes y no le pertenece a alguien.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_jugadores_usados</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+    
+<div class="viewcode-block" id="Arbitro.existeColor"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.existeColor">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">existeColor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Va a buscar dentro de los colores existentes, si el color escogido por el usuario existe, y va a </span>
+<span class="sd">        retornar True si si exsite y False si no.</span>
+<span class="sd">        :param color: Color escogido por el usuario que se va a buscar si existe</span>
+<span class="sd">        :type color: string</span>
+<span class="sd">        :returns: retorna True si encuentra el color dentro de los existentes, False si no.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">llave</span> <span class="ow">in</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_jugadores</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">llave</span> <span class="o">==</span> <span class="n">color</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Arbitro.obtener_destino"><a class="viewcode-back" href="../codigo.html#arbitro.Arbitro.obtener_destino">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">obtener_destino</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">resultado_dados</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que va a conseguir las coordenadas de la casilla adonde el jugador tiene</span>
+<span class="sd">        que moverse. </span>
+<span class="sd">        :param index: posicion en el tablero donde esta el usuario</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :param resultado_dados: cantidad de casillas a moverse</span>
+<span class="sd">        :type resultado_dados: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#verifica que no pase de 100</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">+</span> <span class="n">resultado_dados</span> <span class="o">&gt;</span> <span class="mi">99</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="p">(</span><span class="n">index</span><span class="o">+</span><span class="n">resultado_dados</span><span class="p">)</span><span class="o">-</span><span class="mi">100</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="o">+</span><span class="n">resultado_dados</span>
+        <span class="c1">#Despues calcula las coordenadas de la siguiente posicion a estar</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Singleton</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">CasillaEstandar</span><span class="p">):</span>
+            <span class="n">coordenadas</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coordenadas</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">casillasTablero</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">coordenadas</span></div></div>
+
+<span class="k">class</span> <span class="nc">ArbitroVista</span><span class="p">():</span>
+    
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">muestre_accion_casilla_especial</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">casillaActual</span><span class="p">,</span> <span class="n">casillaFinal</span><span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="mi">1650</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="mi">750</span>
+        <span class="n">Y2</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">+</span> <span class="mi">50</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="s1">&#39;freesansbold.ttf&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span> 
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casillaActual</span><span class="p">,</span> <span class="n">CasillaSerpiente</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&quot;BAJO POR SERPIENTE&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_casillas</span><span class="p">[</span><span class="s2">&quot;negro&quot;</span><span class="p">],</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_casillas</span><span class="p">[</span><span class="s2">&quot;rojo&quot;</span><span class="p">])</span> 
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&quot;SUBIO POR ESCALERA&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_casillas</span><span class="p">[</span><span class="s2">&quot;negro&quot;</span><span class="p">],</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_casillas</span><span class="p">[</span><span class="s2">&quot;verde&quot;</span><span class="p">])</span>
+        <span class="n">text2</span> <span class="o">=</span>  <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&quot;DESDE: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">casillaActual</span><span class="o">.</span><span class="n">getIndice</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; HASTA: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">casillaFinal</span><span class="o">.</span><span class="n">getIndice</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="kc">True</span><span class="p">,</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_casillas</span><span class="p">[</span><span class="s2">&quot;negro&quot;</span><span class="p">],</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_casillas</span><span class="p">[</span><span class="s2">&quot;blanco&quot;</span><span class="p">])</span>
+        <span class="n">textRect</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>  
+        <span class="n">textRect2</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="n">textRect</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Y</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> 
+        <span class="n">textRect2</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Y2</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> 
+        <span class="n">Singleton</span><span class="o">.</span><span class="n">ventana</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">textRect</span><span class="p">)</span>
+        <span class="n">Singleton</span><span class="o">.</span><span class="n">ventana</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text2</span><span class="p">,</span> <span class="n">textRect2</span><span class="p">)</span>
+    
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../Escaleras_y_Serpientes.html">Escaleras y Serpientes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../codigo.html"><strong>Codigo Generado automaticamente</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html"><strong>Tutorial acerca como jugar Escaleras y Serpientes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proyecto.html"><strong>Informacion acerca del proyecto: Escaleras y Serpientes</strong></a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../Escaleras_y_Serpientes.html">Documentation overview</a><ul>
+  <li><a href="index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Daniel Salazar, Josue Amador, Gustavo Jimenez, Ricardo Franco, Ignacio Arroyo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

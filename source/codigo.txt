@@ -1,0 +1,80 @@
+**Codigo Generado automaticamente**
+===================================
+
+Codigo de: **Jugador**
+----------------------
+
+.. automodule:: jugador
+   :members:
+   
+Codigo de: **Arbitro**
+----------------------
+
+.. automodule:: arbitro
+   :members:
+   
+Codigo de: **Dado**
+-------------------
+
+.. automodule:: dado
+   :members:
+
+Codigo de: **Almacenador**
+--------------------------
+
+.. automodule:: almacenador
+   :members:
+
+Codigo de: **Button**
+---------------------
+
+.. automodule:: button
+   :members:
+
+Codigo de: **Cargador**
+-----------------------
+
+.. automodule:: cargador
+   :members:
+   
+Codigo de: **Conector**
+-----------------------
+
+.. automodule:: conector
+   :members:
+   
+Codigo de: **Controlador**
+--------------------------
+
+.. automodule:: controlador
+   :members:
+   
+Codigo de: **Inventario**
+-------------------------
+
+.. automodule:: inventario
+   :members:
+   
+Codigo de: **Sidebar**
+----------------------
+
+.. automodule:: sidebar
+   :members:
+   
+Codigo de: **Singleton**
+------------------------
+
+.. automodule:: singleton
+   :members:
+   
+Codigo de: **Tablero**
+----------------------
+
+.. automodule:: tablero
+   :members:
+   
+Codigo de: **Vista**
+--------------------
+
+.. automodule:: vista
+   :members:

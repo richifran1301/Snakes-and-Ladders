@@ -1,0 +1,796 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="spanish">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Codigo Generado automaticamente &#8212; documentación de Escaleras y Serpientes - 1</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Tutorial acerca como jugar Escaleras y Serpientes" href="tutorial.html" />
+    <link rel="prev" title="Documentacion de Escaleras y Serpientes!" href="Escaleras_y_Serpientes.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="codigo-generado-automaticamente">
+<h1><strong>Codigo Generado automaticamente</strong><a class="headerlink" href="#codigo-generado-automaticamente" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="module-jugador">
+<span id="codigo-de-jugador"></span><h2>Codigo de: <strong>Jugador</strong><a class="headerlink" href="#module-jugador" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="jugador.Jugador">
+<em class="property">class </em><code class="descclassname">jugador.</code><code class="descname">Jugador</code><span class="sig-paren">(</span><em>pos</em>, <em>x</em>, <em>y</em>, <em>a</em>, <em>l</em>, <em>mX</em>, <em>mY</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jugador.html#Jugador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#jugador.Jugador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase corresponde a la del Jugador que participa en el juego. Realiza las 
+interacciones dadas por el usuario y depende totalmente de el. Van a haber entre 2 
+a 4 jugadores por juego.</p>
+<dl class="method">
+<dt id="jugador.Jugador.getNombre">
+<code class="descname">getNombre</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jugador.html#Jugador.getNombre"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#jugador.Jugador.getNombre" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que va a devolver el nombre del Jugador.
+:returns: nombre del jugador, es tipo string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jugador.Jugador.mover">
+<code class="descname">mover</code><span class="sig-paren">(</span><em>distancia</em>, <em>coordenadas</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jugador.html#Jugador.mover"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#jugador.Jugador.mover" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que se encarga de realizar el movimiento del jugador y requiere de la participacion del
+Arbitro para saber si: gano; si cayo en una escalera o serpiente y necesita moverse (tampoco sabe
+adonde habria que moverse, el Arbitro le indica);y por ultimo, si ya no tiene que moverse mas.
+:param distancia: cantidad de casillas a moverse, puede ser el numero que salio en los dados, o
+puede ser lo que debe moverse por haber caido en escalera o serpiente.
+:type distancia: int
+:param coordenadas: coordenadas en X y Y de la casilla (especificamente en el centro de ella) adonde 
+el Jugador tiene que moverse.
+:type coordenadas: tupla de int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jugador.Jugador.setNombre">
+<code class="descname">setNombre</code><span class="sig-paren">(</span><em>nombre</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jugador.html#Jugador.setNombre"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#jugador.Jugador.setNombre" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que se encarga de darle nombre al Jugador y almacenarlo en la variable nombre.
+:param nombre: nombre para ponerle al Jugador
+:type nombre: string</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="jugador.VistaJugador">
+<em class="property">class </em><code class="descclassname">jugador.</code><code class="descname">VistaJugador</code><span class="sig-paren">(</span><em>jugador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jugador.html#VistaJugador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#jugador.VistaJugador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase corresponde a la Vista del Jugador que participa en el juego. Lo va a dibujar en la pantalla de pygame
+para que pueda ser visible para los usuarios.</p>
+<dl class="method">
+<dt id="jugador.VistaJugador.dibujar">
+<code class="descname">dibujar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jugador.html#VistaJugador.dibujar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#jugador.VistaJugador.dibujar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que ilustra al jugador en la vetana de pygame. Lo dibuja para que el usuario
+pueda observarlo.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jugador.VistaJugador.muestre_turno_jugador">
+<code class="descname">muestre_turno_jugador</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jugador.html#VistaJugador.muestre_turno_jugador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#jugador.VistaJugador.muestre_turno_jugador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo se va a encargar de desplegar en la ventana de pygame que jugador
+le toca jugar. El texto lo muestra en el color respectivo de cada jugador. 
+:param jugador: Objeto de jugador a realizar turno.
+:type jugador: Jugador object</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-arbitro">
+<span id="codigo-de-arbitro"></span><h2>Codigo de: <strong>Arbitro</strong><a class="headerlink" href="#module-arbitro" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="arbitro.Arbitro">
+<em class="property">class </em><code class="descclassname">arbitro.</code><code class="descname">Arbitro</code><a class="reference internal" href="_modules/arbitro.html#Arbitro"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clase de Arbitro que se encarga de revisar el comportamiento de los jugadores. Se encarga de
+asegurar el buen funcionamiento del juego y lo realiza de las siguientes maneras: comprueba si 
+un jugador gano; si se tiene que mover porque cayo en escaelera o serpiente (si lo hace, le dice
+hacia donde moverse), ayuda a decidir los turnos al inicio del juego, reporta los jugadores como
+existentes dentro del juego, se asegura que cada jugador tenga un color unico...</p>
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.aplicarReglasMovimiento">
+<em class="property">classmethod </em><code class="descname">aplicarReglasMovimiento</code><span class="sig-paren">(</span><em>posTablero</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.aplicarReglasMovimiento"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.aplicarReglasMovimiento" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo comprueba la posicion del jugador en el tablero y si en esa casilla hay una serpiente o escalera, y aplica el movimiento
+indicado
+:param posTablero: recibe la posicion del jugador en el tablero
+:type posTablero: numero entero
+:return distancia: retorna la distancia que se tiene que recorrer, ya sea al final de la serpiente o el tope de la escalera
+:return coordenadasNuevas: retorna las coordenadas de la nueva casilla hacia donde se va a mover el jugador</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.buscar_jugador">
+<em class="property">classmethod </em><code class="descname">buscar_jugador</code><span class="sig-paren">(</span><em>jugadores</em>, <em>valor</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.buscar_jugador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.buscar_jugador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo busca un jugador dentro del vector de turnos de acuerdo al valor que saco en los dados
+:param jugadores: el vector que guarda los turnos de los jugadores
+:type jugadores: un array de Jugador
+:param valor: la cantidad que tiro en los dados el jugador
+:type valor: numero entero</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.comprobarGane">
+<em class="property">classmethod </em><code class="descname">comprobarGane</code><span class="sig-paren">(</span><em>pos</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.comprobarGane"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.comprobarGane" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo se encarga de verificar si un jugador ha ganado la partida, se utiliza en cada jugada del jugador
+:param pos: Recibe la posicion de la casilla en la que se encuentra el jugador 
+:type pos: numero entero
+:returns: bool, devuelve true si el jugador en cuestion gano la partida</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.decidir_turnos">
+<em class="property">classmethod </em><code class="descname">decidir_turnos</code><span class="sig-paren">(</span><em>cantidad_jugadores</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.decidir_turnos"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.decidir_turnos" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo se utiliza para decidir el orden de los turnos de los jugadores, cada uno lanza dados y el mas alto, va de primero y asi sucesivamente
+:param cantidad_jugadores: recibe la cantidad de jugadores que estan en la partida
+:type cantidad_jugadores: numero entero
+:param boton_dados: recibe una instancia de un boton de dados del cual se sacara la informacion de los dados
+:type boton_dados: instancia de la clase button
+:param dado: el dado que se lanzara para sacar un numero al azar
+:type dado: una instancia de dado</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.esColorRepetido">
+<em class="property">classmethod </em><code class="descname">esColorRepetido</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.esColorRepetido"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.esColorRepetido" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Va a buscar si el color, ya acordado por el usuario, le pertenece a otro jugador y retorna true si es asi.
+Si por el otro lado, no esta repetido, entonces retorna false.
+:param color: color a buscar dentro de los colores de jugadores
+:type color: string
+:returns: True si un jugador ya tiene ese color, False si nadie lo ha solicitado antes y no le pertenece a alguien.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.existeColor">
+<em class="property">classmethod </em><code class="descname">existeColor</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.existeColor"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.existeColor" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Va a buscar dentro de los colores existentes, si el color escogido por el usuario existe, y va a 
+retornar True si si exsite y False si no.
+:param color: Color escogido por el usuario que se va a buscar si existe
+:type color: string
+:returns: retorna True si encuentra el color dentro de los existentes, False si no.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.init">
+<em class="property">classmethod </em><code class="descname">init</code><span class="sig-paren">(</span><em>controlador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.init"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.init" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Inicializa el Arbitro.
+:param controlador: referencia al conrolador.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.jugador_juegue">
+<em class="property">classmethod </em><code class="descname">jugador_juegue</code><span class="sig-paren">(</span><em>jugador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.jugador_juegue"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.jugador_juegue" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que inicia el turno de un jugador, y espera al evento que este tire los dados.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.obtener_destino">
+<em class="property">classmethod </em><code class="descname">obtener_destino</code><span class="sig-paren">(</span><em>index</em>, <em>resultado_dados</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.obtener_destino"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.obtener_destino" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que va a conseguir las coordenadas de la casilla adonde el jugador tiene
+que moverse. 
+:param index: posicion en el tablero donde esta el usuario
+:type index: int
+:param resultado_dados: cantidad de casillas a moverse
+:type resultado_dados: int</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.procesaRespuestaDados">
+<em class="property">classmethod </em><code class="descname">procesaRespuestaDados</code><span class="sig-paren">(</span><em>resultado_dados</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.procesaRespuestaDados"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.procesaRespuestaDados" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo se encarga de leer el resultado de dados, para decidir el movimiento del jugador.
+Tambien indica el final de la jugada del jugador, y el Arbitro analizara posteriormente el
+movimiento del jugador.
+:param resultado_dados: resultado de dados, se almacenara en self.valor_actual_dados.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.reciboRespuestaDados">
+<em class="property">classmethod </em><code class="descname">reciboRespuestaDados</code><span class="sig-paren">(</span><em>resultado_dados</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.reciboRespuestaDados"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.reciboRespuestaDados" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo se encarga de leer el resultado de dados, para decidir el orden de turnos 
+de los jugadores.
+:param resultado_dados: resultado de dados, se almacenara en un vector el jugador y su
+resultado especifico.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.reporte_jugadores">
+<em class="property">classmethod </em><code class="descname">reporte_jugadores</code><span class="sig-paren">(</span><em>jugador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.reporte_jugadores"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.reporte_jugadores" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo agrega un Jugador a la lista de jugadores que tiene el Singleton, la cual es informacion importante para las demas clases
+:param jugador: recibe una instancia de un Jugador para agregarlo a la lista
+:type jugador: instancia de la clase jugador</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="arbitro.Arbitro.setColorJugador">
+<em class="property">classmethod </em><code class="descname">setColorJugador</code><span class="sig-paren">(</span><em>jugador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arbitro.html#Arbitro.setColorJugador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#arbitro.Arbitro.setColorJugador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Va a almacenar un color para el Jugador y esto es decision del usuario. El color tiene que existir dentro de las opciones
+y no puede repetirse. El color es unico por jugador en la partida.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dado">
+<span id="codigo-de-dado"></span><h2>Codigo de: <strong>Dado</strong><a class="headerlink" href="#module-dado" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="dado.Dado">
+<em class="property">class </em><code class="descclassname">dado.</code><code class="descname">Dado</code><a class="reference internal" href="_modules/dado.html#Dado"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#dado.Dado" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase representa un dado de seis caras, y sus atributos y acciones necesarios 
+para su comportamiento en un tablero de juego.</p>
+<dl class="method">
+<dt id="dado.Dado.lanzar">
+<code class="descname">lanzar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dado.html#Dado.lanzar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#dado.Dado.lanzar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función dibuja los dados resultantes de un lanzamiento y arroja la suma de sus valores.
+:returns:  int -- Suma de las caras resultantes de ambos dados.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dado.VistaDado">
+<em class="property">class </em><code class="descclassname">dado.</code><code class="descname">VistaDado</code><span class="sig-paren">(</span><em>controlador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dado.html#VistaDado"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#dado.VistaDado" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase representa un dado de seis caras, y sus atributos y acciones necesarios 
+para su comportamiento en un tablero de juego.</p>
+<dl class="method">
+<dt id="dado.VistaDado.dibujar">
+<code class="descname">dibujar</code><span class="sig-paren">(</span><em>resultados_por_dado</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dado.html#VistaDado.dibujar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#dado.VistaDado.dibujar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función dibuja dos dados según el resultado de sus caras.
+:returns:  None -- Procedimiento sin valor de retorno.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-almacenador">
+<span id="codigo-de-almacenador"></span><h2>Codigo de: <strong>Almacenador</strong><a class="headerlink" href="#module-almacenador" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="almacenador.Almacenador">
+<em class="property">class </em><code class="descclassname">almacenador.</code><code class="descname">Almacenador</code><a class="reference internal" href="_modules/almacenador.html#Almacenador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#almacenador.Almacenador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase corresponde a un almacenador, cuya funcionalidad es guardar en un archivo los avances del juego de manera
+que el usuario pueda continuar la partida en otro momento. Esta clase respeta el patron de disenyo Constructor.</p>
+<dl class="method">
+<dt id="almacenador.Almacenador.guardar">
+<code class="descname">guardar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/almacenador.html#Almacenador.guardar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#almacenador.Almacenador.guardar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo abstracto del guardado de archivos. Cada clase que haga herencia, guardara en un archivo de formato distinto.
+En nuestro caso, solo lo haremos con una clase que guarde en .txt.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="almacenador.AlmacenadorTXT">
+<em class="property">class </em><code class="descclassname">almacenador.</code><code class="descname">AlmacenadorTXT</code><span class="sig-paren">(</span><em>nombreArchivo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/almacenador.html#AlmacenadorTXT"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#almacenador.AlmacenadorTXT" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase hereda de Almacenador, y demuestra el correcto funcionamiento del patron Constructor. Esta clase es especifica
+para crear archivos de formato .txt donde se almacenara la informacion vital del juego, para que sea posible jugarlo luego.</p>
+<dl class="method">
+<dt id="almacenador.AlmacenadorTXT.guardar">
+<code class="descname">guardar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/almacenador.html#AlmacenadorTXT.guardar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#almacenador.AlmacenadorTXT.guardar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que va guaardar en un archivo de texto toda la informacion vital para guardar la partida. Esta informacion es: la
+cantidad de jugadores; el nombre, posicion en el tablero, color, ubicacion en casilla en X y ubicacion en casilla en Y de 
+cada jugador; cantidad de serpientes; posicion en el tablero de inicio de sepriente y la posicion de final de la misma; 
+cantidad de escaleras; posicion en el tablero de inicio de escalera y la posicion de final de la misma.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-button">
+<span id="codigo-de-button"></span><h2>Codigo de: <strong>Button</strong><a class="headerlink" href="#module-button" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="module-cargador">
+<span id="codigo-de-cargador"></span><h2>Codigo de: <strong>Cargador</strong><a class="headerlink" href="#module-cargador" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="cargador.Cargador">
+<em class="property">class </em><code class="descclassname">cargador.</code><code class="descname">Cargador</code><a class="reference internal" href="_modules/cargador.html#Cargador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#cargador.Cargador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="cargador.CargadorTXT">
+<em class="property">class </em><code class="descclassname">cargador.</code><code class="descname">CargadorTXT</code><a class="reference internal" href="_modules/cargador.html#CargadorTXT"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#cargador.CargadorTXT" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo se encarga de inicializar la clase, este constructor es heredado de la clase &quot;Cargador&quot;
+&#64;param: No tiene parametros
+&#64;return: No retorna nada</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-conector">
+<span id="codigo-de-conector"></span><h2>Codigo de: <strong>Conector</strong><a class="headerlink" href="#module-conector" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="conector.Conector">
+<em class="property">class </em><code class="descclassname">conector.</code><code class="descname">Conector</code><span class="sig-paren">(</span><em>casilla</em>, <em>ventana</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clase genérica de conector para implementar decoradores.</p>
+<dl class="method">
+<dt id="conector.Conector.getCasillaFinal">
+<code class="descname">getCasillaFinal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector.getCasillaFinal"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector.getCasillaFinal" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">CasillaEstandar -- Referencia a la casilla donde termina el conector.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="conector.Conector.getCasillaInicio">
+<code class="descname">getCasillaInicio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector.getCasillaInicio"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector.getCasillaInicio" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">CasillaEstandar -- Referencia a la casilla donde inicia el conector.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="conector.Conector.getVentana">
+<code class="descname">getVentana</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector.getVentana"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector.getVentana" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">pygame.display -- Referencia a la ventana de pygame.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="conector.Conector.sendConector">
+<code class="descname">sendConector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector.sendConector"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector.sendConector" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función envía el mismo conector (self) a sus casillas relacionadas de inicio y fin.
+:returns:  None -- Procedimiento sin valor de retorno.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="conector.Escalera">
+<em class="property">class </em><code class="descclassname">conector.</code><code class="descname">Escalera</code><span class="sig-paren">(</span><em>casilla</em>, <em>ventana</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Escalera"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Escalera" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase representa un conector entre dos casillas de tablero, y contiene los
+atributos y acciones necesarios para su comportamiento en un tablero de juego.</p>
+<dl class="method">
+<dt id="conector.Escalera.dibujar">
+<code class="descname">dibujar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Escalera.dibujar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Escalera.dibujar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este método dibuja el conector como una escalera en la ventana de pygame.
+:returns:  None -- Procedimiento sin valor de retorno.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="conector.Serpiente">
+<em class="property">class </em><code class="descclassname">conector.</code><code class="descname">Serpiente</code><span class="sig-paren">(</span><em>casilla</em>, <em>ventana</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Serpiente"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Serpiente" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase representa un conector entre dos casillas de tablero, y contiene los
+atributos y acciones necesarios para su comportamiento en un tablero de juego.</p>
+<dl class="method">
+<dt id="conector.Serpiente.dibujar">
+<code class="descname">dibujar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Serpiente.dibujar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Serpiente.dibujar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este método dibuja el conector como una escalera en la ventana de pygame.
+:returns:  None -- Procedimiento sin valor de retorno.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-controlador">
+<span id="codigo-de-controlador"></span><h2>Codigo de: <strong>Controlador</strong><a class="headerlink" href="#module-controlador" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="function">
+<dt id="controlador.empezarCondicionesJuego">
+<code class="descclassname">controlador.</code><code class="descname">empezarCondicionesJuego</code><span class="sig-paren">(</span><em>controlador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controlador.html#empezarCondicionesJuego"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#controlador.empezarCondicionesJuego" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Llena las condiciones iniciales que ocupa el juego
+:param controlador: objeto de controlador para utilizar sus funciones
+:type controlador: Controlador object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="controlador.juego">
+<code class="descclassname">controlador.</code><code class="descname">juego</code><span class="sig-paren">(</span><em>controlador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controlador.html#juego"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#controlador.juego" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo tiene el ciclo principal del juego, que no termina hasta que alguien gane.
+Va a llamar todas las funciones que ocupa el juego para funcionar.
+:param controlador: objeto de controlador para utilizar sus funciones
+:type controlador: Controlador object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="controlador.run">
+<code class="descclassname">controlador.</code><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controlador.html#run"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#controlador.run" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que verifica si es una partida cargada o una partida nueva. Tambien despliega el
+menu principal. Llama al ciclo principal del juego (metodo juego)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-inventario">
+<span id="codigo-de-inventario"></span><h2>Codigo de: <strong>Inventario</strong><a class="headerlink" href="#module-inventario" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="inventario.ElementoInventario">
+<em class="property">class </em><code class="descclassname">inventario.</code><code class="descname">ElementoInventario</code><a class="reference internal" href="_modules/inventario.html#ElementoInventario"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.ElementoInventario" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="inventario.Ficha">
+<em class="property">class </em><code class="descclassname">inventario.</code><code class="descname">Ficha</code><span class="sig-paren">(</span><em>figura</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inventario.html#Ficha"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.Ficha" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-sidebar">
+<span id="codigo-de-sidebar"></span><h2>Codigo de: <strong>Sidebar</strong><a class="headerlink" href="#module-sidebar" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="sidebar.Sidebar">
+<em class="property">class </em><code class="descclassname">sidebar.</code><code class="descname">Sidebar</code><span class="sig-paren">(</span><em>alto_total</em>, <em>ancho_total</em>, <em>ancho_sidebar</em>, <em>mi_color</em>, <em>elementos</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sidebar.html#Sidebar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#sidebar.Sidebar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clase que representa al espacio extra en la ventana de pygame, que no pertenece al tablero.
+Contiene informacion valiosa que le comuncia al jugador el turno, quien gana, como moverse...
+Ademas, en este espacio se juega con los dados para decidir turnos y permitir al jugador moverse
+en el juego.</p>
+<dl class="method">
+<dt id="sidebar.Sidebar.dibujar">
+<code class="descname">dibujar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sidebar.html#Sidebar.dibujar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#sidebar.Sidebar.dibujar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que ilustra visualmente el espacio al lado del tablero.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-singleton">
+<span id="codigo-de-singleton"></span><h2>Codigo de: <strong>Singleton</strong><a class="headerlink" href="#module-singleton" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="singleton.Singleton">
+<em class="property">class </em><code class="descclassname">singleton.</code><code class="descname">Singleton</code><a class="reference internal" href="_modules/singleton.html#Singleton"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase corresponde al cumplimiento del patron de disenyo 
+llamado Singletone. Es una clase con metodos de clase, que contiene
+informacion de interes para todas las demas clases del programa.</p>
+<dl class="classmethod">
+<dt id="singleton.Singleton.agregar_jugador">
+<em class="property">classmethod </em><code class="descname">agregar_jugador</code><span class="sig-paren">(</span><em>jugador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.agregar_jugador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.agregar_jugador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo reporta la existencia de un jugador en el juego, agregandolo a la lista de jugadores. 
+Ademas, le otorga un nombre automaticamente segun sea el orden en el que fue creado.
+:param jugador: jugador a agregar.
+:type jugador: Jugador</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.establecer_pos_jugadores">
+<em class="property">classmethod </em><code class="descname">establecer_pos_jugadores</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.establecer_pos_jugadores"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.establecer_pos_jugadores" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo establece las posiciones en las que se van a ubicar los jugadores. Esta pensado
+para un minimo de 2 jugadores y un maximo que corresponde a 4. Los ubica en la casilla inicial pero
+de manera que se visualicen, anque hayan varios en la misma casilla.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.getAlto">
+<em class="property">classmethod </em><code class="descname">getAlto</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.getAlto"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.getAlto" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo devuelve la medida del alto del tablero.
+:returns: la medida del alto del tablero</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.getAncho">
+<em class="property">classmethod </em><code class="descname">getAncho</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.getAncho"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.getAncho" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo devuelve la medida del ancho del tablero.
+:returns: la medida del ancho del tablero</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.getCantX">
+<em class="property">classmethod </em><code class="descname">getCantX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.getCantX"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.getCantX" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo devuelve la cantidad de casillas horizontales
+:returns: la cantidad de casillas en X (horizontalmente)</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.getCantY">
+<em class="property">classmethod </em><code class="descname">getCantY</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.getCantY"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.getCantY" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo devuelve la cantidad de casillas verticales
+:returns: la cantidad de casillas en X (verticalmente)</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.getJugadorGanador">
+<em class="property">classmethod </em><code class="descname">getJugadorGanador</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.getJugadorGanador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.getJugadorGanador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que devuelve al jugador ganador de la partida.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.getPosJugadores">
+<em class="property">classmethod </em><code class="descname">getPosJugadores</code><span class="sig-paren">(</span><em>indice</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.getPosJugadores"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.getPosJugadores" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo devuelve la posicion en el tablero, en coordenadas, de un jugador en especificion.
+:param indice: numero identificador del jugador
+:type indice: int
+:returns: coordenadas de X y Y del jugador respectivo segun el indice</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.init">
+<em class="property">classmethod </em><code class="descname">init</code><span class="sig-paren">(</span><em>an</em>, <em>al</em>, <em>cantX</em>, <em>cantY</em>, <em>casillaGanadora</em>, <em>es_partida_carg</em>, <em>vent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.init"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.init" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><ul class="first simple">
+<li><strong>an</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(en Python versión 3.8)"><em>int</em></a>) -- ancho del tablero</li>
+<li><strong>al</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(en Python versión 3.8)"><em>int</em></a>) -- largo del tablero.</li>
+<li><strong>cantX</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(en Python versión 3.8)"><em>int</em></a>) -- cantidad de casillas horizontalmente (en coordenadas X)</li>
+<li><strong>cantX</strong> -- cantidad de casillas verticalmente (en coordenadas Y)</li>
+<li><strong>casillaGanadora</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(en Python versión 3.8)"><em>int</em></a>) -- posicion de casilla ganadora</li>
+<li><strong>casillasT</strong> -- casillas del tablero</li>
+<li><strong>vent</strong> (<em>pygame.display</em>) -- Referencia a la ventana de pygame.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"><p class="first last">vector de objetos Casilla</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.setJugadorGanador">
+<em class="property">classmethod </em><code class="descname">setJugadorGanador</code><span class="sig-paren">(</span><em>jugador</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.setJugadorGanador"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.setJugadorGanador" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que va a informarle al Singleton quien es el jugador ganador. Va a almacenarlo en la variable
+jugadorGanador.
+:param jugador: Jugador ganador a almacenar en Singleton
+:type jugador: Jugador</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="singleton.Singleton.ver_jugadores">
+<em class="property">classmethod </em><code class="descname">ver_jugadores</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/singleton.html#Singleton.ver_jugadores"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#singleton.Singleton.ver_jugadores" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo imprime en consola la cantidad de jugadores actuales
+:returns: la cantidad de casillas en X (horizontalmente)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tablero">
+<span id="codigo-de-tablero"></span><h2>Codigo de: <strong>Tablero</strong><a class="headerlink" href="#module-tablero" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="tablero.Tablero">
+<em class="property">class </em><code class="descclassname">tablero.</code><code class="descname">Tablero</code><span class="sig-paren">(</span><em>tamanio</em>, <em>ventana</em>, <em>ancho_barra</em>, <em>es_partida_cargada</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase representa un tablero de juego, y contiene los
+atributos y acciones necesarios para su graficación y comportamiento.</p>
+<dl class="method">
+<dt id="tablero.Tablero.cargarCasillas">
+<code class="descname">cargarCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.cargarCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.cargarCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este metodo va a cear las casillas estandar y las va a guardar dentro del vector de casillas.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.colorearCasillas">
+<code class="descname">colorearCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.colorearCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.colorearCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función colorea las casillas con un algoritmo que impide colores consecutivos. 
+:returns:  None -- Procedimiento sin valor de retorno.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.existeConexion">
+<code class="descname">existeConexion</code><span class="sig-paren">(</span><em>indice</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.existeConexion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.existeConexion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función indica si una casilla ya está conectada con otra.
+:param indice: El índice de la casilla en la lista general de casillas.
+:type indice: int
+:returns:  bool -- Devuelve True si la casilla en ese índice ya está relacionada con un conector.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.generarCasillas">
+<code class="descname">generarCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.generarCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.generarCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este método genera casillas y sus conectores para un tablero de Serpientes y escaleras de manera aleatoria.
+:returns:  None -- Procedimiento sin valor de retorno.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.generar_conexiones">
+<code class="descname">generar_conexiones</code><span class="sig-paren">(</span><em>casillas</em>, <em>cantidad_serpientes</em>, <em>cantidad_escaleras</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.generar_conexiones"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.generar_conexiones" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función genera dos listas de tuplas a partir de ciertas posiciones, una para serpientes y otra para escaleras. 
+Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o escalera.
+:param casillas: Lista de todas las casillas.
+:type casillas: list
+:param cantidad_serpientes: Cantidad deseada de serpientes (n).
+:type cantidad_serpientes: int
+:param cantidad_escaleras: Cantidad deseada de escaleras (m).
+:type cantidad_escaleras: int
+:returns:  tuple -- Devuelve como tupla las dos listas con tuplas de posiciones de serpientes y escaleras.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.generar_escaleras">
+<code class="descname">generar_escaleras</code><span class="sig-paren">(</span><em>casillas</em>, <em>cantidad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.generar_escaleras"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.generar_escaleras" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función genera tuplas con las posiciones de inicio y fin de n escaleras dadas.
+:param casillas: Lista de todas las casillas.
+:type casillas: list
+:param cantidad: Cantidad deseada de escaleras (n).
+:type cantidad: int
+:returns:  list -- Devuelve un vector con posiciones de escaleras, pares inicios, impares fines, consecutivos.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.generar_serpientes">
+<code class="descname">generar_serpientes</code><span class="sig-paren">(</span><em>escaleras</em>, <em>casillas</em>, <em>cantidad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.generar_serpientes"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.generar_serpientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función genera tuplas con las posiciones de inicio y fin de n serpientes dadas.
+:param escaleras: Lista de escaleras (necesaria para no crear serpientes donde hay escaleras).
+:type escaleras: list
+:param casillas: Lista de todas las casillas.
+:type casillas: list
+:param cantidad: Cantidad deseada de serpientes (n).
+:type cantidad: int
+:returns:  list -- Devuelve un vector con posiciones de serpientes, pares inicios, impares fines, consecutivos.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.getPar">
+<code class="descname">getPar</code><span class="sig-paren">(</span><em>indice</em>, <em>posiciones</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.getPar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.getPar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función devuelve la tupla de casillas correspondiente a una tupla de índices inicio y fin.
+:param indice: El índice de la casilla en la lista general de casillas.
+:type indice: int
+:param posiciones: Lista de tuplas con las posiciones inicial y final de cada serpiente o escalera.
+:type posiciones: list
+:returns:  tuple -- Devuelve la tupla de dos casillas, la de inicio en pos 0 y la de fin en pos 1.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.getPosicionesEnTupla">
+<code class="descname">getPosicionesEnTupla</code><span class="sig-paren">(</span><em>indice</em>, <em>posiciones</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.getPosicionesEnTupla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.getPosicionesEnTupla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función devuelve la tupla de índices inicio y fin donde se encuentra un índice de casilla.
+:param indice: El índice de la casilla en la lista general de casillas.
+:type indice: int
+:param posiciones: Lista de tuplas con las posiciones inicial y final de cada serpiente o escalera.
+:type posiciones: list
+:returns:  tuple/None -- Devuelve la tupla si se encontró, si no, devuelve None.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.obtener_casillas">
+<code class="descname">obtener_casillas</code><span class="sig-paren">(</span><em>x</em>, <em>max_iteracion</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.obtener_casillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.obtener_casillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. 
+:param x: Ancho de la casilla.
+:type x: int
+:param max_iteracion: Máxima cantidad de coordenadas por generar.
+:type max_iteracion: int
+:returns:  list -- Devuelve una lista con coordenadas que representan centros.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.obtener_centro_casillas">
+<code class="descname">obtener_centro_casillas</code><span class="sig-paren">(</span><em>ancho_total</em>, <em>alto_total</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.obtener_centro_casillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.obtener_centro_casillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función calcula una cantidad de casillas basado en el tamaño del tablero, y arroja la lista de sus centros. 
+:param ancho_total: Ancho total del tablero.
+:type ancho_total: int
+:param alto_total: Alto total del tablero.
+:type alto_total: int
+:returns:  list -- Devuelve una lista con coordenadas que representan centros.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.obtener_orden_coordenadas">
+<code class="descname">obtener_orden_coordenadas</code><span class="sig-paren">(</span><em>centro_casillas_x</em>, <em>centro_casillas_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.obtener_orden_coordenadas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.obtener_orden_coordenadas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. 
+:param centro_casillas_x: Lista de centros de casillas en eje x.
+:type centro_casillas_x: list
+:param centro_casillas_y: Lista de centros de casillas en eje y.
+:type centro_casillas_y: list
+:returns:  list -- Devuelve la lista con coordenadas de todas las casillas (x, y) como tuplas.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tablero.VistaTablero">
+<em class="property">class </em><code class="descclassname">tablero.</code><code class="descname">VistaTablero</code><span class="sig-paren">(</span><em>controlador</em>, <em>tamanio</em>, <em>ventana</em>, <em>ancho_barra</em>, <em>es_partida_cargada</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#VistaTablero"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.VistaTablero" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta clase representa un tablero de juego, y contiene los
+atributos y acciones necesarios para su graficación y comportamiento.</p>
+<dl class="method">
+<dt id="tablero.VistaTablero.dibujarCasillas">
+<code class="descname">dibujarCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#VistaTablero.dibujarCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.VistaTablero.dibujarCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función dibuja las casillas y sus conectores en la ventana.
+:returns:  None -- Procedimiento sin valor de retorno.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-vista">
+<span id="codigo-de-vista"></span><h2>Codigo de: <strong>Vista</strong><a class="headerlink" href="#module-vista" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="Escaleras_y_Serpientes.html">Escaleras y Serpientes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>Codigo Generado automaticamente</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-jugador">Codigo de: <strong>Jugador</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-arbitro">Codigo de: <strong>Arbitro</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-dado">Codigo de: <strong>Dado</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-almacenador">Codigo de: <strong>Almacenador</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-button">Codigo de: <strong>Button</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-cargador">Codigo de: <strong>Cargador</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-conector">Codigo de: <strong>Conector</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-controlador">Codigo de: <strong>Controlador</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-inventario">Codigo de: <strong>Inventario</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sidebar">Codigo de: <strong>Sidebar</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-singleton">Codigo de: <strong>Singleton</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tablero">Codigo de: <strong>Tablero</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-vista">Codigo de: <strong>Vista</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html"><strong>Tutorial acerca como jugar Escaleras y Serpientes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="proyecto.html"><strong>Informacion acerca del proyecto: Escaleras y Serpientes</strong></a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="Escaleras_y_Serpientes.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Escaleras_y_Serpientes.html" title="capítulo anterior"><strong>Documentacion de Escaleras y Serpientes!</strong></a></li>
+      <li>Next: <a href="tutorial.html" title="próximo capítulo"><strong>Tutorial acerca como jugar Escaleras y Serpientes</strong></a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Daniel Salazar, Josue Amador, Gustavo Jimenez, Ricardo Franco, Ignacio Arroyo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/codigo.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,568 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="spanish">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tablero &#8212; documentación de Escaleras y Serpientes - 1</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para tablero</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="k">import</span> <span class="o">*</span>
+<span class="c1">#from button import Button</span>
+<span class="kn">from</span> <span class="nn">sidebar</span> <span class="k">import</span> <span class="n">Sidebar</span>
+<span class="kn">from</span> <span class="nn">conector</span> <span class="k">import</span> <span class="n">Conector</span><span class="p">,</span> <span class="n">Escalera</span><span class="p">,</span> <span class="n">Serpiente</span>
+<span class="kn">from</span> <span class="nn">casilla</span> <span class="k">import</span> <span class="n">Casilla</span><span class="p">,</span> <span class="n">CasillaEstandar</span><span class="p">,</span> <span class="n">CasillaEscalera</span><span class="p">,</span> <span class="n">CasillaSerpiente</span>
+<span class="kn">from</span> <span class="nn">singleton</span> <span class="k">import</span> <span class="n">Singleton</span>
+
+<div class="viewcode-block" id="Tablero"><a class="viewcode-back" href="../codigo.html#tablero.Tablero">[documentos]</a><span class="k">class</span> <span class="nc">Tablero</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Esta clase representa un tablero de juego, y contiene los</span>
+<span class="sd">    atributos y acciones necesarios para su graficación y comportamiento.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tamanio</span><span class="p">,</span> <span class="n">ventana</span><span class="p">,</span> <span class="n">ancho_barra</span><span class="p">,</span> <span class="n">es_partida_cargada</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param tamanio: Tamaño del tablero en píxeles como tupla (ancho, alto).</span>
+<span class="sd">        :type tamanio: tuple</span>
+<span class="sd">        :param ventana: Referencia a la ventana de pygame.</span>
+<span class="sd">        :type ventana: pygame.display</span>
+<span class="sd">        :param ancho_barra: Ancho de la sidebar junto al tablero.</span>
+<span class="sd">        :type ancho_barra: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span> <span class="o">=</span> <span class="n">tamanio</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span> <span class="o">=</span> <span class="n">ventana</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">es_partida_cargada</span> <span class="o">=</span> <span class="n">es_partida_cargada</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span> <span class="o">=</span> <span class="p">[]</span>              <span class="c1"># lista de casillas del tablero</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">serpientes</span> <span class="o">=</span> <span class="p">[]</span>            <span class="c1"># lista de conectores tipo serpiente del tablero</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">escaleras</span> <span class="o">=</span> <span class="p">[]</span>             <span class="c1"># lista de conectores tipo escalera del tablero</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generarCasillas</span><span class="p">()</span>          <span class="c1"># se llama a la función que genera casillas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ancho_barra</span> <span class="o">=</span> <span class="n">ancho_barra</span>
+        
+<div class="viewcode-block" id="Tablero.generarCasillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.generarCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">generarCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este método genera casillas y sus conectores para un tablero de Serpientes y escaleras de manera aleatoria.</span>
+<span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">es_partida_cargada</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">serpientes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">escaleras</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="o">=</span> <span class="p">[]</span>
+            <span class="n">Singleton</span><span class="o">.</span><span class="n">escaleras</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">Singleton</span><span class="o">.</span><span class="n">serpientes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">Singleton</span><span class="o">.</span><span class="n">casillasTablero</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">alto</span><span class="p">,</span> <span class="n">ancho</span> <span class="o">=</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">700</span> <span class="c1"># tamanio del tablero</span>
+        <span class="c1"># las serpientes y escaleras serán cada una un total de entre 5% y 7% de la cantidad total de casillas</span>
+        <span class="c1"># estos números se determinan aleatoriamente</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">es_partida_cargada</span><span class="p">:</span>        
+            <span class="n">cantidad_serpientes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">((</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">))</span>
+            <span class="n">cantidad_escaleras</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">((</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cantidad_escaleras</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">cantidad_escaleras</span>
+            <span class="n">cantidad_serpientes</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">cantidad_serpientes</span>
+
+        <span class="c1"># se invoca al método que da las coordenadas de los centros de todas las casillas</span>
+        <span class="n">centros_casillas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obtener_centro_casillas</span><span class="p">(</span><span class="n">alto</span><span class="p">,</span> <span class="n">ancho</span><span class="p">)</span>
+        
+        <span class="c1"># se invoca al método que indica en qué posiciones irán las serpientes y escaleras, cuya cantidad ya calculamos</span>
+        <span class="c1"># estas posiciones vienen en tuplas con la posición inicial y final de cada serpiente o escalera</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">es_partida_cargada</span><span class="p">:</span>                <span class="c1">#si es partida nueva</span>
+            <span class="c1">#print(&quot;VOY MAL&quot;)</span>
+            <span class="n">posiciones_serpientes</span><span class="p">,</span> <span class="n">posiciones_escaleras</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generar_conexiones</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">,</span> <span class="n">cantidad_serpientes</span><span class="p">,</span> <span class="n">cantidad_escaleras</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>                                                <span class="c1">#si es cargada</span>
+            <span class="c1">#print(&quot;VOY MASO&quot;)</span>
+            <span class="n">posiciones_escaleras</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">posiciones_serpientes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">posiciones_escaleras</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">indices_escaleras</span>
+            <span class="n">posiciones_serpientes</span> <span class="o">=</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">indices_serpientes</span>
+
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">)):</span>  <span class="c1"># para cada posición en el vector de centros_casilla, o sea, cada posición de todas las casillas</span>
+            <span class="n">encontrado</span> <span class="o">=</span> <span class="kc">False</span>                  <span class="c1"># asuma que no ha encontrado una posición de serpiente en las posiciones generales</span>
+            
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">posiciones_serpientes</span><span class="p">)):</span>     <span class="c1"># haga esto tantas veces como la cant. de serpientes</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">encontrado</span> <span class="ow">and</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">posiciones_serpientes</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>    <span class="c1"># si no ha encontrado aún la posición y por fin la encuentra</span>
+                    <span class="c1"># cree un rectángulo como forma para la casilla</span>
+                    <span class="n">figura</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">((</span><span class="n">alto</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span> <span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">((</span><span class="n">ancho</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">alto</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ancho</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="c1"># cree una casilla como una casilla de tipo serpiente</span>
+                    <span class="n">serpiente</span> <span class="o">=</span> <span class="n">CasillaSerpiente</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">figura</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span><span class="p">)</span>
+                    <span class="c1"># agréguela al vector de casillas general una vez decorada</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">serpiente</span><span class="p">)</span>
+                    <span class="c1"># encontré la posición de una serpiente</span>
+                    <span class="n">encontrado</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="n">encontrado</span><span class="p">:</span>  <span class="c1"># si encontró la posición de la serpiente, detenga el ciclo</span>
+                    <span class="k">break</span>
+
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">posiciones_escaleras</span><span class="p">)):</span>      <span class="c1"># haga esto tantas veces como la cant. de escaleras</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">encontrado</span> <span class="ow">and</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">posiciones_escaleras</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>     <span class="c1"># si no ha encontrado aún la posición y por fin la encuentra</span>
+                    <span class="c1"># cree un rectángulo como forma para la casilla</span>
+                    <span class="n">figura</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">((</span><span class="n">alto</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span> <span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">((</span><span class="n">ancho</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">alto</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ancho</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="c1"># cree una casilla como una casilla de tipo escalera</span>
+                    <span class="n">escalera</span> <span class="o">=</span> <span class="n">CasillaEscalera</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">figura</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span><span class="p">)</span>
+                    <span class="c1"># agréguela al vector de casillas general una vez decorada</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">escalera</span><span class="p">)</span>
+                    <span class="c1"># encontré la posición de una escalera</span>
+                    <span class="n">encontrado</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="n">encontrado</span><span class="p">:</span>  <span class="c1"># si encontró la posición de la escalera, detenga el ciclo</span>
+                    <span class="k">break</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">encontrado</span><span class="p">:</span>          <span class="c1"># si la posición no se encontró en las pensadas para serpiente o escalera</span>
+                <span class="c1"># cree un rectángulo como forma para la casilla</span>
+                <span class="n">figura</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">((</span><span class="n">alto</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span> <span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">((</span><span class="n">ancho</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span> <span class="n">alto</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ancho</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="c1"># cree una casilla estándar con la forma anteriormente creada</span>
+                <span class="n">casillaEstandar</span> <span class="o">=</span> <span class="n">CasillaEstandar</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">figura</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span><span class="p">)</span>
+                <span class="c1"># agréguela al vector de casillas general (no requiere decorador, porque es estándar)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">casillaEstandar</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">)):</span>     <span class="c1"># para cada una de las casillas totales ya generadas</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">CasillaSerpiente</span><span class="p">):</span>      <span class="c1"># si la casilla es de tipo serpiente</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">existeConexion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getIndice</span><span class="p">()):</span>   <span class="c1"># si esta casilla no tiene conectores</span>
+                    <span class="c1"># cree un conector como una serpiente y añádalo a la lista de serpientes del tablero</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">serpientes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Serpiente</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getIndice</span><span class="p">(),</span> <span class="n">posiciones_serpientes</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span><span class="p">))</span>
+                    <span class="c1"># el conector avisará a sus casillas relacionadas que él es su conector</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">serpientes</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">serpientes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sendConector</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">CasillaEscalera</span><span class="p">):</span>     <span class="c1"># si la casilla es de tipo escalera</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">existeConexion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getIndice</span><span class="p">()):</span>   <span class="c1"># si esta casilla no tiene conectores</span>
+                    <span class="c1"># cree un conector como una escalera y añádalo a la lista de escaleras del tablero</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">escaleras</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Escalera</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getIndice</span><span class="p">(),</span> <span class="n">posiciones_escaleras</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span><span class="p">))</span>
+                    <span class="c1"># el conector avisará a sus casillas relacionadas que él es su conector</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">escaleras</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">escaleras</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sendConector</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">serpiente</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">serpientes</span><span class="p">:</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">serpientes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">serpiente</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">escalera</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">escaleras</span><span class="p">:</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">escaleras</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">escalera</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">casilla</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">:</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">casillasTablero</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">casilla</span><span class="p">)</span></div>
+
+        <span class="c1">#for serpiente in Singleton.serpientes:</span>
+            <span class="c1">#print(&quot;SERPIENTE INICIO: &quot; + str(serpiente.getCasillaInicio().getIndice()))</span>
+
+        <span class="c1">#for i in range(len(self.casillas)):</span>
+            <span class="c1">#if not isinstance(self.casillas[i], CasillaEstandar):</span>
+                <span class="c1">#print(self.casillas[i].casilla.getIndice() + 1, self.casillas[i].casilla.getFinal() + 1, self.casillas[i].casilla.esInicio())</span>
+
+
+<div class="viewcode-block" id="Tablero.cargarCasillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.cargarCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo va a cear las casillas estandar y las va a guardar dentro del vector de casillas.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">centros_casillas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obtener_centro_casillas</span><span class="p">(</span><span class="n">Singleton</span><span class="o">.</span><span class="n">alto_tablero</span><span class="p">,</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">ancho_tablero</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">)):</span>
+            <span class="n">figura</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">alto_tablero</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span>
+                                <span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nb">int</span><span class="p">((</span><span class="n">Singleton</span><span class="o">.</span><span class="n">ancho_tablero</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span>
+                                <span class="n">Singleton</span><span class="o">.</span><span class="n">alto_tablero</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">ancho_tablero</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">casillaEstandar</span> <span class="o">=</span> <span class="n">CasillaEstandar</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">figura</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">casillaEstandar</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tablero.getPosicionesEnTupla"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.getPosicionesEnTupla">[documentos]</a>    <span class="k">def</span> <span class="nf">getPosicionesEnTupla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indice</span><span class="p">,</span> <span class="n">posiciones</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función devuelve la tupla de índices inicio y fin donde se encuentra un índice de casilla.</span>
+<span class="sd">        :param indice: El índice de la casilla en la lista general de casillas.</span>
+<span class="sd">        :type indice: int</span>
+<span class="sd">        :param posiciones: Lista de tuplas con las posiciones inicial y final de cada serpiente o escalera.</span>
+<span class="sd">        :type posiciones: list</span>
+<span class="sd">        :returns:  tuple/None -- Devuelve la tupla si se encontró, si no, devuelve None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">posiciones</span><span class="p">:</span>    <span class="c1"># para cada tupla (de posiciones_serpiente o posiciones_escalera)</span>
+            <span class="k">if</span> <span class="n">indice</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>     <span class="c1"># si el índice está en la tupla</span>
+                <span class="k">return</span> <span class="n">i</span>        <span class="c1"># devuelva la tupla</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="Tablero.getPar"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.getPar">[documentos]</a>    <span class="k">def</span> <span class="nf">getPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indice</span><span class="p">,</span> <span class="n">posiciones</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función devuelve la tupla de casillas correspondiente a una tupla de índices inicio y fin.</span>
+<span class="sd">        :param indice: El índice de la casilla en la lista general de casillas.</span>
+<span class="sd">        :type indice: int</span>
+<span class="sd">        :param posiciones: Lista de tuplas con las posiciones inicial y final de cada serpiente o escalera.</span>
+<span class="sd">        :type posiciones: list</span>
+<span class="sd">        :returns:  tuple -- Devuelve la tupla de dos casillas, la de inicio en pos 0 y la de fin en pos 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">temp_par</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPosicionesEnTupla</span><span class="p">(</span><span class="n">indice</span><span class="p">,</span> <span class="n">posiciones</span><span class="p">)</span>            <span class="c1"># obtenga la tupla de posiciones donde está ese índice</span>
+        <span class="n">tupla</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">temp_par</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">temp_par</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>    <span class="c1"># obtenga la versión de esa tupla con objetos Casilla</span>
+
+        <span class="k">return</span> <span class="n">tupla</span></div>
+
+<div class="viewcode-block" id="Tablero.existeConexion"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.existeConexion">[documentos]</a>    <span class="k">def</span> <span class="nf">existeConexion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indice</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función indica si una casilla ya está conectada con otra.</span>
+<span class="sd">        :param indice: El índice de la casilla en la lista general de casillas.</span>
+<span class="sd">        :type indice: int</span>
+<span class="sd">        :returns:  bool -- Devuelve True si la casilla en ese índice ya está relacionada con un conector.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">serpientes</span><span class="p">)):</span>       <span class="c1"># para cada serpiente</span>
+            <span class="c1"># si esa serpiente está relacionada con la casilla posicionada en el índice dado</span>
+            <span class="k">if</span> <span class="n">indice</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">serpientes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getCasillaInicio</span><span class="p">()</span><span class="o">.</span><span class="n">getIndice</span><span class="p">()</span> <span class="ow">or</span> <span class="n">indice</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">serpientes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getCasillaFinal</span><span class="p">()</span><span class="o">.</span><span class="n">getIndice</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">True</span>     <span class="c1"># indique verdadero</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">escaleras</span><span class="p">)):</span>       <span class="c1"># para cada escalera</span>
+            <span class="c1"># si esa escalera está relacionada con la casilla posicionada en el índice dado</span>
+            <span class="k">if</span> <span class="n">indice</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">escaleras</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getCasillaInicio</span><span class="p">()</span><span class="o">.</span><span class="n">getIndice</span><span class="p">()</span> <span class="ow">or</span> <span class="n">indice</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">escaleras</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getCasillaFinal</span><span class="p">()</span><span class="o">.</span><span class="n">getIndice</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">True</span>     <span class="c1"># indique verdadero</span>
+
+        <span class="k">return</span> <span class="kc">False</span>            <span class="c1"># de lo contrario, indique falso</span></div>
+
+<div class="viewcode-block" id="Tablero.generar_serpientes"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.generar_serpientes">[documentos]</a>    <span class="k">def</span> <span class="nf">generar_serpientes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">escaleras</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función genera tuplas con las posiciones de inicio y fin de n serpientes dadas.</span>
+<span class="sd">        :param escaleras: Lista de escaleras (necesaria para no crear serpientes donde hay escaleras).</span>
+<span class="sd">        :type escaleras: list</span>
+<span class="sd">        :param casillas: Lista de todas las casillas.</span>
+<span class="sd">        :type casillas: list</span>
+<span class="sd">        :param cantidad: Cantidad deseada de serpientes (n).</span>
+<span class="sd">        :type cantidad: int</span>
+<span class="sd">        :returns:  list -- Devuelve un vector con posiciones de serpientes, pares inicios, impares fines, consecutivos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">serpientes_temp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">generados</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">generados</span> <span class="o">&lt;</span> <span class="n">cantidad</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># mientras la cantidad de serpientes generadas sea menor al doble de las deseadas (porque son pares)</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">valor</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">casillas</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>                    <span class="c1"># cree una posición de casilla aleatoria</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">valor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">escaleras</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">valor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">serpientes_temp</span><span class="p">):</span> <span class="c1"># si esa posición no es escalera ni serpiente aún</span>
+                    <span class="n">serpientes_temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">valor</span><span class="p">)</span>                               <span class="c1"># hágala serpiente</span>
+                    <span class="k">break</span>
+            <span class="n">generados</span> <span class="o">+=</span> <span class="mi">1</span>                                                      <span class="c1"># aumente por uno los generados</span>
+        
+        <span class="k">return</span> <span class="n">serpientes_temp</span></div>
+
+<div class="viewcode-block" id="Tablero.generar_escaleras"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.generar_escaleras">[documentos]</a>    <span class="k">def</span> <span class="nf">generar_escaleras</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función genera tuplas con las posiciones de inicio y fin de n escaleras dadas.</span>
+<span class="sd">        :param casillas: Lista de todas las casillas.</span>
+<span class="sd">        :type casillas: list</span>
+<span class="sd">        :param cantidad: Cantidad deseada de escaleras (n).</span>
+<span class="sd">        :type cantidad: int</span>
+<span class="sd">        :returns:  list -- Devuelve un vector con posiciones de escaleras, pares inicios, impares fines, consecutivos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">escaleras_temp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">generados</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">generados</span> <span class="o">&lt;</span> <span class="n">cantidad</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># mientras la cantidad de serpientes generadas sea menor al doble de las deseadas (porque son pares)</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">valor</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">casillas</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>                    <span class="c1"># cree una posición de casilla aleatoria</span>
+                <span class="k">if</span> <span class="n">valor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">escaleras_temp</span><span class="p">:</span>                                 <span class="c1"># si esa posición no es escalera aún</span>
+                    <span class="n">escaleras_temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">valor</span><span class="p">)</span>                                <span class="c1"># hágala escalera</span>
+                    <span class="k">break</span>
+            <span class="n">generados</span> <span class="o">+=</span> <span class="mi">1</span>                                                      <span class="c1"># aumente por uno los generados</span>
+
+        <span class="k">return</span> <span class="n">escaleras_temp</span></div>
+
+<div class="viewcode-block" id="Tablero.generar_conexiones"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.generar_conexiones">[documentos]</a>    <span class="k">def</span> <span class="nf">generar_conexiones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad_serpientes</span><span class="p">,</span> <span class="n">cantidad_escaleras</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función genera dos listas de tuplas a partir de ciertas posiciones, una para serpientes y otra para escaleras. </span>
+<span class="sd">        Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o escalera.</span>
+<span class="sd">        :param casillas: Lista de todas las casillas.</span>
+<span class="sd">        :type casillas: list</span>
+<span class="sd">        :param cantidad_serpientes: Cantidad deseada de serpientes (n).</span>
+<span class="sd">        :type cantidad_serpientes: int</span>
+<span class="sd">        :param cantidad_escaleras: Cantidad deseada de escaleras (m).</span>
+<span class="sd">        :type cantidad_escaleras: int</span>
+<span class="sd">        :returns:  tuple -- Devuelve como tupla las dos listas con tuplas de posiciones de serpientes y escaleras.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># genere los vectores con índices aleatorios de dos en dos que representan tuplas</span>
+        <span class="n">escaleras_temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generar_escaleras</span><span class="p">(</span><span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad_escaleras</span><span class="p">)</span>
+        <span class="n">serpientes_temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generar_serpientes</span><span class="p">(</span><span class="n">escaleras_temp</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad_serpientes</span><span class="p">)</span>
+
+        <span class="n">escaleras</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">serpientes</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">escaleras_temp</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>  <span class="c1"># para cada par en el vector de índices de escaleras</span>
+
+            <span class="n">valorInicial</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">valorFinal</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># ordene el par depende de quién es mayor</span>
+            <span class="c1"># el valor menor debe ir en la primera posición</span>
+            <span class="c1"># el valor mayor debe ir en la segunda posición</span>
+            <span class="k">if</span> <span class="n">escaleras_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">escaleras_temp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>     
+                <span class="n">valorInicial</span> <span class="o">=</span> <span class="n">escaleras_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>            
+                <span class="n">valorFinal</span> <span class="o">=</span> <span class="n">escaleras_temp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">valorInicial</span> <span class="o">=</span> <span class="n">escaleras_temp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">valorFinal</span> <span class="o">=</span> <span class="n">escaleras_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="n">tupla</span> <span class="o">=</span> <span class="p">(</span><span class="n">valorInicial</span><span class="p">,</span> <span class="n">valorFinal</span><span class="p">)</span>      <span class="c1"># agrupe el par como tupla</span>
+            <span class="n">escaleras</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tupla</span><span class="p">)</span>                 <span class="c1"># añádalo a las posiciones de escaleras como una tupla (inicio, fin)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">serpientes_temp</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span> <span class="c1"># para cada par en el vector de índices de escaleras</span>
+
+            <span class="n">valorInicial</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">valorFinal</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># ordene el par depende de quién es mayor</span>
+            <span class="c1"># el valor mayor debe ir en la primera posición</span>
+            <span class="c1"># el valor menor debe ir en la segunda posición</span>
+            <span class="k">if</span> <span class="n">serpientes_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">serpientes_temp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">valorInicial</span> <span class="o">=</span> <span class="n">serpientes_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">valorFinal</span> <span class="o">=</span> <span class="n">serpientes_temp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">valorInicial</span> <span class="o">=</span> <span class="n">serpientes_temp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">valorFinal</span> <span class="o">=</span> <span class="n">serpientes_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="n">tupla</span> <span class="o">=</span> <span class="p">(</span><span class="n">valorInicial</span><span class="p">,</span> <span class="n">valorFinal</span><span class="p">)</span>      <span class="c1"># agrupe el par como tupla</span>
+            <span class="n">serpientes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tupla</span><span class="p">)</span>                <span class="c1"># añádalo a las posiciones de escaleras como una tupla (inicio, fin)</span>
+
+        <span class="k">return</span> <span class="n">serpientes</span><span class="p">,</span> <span class="n">escaleras</span></div>
+
+<div class="viewcode-block" id="Tablero.obtener_orden_coordenadas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.obtener_orden_coordenadas">[documentos]</a>    <span class="k">def</span> <span class="nf">obtener_orden_coordenadas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">centro_casillas_x</span><span class="p">,</span> <span class="n">centro_casillas_y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. </span>
+<span class="sd">        :param centro_casillas_x: Lista de centros de casillas en eje x.</span>
+<span class="sd">        :type centro_casillas_x: list</span>
+<span class="sd">        :param centro_casillas_y: Lista de centros de casillas en eje y.</span>
+<span class="sd">        :type centro_casillas_y: list</span>
+<span class="sd">        :returns:  list -- Devuelve la lista con coordenadas de todas las casillas (x, y) como tuplas.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">casillas_temp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">centro_casillas_x</span>
+
+        <span class="c1"># favor documentar el funcionamiento de este algoritmo</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">centro_casillas_y</span><span class="p">)):</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">centro_casillas_x</span><span class="p">)):</span>
+                    <span class="n">tupla_temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">centro_casillas_x</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">centro_casillas_y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">casillas_temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tupla_temp</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)):</span>
+                    <span class="n">tupla_temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">centro_casillas_y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">casillas_temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tupla_temp</span><span class="p">)</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        
+        <span class="k">return</span> <span class="n">casillas_temp</span></div>
+
+<div class="viewcode-block" id="Tablero.obtener_casillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.obtener_casillas">[documentos]</a>    <span class="k">def</span> <span class="nf">obtener_casillas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">max_iteracion</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. </span>
+<span class="sd">        :param x: Ancho de la casilla.</span>
+<span class="sd">        :type x: int</span>
+<span class="sd">        :param max_iteracion: Máxima cantidad de coordenadas por generar.</span>
+<span class="sd">        :type max_iteracion: int</span>
+<span class="sd">        :returns:  list -- Devuelve una lista con coordenadas que representan centros.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># favor documentar el funcionamiento de este algoritmo</span>
+        <span class="n">centro_casillas</span> <span class="o">=</span> <span class="p">[]</span>    
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iteracion</span><span class="p">):</span>
+            <span class="n">centro_casillas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">centro_casillas</span></div>
+
+<div class="viewcode-block" id="Tablero.obtener_centro_casillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.obtener_centro_casillas">[documentos]</a>    <span class="k">def</span> <span class="nf">obtener_centro_casillas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ancho_total</span><span class="p">,</span> <span class="n">alto_total</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función calcula una cantidad de casillas basado en el tamaño del tablero, y arroja la lista de sus centros. </span>
+<span class="sd">        :param ancho_total: Ancho total del tablero.</span>
+<span class="sd">        :type ancho_total: int</span>
+<span class="sd">        :param alto_total: Alto total del tablero.</span>
+<span class="sd">        :type alto_total: int</span>
+<span class="sd">        :returns:  list -- Devuelve una lista con coordenadas que representan centros.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="n">centro_casillas</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">centro_casillas_x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">centro_casillas_y</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># favor documentar el funcionamiento de este algoritmo</span>
+        <span class="n">cantidad_casillas_x</span><span class="p">,</span> <span class="n">cantidad_casillas_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ancho_casilla</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ancho_total</span><span class="o">/</span><span class="n">cantidad_casillas_x</span><span class="p">)</span>
+        <span class="n">altura_casilla</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">alto_total</span><span class="o">/</span><span class="n">cantidad_casillas_y</span><span class="p">)</span>
+    
+        <span class="n">centro_casillas_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obtener_casillas</span><span class="p">(</span><span class="n">ancho_casilla</span><span class="p">,</span> <span class="n">cantidad_casillas_x</span><span class="p">)</span>
+        <span class="n">centro_casillas_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obtener_casillas</span><span class="p">(</span><span class="n">altura_casilla</span><span class="p">,</span> <span class="n">cantidad_casillas_y</span><span class="p">)</span>
+    
+        <span class="n">centro_casillas_y</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+    
+        <span class="n">centro_casillas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obtener_orden_coordenadas</span><span class="p">(</span><span class="n">centro_casillas_x</span><span class="p">,</span> <span class="n">centro_casillas_y</span><span class="p">)</span>
+    
+        <span class="k">return</span> <span class="n">centro_casillas</span></div>
+
+<div class="viewcode-block" id="Tablero.colorearCasillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.colorearCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">colorearCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función colorea las casillas con un algoritmo que impide colores consecutivos. </span>
+<span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">colores_x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;amarillo&quot;</span><span class="p">,</span> <span class="s2">&quot;blanco&quot;</span><span class="p">,</span> <span class="s2">&quot;rojo&quot;</span><span class="p">,</span> <span class="s2">&quot;azul&quot;</span><span class="p">,</span> <span class="s2">&quot;verde&quot;</span><span class="p">]</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">indice_color_x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">indice_color_y</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">par_actual</span><span class="p">,</span> <span class="n">par_final</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">impar_actual</span><span class="p">,</span> <span class="n">impar_final</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="c1"># favor documentar este algoritmo</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span> 
+            <span class="c1">#Coloreado filas pares</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">par_actual</span><span class="p">,</span> <span class="n">par_final</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">CasillaEstandar</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">setColor</span><span class="p">(</span><span class="n">colores_x</span><span class="p">[</span><span class="n">indice_color_x</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">setColor</span><span class="p">(</span><span class="n">colores_x</span><span class="p">[</span><span class="n">indice_color_x</span><span class="p">])</span>
+                
+                <span class="n">indice_color_x</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">indice_color_x</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+                    <span class="n">indice_color_x</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1">#Coloreado filas impares</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">impar_actual</span><span class="p">,</span> <span class="n">impar_final</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">CasillaEstandar</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">setColor</span><span class="p">(</span><span class="n">colores_x</span><span class="p">[(</span><span class="n">indice_color_x</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">%</span> <span class="mi">5</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">setColor</span><span class="p">(</span><span class="n">colores_x</span><span class="p">[(</span><span class="n">indice_color_x</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">%</span> <span class="mi">5</span><span class="p">])</span>
+                
+                <span class="n">indice_color_x</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">indice_color_x</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+                    <span class="n">indice_color_x</span> <span class="o">=</span> <span class="mi">0</span>
+            
+            <span class="n">indice_color_y</span> <span class="o">+=</span> <span class="mi">1</span> 
+            <span class="k">if</span> <span class="n">indice_color_y</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">indice_color_y</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">indice_color_x</span> <span class="o">=</span> <span class="n">indice_color_y</span>
+
+            <span class="n">par_actual</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+            <span class="n">par_final</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+
+            <span class="n">impar_actual</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+            <span class="n">impar_final</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></div></div>
+
+
+<div class="viewcode-block" id="VistaTablero"><a class="viewcode-back" href="../codigo.html#tablero.VistaTablero">[documentos]</a><span class="k">class</span> <span class="nc">VistaTablero</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Esta clase representa un tablero de juego, y contiene los</span>
+<span class="sd">    atributos y acciones necesarios para su graficación y comportamiento.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controlador</span><span class="p">,</span> <span class="n">tamanio</span><span class="p">,</span> <span class="n">ventana</span><span class="p">,</span> <span class="n">ancho_barra</span><span class="p">,</span> <span class="n">es_partida_cargada</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span> <span class="o">=</span> <span class="p">[]</span>              <span class="c1"># lista de casillas del tablero</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controlador</span> <span class="o">=</span> <span class="n">controlador</span>
+        <span class="n">controlador</span><span class="o">.</span><span class="n">crear_tablero_logico</span><span class="p">(</span><span class="n">tamanio</span><span class="p">,</span> <span class="n">ventana</span><span class="p">,</span> <span class="n">ancho_barra</span><span class="p">,</span> <span class="n">es_partida_cargada</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">es_partida_cargada</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span> <span class="o">=</span> <span class="n">controlador</span><span class="o">.</span><span class="n">colorear_casillas_tablero</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dibujarCasillas</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">actualizar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">casillas_nuevas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controlador</span><span class="o">.</span><span class="n">actualizar_tablero</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span> <span class="o">=</span> <span class="n">casillas_nuevas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dibujarCasillas</span><span class="p">()</span>
+
+<div class="viewcode-block" id="VistaTablero.dibujarCasillas"><a class="viewcode-back" href="../codigo.html#tablero.VistaTablero.dibujarCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">dibujarCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función dibuja las casillas y sus conectores en la ventana.</span>
+<span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">:</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">dibujar</span><span class="p">()</span>             <span class="c1"># y las estándar</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">serpientes</span><span class="p">:</span>   <span class="c1"># para cada serpiente</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">dibujar</span><span class="p">()</span>             <span class="c1"># dibújese</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">escaleras</span><span class="p">:</span>    <span class="c1"># para cada escalera</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">dibujar</span><span class="p">()</span>             <span class="c1"># dibújese</span></div></div>
+
+
+
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../Escaleras_y_Serpientes.html">Escaleras y Serpientes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../codigo.html"><strong>Codigo Generado automaticamente</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html"><strong>Tutorial acerca como jugar Escaleras y Serpientes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proyecto.html"><strong>Informacion acerca del proyecto: Escaleras y Serpientes</strong></a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../Escaleras_y_Serpientes.html">Documentation overview</a><ul>
+  <li><a href="index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Daniel Salazar, Josue Amador, Gustavo Jimenez, Ricardo Franco, Ignacio Arroyo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

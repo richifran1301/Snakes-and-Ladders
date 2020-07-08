@@ -1,0 +1,18 @@
+**Documentacion de Escaleras y Serpientes!**
+============================================
+
+**Informacion importante**
+==========================
+.. toctree::
+   :maxdepth: 2
+
+   codigo
+   tutorial
+   proyecto
+
+**Indices**
+===========
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

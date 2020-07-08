@@ -29,7 +29,7 @@ Para corroborar que se tiene tkinter: python -m Tkinter t
 ```
 ## Comandos para correr el programa:
 
-El programa funciona tanto en Windows como en Linux, y el comando para correr el programa en Linux es 
+El programa funciona tanto en Windows como en Linux, y debe de estarse ubicado en el directorio principal de Escaleras_y_Serpientes para poder correr el juego. El comando para correr el programa en Linux es 
 ```bash
 python3 controlador.py
 ```
@@ -62,3 +62,7 @@ Posicion en el tablero de la casilla de inicio de escalera 1 / posicion en el ta
 ```
 Si se escoge **empezar partida**:
 - El programa va a solicitarle al usuario que se digite el numero de jugadores que van a estar en la partida y los colores para sus fichas. Si estos datos no se ingresan, el juego no va a iniciar. Solo se pueden entre 2 a 4 jugadores en la partida y no se pueden repetir colores. Cualquier ingreso inválido o que no cumpla los requisitos recíen mencionados, ocasionará que el programa le solicite la información denuevo e incluso mencionará su error.
+
+## Documentacion externa
+
+En la carpeta de build, se presentan los archivos de documentacion externa en formato html y latex. Se utilizo Sphinx para generar dicha documentacion.

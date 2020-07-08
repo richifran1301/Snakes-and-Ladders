@@ -1,0 +1,174 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="spanish">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>conector &#8212; documentación de Escaleras y Serpientes - 1</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para conector</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">casilla</span> <span class="k">import</span> <span class="n">Casilla</span><span class="p">,</span> <span class="n">CasillaEstandar</span><span class="p">,</span> <span class="n">CasillaEscalera</span><span class="p">,</span> <span class="n">CasillaSerpiente</span>
+
+<div class="viewcode-block" id="Conector"><a class="viewcode-back" href="../codigo.html#conector.Conector">[documentos]</a><span class="k">class</span> <span class="nc">Conector</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase genérica de conector para implementar decoradores.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param casilla: Casillas relacionadas con un conector, en pos 0 la de inicio, pos 1 la de fin.</span>
+<span class="sd">        :type casilla: tuple</span>
+<span class="sd">        :param ventana: Referencia a la ventana de pygame.</span>
+<span class="sd">        :type ventana: pygame.display</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_inicio</span> <span class="o">=</span> <span class="n">casilla</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>    
+        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_final</span> <span class="o">=</span> <span class="n">casilla</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span> <span class="o">=</span> <span class="n">ventana</span>
+
+<div class="viewcode-block" id="Conector.getCasillaInicio"><a class="viewcode-back" href="../codigo.html#conector.Conector.getCasillaInicio">[documentos]</a>    <span class="k">def</span> <span class="nf">getCasillaInicio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :returns:  CasillaEstandar -- Referencia a la casilla donde inicia el conector.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">casilla_inicio</span></div>
+
+<div class="viewcode-block" id="Conector.getCasillaFinal"><a class="viewcode-back" href="../codigo.html#conector.Conector.getCasillaFinal">[documentos]</a>    <span class="k">def</span> <span class="nf">getCasillaFinal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :returns:  CasillaEstandar -- Referencia a la casilla donde termina el conector.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">casilla_final</span></div>
+
+<div class="viewcode-block" id="Conector.getVentana"><a class="viewcode-back" href="../codigo.html#conector.Conector.getVentana">[documentos]</a>    <span class="k">def</span> <span class="nf">getVentana</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :returns:  pygame.display -- Referencia a la ventana de pygame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span></div>
+
+<div class="viewcode-block" id="Conector.sendConector"><a class="viewcode-back" href="../codigo.html#conector.Conector.sendConector">[documentos]</a>    <span class="k">def</span> <span class="nf">sendConector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Esta función envía el mismo conector (self) a sus casillas relacionadas de inicio y fin.</span>
+<span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_inicio</span><span class="o">.</span><span class="n">setConector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_final</span><span class="o">.</span><span class="n">setConector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="Escalera"><a class="viewcode-back" href="../codigo.html#conector.Escalera">[documentos]</a><span class="k">class</span> <span class="nc">Escalera</span><span class="p">(</span><span class="n">Conector</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Esta clase representa un conector entre dos casillas de tablero, y contiene los</span>
+<span class="sd">    atributos y acciones necesarios para su comportamiento en un tablero de juego.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">):</span>
+        <span class="n">Conector</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Escalera.dibujar"><a class="viewcode-back" href="../codigo.html#conector.Escalera.dibujar">[documentos]</a>    <span class="k">def</span> <span class="nf">dibujar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este método dibuja el conector como una escalera en la ventana de pygame.</span>
+<span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getVentana</span><span class="p">(),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCasillaInicio</span><span class="p">()</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCasillaFinal</span><span class="p">()</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">(),</span> <span class="mi">4</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="Serpiente"><a class="viewcode-back" href="../codigo.html#conector.Serpiente">[documentos]</a><span class="k">class</span> <span class="nc">Serpiente</span><span class="p">(</span><span class="n">Conector</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Esta clase representa un conector entre dos casillas de tablero, y contiene los</span>
+<span class="sd">    atributos y acciones necesarios para su comportamiento en un tablero de juego.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">):</span>
+        <span class="n">Conector</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Serpiente.dibujar"><a class="viewcode-back" href="../codigo.html#conector.Serpiente.dibujar">[documentos]</a>    <span class="k">def</span> <span class="nf">dibujar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este método dibuja el conector como una escalera en la ventana de pygame.</span>
+<span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getVentana</span><span class="p">(),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCasillaInicio</span><span class="p">()</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCasillaFinal</span><span class="p">()</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">(),</span> <span class="mi">4</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../Escaleras_y_Serpientes.html">Escaleras y Serpientes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../codigo.html"><strong>Codigo Generado automaticamente</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html"><strong>Tutorial acerca como jugar Escaleras y Serpientes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proyecto.html"><strong>Informacion acerca del proyecto: Escaleras y Serpientes</strong></a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../Escaleras_y_Serpientes.html">Documentation overview</a><ul>
+  <li><a href="index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Daniel Salazar, Josue Amador, Gustavo Jimenez, Ricardo Franco, Ignacio Arroyo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

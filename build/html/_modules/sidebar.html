@@ -1,0 +1,142 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="spanish">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>sidebar &#8212; documentación de Escaleras y Serpientes - 1</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para sidebar</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">dado</span> <span class="k">import</span> <span class="n">Dado</span>
+<span class="c1">#from button import Button</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">singleton</span> <span class="k">import</span> <span class="n">Singleton</span>
+
+<div class="viewcode-block" id="Sidebar"><a class="viewcode-back" href="../codigo.html#sidebar.Sidebar">[documentos]</a><span class="k">class</span> <span class="nc">Sidebar</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase que representa al espacio extra en la ventana de pygame, que no pertenece al tablero.</span>
+<span class="sd">    Contiene informacion valiosa que le comuncia al jugador el turno, quien gana, como moverse...</span>
+<span class="sd">    Ademas, en este espacio se juega con los dados para decidir turnos y permitir al jugador moverse</span>
+<span class="sd">    en el juego. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alto_total</span><span class="p">,</span> <span class="n">ancho_total</span><span class="p">,</span> <span class="n">ancho_sidebar</span><span class="p">,</span> <span class="n">mi_color</span><span class="p">,</span> <span class="n">elementos</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param alto_total = medida del alto de la ventana de pygame </span>
+<span class="sd">        :type alto_total: int</span>
+<span class="sd">        :param ancho_total = medida del ancho de la ventana de pygame</span>
+<span class="sd">        :type ancho_total: int</span>
+<span class="sd">        :param alto_sidebar = medida del alto de este espacio al lado del tablero </span>
+<span class="sd">        :type alto_sidebar: int</span>
+<span class="sd">        :param ancho_sidebar = medida del ancho de este espacio al lado del tablero </span>
+<span class="sd">        :type ancho_sidebar: int</span>
+<span class="sd">        :param mi_color: codigo del color a escoger</span>
+<span class="sd">        :type color: codigo de color perteneciente a la lista de colores de Singleton.</span>
+<span class="sd">        :param elementos: lista que contiene al boton de los dados, y los dados.</span>
+<span class="sd">        :type elementos: lista</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alto_total</span> <span class="o">=</span> <span class="n">alto_total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ancho_total</span> <span class="o">=</span> <span class="n">ancho_total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ancho_sidebar</span> <span class="o">=</span> <span class="n">ancho_sidebar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mi_color</span> <span class="o">=</span> <span class="n">mi_color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mi_forma</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="mi">700</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ancho_sidebar</span><span class="p">,</span> <span class="n">alto_total</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elementos</span> <span class="o">=</span> <span class="n">elementos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dibujar</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Sidebar.dibujar"><a class="viewcode-back" href="../codigo.html#sidebar.Sidebar.dibujar">[documentos]</a>    <span class="k">def</span> <span class="nf">dibujar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que ilustra visualmente el espacio al lado del tablero.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">Singleton</span><span class="o">.</span><span class="n">ventana</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi_color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi_forma</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">Singleton</span><span class="o">.</span><span class="n">ventana</span><span class="p">,</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">colores_casillas</span><span class="p">[</span><span class="s2">&quot;negro&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi_forma</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1">#for elementos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elementos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dibujar</span><span class="p">()</span> <span class="c1">#boton &quot;lanzar dados&quot;</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../Escaleras_y_Serpientes.html">Escaleras y Serpientes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../codigo.html"><strong>Codigo Generado automaticamente</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html"><strong>Tutorial acerca como jugar Escaleras y Serpientes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proyecto.html"><strong>Informacion acerca del proyecto: Escaleras y Serpientes</strong></a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../Escaleras_y_Serpientes.html">Documentation overview</a><ul>
+  <li><a href="index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Daniel Salazar, Josue Amador, Gustavo Jimenez, Ricardo Franco, Ignacio Arroyo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
