@@ -100,13 +100,13 @@ class Vista():
         ok.config(command=mostrar)
         root.mainloop()
 
-    def dibuje_cuadro_blanco(self):
+    def dibuje_cuadro_blanco(self,x,y,tam_x,tam_y):
         '''
-        Dibuja un cuadro blanco para borrar cada vez que se notifica 
-        en la ventana que se subio por una escalera o se bajo por una 
+        Dibuja un cuadro blanco para borrar cada vez que se notifica
+        en la ventana que se subio por una escalera o se bajo por una
         serpiente.
         '''
-        rect = pygame.rect.Rect((710, 350, 250, 100))
+        rect = pygame.rect.Rect((x, y, tam_x, tam_y))
         pygame.draw.rect(Singleton.ventana, Singleton.colores_casillas["blanco"], rect)
         
     def notify(self, evento):

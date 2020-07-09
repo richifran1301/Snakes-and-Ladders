@@ -230,7 +230,7 @@ class Controlador:
         Arbitro.jugador_juegue(jugador)
         self.muestre_presionar_espacio()
         coordenadas = Arbitro.obtener_destino(jugador.pos_tablero, Arbitro.valor_actual_dados)
-        self.vista.dibuje_cuadro_blanco()
+        self.vista.dibuje_cuadro_blanco(710, 350, 250, 100)
         jugador.mover(Arbitro.valor_actual_dados, coordenadas)
     
     def obtener_colores_jugadores(self, nombre, error, contador):
@@ -270,11 +270,9 @@ class Controlador:
         def mostrar_colores():
             root_colores = Tk() 
             root_colores.title("Colores disponibles")
-            root_colores.geometry("400x50")     
-            mensaje = Label(root_colores, text = "Colores disponibles: azul, verde, aqua, gris,")
+            root_colores.geometry("200x200")
+            mensaje = Label(root_colores, text = "Colores disponibles: \n- azul\n- verde\n- aqua\n- gris\n- rojo\n- dorado\n- negro\n- magenta\n- naranja")
             mensaje.grid(row = 2, column = 1)
-            mensaje2 = Label(root_colores, text = "rojo, dorado, negro, magenta, naranja.")
-            mensaje2.grid(row = 4, column = 1)
             salir = Button(root_colores,text = "Atras",command = root_colores.destroy)
             salir.config(command=root_colores.destroy)
             root_colores.mainloop()
@@ -340,11 +338,8 @@ def empezarCondicionesJuego(controlador):
         
     #Arbitro decide turnos
     Arbitro.decidir_turnos(Arbitro.cantidad_jugadores_tmp)
+    controlador.vista.dibuje_cuadro_blanco(710, 350, 250, 100)
     pygame.display.update()
-    print("Orden de jugadores: ", end="\n")
-    for i in Singleton.jugadores_ordenados:
-        print(i.nombre)
-
 
 def juego(controlador):
     '''
