@@ -42,6 +42,13 @@
 interacciones dadas por el usuario y depende totalmente de el. Van a haber entre 2 
 a 4 jugadores por juego.</p>
 <dl class="method">
+<dt id="jugador.Jugador.crear_ficha">
+<code class="descname">crear_ficha</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jugador.html#Jugador.crear_ficha"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#jugador.Jugador.crear_ficha" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que va a crear una ficha para el Jugador, y la va a almacenar en su 
+inventario. Existe una relacion a esa ficha para mas comodidad, y es self.rel_ficha.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="jugador.Jugador.getNombre">
 <code class="descname">getNombre</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jugador.html#Jugador.getNombre"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#jugador.Jugador.getNombre" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Metodo que va a devolver el nombre del Jugador.
@@ -293,7 +300,29 @@ cantidad de escaleras; posicion en el tablero de inicio de escalera y la posicio
 
 </div>
 <div class="section" id="module-button">
-<span id="codigo-de-button"></span><h2>Codigo de: <strong>Button</strong><a class="headerlink" href="#module-button" title="Enlazar permanentemente con este título">¶</a></h2>
+<span id="codigo-de-boton"></span><h2>Codigo de: <strong>Boton</strong><a class="headerlink" href="#module-button" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="button.Boton">
+<em class="property">class </em><code class="descclassname">button.</code><code class="descname">Boton</code><span class="sig-paren">(</span><em>ventana</em>, <em>mi_color</em>, <em>x</em>, <em>y</em>, <em>ancho</em>, <em>alto</em>, <em>text=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/button.html#Boton"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#button.Boton" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clase que equivale a un boton para la interfaz</p>
+<dl class="method">
+<dt id="button.Boton.dibujar">
+<code class="descname">dibujar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/button.html#Boton.dibujar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#button.Boton.dibujar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función se encarga de dibujar el botón en la posición dada al inicializarse
+:returns:  None -- Procedimiento sin valor de retorno.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="button.Boton.isOver">
+<code class="descname">isOver</code><span class="sig-paren">(</span><em>pos</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/button.html#Boton.isOver"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#button.Boton.isOver" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función se encarga de averiguar si el mouse se encuentra por encima del botón.
+:param pos: Posicion (x,y) en la que se encuentra el mouse en un momento dado
+:type pos: tuple
+:returns:  None -- Procedimiento sin valor de retorno.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-cargador">
 <span id="codigo-de-cargador"></span><h2>Codigo de: <strong>Cargador</strong><a class="headerlink" href="#module-cargador" title="Enlazar permanentemente con este título">¶</a></h2>
@@ -315,11 +344,36 @@ cantidad de escaleras; posicion en el tablero de inicio de escalera y la posicio
 <span id="codigo-de-conector"></span><h2>Codigo de: <strong>Conector</strong><a class="headerlink" href="#module-conector" title="Enlazar permanentemente con este título">¶</a></h2>
 <dl class="class">
 <dt id="conector.Conector">
-<em class="property">class </em><code class="descclassname">conector.</code><code class="descname">Conector</code><span class="sig-paren">(</span><em>casilla</em>, <em>ventana</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">conector.</code><code class="descname">Conector</code><a class="reference internal" href="_modules/conector.html#Conector"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="method">
+<dt id="conector.Conector.setCasillas">
+<code class="descname">setCasillas</code><span class="sig-paren">(</span><em>inicio</em>, <em>final</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector.setCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector.setCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><ul class="first simple">
+<li><strong>inicio</strong> -- El conector inicial de una casilla con otra</li>
+<li><strong>final</strong> -- El conector final de una casilla con otra</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body"><p class="first last">None -- Procedimiento set sin valor de retorno.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="conector.ConectorSE">
+<em class="property">class </em><code class="descclassname">conector.</code><code class="descname">ConectorSE</code><span class="sig-paren">(</span><em>casilla</em>, <em>ventana</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#ConectorSE"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.ConectorSE" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clase genérica de conector para implementar decoradores.</p>
 <dl class="method">
-<dt id="conector.Conector.getCasillaFinal">
-<code class="descname">getCasillaFinal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector.getCasillaFinal"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector.getCasillaFinal" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="conector.ConectorSE.getCasillaFinal">
+<code class="descname">getCasillaFinal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#ConectorSE.getCasillaFinal"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.ConectorSE.getCasillaFinal" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -331,8 +385,8 @@ cantidad de escaleras; posicion en el tablero de inicio de escalera y la posicio
 </dd></dl>
 
 <dl class="method">
-<dt id="conector.Conector.getCasillaInicio">
-<code class="descname">getCasillaInicio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector.getCasillaInicio"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector.getCasillaInicio" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="conector.ConectorSE.getCasillaInicio">
+<code class="descname">getCasillaInicio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#ConectorSE.getCasillaInicio"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.ConectorSE.getCasillaInicio" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -344,8 +398,8 @@ cantidad de escaleras; posicion en el tablero de inicio de escalera y la posicio
 </dd></dl>
 
 <dl class="method">
-<dt id="conector.Conector.getVentana">
-<code class="descname">getVentana</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector.getVentana"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector.getVentana" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="conector.ConectorSE.getVentana">
+<code class="descname">getVentana</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#ConectorSE.getVentana"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.ConectorSE.getVentana" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -357,8 +411,8 @@ cantidad de escaleras; posicion en el tablero de inicio de escalera y la posicio
 </dd></dl>
 
 <dl class="method">
-<dt id="conector.Conector.sendConector">
-<code class="descname">sendConector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#Conector.sendConector"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.Conector.sendConector" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="conector.ConectorSE.sendConector">
+<code class="descname">sendConector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/conector.html#ConectorSE.sendConector"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#conector.ConectorSE.sendConector" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función envía el mismo conector (self) a sus casillas relacionadas de inicio y fin.
 :returns:  None -- Procedimiento sin valor de retorno.</p>
 </dd></dl>
@@ -426,12 +480,66 @@ menu principal. Llama al ciclo principal del juego (metodo juego)</p>
 <dl class="class">
 <dt id="inventario.ElementoInventario">
 <em class="property">class </em><code class="descclassname">inventario.</code><code class="descname">ElementoInventario</code><a class="reference internal" href="_modules/inventario.html#ElementoInventario"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.ElementoInventario" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Clase abstracta de Elemento Inventario. Solo sus clases derivadas estaran
+dentro del inventario. Utilizada para el correcto uso del MARDA.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="inventario.Ficha">
 <em class="property">class </em><code class="descclassname">inventario.</code><code class="descname">Ficha</code><span class="sig-paren">(</span><em>figura</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inventario.html#Ficha"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.Ficha" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Clase derivada de ElementoInventario. Corresponde a la ficha del Jugador, la cual
+se va a estar moviendo por el tablero (por las coordenadas x, y de figura). La figura
+se la otorga el jugador por parametro en el init.</p>
+<dl class="method">
+<dt id="inventario.Ficha.mover">
+<code class="descname">mover</code><span class="sig-paren">(</span><em>movX</em>, <em>movY</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inventario.html#Ficha.mover"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.Ficha.mover" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que mueve la ficha por el tablero logico. No se observa en la interfaz, nada mas
+es movimiento logico.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="inventario.Ficha.setColor">
+<code class="descname">setColor</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inventario.html#Ficha.setColor"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.Ficha.setColor" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que establece el color de la ficha. En nuestro caso es el color del Jugador.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="inventario.Inventario">
+<em class="property">class </em><code class="descclassname">inventario.</code><code class="descname">Inventario</code><a class="reference internal" href="_modules/inventario.html#Inventario"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.Inventario" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clase Inventario disenada para el correcto uso del MARDA. Es un inventario sin cantidad maxima
+especificada ya que en nuestro caso unicamente tendra la ficha del Jugador que se desplazara por
+el tablero.</p>
+<dl class="method">
+<dt id="inventario.Inventario.agregar">
+<code class="descname">agregar</code><span class="sig-paren">(</span><em>elemento_nuevo</em>, <em>cantidad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inventario.html#Inventario.agregar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.Inventario.agregar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que agrega un objeto de tipo ElementoInventario al vector. Si el objeto es otro tipo, se ignora y
+si ya existe un objeto de ese tipo en el Inventario se aumenta su cantidad. Para asi trabajar con mas facilidad
+aspectos como: 5 billetes de mil, 1 ficha, etc.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="inventario.Inventario.buscar_en_inventario">
+<code class="descname">buscar_en_inventario</code><span class="sig-paren">(</span><em>elemento_seleccionado</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inventario.html#Inventario.buscar_en_inventario"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.Inventario.buscar_en_inventario" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que va a buscar un objeto en el inventario y va a retornar la cantidad del objeto respectivo.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="inventario.Inventario.eliminar">
+<code class="descname">eliminar</code><span class="sig-paren">(</span><em>elemento_seleccionado</em>, <em>cantidad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inventario.html#Inventario.eliminar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.Inventario.eliminar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que va a eliminar una cantidad de objetos del inventario. Por paramtero viene el id del objeto
+a eliminar. En caso de no lograr eliminar el objeto,lo especifica por la terminal (debido a que solo 
+no podria en pocos casos)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="inventario.Inventario.sacar_objeto">
+<code class="descname">sacar_objeto</code><span class="sig-paren">(</span><em>elemento_seleccionado</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inventario.html#Inventario.sacar_objeto"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#inventario.Inventario.sacar_objeto" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo que obtiene el id del objeto a sacar. Solo saca un unico objeto y lo elimina del inventario.</p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="module-sidebar">
@@ -568,25 +676,49 @@ jugadorGanador.
 <span id="codigo-de-tablero"></span><h2>Codigo de: <strong>Tablero</strong><a class="headerlink" href="#module-tablero" title="Enlazar permanentemente con este título">¶</a></h2>
 <dl class="class">
 <dt id="tablero.Tablero">
-<em class="property">class </em><code class="descclassname">tablero.</code><code class="descname">Tablero</code><span class="sig-paren">(</span><em>tamanio</em>, <em>ventana</em>, <em>ancho_barra</em>, <em>es_partida_cargada</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">tablero.</code><code class="descname">Tablero</code><a class="reference internal" href="_modules/tablero.html#Tablero"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clase virtual de tablero disenada para el correcto uso del MARDA.</p>
+<dl class="method">
+<dt id="tablero.Tablero.appendCasilla">
+<code class="descname">appendCasilla</code><span class="sig-paren">(</span><em>casilla</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.appendCasilla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.appendCasilla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este método se encarga de agregar al array de casillas algunas casilla que se quiera agregar a este
+:param casilla: casilla del tablero de juego
+:type CasillaSE: casilla
+:returns:  None -- Procedimiento append sin valor de retorno.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tablero.Tablero.initCasillas">
+<code class="descname">initCasillas</code><span class="sig-paren">(</span><em>casillas</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.initCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.initCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Este método se encarga de incilizar el vector de casillas de juego.
+:param casillas: casillas del tablero de juego
+:type CasillaSE[]: array
+:returns:  None -- Procedimiento init sin valor de retorno.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tablero.TableroSE">
+<em class="property">class </em><code class="descclassname">tablero.</code><code class="descname">TableroSE</code><span class="sig-paren">(</span><em>tamanio</em>, <em>ventana</em>, <em>ancho_barra</em>, <em>es_partida_cargada</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta clase representa un tablero de juego, y contiene los
 atributos y acciones necesarios para su graficación y comportamiento.</p>
 <dl class="method">
-<dt id="tablero.Tablero.cargarCasillas">
-<code class="descname">cargarCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.cargarCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.cargarCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.cargarCasillas">
+<code class="descname">cargarCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.cargarCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.cargarCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Este metodo va a cear las casillas estandar y las va a guardar dentro del vector de casillas.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.colorearCasillas">
-<code class="descname">colorearCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.colorearCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.colorearCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.colorearCasillas">
+<code class="descname">colorearCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.colorearCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.colorearCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función colorea las casillas con un algoritmo que impide colores consecutivos. 
 :returns:  None -- Procedimiento sin valor de retorno.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.existeConexion">
-<code class="descname">existeConexion</code><span class="sig-paren">(</span><em>indice</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.existeConexion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.existeConexion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.existeConexion">
+<code class="descname">existeConexion</code><span class="sig-paren">(</span><em>indice</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.existeConexion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.existeConexion" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función indica si una casilla ya está conectada con otra.
 :param indice: El índice de la casilla en la lista general de casillas.
 :type indice: int
@@ -594,15 +726,15 @@ atributos y acciones necesarios para su graficación y comportamiento.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.generarCasillas">
-<code class="descname">generarCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.generarCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.generarCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.generarCasillas">
+<code class="descname">generarCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.generarCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.generarCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Este método genera casillas y sus conectores para un tablero de Serpientes y escaleras de manera aleatoria.
 :returns:  None -- Procedimiento sin valor de retorno.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.generar_conexiones">
-<code class="descname">generar_conexiones</code><span class="sig-paren">(</span><em>casillas</em>, <em>cantidad_serpientes</em>, <em>cantidad_escaleras</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.generar_conexiones"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.generar_conexiones" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.generar_conexiones">
+<code class="descname">generar_conexiones</code><span class="sig-paren">(</span><em>casillas</em>, <em>cantidad_serpientes</em>, <em>cantidad_escaleras</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.generar_conexiones"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.generar_conexiones" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función genera dos listas de tuplas a partir de ciertas posiciones, una para serpientes y otra para escaleras. 
 Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o escalera.
 :param casillas: Lista de todas las casillas.
@@ -615,8 +747,8 @@ Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o e
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.generar_escaleras">
-<code class="descname">generar_escaleras</code><span class="sig-paren">(</span><em>casillas</em>, <em>cantidad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.generar_escaleras"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.generar_escaleras" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.generar_escaleras">
+<code class="descname">generar_escaleras</code><span class="sig-paren">(</span><em>casillas</em>, <em>cantidad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.generar_escaleras"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.generar_escaleras" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función genera tuplas con las posiciones de inicio y fin de n escaleras dadas.
 :param casillas: Lista de todas las casillas.
 :type casillas: list
@@ -626,8 +758,8 @@ Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o e
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.generar_serpientes">
-<code class="descname">generar_serpientes</code><span class="sig-paren">(</span><em>escaleras</em>, <em>casillas</em>, <em>cantidad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.generar_serpientes"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.generar_serpientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.generar_serpientes">
+<code class="descname">generar_serpientes</code><span class="sig-paren">(</span><em>escaleras</em>, <em>casillas</em>, <em>cantidad</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.generar_serpientes"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.generar_serpientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función genera tuplas con las posiciones de inicio y fin de n serpientes dadas.
 :param escaleras: Lista de escaleras (necesaria para no crear serpientes donde hay escaleras).
 :type escaleras: list
@@ -639,8 +771,8 @@ Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o e
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.getPar">
-<code class="descname">getPar</code><span class="sig-paren">(</span><em>indice</em>, <em>posiciones</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.getPar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.getPar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.getPar">
+<code class="descname">getPar</code><span class="sig-paren">(</span><em>indice</em>, <em>posiciones</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.getPar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.getPar" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función devuelve la tupla de casillas correspondiente a una tupla de índices inicio y fin.
 :param indice: El índice de la casilla en la lista general de casillas.
 :type indice: int
@@ -650,8 +782,8 @@ Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o e
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.getPosicionesEnTupla">
-<code class="descname">getPosicionesEnTupla</code><span class="sig-paren">(</span><em>indice</em>, <em>posiciones</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.getPosicionesEnTupla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.getPosicionesEnTupla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.getPosicionesEnTupla">
+<code class="descname">getPosicionesEnTupla</code><span class="sig-paren">(</span><em>indice</em>, <em>posiciones</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.getPosicionesEnTupla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.getPosicionesEnTupla" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función devuelve la tupla de índices inicio y fin donde se encuentra un índice de casilla.
 :param indice: El índice de la casilla en la lista general de casillas.
 :type indice: int
@@ -661,8 +793,8 @@ Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o e
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.obtener_casillas">
-<code class="descname">obtener_casillas</code><span class="sig-paren">(</span><em>x</em>, <em>max_iteracion</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.obtener_casillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.obtener_casillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.obtener_casillas">
+<code class="descname">obtener_casillas</code><span class="sig-paren">(</span><em>x</em>, <em>max_iteracion</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.obtener_casillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.obtener_casillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. 
 :param x: Ancho de la casilla.
 :type x: int
@@ -672,8 +804,8 @@ Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o e
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.obtener_centro_casillas">
-<code class="descname">obtener_centro_casillas</code><span class="sig-paren">(</span><em>ancho_total</em>, <em>alto_total</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.obtener_centro_casillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.obtener_centro_casillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.obtener_centro_casillas">
+<code class="descname">obtener_centro_casillas</code><span class="sig-paren">(</span><em>ancho_total</em>, <em>alto_total</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.obtener_centro_casillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.obtener_centro_casillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función calcula una cantidad de casillas basado en el tamaño del tablero, y arroja la lista de sus centros. 
 :param ancho_total: Ancho total del tablero.
 :type ancho_total: int
@@ -683,8 +815,8 @@ Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o e
 </dd></dl>
 
 <dl class="method">
-<dt id="tablero.Tablero.obtener_orden_coordenadas">
-<code class="descname">obtener_orden_coordenadas</code><span class="sig-paren">(</span><em>centro_casillas_x</em>, <em>centro_casillas_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#Tablero.obtener_orden_coordenadas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.Tablero.obtener_orden_coordenadas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt id="tablero.TableroSE.obtener_orden_coordenadas">
+<code class="descname">obtener_orden_coordenadas</code><span class="sig-paren">(</span><em>centro_casillas_x</em>, <em>centro_casillas_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#TableroSE.obtener_orden_coordenadas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.TableroSE.obtener_orden_coordenadas" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. 
 :param centro_casillas_x: Lista de centros de casillas en eje x.
 :type centro_casillas_x: list
@@ -701,6 +833,12 @@ Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o e
 <dd><p>Esta clase representa un tablero de juego, y contiene los
 atributos y acciones necesarios para su graficación y comportamiento.</p>
 <dl class="method">
+<dt id="tablero.VistaTablero.actualizar">
+<code class="descname">actualizar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#VistaTablero.actualizar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.VistaTablero.actualizar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Funcion que se encarga de actualizar el tablero si se llegara a cargar un apartida.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="tablero.VistaTablero.dibujarCasillas">
 <code class="descname">dibujarCasillas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tablero.html#VistaTablero.dibujarCasillas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#tablero.VistaTablero.dibujarCasillas" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esta función dibuja las casillas y sus conectores en la ventana.
@@ -712,6 +850,65 @@ atributos y acciones necesarios para su graficación y comportamiento.</p>
 </div>
 <div class="section" id="module-vista">
 <span id="codigo-de-vista"></span><h2>Codigo de: <strong>Vista</strong><a class="headerlink" href="#module-vista" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="vista.Vista">
+<em class="property">class </em><code class="descclassname">vista.</code><code class="descname">Vista</code><span class="sig-paren">(</span><em>controlador</em>, <em>ventana</em>, <em>es_partida_cargada</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vista.html#Vista"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#vista.Vista" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clase que es un objeto vista, que va a representar graficamente al tablero y sus auxiliares
+en la ventana de pygame y las ventanas auxiliares de TKinter.</p>
+<dl class="method">
+<dt id="vista.Vista.actualizar_tablero_grafico">
+<code class="descname">actualizar_tablero_grafico</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/vista.html#Vista.actualizar_tablero_grafico"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#vista.Vista.actualizar_tablero_grafico" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Actualiza y vuelve a dibujar las casillas porque cada vez que se mueve
+un jugador se modifica el formato grafico de la casilla que acaba de moverse.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vista.Vista.crear_sidebar">
+<code class="descname">crear_sidebar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/vista.html#Vista.crear_sidebar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#vista.Vista.crear_sidebar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Llama el constructor de Dado y sus metodos para agregar el icono de los 
+dados en pantalla y poder obtener el resultado aleatorio que ellos generen.
+:param _ventana: Ventana grafica del juego
+:type _ventana: pygame window object
+:returns: tuple -- Devuelve como tupla el objeto de Button, que va a ser el boton 
+grafico de los dados, de primero y de segundo, el objeto de Dado para poder utilizar sus funciones.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vista.Vista.crear_tablero_grafico">
+<code class="descname">crear_tablero_grafico</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/vista.html#Vista.crear_tablero_grafico"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#vista.Vista.crear_tablero_grafico" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Llama el constructor de Tablero y sus metodos para generar tanto las casillas, como
+las serpientes y escaleras respectivas en estas casillas.
+:returns: Tablero Vista object -- Devuelve el objeto de tablero recien creado para luego
+utilizar sus metodos en otras funciones.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vista.Vista.dibuje_cuadro_blanco">
+<code class="descname">dibuje_cuadro_blanco</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>tam_x</em>, <em>tam_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vista.html#Vista.dibuje_cuadro_blanco"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#vista.Vista.dibuje_cuadro_blanco" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Dibuja un cuadro blanco para borrar cada vez que se notifica
+en la ventana que se subio por una escalera o se bajo por una
+serpiente.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vista.Vista.guardarPartida">
+<code class="descname">guardarPartida</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/vista.html#Vista.guardarPartida"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#vista.Vista.guardarPartida" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Crea el boton de guardado en la ventana del juego y cuando se 
+presiona, llama al constructor del almacenador para pasarle el
+nombre de la partida a guardar.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vista.Vista.notify">
+<code class="descname">notify</code><span class="sig-paren">(</span><em>evento</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vista.html#Vista.notify"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#vista.Vista.notify" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Metodo principal de esta clase, se encarga de manejar un evento cada vez que se presiona 
+un boton u ocurre alguna accion grafica. Llama la funcion depende del evento ocurrido.
+:param evento: evento de pygame que acaba de ocurrir
+:type evento: pygame event</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
@@ -737,7 +934,7 @@ atributos y acciones necesarios para su graficación y comportamiento.</p>
 <li class="toctree-l2"><a class="reference internal" href="#module-arbitro">Codigo de: <strong>Arbitro</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-dado">Codigo de: <strong>Dado</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-almacenador">Codigo de: <strong>Almacenador</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-button">Codigo de: <strong>Button</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-button">Codigo de: <strong>Boton</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cargador">Codigo de: <strong>Cargador</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-conector">Codigo de: <strong>Conector</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-controlador">Codigo de: <strong>Controlador</strong></a></li>

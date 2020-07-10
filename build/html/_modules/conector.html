@@ -36,9 +36,27 @@
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">pygame</span>
 <span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">casilla</span> <span class="k">import</span> <span class="n">Casilla</span><span class="p">,</span> <span class="n">CasillaEstandar</span><span class="p">,</span> <span class="n">CasillaEscalera</span><span class="p">,</span> <span class="n">CasillaSerpiente</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">casilla</span> <span class="k">import</span> <span class="n">CasillaSE</span><span class="p">,</span> <span class="n">CasillaEstandar</span><span class="p">,</span> <span class="n">CasillaEscalera</span><span class="p">,</span> <span class="n">CasillaSerpiente</span>
 
-<div class="viewcode-block" id="Conector"><a class="viewcode-back" href="../codigo.html#conector.Conector">[documentos]</a><span class="k">class</span> <span class="nc">Conector</span><span class="p">():</span>
+<div class="viewcode-block" id="Conector"><a class="viewcode-back" href="../codigo.html#conector.Conector">[documentos]</a><span class="k">class</span> <span class="nc">Conector</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_inicio</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_final</span> <span class="o">=</span> <span class="kc">None</span>
+        
+<div class="viewcode-block" id="Conector.setCasillas"><a class="viewcode-back" href="../codigo.html#conector.Conector.setCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">setCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inicio</span><span class="p">,</span> <span class="n">final</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param inicio: El conector inicial de una casilla con otra</span>
+<span class="sd">        :type conector: Conector</span>
+<span class="sd">        :param final: El conector final de una casilla con otra</span>
+<span class="sd">        :type conector: Conector</span>
+<span class="sd">        :returns:  None -- Procedimiento set sin valor de retorno.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_inicio</span> <span class="o">=</span> <span class="n">inicio</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_final</span> <span class="o">=</span> <span class="n">final</span></div></div>
+    
+<div class="viewcode-block" id="ConectorSE"><a class="viewcode-back" href="../codigo.html#conector.ConectorSE">[documentos]</a><span class="k">class</span> <span class="nc">ConectorSE</span><span class="p">(</span><span class="n">Conector</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clase genérica de conector para implementar decoradores.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -49,29 +67,29 @@
 <span class="sd">        :param ventana: Referencia a la ventana de pygame.</span>
 <span class="sd">        :type ventana: pygame.display</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_inicio</span> <span class="o">=</span> <span class="n">casilla</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>    
-        <span class="bp">self</span><span class="o">.</span><span class="n">casilla_final</span> <span class="o">=</span> <span class="n">casilla</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setCasillas</span><span class="p">(</span><span class="n">casilla</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">casilla</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span> <span class="o">=</span> <span class="n">ventana</span>
 
-<div class="viewcode-block" id="Conector.getCasillaInicio"><a class="viewcode-back" href="../codigo.html#conector.Conector.getCasillaInicio">[documentos]</a>    <span class="k">def</span> <span class="nf">getCasillaInicio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConectorSE.getCasillaInicio"><a class="viewcode-back" href="../codigo.html#conector.ConectorSE.getCasillaInicio">[documentos]</a>    <span class="k">def</span> <span class="nf">getCasillaInicio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :returns:  CasillaEstandar -- Referencia a la casilla donde inicia el conector.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">casilla_inicio</span></div>
 
-<div class="viewcode-block" id="Conector.getCasillaFinal"><a class="viewcode-back" href="../codigo.html#conector.Conector.getCasillaFinal">[documentos]</a>    <span class="k">def</span> <span class="nf">getCasillaFinal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConectorSE.getCasillaFinal"><a class="viewcode-back" href="../codigo.html#conector.ConectorSE.getCasillaFinal">[documentos]</a>    <span class="k">def</span> <span class="nf">getCasillaFinal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :returns:  CasillaEstandar -- Referencia a la casilla donde termina el conector.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">casilla_final</span></div>
 
-<div class="viewcode-block" id="Conector.getVentana"><a class="viewcode-back" href="../codigo.html#conector.Conector.getVentana">[documentos]</a>    <span class="k">def</span> <span class="nf">getVentana</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConectorSE.getVentana"><a class="viewcode-back" href="../codigo.html#conector.ConectorSE.getVentana">[documentos]</a>    <span class="k">def</span> <span class="nf">getVentana</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :returns:  pygame.display -- Referencia a la ventana de pygame.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span></div>
 
-<div class="viewcode-block" id="Conector.sendConector"><a class="viewcode-back" href="../codigo.html#conector.Conector.sendConector">[documentos]</a>    <span class="k">def</span> <span class="nf">sendConector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConectorSE.sendConector"><a class="viewcode-back" href="../codigo.html#conector.ConectorSE.sendConector">[documentos]</a>    <span class="k">def</span> <span class="nf">sendConector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función envía el mismo conector (self) a sus casillas relacionadas de inicio y fin.</span>
 <span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
@@ -79,14 +97,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">casilla_inicio</span><span class="o">.</span><span class="n">setConector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">casilla_final</span><span class="o">.</span><span class="n">setConector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
 
-<div class="viewcode-block" id="Escalera"><a class="viewcode-back" href="../codigo.html#conector.Escalera">[documentos]</a><span class="k">class</span> <span class="nc">Escalera</span><span class="p">(</span><span class="n">Conector</span><span class="p">):</span>
+<div class="viewcode-block" id="Escalera"><a class="viewcode-back" href="../codigo.html#conector.Escalera">[documentos]</a><span class="k">class</span> <span class="nc">Escalera</span><span class="p">(</span><span class="n">ConectorSE</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Esta clase representa un conector entre dos casillas de tablero, y contiene los</span>
 <span class="sd">    atributos y acciones necesarios para su comportamiento en un tablero de juego.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">):</span>
-        <span class="n">Conector</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Escalera.dibujar"><a class="viewcode-back" href="../codigo.html#conector.Escalera.dibujar">[documentos]</a>    <span class="k">def</span> <span class="nf">dibujar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -95,14 +113,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getVentana</span><span class="p">(),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCasillaInicio</span><span class="p">()</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getCasillaFinal</span><span class="p">()</span><span class="o">.</span><span class="n">getCoordenadas</span><span class="p">(),</span> <span class="mi">4</span><span class="p">)</span></div></div>
 
-<div class="viewcode-block" id="Serpiente"><a class="viewcode-back" href="../codigo.html#conector.Serpiente">[documentos]</a><span class="k">class</span> <span class="nc">Serpiente</span><span class="p">(</span><span class="n">Conector</span><span class="p">):</span>
+<div class="viewcode-block" id="Serpiente"><a class="viewcode-back" href="../codigo.html#conector.Serpiente">[documentos]</a><span class="k">class</span> <span class="nc">Serpiente</span><span class="p">(</span><span class="n">ConectorSE</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Esta clase representa un conector entre dos casillas de tablero, y contiene los</span>
 <span class="sd">    atributos y acciones necesarios para su comportamiento en un tablero de juego.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">):</span>
-        <span class="n">Conector</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">casilla</span><span class="p">,</span> <span class="n">ventana</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Serpiente.dibujar"><a class="viewcode-back" href="../codigo.html#conector.Serpiente.dibujar">[documentos]</a>    <span class="k">def</span> <span class="nf">dibujar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

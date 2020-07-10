@@ -34,13 +34,12 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="k">import</span> <span class="o">*</span>
-<span class="c1">#from button import Button</span>
 <span class="kn">from</span> <span class="nn">sidebar</span> <span class="k">import</span> <span class="n">Sidebar</span>
-<span class="kn">from</span> <span class="nn">conector</span> <span class="k">import</span> <span class="n">Conector</span><span class="p">,</span> <span class="n">Escalera</span><span class="p">,</span> <span class="n">Serpiente</span>
-<span class="kn">from</span> <span class="nn">casilla</span> <span class="k">import</span> <span class="n">Casilla</span><span class="p">,</span> <span class="n">CasillaEstandar</span><span class="p">,</span> <span class="n">CasillaEscalera</span><span class="p">,</span> <span class="n">CasillaSerpiente</span>
+<span class="kn">from</span> <span class="nn">conector</span> <span class="k">import</span> <span class="n">ConectorSE</span><span class="p">,</span> <span class="n">Escalera</span><span class="p">,</span> <span class="n">Serpiente</span>
+<span class="kn">from</span> <span class="nn">casilla</span> <span class="k">import</span> <span class="n">CasillaSE</span><span class="p">,</span> <span class="n">CasillaEstandar</span><span class="p">,</span> <span class="n">CasillaEscalera</span><span class="p">,</span> <span class="n">CasillaSerpiente</span>
 <span class="kn">from</span> <span class="nn">dado</span> <span class="k">import</span> <span class="n">Dado</span>
 <span class="kn">from</span> <span class="nn">jugador</span> <span class="k">import</span> <span class="n">Jugador</span><span class="p">,</span> <span class="n">VistaJugador</span>
-<span class="kn">from</span> <span class="nn">tablero</span> <span class="k">import</span> <span class="n">Tablero</span>
+<span class="kn">from</span> <span class="nn">tablero</span> <span class="k">import</span> <span class="n">TableroSE</span>
 <span class="kn">from</span> <span class="nn">singleton</span> <span class="k">import</span> <span class="n">Singleton</span>
 <span class="kn">from</span> <span class="nn">arbitro</span> <span class="k">import</span> <span class="n">Arbitro</span>
 <span class="kn">from</span> <span class="nn">vista</span> <span class="k">import</span> <span class="n">Vista</span>
@@ -145,7 +144,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Crea un objeto de tablero logico y o guarda en una variable local de &quot;tablero&quot;</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tablero</span> <span class="o">=</span> <span class="n">Tablero</span><span class="p">(</span><span class="n">tamanio</span><span class="p">,</span> <span class="n">ventana</span><span class="p">,</span> <span class="n">ancho_barra</span><span class="p">,</span> <span class="n">es_partida_cargada</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tablero</span> <span class="o">=</span> <span class="n">TableroSE</span><span class="p">(</span><span class="n">tamanio</span><span class="p">,</span> <span class="n">ventana</span><span class="p">,</span> <span class="n">ancho_barra</span><span class="p">,</span> <span class="n">es_partida_cargada</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">colorear_casillas_tablero</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -263,7 +262,7 @@
         <span class="n">Arbitro</span><span class="o">.</span><span class="n">jugador_juegue</span><span class="p">(</span><span class="n">jugador</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">muestre_presionar_espacio</span><span class="p">()</span>
         <span class="n">coordenadas</span> <span class="o">=</span> <span class="n">Arbitro</span><span class="o">.</span><span class="n">obtener_destino</span><span class="p">(</span><span class="n">jugador</span><span class="o">.</span><span class="n">pos_tablero</span><span class="p">,</span> <span class="n">Arbitro</span><span class="o">.</span><span class="n">valor_actual_dados</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">dibuje_cuadro_blanco</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">dibuje_cuadro_blanco</span><span class="p">(</span><span class="mi">710</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
         <span class="n">jugador</span><span class="o">.</span><span class="n">mover</span><span class="p">(</span><span class="n">Arbitro</span><span class="o">.</span><span class="n">valor_actual_dados</span><span class="p">,</span> <span class="n">coordenadas</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">obtener_colores_jugadores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">contador</span><span class="p">):</span>
@@ -303,11 +302,9 @@
         <span class="k">def</span> <span class="nf">mostrar_colores</span><span class="p">():</span>
             <span class="n">root_colores</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span> 
             <span class="n">root_colores</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Colores disponibles&quot;</span><span class="p">)</span>
-            <span class="n">root_colores</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;400x50&quot;</span><span class="p">)</span>     
-            <span class="n">mensaje</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">root_colores</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Colores disponibles: azul, verde, aqua, gris,&quot;</span><span class="p">)</span>
+            <span class="n">root_colores</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;200x200&quot;</span><span class="p">)</span>
+            <span class="n">mensaje</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">root_colores</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Colores disponibles: </span><span class="se">\n</span><span class="s2">- azul</span><span class="se">\n</span><span class="s2">- verde</span><span class="se">\n</span><span class="s2">- aqua</span><span class="se">\n</span><span class="s2">- gris</span><span class="se">\n</span><span class="s2">- rojo</span><span class="se">\n</span><span class="s2">- dorado</span><span class="se">\n</span><span class="s2">- negro</span><span class="se">\n</span><span class="s2">- magenta</span><span class="se">\n</span><span class="s2">- naranja&quot;</span><span class="p">)</span>
             <span class="n">mensaje</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="n">mensaje2</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">root_colores</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;rojo, dorado, negro, magenta, naranja.&quot;</span><span class="p">)</span>
-            <span class="n">mensaje2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">salir</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">root_colores</span><span class="p">,</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Atras&quot;</span><span class="p">,</span><span class="n">command</span> <span class="o">=</span> <span class="n">root_colores</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
             <span class="n">salir</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">root_colores</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
             <span class="n">root_colores</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
@@ -373,11 +370,8 @@
         
     <span class="c1">#Arbitro decide turnos</span>
     <span class="n">Arbitro</span><span class="o">.</span><span class="n">decidir_turnos</span><span class="p">(</span><span class="n">Arbitro</span><span class="o">.</span><span class="n">cantidad_jugadores_tmp</span><span class="p">)</span>
-    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Orden de jugadores: &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">jugadores_ordenados</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span></div>
-
+    <span class="n">controlador</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">dibuje_cuadro_blanco</span><span class="p">(</span><span class="mi">710</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="juego"><a class="viewcode-back" href="../codigo.html#controlador.juego">[documentos]</a><span class="k">def</span> <span class="nf">juego</span><span class="p">(</span><span class="n">controlador</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>

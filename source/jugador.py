@@ -45,10 +45,14 @@ class Jugador():
             Arbitro.setColorJugador(self)
 
     def crear_ficha(self):
+        """
+        Metodo que va a crear una ficha para el Jugador, y la va a almacenar en su 
+        inventario. Existe una relacion a esa ficha para mas comodidad, y es self.rel_ficha.
+        """
         rect = pygame.rect.Rect((self.x, self.y, self.ancho, self.largo))
         ficha = Ficha(rect)
         self.rel_ficha = ficha
-        self.inventario.agregar(ficha, 1)
+        self.inventario.agregar(ficha, 1)       #Se agrega 1 ficha al inventario
 
     def setNombre(self, nombre):
         """

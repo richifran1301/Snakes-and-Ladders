@@ -36,13 +36,42 @@
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">pygame</span>
 <span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="k">import</span> <span class="o">*</span>
-<span class="c1">#from button import Button</span>
 <span class="kn">from</span> <span class="nn">sidebar</span> <span class="k">import</span> <span class="n">Sidebar</span>
-<span class="kn">from</span> <span class="nn">conector</span> <span class="k">import</span> <span class="n">Conector</span><span class="p">,</span> <span class="n">Escalera</span><span class="p">,</span> <span class="n">Serpiente</span>
-<span class="kn">from</span> <span class="nn">casilla</span> <span class="k">import</span> <span class="n">Casilla</span><span class="p">,</span> <span class="n">CasillaEstandar</span><span class="p">,</span> <span class="n">CasillaEscalera</span><span class="p">,</span> <span class="n">CasillaSerpiente</span>
+<span class="kn">from</span> <span class="nn">conector</span> <span class="k">import</span> <span class="n">ConectorSE</span><span class="p">,</span> <span class="n">Escalera</span><span class="p">,</span> <span class="n">Serpiente</span>
+<span class="kn">from</span> <span class="nn">casilla</span> <span class="k">import</span> <span class="n">CasillaSE</span><span class="p">,</span> <span class="n">CasillaEstandar</span><span class="p">,</span> <span class="n">CasillaEscalera</span><span class="p">,</span> <span class="n">CasillaSerpiente</span>
 <span class="kn">from</span> <span class="nn">singleton</span> <span class="k">import</span> <span class="n">Singleton</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<div class="viewcode-block" id="Tablero"><a class="viewcode-back" href="../codigo.html#tablero.Tablero">[documentos]</a><span class="k">class</span> <span class="nc">Tablero</span><span class="p">():</span>
+<div class="viewcode-block" id="Tablero"><a class="viewcode-back" href="../codigo.html#tablero.Tablero">[documentos]</a><span class="k">class</span> <span class="nc">Tablero</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase virtual de tablero disenada para el correcto uso del MARDA.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor abstracto de la clase Tablero.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Tablero.initCasillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.initCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">initCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casillas</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este método se encarga de incilizar el vector de casillas de juego.</span>
+<span class="sd">        :param casillas: casillas del tablero de juego</span>
+<span class="sd">        :type CasillaSE[]: array</span>
+<span class="sd">        :returns:  None -- Procedimiento init sin valor de retorno.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span> <span class="o">=</span> <span class="n">casillas</span></div>
+        
+<div class="viewcode-block" id="Tablero.appendCasilla"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.appendCasilla">[documentos]</a>    <span class="k">def</span> <span class="nf">appendCasilla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casilla</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este método se encarga de agregar al array de casillas algunas casilla que se quiera agregar a este</span>
+<span class="sd">        :param casilla: casilla del tablero de juego</span>
+<span class="sd">        :type CasillaSE: casilla</span>
+<span class="sd">        :returns:  None -- Procedimiento append sin valor de retorno.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">casilla</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="TableroSE"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE">[documentos]</a><span class="k">class</span> <span class="nc">TableroSE</span><span class="p">(</span><span class="n">Tablero</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Esta clase representa un tablero de juego, y contiene los</span>
 <span class="sd">    atributos y acciones necesarios para su graficación y comportamiento.</span>
@@ -57,6 +86,7 @@
 <span class="sd">        :param ancho_barra: Ancho de la sidebar junto al tablero.</span>
 <span class="sd">        :type ancho_barra: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tamanio</span> <span class="o">=</span> <span class="n">tamanio</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span> <span class="o">=</span> <span class="n">ventana</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">es_partida_cargada</span> <span class="o">=</span> <span class="n">es_partida_cargada</span>
@@ -66,7 +96,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">generarCasillas</span><span class="p">()</span>          <span class="c1"># se llama a la función que genera casillas</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ancho_barra</span> <span class="o">=</span> <span class="n">ancho_barra</span>
         
-<div class="viewcode-block" id="Tablero.generarCasillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.generarCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">generarCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.generarCasillas"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.generarCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">generarCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Este método genera casillas y sus conectores para un tablero de Serpientes y escaleras de manera aleatoria.</span>
 <span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
@@ -167,15 +197,7 @@
 
         <span class="k">for</span> <span class="n">casilla</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">:</span> <span class="n">Singleton</span><span class="o">.</span><span class="n">casillasTablero</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">casilla</span><span class="p">)</span></div>
 
-        <span class="c1">#for serpiente in Singleton.serpientes:</span>
-            <span class="c1">#print(&quot;SERPIENTE INICIO: &quot; + str(serpiente.getCasillaInicio().getIndice()))</span>
-
-        <span class="c1">#for i in range(len(self.casillas)):</span>
-            <span class="c1">#if not isinstance(self.casillas[i], CasillaEstandar):</span>
-                <span class="c1">#print(self.casillas[i].casilla.getIndice() + 1, self.casillas[i].casilla.getFinal() + 1, self.casillas[i].casilla.esInicio())</span>
-
-
-<div class="viewcode-block" id="Tablero.cargarCasillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.cargarCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.cargarCasillas"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.cargarCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Este metodo va a cear las casillas estandar y las va a guardar dentro del vector de casillas.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -187,8 +209,7 @@
             <span class="n">casillaEstandar</span> <span class="o">=</span> <span class="n">CasillaEstandar</span><span class="p">(</span><span class="n">centros_casillas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">figura</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ventana</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">casillaEstandar</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="Tablero.getPosicionesEnTupla"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.getPosicionesEnTupla">[documentos]</a>    <span class="k">def</span> <span class="nf">getPosicionesEnTupla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indice</span><span class="p">,</span> <span class="n">posiciones</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.getPosicionesEnTupla"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.getPosicionesEnTupla">[documentos]</a>    <span class="k">def</span> <span class="nf">getPosicionesEnTupla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indice</span><span class="p">,</span> <span class="n">posiciones</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función devuelve la tupla de índices inicio y fin donde se encuentra un índice de casilla.</span>
 <span class="sd">        :param indice: El índice de la casilla en la lista general de casillas.</span>
@@ -202,7 +223,7 @@
                 <span class="k">return</span> <span class="n">i</span>        <span class="c1"># devuelva la tupla</span>
         <span class="k">return</span></div>
 
-<div class="viewcode-block" id="Tablero.getPar"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.getPar">[documentos]</a>    <span class="k">def</span> <span class="nf">getPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indice</span><span class="p">,</span> <span class="n">posiciones</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.getPar"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.getPar">[documentos]</a>    <span class="k">def</span> <span class="nf">getPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indice</span><span class="p">,</span> <span class="n">posiciones</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función devuelve la tupla de casillas correspondiente a una tupla de índices inicio y fin.</span>
 <span class="sd">        :param indice: El índice de la casilla en la lista general de casillas.</span>
@@ -217,7 +238,7 @@
 
         <span class="k">return</span> <span class="n">tupla</span></div>
 
-<div class="viewcode-block" id="Tablero.existeConexion"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.existeConexion">[documentos]</a>    <span class="k">def</span> <span class="nf">existeConexion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indice</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.existeConexion"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.existeConexion">[documentos]</a>    <span class="k">def</span> <span class="nf">existeConexion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indice</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función indica si una casilla ya está conectada con otra.</span>
 <span class="sd">        :param indice: El índice de la casilla en la lista general de casillas.</span>
@@ -237,7 +258,7 @@
 
         <span class="k">return</span> <span class="kc">False</span>            <span class="c1"># de lo contrario, indique falso</span></div>
 
-<div class="viewcode-block" id="Tablero.generar_serpientes"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.generar_serpientes">[documentos]</a>    <span class="k">def</span> <span class="nf">generar_serpientes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">escaleras</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.generar_serpientes"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.generar_serpientes">[documentos]</a>    <span class="k">def</span> <span class="nf">generar_serpientes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">escaleras</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función genera tuplas con las posiciones de inicio y fin de n serpientes dadas.</span>
 <span class="sd">        :param escaleras: Lista de escaleras (necesaria para no crear serpientes donde hay escaleras).</span>
@@ -248,7 +269,6 @@
 <span class="sd">        :type cantidad: int</span>
 <span class="sd">        :returns:  list -- Devuelve un vector con posiciones de serpientes, pares inicios, impares fines, consecutivos.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="n">serpientes_temp</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">generados</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">generados</span> <span class="o">&lt;</span> <span class="n">cantidad</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># mientras la cantidad de serpientes generadas sea menor al doble de las deseadas (porque son pares)</span>
@@ -261,7 +281,7 @@
         
         <span class="k">return</span> <span class="n">serpientes_temp</span></div>
 
-<div class="viewcode-block" id="Tablero.generar_escaleras"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.generar_escaleras">[documentos]</a>    <span class="k">def</span> <span class="nf">generar_escaleras</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.generar_escaleras"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.generar_escaleras">[documentos]</a>    <span class="k">def</span> <span class="nf">generar_escaleras</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función genera tuplas con las posiciones de inicio y fin de n escaleras dadas.</span>
 <span class="sd">        :param casillas: Lista de todas las casillas.</span>
@@ -270,7 +290,6 @@
 <span class="sd">        :type cantidad: int</span>
 <span class="sd">        :returns:  list -- Devuelve un vector con posiciones de escaleras, pares inicios, impares fines, consecutivos.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="n">escaleras_temp</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">generados</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -284,7 +303,7 @@
 
         <span class="k">return</span> <span class="n">escaleras_temp</span></div>
 
-<div class="viewcode-block" id="Tablero.generar_conexiones"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.generar_conexiones">[documentos]</a>    <span class="k">def</span> <span class="nf">generar_conexiones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad_serpientes</span><span class="p">,</span> <span class="n">cantidad_escaleras</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.generar_conexiones"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.generar_conexiones">[documentos]</a>    <span class="k">def</span> <span class="nf">generar_conexiones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad_serpientes</span><span class="p">,</span> <span class="n">cantidad_escaleras</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función genera dos listas de tuplas a partir de ciertas posiciones, una para serpientes y otra para escaleras. </span>
 <span class="sd">        Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o escalera.</span>
@@ -296,7 +315,6 @@
 <span class="sd">        :type cantidad_escaleras: int</span>
 <span class="sd">        :returns:  tuple -- Devuelve como tupla las dos listas con tuplas de posiciones de serpientes y escaleras.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="c1"># genere los vectores con índices aleatorios de dos en dos que representan tuplas</span>
         <span class="n">escaleras_temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generar_escaleras</span><span class="p">(</span><span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad_escaleras</span><span class="p">)</span>
         <span class="n">serpientes_temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generar_serpientes</span><span class="p">(</span><span class="n">escaleras_temp</span><span class="p">,</span> <span class="n">casillas</span><span class="p">,</span> <span class="n">cantidad_serpientes</span><span class="p">)</span>
@@ -342,7 +360,7 @@
 
         <span class="k">return</span> <span class="n">serpientes</span><span class="p">,</span> <span class="n">escaleras</span></div>
 
-<div class="viewcode-block" id="Tablero.obtener_orden_coordenadas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.obtener_orden_coordenadas">[documentos]</a>    <span class="k">def</span> <span class="nf">obtener_orden_coordenadas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">centro_casillas_x</span><span class="p">,</span> <span class="n">centro_casillas_y</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.obtener_orden_coordenadas"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.obtener_orden_coordenadas">[documentos]</a>    <span class="k">def</span> <span class="nf">obtener_orden_coordenadas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">centro_casillas_x</span><span class="p">,</span> <span class="n">centro_casillas_y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. </span>
 <span class="sd">        :param centro_casillas_x: Lista de centros de casillas en eje x.</span>
@@ -351,7 +369,6 @@
 <span class="sd">        :type centro_casillas_y: list</span>
 <span class="sd">        :returns:  list -- Devuelve la lista con coordenadas de todas las casillas (x, y) como tuplas.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="n">casillas_temp</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="n">centro_casillas_x</span>
 
@@ -369,7 +386,7 @@
         
         <span class="k">return</span> <span class="n">casillas_temp</span></div>
 
-<div class="viewcode-block" id="Tablero.obtener_casillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.obtener_casillas">[documentos]</a>    <span class="k">def</span> <span class="nf">obtener_casillas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">max_iteracion</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.obtener_casillas"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.obtener_casillas">[documentos]</a>    <span class="k">def</span> <span class="nf">obtener_casillas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">max_iteracion</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. </span>
 <span class="sd">        :param x: Ancho de la casilla.</span>
@@ -378,14 +395,13 @@
 <span class="sd">        :type max_iteracion: int</span>
 <span class="sd">        :returns:  list -- Devuelve una lista con coordenadas que representan centros.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="c1"># favor documentar el funcionamiento de este algoritmo</span>
         <span class="n">centro_casillas</span> <span class="o">=</span> <span class="p">[]</span>    
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iteracion</span><span class="p">):</span>
             <span class="n">centro_casillas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">centro_casillas</span></div>
 
-<div class="viewcode-block" id="Tablero.obtener_centro_casillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.obtener_centro_casillas">[documentos]</a>    <span class="k">def</span> <span class="nf">obtener_centro_casillas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ancho_total</span><span class="p">,</span> <span class="n">alto_total</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.obtener_centro_casillas"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.obtener_centro_casillas">[documentos]</a>    <span class="k">def</span> <span class="nf">obtener_centro_casillas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ancho_total</span><span class="p">,</span> <span class="n">alto_total</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función calcula una cantidad de casillas basado en el tamaño del tablero, y arroja la lista de sus centros. </span>
 <span class="sd">        :param ancho_total: Ancho total del tablero.</span>
@@ -394,7 +410,6 @@
 <span class="sd">        :type alto_total: int</span>
 <span class="sd">        :returns:  list -- Devuelve una lista con coordenadas que representan centros.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-    
         <span class="n">centro_casillas</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">centro_casillas_x</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">centro_casillas_y</span> <span class="o">=</span> <span class="p">[]</span>
@@ -413,12 +428,11 @@
     
         <span class="k">return</span> <span class="n">centro_casillas</span></div>
 
-<div class="viewcode-block" id="Tablero.colorearCasillas"><a class="viewcode-back" href="../codigo.html#tablero.Tablero.colorearCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">colorearCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TableroSE.colorearCasillas"><a class="viewcode-back" href="../codigo.html#tablero.TableroSE.colorearCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">colorearCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función colorea las casillas con un algoritmo que impide colores consecutivos. </span>
 <span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="n">colores_x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;amarillo&quot;</span><span class="p">,</span> <span class="s2">&quot;blanco&quot;</span><span class="p">,</span> <span class="s2">&quot;rojo&quot;</span><span class="p">,</span> <span class="s2">&quot;azul&quot;</span><span class="p">,</span> <span class="s2">&quot;verde&quot;</span><span class="p">]</span>
 
         <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
@@ -465,13 +479,11 @@
 
             <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></div></div>
 
-
 <div class="viewcode-block" id="VistaTablero"><a class="viewcode-back" href="../codigo.html#tablero.VistaTablero">[documentos]</a><span class="k">class</span> <span class="nc">VistaTablero</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Esta clase representa un tablero de juego, y contiene los</span>
 <span class="sd">    atributos y acciones necesarios para su graficación y comportamiento.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controlador</span><span class="p">,</span> <span class="n">tamanio</span><span class="p">,</span> <span class="n">ventana</span><span class="p">,</span> <span class="n">ancho_barra</span><span class="p">,</span> <span class="n">es_partida_cargada</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span> <span class="o">=</span> <span class="p">[]</span>              <span class="c1"># lista de casillas del tablero</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controlador</span> <span class="o">=</span> <span class="n">controlador</span>
@@ -480,17 +492,19 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span> <span class="o">=</span> <span class="n">controlador</span><span class="o">.</span><span class="n">colorear_casillas_tablero</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dibujarCasillas</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">actualizar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="VistaTablero.actualizar"><a class="viewcode-back" href="../codigo.html#tablero.VistaTablero.actualizar">[documentos]</a>    <span class="k">def</span> <span class="nf">actualizar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Funcion que se encarga de actualizar el tablero si se llegara a cargar un apartida.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">casillas_nuevas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controlador</span><span class="o">.</span><span class="n">actualizar_tablero</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span> <span class="o">=</span> <span class="n">casillas_nuevas</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dibujarCasillas</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dibujarCasillas</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="VistaTablero.dibujarCasillas"><a class="viewcode-back" href="../codigo.html#tablero.VistaTablero.dibujarCasillas">[documentos]</a>    <span class="k">def</span> <span class="nf">dibujarCasillas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Esta función dibuja las casillas y sus conectores en la ventana.</span>
 <span class="sd">        :returns:  None -- Procedimiento sin valor de retorno.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">casillas</span><span class="p">:</span>
             <span class="n">c</span><span class="o">.</span><span class="n">dibujar</span><span class="p">()</span>             <span class="c1"># y las estándar</span>
 

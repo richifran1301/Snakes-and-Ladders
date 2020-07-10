@@ -60,7 +60,7 @@
 
 
 \title{Escaleras y Serpientes Documentation}
-\date{08 de July de 2020}
+\date{10 de July de 2020}
 \release{1}
 \author{Daniel Salazar, Josue Amador, Gustavo Jimenez, Ricardo Franco, Ignacio Arroyo}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -96,6 +96,15 @@
 Esta clase corresponde a la del Jugador que participa en el juego. Realiza las 
 interacciones dadas por el usuario y depende totalmente de el. Van a haber entre 2 
 a 4 jugadores por juego.
+\index{crear\_ficha() (método de jugador.Jugador)@\spxentry{crear\_ficha()}\spxextra{método de jugador.Jugador}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:jugador.Jugador.crear_ficha}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{crear\_ficha}}}{}{}
+Metodo que va a crear una ficha para el Jugador, y la va a almacenar en su 
+inventario. Existe una relacion a esa ficha para mas comodidad, y es self.rel\_ficha.
+
+\end{fulllineitems}
+
 \index{getNombre() (método de jugador.Jugador)@\spxentry{getNombre()}\spxextra{método de jugador.Jugador}}
 
 \begin{fulllineitems}
@@ -405,8 +414,36 @@ cantidad de escaleras; posicion en el tablero de inicio de escalera y la posicio
 
 
 
-\subsection{Codigo de: \sphinxstylestrong{Button}}
-\label{\detokenize{codigo:module-button}}\label{\detokenize{codigo:codigo-de-button}}\index{button (módulo)@\spxentry{button}\spxextra{módulo}}
+\subsection{Codigo de: \sphinxstylestrong{Boton}}
+\label{\detokenize{codigo:module-button}}\label{\detokenize{codigo:codigo-de-boton}}\index{button (módulo)@\spxentry{button}\spxextra{módulo}}\index{Boton (clase en button)@\spxentry{Boton}\spxextra{clase en button}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:button.Boton}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{button.}}\sphinxbfcode{\sphinxupquote{Boton}}}{\emph{ventana}, \emph{mi\_color}, \emph{x}, \emph{y}, \emph{ancho}, \emph{alto}, \emph{text=''}}{}
+Clase que equivale a un boton para la interfaz
+\index{dibujar() (método de button.Boton)@\spxentry{dibujar()}\spxextra{método de button.Boton}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:button.Boton.dibujar}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{dibujar}}}{}{}
+Esta función se encarga de dibujar el botón en la posición dada al inicializarse
+:returns:  None -- Procedimiento sin valor de retorno.
+
+\end{fulllineitems}
+
+\index{isOver() (método de button.Boton)@\spxentry{isOver()}\spxextra{método de button.Boton}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:button.Boton.isOver}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{isOver}}}{\emph{pos}}{}
+Esta función se encarga de averiguar si el mouse se encuentra por encima del botón.
+:param pos: Posicion (x,y) en la que se encuentra el mouse en un momento dado
+:type pos: tuple
+:returns:  None -- Procedimiento sin valor de retorno.
+
+\end{fulllineitems}
+
+
+\end{fulllineitems}
+
+
 
 \subsection{Codigo de: \sphinxstylestrong{Cargador}}
 \label{\detokenize{codigo:module-cargador}}\label{\detokenize{codigo:codigo-de-cargador}}\index{cargador (módulo)@\spxentry{cargador}\spxextra{módulo}}\index{Cargador (clase en cargador)@\spxentry{Cargador}\spxextra{clase en cargador}}
@@ -431,12 +468,38 @@ Este metodo se encarga de inicializar la clase, este constructor es heredado de 
 \label{\detokenize{codigo:module-conector}}\label{\detokenize{codigo:codigo-de-conector}}\index{conector (módulo)@\spxentry{conector}\spxextra{módulo}}\index{Conector (clase en conector)@\spxentry{Conector}\spxextra{clase en conector}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:conector.Conector}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{conector.}}\sphinxbfcode{\sphinxupquote{Conector}}}{\emph{casilla}, \emph{ventana}}{}
-Clase genérica de conector para implementar decoradores.
-\index{getCasillaFinal() (método de conector.Conector)@\spxentry{getCasillaFinal()}\spxextra{método de conector.Conector}}
+\phantomsection\label{\detokenize{codigo:conector.Conector}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{conector.}}\sphinxbfcode{\sphinxupquote{Conector}}}~\index{setCasillas() (método de conector.Conector)@\spxentry{setCasillas()}\spxextra{método de conector.Conector}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:conector.Conector.getCasillaFinal}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getCasillaFinal}}}{}{}~\begin{quote}\begin{description}
+\phantomsection\label{\detokenize{codigo:conector.Conector.setCasillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{setCasillas}}}{\emph{inicio}, \emph{final}}{}~\begin{quote}\begin{description}
+\item[{Parámetros}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{inicio}} -- El conector inicial de una casilla con otra
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{final}} -- El conector final de una casilla con otra
+
+\end{itemize}
+
+\item[{Devuelve}] \leavevmode
+None -- Procedimiento set sin valor de retorno.
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+\end{fulllineitems}
+
+\index{ConectorSE (clase en conector)@\spxentry{ConectorSE}\spxextra{clase en conector}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:conector.ConectorSE}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{conector.}}\sphinxbfcode{\sphinxupquote{ConectorSE}}}{\emph{casilla}, \emph{ventana}}{}
+Clase genérica de conector para implementar decoradores.
+\index{getCasillaFinal() (método de conector.ConectorSE)@\spxentry{getCasillaFinal()}\spxextra{método de conector.ConectorSE}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:conector.ConectorSE.getCasillaFinal}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getCasillaFinal}}}{}{}~\begin{quote}\begin{description}
 \item[{Devuelve}] \leavevmode
 CasillaEstandar -- Referencia a la casilla donde termina el conector.
 
@@ -444,10 +507,10 @@ CasillaEstandar -- Referencia a la casilla donde termina el conector.
 
 \end{fulllineitems}
 
-\index{getCasillaInicio() (método de conector.Conector)@\spxentry{getCasillaInicio()}\spxextra{método de conector.Conector}}
+\index{getCasillaInicio() (método de conector.ConectorSE)@\spxentry{getCasillaInicio()}\spxextra{método de conector.ConectorSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:conector.Conector.getCasillaInicio}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getCasillaInicio}}}{}{}~\begin{quote}\begin{description}
+\phantomsection\label{\detokenize{codigo:conector.ConectorSE.getCasillaInicio}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getCasillaInicio}}}{}{}~\begin{quote}\begin{description}
 \item[{Devuelve}] \leavevmode
 CasillaEstandar -- Referencia a la casilla donde inicia el conector.
 
@@ -455,10 +518,10 @@ CasillaEstandar -- Referencia a la casilla donde inicia el conector.
 
 \end{fulllineitems}
 
-\index{getVentana() (método de conector.Conector)@\spxentry{getVentana()}\spxextra{método de conector.Conector}}
+\index{getVentana() (método de conector.ConectorSE)@\spxentry{getVentana()}\spxextra{método de conector.ConectorSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:conector.Conector.getVentana}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getVentana}}}{}{}~\begin{quote}\begin{description}
+\phantomsection\label{\detokenize{codigo:conector.ConectorSE.getVentana}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getVentana}}}{}{}~\begin{quote}\begin{description}
 \item[{Devuelve}] \leavevmode
 pygame.display -- Referencia a la ventana de pygame.
 
@@ -466,10 +529,10 @@ pygame.display -- Referencia a la ventana de pygame.
 
 \end{fulllineitems}
 
-\index{sendConector() (método de conector.Conector)@\spxentry{sendConector()}\spxextra{método de conector.Conector}}
+\index{sendConector() (método de conector.ConectorSE)@\spxentry{sendConector()}\spxextra{método de conector.ConectorSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:conector.Conector.sendConector}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{sendConector}}}{}{}
+\phantomsection\label{\detokenize{codigo:conector.ConectorSE.sendConector}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{sendConector}}}{}{}
 Esta función envía el mismo conector (self) a sus casillas relacionadas de inicio y fin.
 :returns:  None -- Procedimiento sin valor de retorno.
 
@@ -554,12 +617,82 @@ menu principal. Llama al ciclo principal del juego (metodo juego)
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{codigo:inventario.ElementoInventario}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{inventario.}}\sphinxbfcode{\sphinxupquote{ElementoInventario}}}
+Clase abstracta de Elemento Inventario. Solo sus clases derivadas estaran
+dentro del inventario. Utilizada para el correcto uso del MARDA.
+
 \end{fulllineitems}
 
 \index{Ficha (clase en inventario)@\spxentry{Ficha}\spxextra{clase en inventario}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{codigo:inventario.Ficha}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{inventario.}}\sphinxbfcode{\sphinxupquote{Ficha}}}{\emph{figura}}{}
+Clase derivada de ElementoInventario. Corresponde a la ficha del Jugador, la cual
+se va a estar moviendo por el tablero (por las coordenadas x, y de figura). La figura
+se la otorga el jugador por parametro en el init.
+\index{mover() (método de inventario.Ficha)@\spxentry{mover()}\spxextra{método de inventario.Ficha}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:inventario.Ficha.mover}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{mover}}}{\emph{movX}, \emph{movY}}{}
+Metodo que mueve la ficha por el tablero logico. No se observa en la interfaz, nada mas
+es movimiento logico.
+
+\end{fulllineitems}
+
+\index{setColor() (método de inventario.Ficha)@\spxentry{setColor()}\spxextra{método de inventario.Ficha}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:inventario.Ficha.setColor}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{setColor}}}{\emph{color}}{}
+Metodo que establece el color de la ficha. En nuestro caso es el color del Jugador.
+
+\end{fulllineitems}
+
+
+\end{fulllineitems}
+
+\index{Inventario (clase en inventario)@\spxentry{Inventario}\spxextra{clase en inventario}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:inventario.Inventario}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{inventario.}}\sphinxbfcode{\sphinxupquote{Inventario}}}
+Clase Inventario disenada para el correcto uso del MARDA. Es un inventario sin cantidad maxima
+especificada ya que en nuestro caso unicamente tendra la ficha del Jugador que se desplazara por
+el tablero.
+\index{agregar() (método de inventario.Inventario)@\spxentry{agregar()}\spxextra{método de inventario.Inventario}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:inventario.Inventario.agregar}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{agregar}}}{\emph{elemento\_nuevo}, \emph{cantidad}}{}
+Metodo que agrega un objeto de tipo ElementoInventario al vector. Si el objeto es otro tipo, se ignora y
+si ya existe un objeto de ese tipo en el Inventario se aumenta su cantidad. Para asi trabajar con mas facilidad
+aspectos como: 5 billetes de mil, 1 ficha, etc.
+
+\end{fulllineitems}
+
+\index{buscar\_en\_inventario() (método de inventario.Inventario)@\spxentry{buscar\_en\_inventario()}\spxextra{método de inventario.Inventario}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:inventario.Inventario.buscar_en_inventario}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{buscar\_en\_inventario}}}{\emph{elemento\_seleccionado}}{}
+Metodo que va a buscar un objeto en el inventario y va a retornar la cantidad del objeto respectivo.
+
+\end{fulllineitems}
+
+\index{eliminar() (método de inventario.Inventario)@\spxentry{eliminar()}\spxextra{método de inventario.Inventario}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:inventario.Inventario.eliminar}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{eliminar}}}{\emph{elemento\_seleccionado}, \emph{cantidad}}{}
+Metodo que va a eliminar una cantidad de objetos del inventario. Por paramtero viene el id del objeto
+a eliminar. En caso de no lograr eliminar el objeto,lo especifica por la terminal (debido a que solo 
+no podria en pocos casos)
+
+\end{fulllineitems}
+
+\index{sacar\_objeto() (método de inventario.Inventario)@\spxentry{sacar\_objeto()}\spxextra{método de inventario.Inventario}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:inventario.Inventario.sacar_objeto}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{sacar\_objeto}}}{\emph{elemento\_seleccionado}}{}
+Metodo que obtiene el id del objeto a sacar. Solo saca un unico objeto y lo elimina del inventario.
+
+\end{fulllineitems}
+
+
 \end{fulllineitems}
 
 
@@ -734,30 +867,60 @@ Este metodo imprime en consola la cantidad de jugadores actuales
 \label{\detokenize{codigo:module-tablero}}\label{\detokenize{codigo:codigo-de-tablero}}\index{tablero (módulo)@\spxentry{tablero}\spxextra{módulo}}\index{Tablero (clase en tablero)@\spxentry{Tablero}\spxextra{clase en tablero}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{tablero.}}\sphinxbfcode{\sphinxupquote{Tablero}}}{\emph{tamanio}, \emph{ventana}, \emph{ancho\_barra}, \emph{es\_partida\_cargada}}{}
-Esta clase representa un tablero de juego, y contiene los
-atributos y acciones necesarios para su graficación y comportamiento.
-\index{cargarCasillas() (método de tablero.Tablero)@\spxentry{cargarCasillas()}\spxextra{método de tablero.Tablero}}
+\phantomsection\label{\detokenize{codigo:tablero.Tablero}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{tablero.}}\sphinxbfcode{\sphinxupquote{Tablero}}}
+Clase virtual de tablero disenada para el correcto uso del MARDA.
+\index{appendCasilla() (método de tablero.Tablero)@\spxentry{appendCasilla()}\spxextra{método de tablero.Tablero}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.cargarCasillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{cargarCasillas}}}{}{}
+\phantomsection\label{\detokenize{codigo:tablero.Tablero.appendCasilla}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{appendCasilla}}}{\emph{casilla}}{}
+Este método se encarga de agregar al array de casillas algunas casilla que se quiera agregar a este
+:param casilla: casilla del tablero de juego
+:type CasillaSE: casilla
+:returns:  None -- Procedimiento append sin valor de retorno.
+
+\end{fulllineitems}
+
+\index{initCasillas() (método de tablero.Tablero)@\spxentry{initCasillas()}\spxextra{método de tablero.Tablero}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:tablero.Tablero.initCasillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{initCasillas}}}{\emph{casillas}}{}
+Este método se encarga de incilizar el vector de casillas de juego.
+:param casillas: casillas del tablero de juego
+:type CasillaSE{[}{]}: array
+:returns:  None -- Procedimiento init sin valor de retorno.
+
+\end{fulllineitems}
+
+
+\end{fulllineitems}
+
+\index{TableroSE (clase en tablero)@\spxentry{TableroSE}\spxextra{clase en tablero}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{tablero.}}\sphinxbfcode{\sphinxupquote{TableroSE}}}{\emph{tamanio}, \emph{ventana}, \emph{ancho\_barra}, \emph{es\_partida\_cargada}}{}
+Esta clase representa un tablero de juego, y contiene los
+atributos y acciones necesarios para su graficación y comportamiento.
+\index{cargarCasillas() (método de tablero.TableroSE)@\spxentry{cargarCasillas()}\spxextra{método de tablero.TableroSE}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.cargarCasillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{cargarCasillas}}}{}{}
 Este metodo va a cear las casillas estandar y las va a guardar dentro del vector de casillas.
 
 \end{fulllineitems}
 
-\index{colorearCasillas() (método de tablero.Tablero)@\spxentry{colorearCasillas()}\spxextra{método de tablero.Tablero}}
+\index{colorearCasillas() (método de tablero.TableroSE)@\spxentry{colorearCasillas()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.colorearCasillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{colorearCasillas}}}{}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.colorearCasillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{colorearCasillas}}}{}{}
 Esta función colorea las casillas con un algoritmo que impide colores consecutivos. 
 :returns:  None -- Procedimiento sin valor de retorno.
 
 \end{fulllineitems}
 
-\index{existeConexion() (método de tablero.Tablero)@\spxentry{existeConexion()}\spxextra{método de tablero.Tablero}}
+\index{existeConexion() (método de tablero.TableroSE)@\spxentry{existeConexion()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.existeConexion}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{existeConexion}}}{\emph{indice}}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.existeConexion}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{existeConexion}}}{\emph{indice}}{}
 Esta función indica si una casilla ya está conectada con otra.
 :param indice: El índice de la casilla en la lista general de casillas.
 :type indice: int
@@ -765,19 +928,19 @@ Esta función indica si una casilla ya está conectada con otra.
 
 \end{fulllineitems}
 
-\index{generarCasillas() (método de tablero.Tablero)@\spxentry{generarCasillas()}\spxextra{método de tablero.Tablero}}
+\index{generarCasillas() (método de tablero.TableroSE)@\spxentry{generarCasillas()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.generarCasillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generarCasillas}}}{}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.generarCasillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generarCasillas}}}{}{}
 Este método genera casillas y sus conectores para un tablero de Serpientes y escaleras de manera aleatoria.
 :returns:  None -- Procedimiento sin valor de retorno.
 
 \end{fulllineitems}
 
-\index{generar\_conexiones() (método de tablero.Tablero)@\spxentry{generar\_conexiones()}\spxextra{método de tablero.Tablero}}
+\index{generar\_conexiones() (método de tablero.TableroSE)@\spxentry{generar\_conexiones()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.generar_conexiones}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generar\_conexiones}}}{\emph{casillas}, \emph{cantidad\_serpientes}, \emph{cantidad\_escaleras}}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.generar_conexiones}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generar\_conexiones}}}{\emph{casillas}, \emph{cantidad\_serpientes}, \emph{cantidad\_escaleras}}{}
 Esta función genera dos listas de tuplas a partir de ciertas posiciones, una para serpientes y otra para escaleras. 
 Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o escalera.
 :param casillas: Lista de todas las casillas.
@@ -790,10 +953,10 @@ Las tuplas tienen los índices de casillas de inicio y fin de cada serpiente o e
 
 \end{fulllineitems}
 
-\index{generar\_escaleras() (método de tablero.Tablero)@\spxentry{generar\_escaleras()}\spxextra{método de tablero.Tablero}}
+\index{generar\_escaleras() (método de tablero.TableroSE)@\spxentry{generar\_escaleras()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.generar_escaleras}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generar\_escaleras}}}{\emph{casillas}, \emph{cantidad}}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.generar_escaleras}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generar\_escaleras}}}{\emph{casillas}, \emph{cantidad}}{}
 Esta función genera tuplas con las posiciones de inicio y fin de n escaleras dadas.
 :param casillas: Lista de todas las casillas.
 :type casillas: list
@@ -803,10 +966,10 @@ Esta función genera tuplas con las posiciones de inicio y fin de n escaleras da
 
 \end{fulllineitems}
 
-\index{generar\_serpientes() (método de tablero.Tablero)@\spxentry{generar\_serpientes()}\spxextra{método de tablero.Tablero}}
+\index{generar\_serpientes() (método de tablero.TableroSE)@\spxentry{generar\_serpientes()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.generar_serpientes}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generar\_serpientes}}}{\emph{escaleras}, \emph{casillas}, \emph{cantidad}}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.generar_serpientes}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generar\_serpientes}}}{\emph{escaleras}, \emph{casillas}, \emph{cantidad}}{}
 Esta función genera tuplas con las posiciones de inicio y fin de n serpientes dadas.
 :param escaleras: Lista de escaleras (necesaria para no crear serpientes donde hay escaleras).
 :type escaleras: list
@@ -818,10 +981,10 @@ Esta función genera tuplas con las posiciones de inicio y fin de n serpientes d
 
 \end{fulllineitems}
 
-\index{getPar() (método de tablero.Tablero)@\spxentry{getPar()}\spxextra{método de tablero.Tablero}}
+\index{getPar() (método de tablero.TableroSE)@\spxentry{getPar()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.getPar}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getPar}}}{\emph{indice}, \emph{posiciones}}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.getPar}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getPar}}}{\emph{indice}, \emph{posiciones}}{}
 Esta función devuelve la tupla de casillas correspondiente a una tupla de índices inicio y fin.
 :param indice: El índice de la casilla en la lista general de casillas.
 :type indice: int
@@ -831,10 +994,10 @@ Esta función devuelve la tupla de casillas correspondiente a una tupla de índi
 
 \end{fulllineitems}
 
-\index{getPosicionesEnTupla() (método de tablero.Tablero)@\spxentry{getPosicionesEnTupla()}\spxextra{método de tablero.Tablero}}
+\index{getPosicionesEnTupla() (método de tablero.TableroSE)@\spxentry{getPosicionesEnTupla()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.getPosicionesEnTupla}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getPosicionesEnTupla}}}{\emph{indice}, \emph{posiciones}}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.getPosicionesEnTupla}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{getPosicionesEnTupla}}}{\emph{indice}, \emph{posiciones}}{}
 Esta función devuelve la tupla de índices inicio y fin donde se encuentra un índice de casilla.
 :param indice: El índice de la casilla en la lista general de casillas.
 :type indice: int
@@ -844,10 +1007,10 @@ Esta función devuelve la tupla de índices inicio y fin donde se encuentra un �
 
 \end{fulllineitems}
 
-\index{obtener\_casillas() (método de tablero.Tablero)@\spxentry{obtener\_casillas()}\spxextra{método de tablero.Tablero}}
+\index{obtener\_casillas() (método de tablero.TableroSE)@\spxentry{obtener\_casillas()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.obtener_casillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{obtener\_casillas}}}{\emph{x}, \emph{max\_iteracion}}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.obtener_casillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{obtener\_casillas}}}{\emph{x}, \emph{max\_iteracion}}{}
 Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. 
 :param x: Ancho de la casilla.
 :type x: int
@@ -857,10 +1020,10 @@ Esta función genera una lista con las coordenadas de cada casilla en el orden l
 
 \end{fulllineitems}
 
-\index{obtener\_centro\_casillas() (método de tablero.Tablero)@\spxentry{obtener\_centro\_casillas()}\spxextra{método de tablero.Tablero}}
+\index{obtener\_centro\_casillas() (método de tablero.TableroSE)@\spxentry{obtener\_centro\_casillas()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.obtener_centro_casillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{obtener\_centro\_casillas}}}{\emph{ancho\_total}, \emph{alto\_total}}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.obtener_centro_casillas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{obtener\_centro\_casillas}}}{\emph{ancho\_total}, \emph{alto\_total}}{}
 Esta función calcula una cantidad de casillas basado en el tamaño del tablero, y arroja la lista de sus centros. 
 :param ancho\_total: Ancho total del tablero.
 :type ancho\_total: int
@@ -870,10 +1033,10 @@ Esta función calcula una cantidad de casillas basado en el tamaño del tablero,
 
 \end{fulllineitems}
 
-\index{obtener\_orden\_coordenadas() (método de tablero.Tablero)@\spxentry{obtener\_orden\_coordenadas()}\spxextra{método de tablero.Tablero}}
+\index{obtener\_orden\_coordenadas() (método de tablero.TableroSE)@\spxentry{obtener\_orden\_coordenadas()}\spxextra{método de tablero.TableroSE}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{codigo:tablero.Tablero.obtener_orden_coordenadas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{obtener\_orden\_coordenadas}}}{\emph{centro\_casillas\_x}, \emph{centro\_casillas\_y}}{}
+\phantomsection\label{\detokenize{codigo:tablero.TableroSE.obtener_orden_coordenadas}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{obtener\_orden\_coordenadas}}}{\emph{centro\_casillas\_x}, \emph{centro\_casillas\_y}}{}
 Esta función genera una lista con las coordenadas de cada casilla en el orden lógico de recorrido del tablero. 
 :param centro\_casillas\_x: Lista de centros de casillas en eje x.
 :type centro\_casillas\_x: list
@@ -892,6 +1055,14 @@ Esta función genera una lista con las coordenadas de cada casilla en el orden l
 \phantomsection\label{\detokenize{codigo:tablero.VistaTablero}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{tablero.}}\sphinxbfcode{\sphinxupquote{VistaTablero}}}{\emph{controlador}, \emph{tamanio}, \emph{ventana}, \emph{ancho\_barra}, \emph{es\_partida\_cargada}}{}
 Esta clase representa un tablero de juego, y contiene los
 atributos y acciones necesarios para su graficación y comportamiento.
+\index{actualizar() (método de tablero.VistaTablero)@\spxentry{actualizar()}\spxextra{método de tablero.VistaTablero}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:tablero.VistaTablero.actualizar}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{actualizar}}}{}{}
+Funcion que se encarga de actualizar el tablero si se llegara a cargar un apartida.
+
+\end{fulllineitems}
+
 \index{dibujarCasillas() (método de tablero.VistaTablero)@\spxentry{dibujarCasillas()}\spxextra{método de tablero.VistaTablero}}
 
 \begin{fulllineitems}
@@ -907,7 +1078,80 @@ Esta función dibuja las casillas y sus conectores en la ventana.
 
 
 \subsection{Codigo de: \sphinxstylestrong{Vista}}
-\label{\detokenize{codigo:module-vista}}\label{\detokenize{codigo:codigo-de-vista}}\index{vista (módulo)@\spxentry{vista}\spxextra{módulo}}
+\label{\detokenize{codigo:module-vista}}\label{\detokenize{codigo:codigo-de-vista}}\index{vista (módulo)@\spxentry{vista}\spxextra{módulo}}\index{Vista (clase en vista)@\spxentry{Vista}\spxextra{clase en vista}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:vista.Vista}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{vista.}}\sphinxbfcode{\sphinxupquote{Vista}}}{\emph{controlador}, \emph{ventana}, \emph{es\_partida\_cargada}}{}
+Clase que es un objeto vista, que va a representar graficamente al tablero y sus auxiliares
+en la ventana de pygame y las ventanas auxiliares de TKinter.
+\index{actualizar\_tablero\_grafico() (método de vista.Vista)@\spxentry{actualizar\_tablero\_grafico()}\spxextra{método de vista.Vista}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:vista.Vista.actualizar_tablero_grafico}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{actualizar\_tablero\_grafico}}}{}{}
+Actualiza y vuelve a dibujar las casillas porque cada vez que se mueve
+un jugador se modifica el formato grafico de la casilla que acaba de moverse.
+
+\end{fulllineitems}
+
+\index{crear\_sidebar() (método de vista.Vista)@\spxentry{crear\_sidebar()}\spxextra{método de vista.Vista}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:vista.Vista.crear_sidebar}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{crear\_sidebar}}}{}{}
+Llama el constructor de Dado y sus metodos para agregar el icono de los 
+dados en pantalla y poder obtener el resultado aleatorio que ellos generen.
+:param \_ventana: Ventana grafica del juego
+:type \_ventana: pygame window object
+:returns: tuple -- Devuelve como tupla el objeto de Button, que va a ser el boton 
+grafico de los dados, de primero y de segundo, el objeto de Dado para poder utilizar sus funciones.
+
+\end{fulllineitems}
+
+\index{crear\_tablero\_grafico() (método de vista.Vista)@\spxentry{crear\_tablero\_grafico()}\spxextra{método de vista.Vista}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:vista.Vista.crear_tablero_grafico}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{crear\_tablero\_grafico}}}{}{}
+Llama el constructor de Tablero y sus metodos para generar tanto las casillas, como
+las serpientes y escaleras respectivas en estas casillas.
+:returns: Tablero Vista object -- Devuelve el objeto de tablero recien creado para luego
+utilizar sus metodos en otras funciones.
+
+\end{fulllineitems}
+
+\index{dibuje\_cuadro\_blanco() (método de vista.Vista)@\spxentry{dibuje\_cuadro\_blanco()}\spxextra{método de vista.Vista}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:vista.Vista.dibuje_cuadro_blanco}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{dibuje\_cuadro\_blanco}}}{\emph{x}, \emph{y}, \emph{tam\_x}, \emph{tam\_y}}{}
+Dibuja un cuadro blanco para borrar cada vez que se notifica
+en la ventana que se subio por una escalera o se bajo por una
+serpiente.
+
+\end{fulllineitems}
+
+\index{guardarPartida() (método de vista.Vista)@\spxentry{guardarPartida()}\spxextra{método de vista.Vista}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:vista.Vista.guardarPartida}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{guardarPartida}}}{}{}
+Crea el boton de guardado en la ventana del juego y cuando se 
+presiona, llama al constructor del almacenador para pasarle el
+nombre de la partida a guardar.
+
+\end{fulllineitems}
+
+\index{notify() (método de vista.Vista)@\spxentry{notify()}\spxextra{método de vista.Vista}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{codigo:vista.Vista.notify}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{notify}}}{\emph{evento}}{}
+Metodo principal de esta clase, se encarga de manejar un evento cada vez que se presiona 
+un boton u ocurre alguna accion grafica. Llama la funcion depende del evento ocurrido.
+:param evento: evento de pygame que acaba de ocurrir
+:type evento: pygame event
+
+\end{fulllineitems}
+
+
+\end{fulllineitems}
+
+
 
 \section{\sphinxstylestrong{Tutorial acerca como jugar Escaleras y Serpientes}}
 \label{\detokenize{tutorial:tutorial-acerca-como-jugar-escaleras-y-serpientes}}\label{\detokenize{tutorial::doc}}

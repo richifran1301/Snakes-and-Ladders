@@ -6,6 +6,9 @@ import sys, pygame
 from pygame.locals import *
 
 class Boton():
+    """
+    Clase que equivale a un boton para la interfaz
+    """
     def __init__(self, ventana, mi_color,x ,y , ancho, alto, text=''):
         """
         :param ventana: Referencia a la ventana de pygame.
@@ -35,12 +38,10 @@ class Boton():
         self.mi_forma = pygame.Rect(x, y, ancho, alto)
 
     def dibujar(self):
-
         """
         Esta función se encarga de dibujar el botón en la posición dada al inicializarse
         :returns:  None -- Procedimiento sin valor de retorno.
         """
-
         pygame.draw.rect(self.ventana, self.mi_color, self.mi_forma)                # Se dibuja un pygame.Rect el cual corresponde a la forma del botón
         pygame.draw.rect(self.ventana, (54,57,63), self.mi_forma, 1)                # Se dibuja un pygame.Rect que corresponde al borde del botón
         
@@ -53,14 +54,12 @@ class Boton():
             self.ventana.blit(text, textRect)                                       # Se dibuja en la ventana el botón.
 
     def isOver(self, pos):
-    
         """
         Esta función se encarga de averiguar si el mouse se encuentra por encima del botón.
         :param pos: Posicion (x,y) en la que se encuentra el mouse en un momento dado
         :type pos: tuple
         :returns:  None -- Procedimiento sin valor de retorno.
         """
-    
         #Pos is the mouse position or a tuple of (x,y) coordinates                  
         if pos[0] > self.x and pos[0] < self.x + self.ancho:                        # Si el mouse se encuentra en el interior del botón
             if pos[1] > self.y and pos[1] < self.y + self.alto:                     

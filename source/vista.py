@@ -21,9 +21,13 @@ CLICK = 5
 MOVER_CURSOR = 4
 
 class Vista():
+    """
+    Clase que es un objeto vista, que va a representar graficamente al tablero y sus auxiliares
+    en la ventana de pygame y las ventanas auxiliares de TKinter.
+    """
 
     def __init__(self, controlador, ventana, es_partida_cargada):
-        '''
+        """
         Crea un nuevo objeto de vista.
         :param controlador: objeto de la clase de controlador 
         :type controlador: Controlador class object
@@ -31,7 +35,7 @@ class Vista():
         :type ventana: Pygame object
         :param es_partida_cargada: bandera de que si es una partida cargada o una nueva
         :type es_partida_cargada: boolean
-        '''
+        """
         self.controlador = controlador
         self.ventana = ventana
         self.es_partida_cargada = es_partida_cargada
@@ -52,10 +56,10 @@ class Vista():
         return tablero_grafico
 
     def actualizar_tablero_grafico(self):
-        '''
+        """
         Actualiza y vuelve a dibujar las casillas porque cada vez que se mueve
         un jugador se modifica el formato grafico de la casilla que acaba de moverse.
-        '''
+        """
         self.tablero_grafico.actualizar()
 
     def crear_sidebar(self):
@@ -76,11 +80,11 @@ class Vista():
         return boton_dados, dado_grafico, boton_reglas,boton_guardar
         
     def guardarPartida(self):
-        '''
+        """
         Crea el boton de guardado en la ventana del juego y cuando se 
         presiona, llama al constructor del almacenador para pasarle el
         nombre de la partida a guardar.
-        '''
+        """
         root = Tk() 
         root.title("GUARDAR PARTIDA")
         root.geometry("450x360")         
@@ -101,21 +105,21 @@ class Vista():
         root.mainloop()
 
     def dibuje_cuadro_blanco(self,x,y,tam_x,tam_y):
-        '''
+        """
         Dibuja un cuadro blanco para borrar cada vez que se notifica
         en la ventana que se subio por una escalera o se bajo por una
         serpiente.
-        '''
+        """
         rect = pygame.rect.Rect((x, y, tam_x, tam_y))
         pygame.draw.rect(Singleton.ventana, Singleton.colores_casillas["blanco"], rect)
         
     def notify(self, evento):
-        '''
+        """
         Metodo principal de esta clase, se encarga de manejar un evento cada vez que se presiona 
         un boton u ocurre alguna accion grafica. Llama la funcion depende del evento ocurrido.
         :param evento: evento de pygame que acaba de ocurrir
         :type evento: pygame event
-        '''
+        """
         self.eventoActual = evento
         posicion_cursor = pygame.mouse.get_pos()
         if self.eventoActual == CLICK:      

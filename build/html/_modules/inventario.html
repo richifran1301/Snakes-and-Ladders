@@ -33,55 +33,129 @@
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
 <div class="viewcode-block" id="ElementoInventario"><a class="viewcode-back" href="../codigo.html#inventario.ElementoInventario">[documentos]</a><span class="k">class</span> <span class="nc">ElementoInventario</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase abstracta de Elemento Inventario. Solo sus clases derivadas estaran</span>
+<span class="sd">    dentro del inventario. Utilizada para el correcto uso del MARDA.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span></div>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor abstracto de Elemento Inventario. Tiene un unico id, que sus</span>
+<span class="sd">        derivadas utilizaran para diferenciarse el tipo de derivada que es. En este caso</span>
+<span class="sd">        simplemente es nulo para posteriormente sus derivadas heredar la variable y registrar</span>
+<span class="sd">        su id.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>        <span class="c1">#Todo objeto derivado tendra su id</span></div>
 
 
 <div class="viewcode-block" id="Ficha"><a class="viewcode-back" href="../codigo.html#inventario.Ficha">[documentos]</a><span class="k">class</span> <span class="nc">Ficha</span><span class="p">(</span><span class="n">ElementoInventario</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase derivada de ElementoInventario. Corresponde a la ficha del Jugador, la cual</span>
+<span class="sd">    se va a estar moviendo por el tablero (por las coordenadas x, y de figura). La figura</span>
+<span class="sd">    se la otorga el jugador por parametro en el init.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">figura</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor de Ficha. Otorga la figura de la ficha (en nuestro caso rectangulo)</span>
+<span class="sd">        y genera su unico id que es tipo ficha.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">figura</span> <span class="o">=</span> <span class="n">figura</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="s2">&quot;ficha&quot;</span>           <span class="c1"># Sera necesario para la busqueda en Inventario</span>
 
-    <span class="k">def</span> <span class="nf">setColor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mi_color</span> <span class="o">=</span> <span class="n">color</span>
+<div class="viewcode-block" id="Ficha.setColor"><a class="viewcode-back" href="../codigo.html#inventario.Ficha.setColor">[documentos]</a>    <span class="k">def</span> <span class="nf">setColor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que establece el color de la ficha. En nuestro caso es el color del Jugador.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mi_color</span> <span class="o">=</span> <span class="n">color</span></div>
         
-    <span class="k">def</span> <span class="nf">mover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">movX</span><span class="p">,</span> <span class="n">movY</span><span class="p">):</span>
+<div class="viewcode-block" id="Ficha.mover"><a class="viewcode-back" href="../codigo.html#inventario.Ficha.mover">[documentos]</a>    <span class="k">def</span> <span class="nf">mover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">movX</span><span class="p">,</span> <span class="n">movY</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que mueve la ficha por el tablero logico. No se observa en la interfaz, nada mas</span>
+<span class="sd">        es movimiento logico.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">figura</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">movX</span>              
-        <span class="bp">self</span><span class="o">.</span><span class="n">figura</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">movY</span>             </div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figura</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">movY</span>             </div></div>
 
 
 
-<span class="k">class</span> <span class="nc">Inventario</span><span class="p">:</span>
-
+<div class="viewcode-block" id="Inventario"><a class="viewcode-back" href="../codigo.html#inventario.Inventario">[documentos]</a><span class="k">class</span> <span class="nc">Inventario</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase Inventario disenada para el correcto uso del MARDA. Es un inventario sin cantidad maxima</span>
+<span class="sd">    especificada ya que en nuestro caso unicamente tendra la ficha del Jugador que se desplazara por</span>
+<span class="sd">    el tablero.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span> <span class="o">=</span> <span class="p">[]</span>          <span class="c1">#(Objeto, cantidad)</span>
-    
-    <span class="k">def</span> <span class="nf">agregar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elemento_nuevo</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
-        <span class="n">es_nuevo</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">elemento_nuevo</span><span class="p">:</span>
-                <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cantidad</span>
-                <span class="n">es_nuevo</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="k">break</span>
-        <span class="k">if</span> <span class="n">es_nuevo</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">elemento_nuevo</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">))</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor de clase Inventario. Posee un vector de tuplas, que almacena objetos y la cantidad de ellos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span> <span class="o">=</span> <span class="p">[]</span>          <span class="c1">#Almacena objetos de la siguiente manetra: (Objeto, cantidad)</span>
 
-    <span class="k">def</span> <span class="nf">eliminar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elemento_seleccionado</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">elemento_seleccionado</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cantidad</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">cantidad</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">elemento</span><span class="p">)</span>
-                <span class="k">break</span>
+<div class="viewcode-block" id="Inventario.agregar"><a class="viewcode-back" href="../codigo.html#inventario.Inventario.agregar">[documentos]</a>    <span class="k">def</span> <span class="nf">agregar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elemento_nuevo</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que agrega un objeto de tipo ElementoInventario al vector. Si el objeto es otro tipo, se ignora y</span>
+<span class="sd">        si ya existe un objeto de ese tipo en el Inventario se aumenta su cantidad. Para asi trabajar con mas facilidad</span>
+<span class="sd">        aspectos como: 5 billetes de mil, 1 ficha, etc.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elemento_nuevo</span><span class="p">,</span> <span class="n">ElementoInventario</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: No se agrego al inventario. Objeto de tipo desconocido.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">es_nuevo</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">elemento_nuevo</span><span class="p">:</span>
+                    <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cantidad</span>
+                    <span class="n">es_nuevo</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">es_nuevo</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">elemento_nuevo</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">))</span></div>
 
-    <span class="k">def</span> <span class="nf">buscar_en_inventario</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elemento_seleccionado</span><span class="p">):</span>
+<div class="viewcode-block" id="Inventario.eliminar"><a class="viewcode-back" href="../codigo.html#inventario.Inventario.eliminar">[documentos]</a>    <span class="k">def</span> <span class="nf">eliminar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elemento_seleccionado</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que va a eliminar una cantidad de objetos del inventario. Por paramtero viene el id del objeto</span>
+<span class="sd">        a eliminar. En caso de no lograr eliminar el objeto,lo especifica por la terminal (debido a que solo </span>
+<span class="sd">        no podria en pocos casos)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elemento_seleccionado</span><span class="p">,</span> <span class="n">ElementoInventario</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: No existe el objeto en el inventario.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">elemento_seleccionado</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cantidad</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">cantidad</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">elemento</span><span class="p">)</span>
+                    <span class="k">break</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elemento no encontrado en el inventario.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Inventario.buscar_en_inventario"><a class="viewcode-back" href="../codigo.html#inventario.Inventario.buscar_en_inventario">[documentos]</a>    <span class="k">def</span> <span class="nf">buscar_en_inventario</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elemento_seleccionado</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que va a buscar un objeto en el inventario y va a retornar la cantidad del objeto respectivo.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cantidad</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">elemento_seleccionado</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">elemento_seleccionado</span><span class="p">:</span>
                 <span class="n">cantidad</span> <span class="o">=</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="k">break</span>
-        <span class="k">return</span> <span class="n">cantidad</span>
+        <span class="k">return</span> <span class="n">cantidad</span></div>
+    
+<div class="viewcode-block" id="Inventario.sacar_objeto"><a class="viewcode-back" href="../codigo.html#inventario.Inventario.sacar_objeto">[documentos]</a>    <span class="k">def</span> <span class="nf">sacar_objeto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elemento_seleccionado</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que obtiene el id del objeto a sacar. Solo saca un unico objeto y lo elimina del inventario.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">elemento_tmp</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">elemento_seleccionado</span><span class="p">:</span>
+                <span class="c1"># Elimina el elemento del inventario</span>
+                <span class="k">if</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>         
+                    <span class="n">elemento</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="n">elemento_tmp</span> <span class="o">=</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">elemento_tmp</span> <span class="o">=</span> <span class="n">elemento</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">elemento</span><span class="p">)</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">elemento_tmp</span></div></div>
+
+    
         
             
 </pre></div>

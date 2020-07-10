@@ -11,7 +11,13 @@ from singleton import Singleton
 from abc import ABC, abstractmethod
 
 class Tablero(ABC):
+    """
+    Clase virtual de tablero disenada para el correcto uso del MARDA.
+    """
     def __init__(self):
+        """
+        Constructor abstracto de la clase Tablero.
+        """
         super().__init__()
         self.casillas = []
 
@@ -231,7 +237,6 @@ class TableroSE(Tablero):
         :type cantidad: int
         :returns:  list -- Devuelve un vector con posiciones de serpientes, pares inicios, impares fines, consecutivos.
         """
-
         serpientes_temp = []
         generados = 0
         while generados < cantidad * 2: # mientras la cantidad de serpientes generadas sea menor al doble de las deseadas (porque son pares)
@@ -253,7 +258,6 @@ class TableroSE(Tablero):
         :type cantidad: int
         :returns:  list -- Devuelve un vector con posiciones de escaleras, pares inicios, impares fines, consecutivos.
         """
-
         escaleras_temp = []
         generados = 0
 
@@ -279,7 +283,6 @@ class TableroSE(Tablero):
         :type cantidad_escaleras: int
         :returns:  tuple -- Devuelve como tupla las dos listas con tuplas de posiciones de serpientes y escaleras.
         """
-
         # genere los vectores con índices aleatorios de dos en dos que representan tuplas
         escaleras_temp = self.generar_escaleras(casillas, cantidad_escaleras)
         serpientes_temp = self.generar_serpientes(escaleras_temp, casillas, cantidad_serpientes)
@@ -334,7 +337,6 @@ class TableroSE(Tablero):
         :type centro_casillas_y: list
         :returns:  list -- Devuelve la lista con coordenadas de todas las casillas (x, y) como tuplas.
         """
-
         casillas_temp = []
         temp = centro_casillas_x
 
@@ -361,7 +363,6 @@ class TableroSE(Tablero):
         :type max_iteracion: int
         :returns:  list -- Devuelve una lista con coordenadas que representan centros.
         """
-
         # favor documentar el funcionamiento de este algoritmo
         centro_casillas = []    
         for i in range(max_iteracion):
@@ -377,7 +378,6 @@ class TableroSE(Tablero):
         :type alto_total: int
         :returns:  list -- Devuelve una lista con coordenadas que representan centros.
         """
-    
         centro_casillas = []
         centro_casillas_x = []
         centro_casillas_y = []
@@ -401,7 +401,6 @@ class TableroSE(Tablero):
         Esta función colorea las casillas con un algoritmo que impide colores consecutivos. 
         :returns:  None -- Procedimiento sin valor de retorno.
         """
-
         colores_x = ["amarillo", "blanco", "rojo", "azul", "verde"]
 
         i = 0
@@ -453,7 +452,6 @@ class VistaTablero:
     Esta clase representa un tablero de juego, y contiene los
     atributos y acciones necesarios para su graficación y comportamiento.
     """
-
     def __init__(self, controlador, tamanio, ventana, ancho_barra, es_partida_cargada):
         self.casillas = []              # lista de casillas del tablero
         self.controlador = controlador
@@ -463,6 +461,9 @@ class VistaTablero:
             self.dibujarCasillas()
 
     def actualizar(self):
+        """
+        Funcion que se encarga de actualizar el tablero si se llegara a cargar un apartida.
+        """
         casillas_nuevas = self.controlador.actualizar_tablero()
         self.casillas = casillas_nuevas
         self.dibujarCasillas()
@@ -472,7 +473,6 @@ class VistaTablero:
         Esta función dibuja las casillas y sus conectores en la ventana.
         :returns:  None -- Procedimiento sin valor de retorno.
         """
-
         for c in self.casillas:
             c.dibujar()             # y las estándar
 

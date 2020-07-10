@@ -76,11 +76,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">setNombre</span><span class="p">(</span><span class="s2">&quot;Jugador &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Singleton</span><span class="o">.</span><span class="n">cantidad_jugadores</span><span class="p">))</span>
             <span class="n">Arbitro</span><span class="o">.</span><span class="n">setColorJugador</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">crear_ficha</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Jugador.crear_ficha"><a class="viewcode-back" href="../codigo.html#jugador.Jugador.crear_ficha">[documentos]</a>    <span class="k">def</span> <span class="nf">crear_ficha</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metodo que va a crear una ficha para el Jugador, y la va a almacenar en su </span>
+<span class="sd">        inventario. Existe una relacion a esa ficha para mas comodidad, y es self.rel_ficha.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">Rect</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancho</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">largo</span><span class="p">))</span>
         <span class="n">ficha</span> <span class="o">=</span> <span class="n">Ficha</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rel_ficha</span> <span class="o">=</span> <span class="n">ficha</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="o">.</span><span class="n">agregar</span><span class="p">(</span><span class="n">ficha</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inventario</span><span class="o">.</span><span class="n">agregar</span><span class="p">(</span><span class="n">ficha</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>       <span class="c1">#Se agrega 1 ficha al inventario</span></div>
 
 <div class="viewcode-block" id="Jugador.setNombre"><a class="viewcode-back" href="../codigo.html#jugador.Jugador.setNombre">[documentos]</a>    <span class="k">def</span> <span class="nf">setNombre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
