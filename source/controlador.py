@@ -33,6 +33,7 @@ class Controlador:
         self.eventos = [1, 2, 3, 4]
         self.es_partida_cargada = es_partida_cargada
         self.ventana = self.genere_ventana_pygame()
+        Singleton.ventana = self.ventana
         self.vista = Vista(self, self.ventana, self.es_partida_cargada)
         self.listeners = []
         self.jugadores = []
@@ -288,20 +289,36 @@ class Controlador:
         :param contador: cantidad de jugadores ingresada
         :type contador: int
         '''
-        root = Tk() 
+        
+        root = Tk()
         root.title("Crear partida")
-        root.geometry("450x360")     
+        width = 450
+        height = 360
+        screen_width = root.winfo_screenwidth()
+        screen_height = root.winfo_screenheight()
+        x = (screen_width/2) - (width/2)
+        y = (screen_height/2) - (height/2)
+        root.geometry('%dx%d+%d+%d' % (width, height, x, y))
+        root.resizable(False, False)
         mensaje = Label(root, text = "Cantidad de jugadores:")
         mensaje.grid(row = 1, column = 1)
+        
+        
         if contador > 0:
             mensaje_error = Label(root, text = "Cantidad invalida")
-            mensaje_error.grid(row = 8, column = 1)             
+            mensaje_error.grid(row = 8, column = 1)  
+            
         cant_jugadores = StringVar()
         entrada_cant = Entry(root, textvariable = cant_jugadores)
         entrada_cant.grid(row = 1, column = 2)         
-        cant_jugadores.get()        
+        cant_jugadores.get()   
+        
         ok = Button(root,text = "Continuar",command = root.destroy)
         ok.grid(row = 2, column = 2)
+        
+        salir = Button(root,text = "Salir", command = root.destroy)
+        salir.grid(row = 3, column = 2)
+        
         def mostrar():
             numcur = cant_jugadores.get()
             try:
@@ -370,13 +387,19 @@ def run():
     Metodo que verifica si es una partida cargada o una partida nueva. Tambien despliega el
     menu principal. Llama al ciclo principal del juego (metodo juego)
     '''
-    root = Tk() 
+    root = Tk()      
     root.title("Serpientes y escaleras")
-    #root.geometry("450x360")        
-    root.geometry("512x512")        
+    width = 512
+    height = 512
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    x = (screen_width/2) - (width/2)
+    y = (screen_height/2) - (height/2)
+    root.geometry('%dx%d+%d+%d' % (width, height, x, y))
+    root.resizable(False, False)
     bg_image = PhotoImage(file ="imagenes/menu.png")
-    x = Label (image = bg_image)
-    x.grid(row = 0, column = 0)
+    image = Label (image = bg_image)
+    image.grid(row = 0, column = 0)
 
     def nuevoJuego():
         controlador = Controlador(False)        #False = NO es partida cargada

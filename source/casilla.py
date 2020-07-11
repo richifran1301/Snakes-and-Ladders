@@ -6,8 +6,9 @@ import sys, pygame
 from pygame.locals import *
 from singleton import Singleton
 from abc import ABC, abstractmethod
+from elementoTablero import ElementoTablero
 
-class Casilla(ABC):
+class Casilla(ElementoTablero):
     def __init__(self):
         super().__init__()
         self.conector = None
@@ -116,7 +117,6 @@ class CasillaSE(Casilla):
         pygame.draw.rect(self.ventana, self.mi_color, self.mi_forma) # se pasan las referencias estéticas
         pygame.draw.rect(self.ventana, (0,0,0), self.mi_forma, 1)
 
-        #pygame.font.init()
         font = pygame.font.SysFont('arialblack', 20)                                # parametros de fuente del texto (num. casilla)
         text = font.render(str(self.mi_indice + 1), True, (0,0,0), self.mi_color)   # procesamiento del texto para pygame
         textRect = text.get_rect() 

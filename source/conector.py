@@ -5,6 +5,7 @@ import itertools
 import sys, pygame
 from pygame.locals import *
 from abc import ABC, abstractmethod
+from elementoTablero import ElementoTablero
 from casilla import CasillaSE, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 
 class Conector(ABC):

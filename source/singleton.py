@@ -8,6 +8,7 @@ class Singleton():
 
     #Atributos
     jugadores = []
+    tamanio = None
     jugadores_ordenados = []            #ordenados por turno
     ancho_tablero = 0
     alto_tablero = 0
