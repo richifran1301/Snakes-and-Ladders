@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from singleton import Singleton
 from tkinter import *
-from jugador import Jugador
+from jugador import JugadorES
 from casilla import Casilla,CasillaEscalera,CasillaEstandar,CasillaSerpiente
 from conector import Conector, Escalera,Serpiente
-from arbitro import Arbitro
+from arbitro import ArbitroES
 import pygame
 import os
 import sys
@@ -67,18 +67,18 @@ class CargadorTXT(Cargador):
         for _ in range(Singleton.cantidad_jugadores):
             linea = bufferLineas[iterador]
             datos = linea.split("/")
-            jugador = Jugador(int(datos[1]), Singleton.casillasTablero[int(datos[1])].getCoordenadas()[0]+int(datos[3]), 
+            jugador = JugadorES(int(datos[1]), Singleton.casillasTablero[int(datos[1])].getCoordenadas()[0]+int(datos[3]), 
                                 Singleton.casillasTablero[int(datos[1])].getCoordenadas()[1]+int(datos[4]), (Singleton.getAlto()//Singleton.getCantX())//4,
                                 (Singleton.getAlto()//Singleton.getCantY())//4, int(datos[3]), int(datos[4]))
             jugador.setNombre(datos[0])
             jugador.mi_color = Singleton.colores_jugadores[str(datos[2])]
             jugador.colorString = str(datos[2])
-            Arbitro.reporte_jugadores(jugador)
+            ArbitroES.reporte_jugadores(jugador)
             iterador += 1
         Singleton.jugadores_ordenados = Singleton.jugadores
             
-        Arbitro.decidiendoTurno = False
-        Arbitro.en_jugada = True
+        ArbitroES.decidiendoTurno = False
+        ArbitroES.en_jugada = True
         #Despues va a leer las serpientes
         Singleton.cantidad_serpientes = int(bufferLineas[iterador])
         iterador += 1

@@ -1,10 +1,20 @@
 import pygame
 import random
 from singleton import Singleton
-from arbitro import Arbitro
+from arbitro import ArbitroES
+from abc import ABC, abstractmethod
 from inventario import Inventario, Ficha, ElementoInventario
 
-class Jugador():
+class Jugador(ABC):
+    """
+    Clase abstracta de JUGADOR, la cual permite tener jugadores de diferentes tipos, para diferentes juegos
+    """
+    def __init__(self):
+        super().__init__()
+        self.id = ""        #Todo objeto derivado tendra su id
+    
+    
+class JugadorES(Jugador):
     """
     Esta clase corresponde a la del Jugador que participa en el juego. Realiza las 
     interacciones dadas por el usuario y depende totalmente de el. Van a haber entre 2 
@@ -29,6 +39,8 @@ class Jugador():
         esquina de abajo, o la de arriba...
         :type mY: int
         """
+        super().__init__()
+        self.id = "jugadorES" 
         self.x = x
         self.y = y
         self.largo = l
@@ -42,7 +54,8 @@ class Jugador():
         if not Singleton.es_partida_cargada:
             Singleton.cantidad_jugadores += 1
             self.setNombre("Jugador " + str(Singleton.cantidad_jugadores))
-            Arbitro.setColorJugador(self)
+            ArbitroES.setColorJugador(self)
+        
 
     def crear_ficha(self):
         """
@@ -73,8 +86,8 @@ class Jugador():
     def mover(self, distancia, coordenadas):
         """
         Metodo que se encarga de realizar el movimiento del jugador y requiere de la participacion del
-        Arbitro para saber si: gano; si cayo en una escalera o serpiente y necesita moverse (tampoco sabe
-        adonde habria que moverse, el Arbitro le indica);y por ultimo, si ya no tiene que moverse mas.
+        ArbitroES para saber si: gano; si cayo en una escalera o serpiente y necesita moverse (tampoco sabe
+        adonde habria que moverse, el ArbitroES le indica);y por ultimo, si ya no tiene que moverse mas.
         :param distancia: cantidad de casillas a moverse, puede ser el numero que salio en los dados, o
         puede ser lo que debe moverse por haber caido en escalera o serpiente.
         :type distancia: int
@@ -93,13 +106,11 @@ class Jugador():
        
         if not excedido:
             self.pos_tablero = self.pos_tablero + distancia
-        Arbitro.comprobarGane(self.pos_tablero)                          #primero comprueba si el jugador en la nueva posicion gano
-        if Arbitro.jugador_gano == False:
-            distanciaN, coordenadasNuevoMov = Arbitro.aplicarReglasMovimiento(self.pos_tablero)        #si no gano, comprueba si esta en una serp o escalera
+        ArbitroES.comprobarGane(self.pos_tablero)                          #primero comprueba si el jugador en la nueva posicion gano
+        if ArbitroES.jugador_gano == False:
+            distanciaN, coordenadasNuevoMov = ArbitroES.aplicarReglasMovimiento(self.pos_tablero)        #si no gano, comprueba si esta en una serp o escalera
             if distanciaN != 0: #si esta en una serpiete o escalera, va a tener que moverse a la posicion indicada
                 self.mover(distanciaN, coordenadasNuevoMov)
-
-    
 
 class VistaJugador():
     """

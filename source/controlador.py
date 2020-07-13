@@ -6,10 +6,10 @@ from sidebar import Sidebar
 from conector import ConectorSE, Escalera, Serpiente
 from casilla import CasillaSE, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 from dado import Dado
-from jugador import Jugador, VistaJugador
+from jugador import JugadorES, VistaJugador
 from tablero import TableroSE
 from singleton import Singleton
-from arbitro import Arbitro
+from arbitro import ArbitroES
 from vista import Vista
 from tkinter import *
 from cargador import CargadorTXT
@@ -149,7 +149,7 @@ class Controlador:
                     sys.exit(0)
                 elif events.type == pygame.MOUSEBUTTONDOWN:
                     self.postEvent(events.type, Vista)
-                    if Arbitro.recibioDados:
+                    if ArbitroES.recibioDados:
                         continuar = False
                         break
                 elif events.type == pygame.MOUSEMOTION:
@@ -228,11 +228,11 @@ class Controlador:
         :returns: bool -- Devuelve si el jugador, haciendo el turno actual, gano o no.
         """
         jugadorVista.muestre_turno_jugador()
-        Arbitro.jugador_juegue(jugador)
+        ArbitroES.jugador_juegue(jugador)
         self.muestre_presionar_espacio()
-        coordenadas = Arbitro.obtener_destino(jugador.pos_tablero, Arbitro.valor_actual_dados)
+        coordenadas = ArbitroES.obtener_destino(jugador.pos_tablero, ArbitroES.valor_actual_dados)
         self.vista.dibuje_cuadro_blanco(710, 350, 250, 100)
-        jugador.mover(Arbitro.valor_actual_dados, coordenadas)
+        jugador.mover(ArbitroES.valor_actual_dados, coordenadas)
     
     def obtener_colores_jugadores(self, nombre, error, contador):
         '''
@@ -264,7 +264,7 @@ class Controlador:
         def mostrar():
             numcur = color.get()
             try:
-                Arbitro.color_tmp = str(numcur)
+                ArbitroES.color_tmp = str(numcur)
             except:
                 pass
             root.destroy()
@@ -285,7 +285,7 @@ class Controlador:
     def obtener_cantidad_jugadores(self, contador):
         '''
         Se pide al usuario la cantidad de jugadores que van a jugar y guarda la 
-        informacion para ser consumida por el arbitro.
+        informacion para ser consumida por el ArbitroES.
         :param contador: cantidad de jugadores ingresada
         :type contador: int
         '''
@@ -322,7 +322,7 @@ class Controlador:
         def mostrar():
             numcur = cant_jugadores.get()
             try:
-                Arbitro.cantidad_jugadores_tmp = int(numcur)
+                ArbitroES.cantidad_jugadores_tmp = int(numcur)
             except:
                 pass
             root.destroy()
@@ -340,21 +340,21 @@ def empezarCondicionesJuego(controlador):
     while True:
         controlador.obtener_cantidad_jugadores(contador)
         contador +=1
-        if Arbitro.cantidad_jugadores_tmp > 1 and Arbitro.cantidad_jugadores_tmp < 5:
+        if ArbitroES.cantidad_jugadores_tmp > 1 and ArbitroES.cantidad_jugadores_tmp < 5:
             break
         
     #Inicializar jugadores
-    for i in range(Arbitro.cantidad_jugadores_tmp):
-        jugador = Jugador(0, Singleton.getPosJugadores(i)[0], Singleton.getPosJugadores(i)[1],
+    for i in range(ArbitroES.cantidad_jugadores_tmp):
+        jugador = JugadorES(0, Singleton.getPosJugadores(i)[0], Singleton.getPosJugadores(i)[1],
                         (Singleton.getAlto()//Singleton.getCantX())//4, (Singleton.getAlto()/Singleton.getCantY())//4,
                         Singleton.getPosJugadores(i)[0] - Singleton.casillasTablero[0].getCoordenadas()[0],
                         Singleton.getPosJugadores(i)[1] - Singleton.casillasTablero[0].getCoordenadas()[1])
-        Arbitro.reporte_jugadores(jugador)
+        ArbitroES.reporte_jugadores(jugador)
     controlador.crear_relacion_jugadores()
     controlador.dibujar_jugadores()
         
-    #Arbitro decide turnos
-    Arbitro.decidir_turnos(Arbitro.cantidad_jugadores_tmp)
+    #ArbitroES decide turnos
+    ArbitroES.decidir_turnos(ArbitroES.cantidad_jugadores_tmp)
     controlador.vista.dibuje_cuadro_blanco(710, 350, 250, 100)
     pygame.display.update()
 
@@ -365,14 +365,14 @@ def juego(controlador):
     :param controlador: objeto de controlador para utilizar sus funciones
     :type controlador: Controlador object
     '''
-    while not Arbitro.jugador_gano:                                             # mientras no haya un ganador, siguen los turnos
+    while not ArbitroES.jugador_gano:                                             # mientras no haya un ganador, siguen los turnos
         for jugador in Singleton.jugadores_ordenados:                          #recorre el vector de jugadores, y le da el turno a cada uno
             jugadorVista = controlador.encontrar_relacion(jugador)
             controlador.juegue(jugador, jugadorVista)                                #manda al jugador por el cual va iterando a que realice su jugada
             controlador.vista.tablero_grafico.dibujarCasillas()
             controlador.espere_boton_espacio()
 
-            if Arbitro.jugador_gano:                    #comprueba si ese jugador gano y cierra el programa, dando el nombre del ganador
+            if ArbitroES.jugador_gano:                    #comprueba si ese jugador gano y cierra el programa, dando el nombre del ganador
                 jugadorGanador = jugador.getNombre()
                 break
         
@@ -403,7 +403,7 @@ def run():
 
     def nuevoJuego():
         controlador = Controlador(False)        #False = NO es partida cargada
-        Arbitro.init(controlador)
+        ArbitroES.init(controlador)
         root.destroy()
         empezarCondicionesJuego(controlador)
         juego(controlador)
@@ -412,7 +412,7 @@ def run():
         cargador = CargadorTXT()
         root.destroy()
         controlador = Controlador(True)             # True = SI es partida cargada
-        Arbitro.init(controlador)
+        ArbitroES.init(controlador)
         cargador.cargar()
         controlador.colorear_casillas_tablero()
         controlador.vista.tablero_grafico.actualizar()

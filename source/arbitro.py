@@ -1,17 +1,24 @@
 import pygame
 from singleton import Singleton
 from tablero import Tablero
+from abc import ABC, abstractmethod
 from casilla import Casilla, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 
-class Arbitro():
+
+class Arbitro(ABC):
     """
-    Clase de Arbitro que se encarga de revisar el comportamiento de los jugadores. Se encarga de
+    Clase abstracta que permite tener arbitros de diferentes juegos dinamicamente
+    """
+
+    
+class ArbitroES(Arbitro):
+    """
+    Clase de ArbitroES que se encarga de revisar el comportamiento de los jugadores. Se encarga de
     asegurar el buen funcionamiento del juego y lo realiza de las siguientes maneras: comprueba si 
     un jugador gano; si se tiene que mover porque cayo en escaelera o serpiente (si lo hace, le dice
     hacia donde moverse), ayuda a decidir los turnos al inicio del juego, reporta los jugadores como
     existentes dentro del juego, se asegura que cada jugador tenga un color unico...
     """
-
     @classmethod
     def init(cls, controlador):
         """

@@ -8,7 +8,7 @@ from singleton import Singleton
 from sidebar import Sidebar
 from dado import VistaDado
 from button import Boton
-from arbitro import Arbitro
+from arbitro import ArbitroES
 from almacenador import AlmacenadorTXT
 
 ANCHO_BARRA = 250
@@ -125,10 +125,10 @@ class Vista():
         if self.eventoActual == CLICK:      
             if self.boton_dados.isOver(posicion_cursor):
                 resultado_dados = self.dado_grafico.actualizar_caras()
-                if Arbitro.decidiendoTurno:                                     #si el arbitro esta decidiendo turnos
-                    Arbitro.reciboRespuestaDados(resultado_dados)
-                elif  Arbitro.en_jugada:                                        # si el jugador se va a mover
-                    Arbitro.procesaRespuestaDados(resultado_dados)
+                if ArbitroES.decidiendoTurno:                                     #si el ArbitroES esta decidiendo turnos
+                    ArbitroES.reciboRespuestaDados(resultado_dados)
+                elif  ArbitroES.en_jugada:                                        # si el jugador se va a mover
+                    ArbitroES.procesaRespuestaDados(resultado_dados)
                     
             if self.boton_reglas.isOver(posicion_cursor):
                 root = Tk()
