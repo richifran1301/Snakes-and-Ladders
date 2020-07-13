@@ -45,7 +45,7 @@ class ArbitroES(Arbitro):
         :returns: bool, devuelve true si el jugador en cuestion gano la partida
         """
         if pos == Singleton.pos_ganadora:
-            Arbitro.jugador_gano = True
+            ArbitroES.jugador_gano = True
 
 
     @classmethod
