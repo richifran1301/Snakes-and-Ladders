@@ -13,6 +13,7 @@ from arbitro import ArbitroES
 from vista import Vista
 from tkinter import *
 from cargador import CargadorTXT
+from fabrica import FabricaTablerosSE
 
 ANCHO_BARRA = 250
 ANCHO = 700 + ANCHO_BARRA
@@ -131,7 +132,8 @@ class Controlador:
         self.tablero.casillas = []
         #self.tablero.serpientes = []
         #self.tablero.escaleras = []
-        self.tablero.generarCasillas()          # se llama a la función que genera casillas
+        fabricaSE = FabricaTablerosSE()
+        self.tablero.casillas, self.tablero.serpientes, self.tablero.escaleras = fabricaSE.crearElementosTablero()          # se llama a la función que genera casillas
         self.tablero.colorearCasillas()
 
         return self.tablero.casillas

@@ -11,12 +11,17 @@ from conector import ConectorSE, Escalera, Serpiente
 from casilla import CasillaSE, CasillaEstandar, CasillaEscalera, CasillaSerpiente
 
 class FabricaTableros(ABC):
-    
+    """
+    Clase genérica de fábrica de tableros disenada para el correcto uso del MARDA.
+    """
     def __init__(self):
         super().__init__()
     
     def crearElementosTablero(self):
-        raise NotImplementedError()
+        """
+        Metodo abstracto que toda fabrica concreta debe implementar.
+        """
+        raise NotImplementedError() # lanza un error si este método no se implementa en las clases derivadas
 
 class FabricaTablerosSE(FabricaTableros):
     
@@ -28,6 +33,10 @@ class FabricaTablerosSE(FabricaTableros):
         self.casillas = []
     
     def crearElementosTablero(self):
+        """
+        Este método invoca al metodo generador de casillas.
+        :returns:  tuple -- Tres vectores con las casillas, serpientes y escaleras fabricadas.
+        """
         self.generarCasillas()
     
         return self.casillas, self.serpientes, self.escaleras
