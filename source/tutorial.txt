@@ -69,7 +69,7 @@ Si se escoge **empezar partida**
 Las reglas para comprender el juego antes de iniciarlo, son:
 
 Número de jugadores: dos o más, pero nunca deben jugar más de cuatro jugadores a la vez.
-Las lineas rojas corresponden a serpientes y las verdes a escaleras.
+Las serpientes bajan desde su cabeza hasta su cola y las escaleras suben desde su base.
 Se necesita: un tablero del juego, una ficha de diferente color para cada jugador y un dado.
 
 Reglas dentro del juego:
