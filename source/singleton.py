@@ -1,3 +1,4 @@
+import pygame
 
 class Singleton():
     """
@@ -164,3 +165,23 @@ class Singleton():
         Metodo que devuelve al jugador ganador de la partida.
         """
         return cls.jugadorGanador
+
+    @classmethod
+    def mantener_ventana_activa(cls, root):
+        """
+        Mientras una ventana de TKinter esta abierta, nadie procesa los eventos de la
+        ventana de pygame y el sistema la marca como "no responde". Este metodo
+        procesa esos eventos cada 100 ms mientras la ventana de TKinter exista.
+        :param root: ventana de TKinter que va a correr su mainloop
+        :type root: Tk object
+        """
+        pendiente = []
+        def procesar_eventos():
+            if pygame.display.get_init():
+                pygame.event.pump()
+            pendiente[:] = [root.after(100, procesar_eventos)]
+        def cancelar(evento):
+            if evento.widget is root and pendiente:
+                root.after_cancel(pendiente[0])    # si no, se ejecuta luego de cerrar la ventana
+        root.bind("<Destroy>", cancelar, add="+")
+        procesar_eventos()

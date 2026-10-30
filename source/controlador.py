@@ -46,7 +46,8 @@ class Controlador:
         modificaciones luego.
         :returns: pygame window object -- Devuelve la ventana grafica recien creada
         """
-        pygame.init()
+        pygame.display.init()           # solo lo que se usa; el audio (sin uso) se cuelga al cerrar en algunos Linux
+        pygame.font.init()
         clock = pygame.time.Clock()
         pygame.display.set_caption("Serpientes y escaleras")
         os.environ['SDL_VIDEO_CENTERED'] = '1'
@@ -143,9 +144,12 @@ class Controlador:
         Se encarga de manejar los eventos de cuando los botones se ponen de otro color
         o si se se la click al boton de dado.
         '''
-        continuar = True 
+        continuar = True
+        reloj = pygame.time.Clock()
         while continuar:
-            for events in pygame.event.get():     
+            eventos = pygame.event.get()
+            hubo_movimiento = False
+            for events in eventos:
                 if events.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit(0)
@@ -155,8 +159,15 @@ class Controlador:
                         continuar = False
                         break
                 elif events.type == pygame.MOUSEMOTION:
-                    self.postEvent(events.type, Vista)
+                    hubo_movimiento = True
+            # Vista solo usa la posicion actual del cursor, entonces basta con un redibujo por
+            # tanda de movimientos. Redibujar por cada evento hacia que se acumularan y la
+            # ventana dejara de responder.
+            if hubo_movimiento and continuar:
+                self.postEvent(pygame.MOUSEMOTION, Vista)
+            if eventos:
                 pygame.display.update()
+            reloj.tick(60)
     
     def espere_boton_espacio(self):
         """
@@ -278,10 +289,12 @@ class Controlador:
             mensaje.grid(row = 2, column = 1)
             salir = Button(root_colores,text = "Atras",command = root_colores.destroy)
             salir.config(command=root_colores.destroy)
+            Singleton.mantener_ventana_activa(root_colores)
             root_colores.mainloop()
 
         colores_disponibles.config(command=mostrar_colores)
         ok.config(command=mostrar)
+        Singleton.mantener_ventana_activa(root)
         root.mainloop()
 
     def obtener_cantidad_jugadores(self, contador):
@@ -329,6 +342,7 @@ class Controlador:
                 pass
             root.destroy()
         ok.config(command=mostrar)
+        Singleton.mantener_ventana_activa(root)
         root.mainloop()
 
 

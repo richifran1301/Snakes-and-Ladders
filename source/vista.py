@@ -17,8 +17,8 @@ ALTO = 700
 CANTIDAD_X = 10
 CANTIDAD_Y = 10
 
-CLICK = 5
-MOVER_CURSOR = 4
+CLICK = pygame.MOUSEBUTTONDOWN         # en pygame 1 valian 5 y 4; en pygame 2 cambiaron
+MOVER_CURSOR = pygame.MOUSEMOTION
 
 class Vista():
     """
@@ -71,7 +71,7 @@ class Vista():
         :returns: tuple -- Devuelve como tupla el objeto de Button, que va a ser el boton 
         grafico de los dados, de primero y de segundo, el objeto de Dado para poder utilizar sus funciones.
         """
-        boton_dados = Boton(self.ventana, Singleton.colores_casillas["blanco"], 750, 35, 150, 40, "Lanzar dados")
+        boton_dados = Boton(self.ventana, Singleton.colores_casillas["negro"], 750, 35, 150, 40, "Lanzar dados")
         boton_guardar = Boton(self.ventana, Singleton.colores_casillas["negro"], 750, 550, 150, 40, "Guardar partida")
         boton_reglas = Boton(self.ventana, Singleton.colores_casillas["negro"], 750, 600, 150 ,40, "Mostrar reglas")
         dado_grafico = VistaDado(self.controlador)
@@ -102,6 +102,7 @@ class Vista():
             almacen.guardar()
             root.destroy()
         ok.config(command=mostrar)
+        Singleton.mantener_ventana_activa(root)
         root.mainloop()
 
     def dibuje_cuadro_blanco(self,x,y,tam_x,tam_y):
@@ -147,6 +148,7 @@ class Vista():
                 l = Label(root, text= texto)
                 l.pack()
                 root.after(5000, lambda: root.focus_force())
+                Singleton.mantener_ventana_activa(root)
                 root.mainloop()
             if self.boton_guardar.isOver(posicion_cursor):
                 self.guardarPartida()

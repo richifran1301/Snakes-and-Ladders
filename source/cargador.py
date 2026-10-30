@@ -129,4 +129,5 @@ class CargadorTXT(Cargador):
             self.nombre_archivo = numcur
             root.destroy()
         ok.config(command=mostrar)
+        Singleton.mantener_ventana_activa(root)
         root.mainloop()
