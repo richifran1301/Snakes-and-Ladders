@@ -1,4 +1,5 @@
 import pygame
+import random
 from singleton import Singleton
 from tablero import Tablero
 from abc import ABC, abstractmethod
@@ -33,7 +34,6 @@ class ArbitroES(Arbitro):
         cls.valor_actual_dados = 0
         cls.controlador = controlador
         cls.cantidad_jugadores_tmp = 0
-        cls.color_tmp = ""
 
 
     @classmethod
@@ -153,56 +153,15 @@ class ArbitroES(Arbitro):
     @classmethod
     def setColorJugador(cls, jugador):
         """
-        Va a almacenar un color para el Jugador y esto es decision del usuario. El color tiene que existir dentro de las opciones
-        y no puede repetirse. El color es unico por jugador en la partida.
+        Le asigna al Jugador un color al azar de entre los colores disponibles que no hayan sido usados.
+        El color es unico por jugador en la partida.
         """
-        salga = False
-        contador = 0
-        error = ""
-        while not salga:
-            cls.controlador.obtener_colores_jugadores(jugador.nombre, error, contador)
-            if cls.color_tmp != "":    
-                repetido = cls.esColorRepetido(cls.color_tmp)
-                existe = cls.existeColor(cls.color_tmp)
-                if  existe and not repetido:
-                    Singleton.colores_jugadores_usados.append(cls.color_tmp)
-                    jugador.mi_color = Singleton.colores_jugadores[cls.color_tmp]
-                    jugador.rel_ficha.setColor(Singleton.colores_jugadores[cls.color_tmp])
-                    jugador.colorString = cls.color_tmp
-                    salga = True
-                else:
-                    error = "Color invalido o repetido"
-            else:
-                error = "Escoja un color valido"
-            contador += 1
-
-    @classmethod
-    def esColorRepetido(cls, color):     
-        """
-        Va a buscar si el color, ya acordado por el usuario, le pertenece a otro jugador y retorna true si es asi.
-        Si por el otro lado, no esta repetido, entonces retorna false.
-        :param color: color a buscar dentro de los colores de jugadores
-        :type color: string
-        :returns: True si un jugador ya tiene ese color, False si nadie lo ha solicitado antes y no le pertenece a alguien.
-        """
-        if color in Singleton.colores_jugadores_usados:
-            return True
-        else:
-            return False
-    
-    @classmethod
-    def existeColor(cls, color):
-        """
-        Va a buscar dentro de los colores existentes, si el color escogido por el usuario existe, y va a 
-        retornar True si si exsite y False si no.
-        :param color: Color escogido por el usuario que se va a buscar si existe
-        :type color: string
-        :returns: retorna True si encuentra el color dentro de los existentes, False si no.
-        """
-        for llave in Singleton.colores_jugadores:
-            if llave == color:
-                return True
-        return False
+        colores_libres = [llave for llave in Singleton.colores_jugadores if llave not in Singleton.colores_jugadores_usados]
+        color = random.choice(colores_libres)
+        Singleton.colores_jugadores_usados.append(color)
+        jugador.mi_color = Singleton.colores_jugadores[color]
+        jugador.rel_ficha.setColor(Singleton.colores_jugadores[color])
+        jugador.colorString = color
 
     @classmethod
     def obtener_destino(cls, index, resultado_dados):

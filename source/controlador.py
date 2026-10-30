@@ -247,56 +247,6 @@ class Controlador:
         self.vista.dibuje_cuadro_blanco(710, 350, 250, 100)
         jugador.mover(ArbitroES.valor_actual_dados, coordenadas)
     
-    def obtener_colores_jugadores(self, nombre, error, contador):
-        '''
-        Le pide al usuario el color de ficha que quiere usar en el juego
-        y guarda esa informacion para luego ser consumida por el jugador.
-        :param nombre: nombre del jugador a pedirle el color a usar
-        :type nombre: string
-        :param error: mensaje que se va a desplegar si el usuario pide un color invalido
-        :type error: string
-        :param contador: cantidad de jugadores a hacer la solicitud
-        :type contador: int
-        '''
-        root = Tk() 
-        root.title("Crear jugadores")
-        root.geometry("450x360")     
-        mensaje = Label(root, text = "Color de "+nombre+": ")
-        mensaje.grid(row = 1, column = 1)
-        if contador > 0:
-            mensaje_error = Label(root, text = error)
-            mensaje_error.grid(row = 8, column = 1)
-        color = StringVar()
-        entrada_color = Entry(root, textvariable = color)
-        entrada_color.grid(row = 1, column = 2)         
-        color.get()        
-        ok = Button(root,text = "Continuar",command = root.destroy)
-        colores_disponibles = Button(root,text = "Colores",command = root.destroy)
-        ok.grid(row = 2, column = 2)
-        colores_disponibles.grid(row = 2, column = 3)
-        def mostrar():
-            numcur = color.get()
-            try:
-                ArbitroES.color_tmp = str(numcur)
-            except:
-                pass
-            root.destroy()
-        def mostrar_colores():
-            root_colores = Tk() 
-            root_colores.title("Colores disponibles")
-            root_colores.geometry("200x200")
-            mensaje = Label(root_colores, text = "Colores disponibles: \n- azul\n- verde\n- aqua\n- gris\n- rojo\n- dorado\n- negro\n- magenta\n- naranja")
-            mensaje.grid(row = 2, column = 1)
-            salir = Button(root_colores,text = "Atras",command = root_colores.destroy)
-            salir.config(command=root_colores.destroy)
-            Singleton.mantener_ventana_activa(root_colores)
-            root_colores.mainloop()
-
-        colores_disponibles.config(command=mostrar_colores)
-        ok.config(command=mostrar)
-        Singleton.mantener_ventana_activa(root)
-        root.mainloop()
-
     def obtener_cantidad_jugadores(self, contador):
         '''
         Se pide al usuario la cantidad de jugadores que van a jugar y guarda la 

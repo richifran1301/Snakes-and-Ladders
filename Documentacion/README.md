@@ -61,7 +61,7 @@ Posicion en el tablero de la casilla de inicio de escalera 1 / posicion en el ta
 ... Hasta la cantidada de escaleras ...
 ```
 Si se escoge **empezar partida**:
-- El programa va a solicitarle al usuario que se digite el numero de jugadores que van a estar en la partida y los colores para sus fichas. Si estos datos no se ingresan, el juego no va a iniciar. Solo se pueden entre 2 a 4 jugadores en la partida y no se pueden repetir colores. Cualquier ingreso inválido o que no cumpla los requisitos recíen mencionados, ocasionará que el programa le solicite la información denuevo e incluso mencionará su error.
+- El programa va a solicitarle al usuario que se digite el numero de jugadores que van a estar en la partida. Si este dato no se ingresa, el juego no va a iniciar. Solo se pueden entre 2 a 4 jugadores en la partida. A cada jugador se le asigna un color de ficha al azar, sin repetirse. Cualquier ingreso inválido o que no cumpla los requisitos recíen mencionados, ocasionará que el programa le solicite la información denuevo e incluso mencionará su error.
 
 ## Documentacion externa
 
