@@ -202,14 +202,21 @@ class Controlador:
     def muestre_turno_tirar_dados(self, jugador):
         """
         Este metodo se va a encargar de desplegar en la ventana de pygame
-        a quien le toca tirar los dados.
+        a quien le toca tirar los dados, junto con la explicacion de como se
+        decide el orden de juego.
         """
         X = 1650
-        Y = 800
-        font = pygame.font.Font('freesansbold.ttf', 15) 
-        text = font.render("Tire los dados el Jugador "+str(jugador), True, Singleton.colores_casillas["azul"], Singleton.colores_casillas["blanco"]) 
-        textRect = text.get_rect()  
-        textRect.center = (X // 2, Y // 2) 
+        Y = 870
+        font = pygame.font.Font('freesansbold.ttf', 15)
+        explicacion = ["El orden de juego se decide", "a favor de quien saque el", "mayor número en los dados."]
+        for i in range(len(explicacion)):                        #cada linea por aparte para que quepa en la barra lateral
+            text = font.render(explicacion[i], True, Singleton.colores_casillas["negro"], Singleton.colores_casillas["blanco"])
+            textRect = text.get_rect()
+            textRect.center = (X // 2, 365 + i*20)
+            Singleton.ventana.blit(text, textRect)
+        text = font.render("Tire los dados el Jugador "+str(jugador), True, Singleton.colores_casillas["azul"], Singleton.colores_casillas["blanco"])
+        textRect = text.get_rect()
+        textRect.center = (X // 2, Y // 2)
         Singleton.ventana.blit(text, textRect)
         pygame.display.update()
 
