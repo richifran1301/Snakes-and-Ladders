@@ -19,6 +19,7 @@ CANTIDAD_Y = 10
 
 CLICK = pygame.MOUSEBUTTONDOWN         # en pygame 1 valian 5 y 4; en pygame 2 cambiaron
 MOVER_CURSOR = pygame.MOUSEMOTION
+LANZAR_DADOS = pygame.USEREVENT        # lo envia el controlador cuando se presiona la tecla espacio
 
 class Vista():
     """
@@ -113,7 +114,18 @@ class Vista():
         """
         rect = pygame.rect.Rect((x, y, tam_x, tam_y))
         pygame.draw.rect(Singleton.ventana, Singleton.colores_casillas["blanco"], rect)
-        
+
+    def lanzar_dados(self):
+        """
+        Lanza los dados y le entrega el resultado al ArbitroES, ya sea para decidir
+        los turnos o para mover al jugador en turno.
+        """
+        resultado_dados = self.dado_grafico.actualizar_caras()
+        if ArbitroES.decidiendoTurno:                                     #si el ArbitroES esta decidiendo turnos
+            ArbitroES.reciboRespuestaDados(resultado_dados)
+        elif  ArbitroES.en_jugada:                                        # si el jugador se va a mover
+            ArbitroES.procesaRespuestaDados(resultado_dados)
+
     def notify(self, evento):
         """
         Metodo principal de esta clase, se encarga de manejar un evento cada vez que se presiona 
@@ -123,14 +135,12 @@ class Vista():
         """
         self.eventoActual = evento
         posicion_cursor = pygame.mouse.get_pos()
-        if self.eventoActual == CLICK:      
+        if self.eventoActual == LANZAR_DADOS:
+            self.lanzar_dados()
+        elif self.eventoActual == CLICK:
             if self.boton_dados.isOver(posicion_cursor):
-                resultado_dados = self.dado_grafico.actualizar_caras()
-                if ArbitroES.decidiendoTurno:                                     #si el ArbitroES esta decidiendo turnos
-                    ArbitroES.reciboRespuestaDados(resultado_dados)
-                elif  ArbitroES.en_jugada:                                        # si el jugador se va a mover
-                    ArbitroES.procesaRespuestaDados(resultado_dados)
-                    
+                self.lanzar_dados()
+
             if self.boton_reglas.isOver(posicion_cursor):
                 root = Tk()
                 root.title("Reglas del juego")

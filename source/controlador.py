@@ -10,7 +10,7 @@ from jugador import JugadorES, VistaJugador
 from tablero import TableroSE
 from singleton import Singleton
 from arbitro import ArbitroES
-from vista import Vista
+from vista import Vista, LANZAR_DADOS
 from tkinter import *
 from cargador import CargadorTXT
 from fabrica import FabricaTablerosSE
@@ -142,8 +142,9 @@ class Controlador:
     def maneje_eventos(self):
         '''
         Se encarga de manejar los eventos de cuando los botones se ponen de otro color
-        o si se se la click al boton de dado.
+        o si se se la click al boton de dado. La tecla espacio tambien lanza los dados.
         '''
+        self.muestre_presionar_espacio()
         continuar = True
         reloj = pygame.time.Clock()
         while continuar:
@@ -153,8 +154,8 @@ class Controlador:
                 if events.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit(0)
-                elif events.type == pygame.MOUSEBUTTONDOWN:
-                    self.postEvent(events.type, Vista)
+                elif events.type == pygame.MOUSEBUTTONDOWN or (events.type == pygame.KEYDOWN and events.key == pygame.K_SPACE):
+                    self.postEvent(LANZAR_DADOS if events.type == pygame.KEYDOWN else events.type, Vista)
                     if ArbitroES.recibioDados:
                         continuar = False
                         break
@@ -169,28 +170,15 @@ class Controlador:
                 pygame.display.update()
             reloj.tick(60)
     
-    def espere_boton_espacio(self):
-        """
-        Este metodo se encarga tener el programa "en espera" hasta que el usuario
-        presione la tecla de espacio. Esto para proseguir con el turno.
-        """
-        condicion = True
-        while condicion:
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    self.dibujar_jugadores()
-                    condicion = False
-
     def muestre_presionar_espacio(self):
         """
         Este metodo se va a encargar de desplegar en la ventana de pygame que
-        el usuario necesita presionar la tecla espacio para mover la ficha. Esto
-        lo hace al final de cada turno.
+        el usuario puede presionar la tecla espacio para lanzar los dados.
         """
         X = 1650
         Y = 1000
-        font = pygame.font.Font('freesansbold.ttf', 15) 
-        text = font.render('Presione "SPACE" para moverse', True, Singleton.colores_casillas["rojo"], Singleton.colores_casillas["blanco"]) 
+        font = pygame.font.Font('freesansbold.ttf', 15)
+        text = font.render('"SPACE" para lanzar dados', True, Singleton.colores_casillas["rojo"], Singleton.colores_casillas["blanco"])
         textRect = text.get_rect()  
         textRect.center = (X // 2, Y // 2) 
         Singleton.ventana.blit(text, textRect)
@@ -242,7 +230,6 @@ class Controlador:
         """
         jugadorVista.muestre_turno_jugador()
         ArbitroES.jugador_juegue(jugador)
-        self.muestre_presionar_espacio()
         coordenadas = ArbitroES.obtener_destino(jugador.pos_tablero, ArbitroES.valor_actual_dados)
         self.vista.dibuje_cuadro_blanco(710, 350, 250, 100)
         jugador.mover(ArbitroES.valor_actual_dados, coordenadas)
@@ -336,7 +323,8 @@ def juego(controlador):
             jugadorVista = controlador.encontrar_relacion(jugador)
             controlador.juegue(jugador, jugadorVista)                                #manda al jugador por el cual va iterando a que realice su jugada
             controlador.vista.tablero_grafico.dibujarCasillas()
-            controlador.espere_boton_espacio()
+            controlador.dibujar_jugadores()
+            pygame.display.update()
 
             if ArbitroES.jugador_gano:                    #comprueba si ese jugador gano y cierra el programa, dando el nombre del ganador
                 jugadorGanador = jugador.getNombre()
